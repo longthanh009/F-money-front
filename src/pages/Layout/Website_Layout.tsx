@@ -1,8 +1,7 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom'
-import Header_Client from '../../components/Client/Header'
-import Footer_client from '../../components/Client/Footer'
-
+import Header_Client from '../../components/HeaderClient'
+import Footer_client from '../../components/FooterClient'
 
 const Website_Layout = () => {
     return (
