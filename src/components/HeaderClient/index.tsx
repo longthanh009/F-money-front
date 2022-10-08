@@ -51,16 +51,16 @@ const Header_Client = () => {
           <div className={isACtive ? "" : "w-full lg:flex xl:flex md:flex lg:items-center lg:w-auto hidden lg:block xl:block md:block pt-6 lg:pt-0 xl:pt-0 md:pt-0"} id="nav-content">
             <ul className="list-reset lg:flex xl:flex md:flex sm:text-left justify-end flex-1 items-center">
               <li className="mr-3">
-                <a className="text-lg  font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400" href="#">Trang chủ</a>
+                <a className="text-lg  font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 hover:underline decoration-1" href="#">Trang chủ</a>
               </li>
               <li className="mr-3">
-                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6" href="#">Hợp đồng</a>
+                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6 hover:underline decoration-1" href="#">Hợp đồng</a>
               </li>
               <li className="mr-3">
-                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6" href="#">Lịch sử hợp đồng</a>
+                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6 hover:underline decoration-1" href="#">Lịch sử hợp đồng</a>
               </li>
               <li className="mr-3">
-                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6" href="#">Hỗ trợ</a>
+                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6 hover:underline decoration-1" href="#">Hỗ trợ</a>
               </li>
             </ul>
           </div>
