@@ -1,18 +1,26 @@
 import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import styles from './titleTop.module.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { BookOutlined, HomeOutlined, InsertRowAboveOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { faSignal, faHouse, faUserPlus, faCalendarDay, faMagnifyingGlass, faCalendar, faChevronDown, faPlus, faDownload, faFile} from '@fortawesome/free-solid-svg-icons'
 import './style.css'
-import { Calendar } from 'antd';
+import { Calendar, DatePicker } from 'antd';
 import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
 import type { Moment } from 'moment';
-import { Button, Modal } from 'antd';
+import { Button, Modal,Input, Select,Tooltip  } from 'antd';
 
 type Props = {}
 
 const TitleTop = (props: Props) => {
+  const { Search } = Input;
+  const { Option } = Select;
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onSearch = (value: string) => console.log(value);
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
   const onPanelChange = (value: Moment, mode: CalendarMode) => {
     console.log(value.format('YYYY-MM-DD'), mode);
   };
@@ -27,27 +35,28 @@ const TitleTop = (props: Props) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  
   return (
     <div>
         <div>
           <header>
           <div className="m-content">
-          <table className={styles.center}>
+          <table className='center'>
             <div>
-              <span>
-              <FontAwesomeIcon icon={faHouse} />  Trang Chủ
+              <span  className="span">
+              <HomeOutlined />  Trang Chủ
               </span>
               <span style={{margin: '0 5px'}}>
                 &#62;
               </span> 
-              <span>
+              <span className="span">
                 Tín Chấp
               </span>
             </div>
             <div style={{display: 'flex'}}>
-              <td > <FontAwesomeIcon icon={faSignal} /> <span className={styles.header_icon_span}>Báo Cáo</span></td>
-              <td > <FontAwesomeIcon icon={faUserPlus} /> <span className={styles.header_icon_span}>Khách Hàng</span></td>
-              <td > <FontAwesomeIcon icon={faCalendarDay} /> <span className={styles.header_icon_span}>Lịch</span></td>
+              <td className="td"> <BookOutlined /><span className='header_icon_span'>Báo Cáo</span></td>
+              <td  className="td"> <UserOutlined /> <span className='header_icon_span'>Khách Hàng</span></td>
+              <td  className="td"> <InsertRowAboveOutlined /> <span className='header_icon_span'>Lịch</span></td>
             </div>
           </table>
             <div className="m-portlet  m-portlet--mobile">
@@ -101,85 +110,64 @@ const TitleTop = (props: Props) => {
                 </div>
               </div>
               <div className="col-lg-12  col-xl-12  col-sm-12 col-12 m--align-left m--margin-top-10">
-                <button className="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air btn-sm ">
-                  <span className="span-wrap"> <FontAwesomeIcon icon={faPlus} style={{marginRight: '8px'}} /> Thêm mới</span>
-                </button>
-                <button className="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air btn-sm"> 
-                <span className="span-wrap"> <FontAwesomeIcon icon={faDownload} style={{marginRight: '8px'}}/> Xuất Excel</span>
-                </button>
-                <button onClick={showModal} className="btn btn-info m-btn m-btn--air">
-                  <span className="span-wrap"> <FontAwesomeIcon icon={faFile} style={{marginRight: '8px'}}/> Chọn mẫu hợp đồng</span>
-                </button>
-                <Modal title="Hợp đồng" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                  <p>Hợp đồng ở đây...</p>
-                </Modal>
+              <Button className='btn' onClick={showModal} type="primary"  style={{ background: "#00c5dc", borderColor: "#00c5dc" }}>
+              Thêm mới
+              </Button>
+              <Button className='btn' onClick={showModal} type="primary"  style={{ background: "#34bfa3", borderColor: "#34bfa3" }}>
+              Xuất Excel
+              </Button>
+              <Button className='btn' onClick={showModal} type="primary"  style={{ background: "#36a3f7", borderColor: "#36a3f7" }}>
+              Chọn mẫu hợp đồng
+              </Button>
                 <a href="" style={{float: 'right' }}> 
                   <span className='blink-white'> Kiểm tra đang vay tại các cơ sở tín dụng </span>
                 </a>
               </div>
-              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
               <div className="col-lg-2 col-xl-2 col-sm-6 col-6  m--margin-top-10">
-                <div className=" m-input-icon m-input-icon--right">
-                  <input type="text" className='form-control m-input' placeholder='Tìm kiếm mã HĐ, Tên KH...'/>
-                  <span className="m-input-icon__icon m-input-icon__icon--right">
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                  </span>
-                </div>
+              <Input
+                placeholder="Enter your username"
+                suffix={<SearchOutlined />}
+              />
               </div>
               <div className="col-lg-2 col-xl-2 col-sm-6 col-6  m--margin-top-10">
-              <div className=" m-input-icon m-input-icon--right">
-                  <input  onClick={showModal} type="text" className='form-control m-input' placeholder='Từ ngày'/>
-                  <span  className="m-input-icon__icon m-input-icon__icon--right">
-                  <FontAwesomeIcon style={{cursor: 'pointer'}}  onClick={showModal}  icon={faCalendar} />
-                  </span>
-                  <div className="site-calendar-demo-card">
-                    <Modal title="Chọn ngày" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                      <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-                  </Modal>
-                  </div>
-                </div>
+              <Input.Group compact>
+                <DatePicker style={{ width: '100%' }} />
+              </Input.Group>
               </div>
               <div className="col-lg-2 col-xl-2 col-sm-6 col-6  m--margin-top-10">
-                <div className=" m-input-icon m-input-icon--right">
-                  <input  onClick={showModal} type="text" className='form-control m-input' placeholder='Đến ngày'/>
-                  <span  className="m-input-icon__icon m-input-icon__icon--right">
-                  <FontAwesomeIcon style={{cursor: 'pointer'}} onClick={showModal}  icon={faCalendar} />
-                  </span>
-                  <div className="site-calendar-demo-card">
-                    <Modal title="Chọn ngày" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                      <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-                  </Modal>
-                  </div>
-                </div>
+              <Input.Group compact>
+                <DatePicker style={{ width: '100%' }} />
+              </Input.Group>
+              <Modal title="Chọn ngày" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                  <Calendar fullscreen={false} onPanelChange={onPanelChange} />
+              </Modal>
               </div>
               <div className="col-lg-2 col-xl-2 col-sm-6 col-6  m--margin-top-10">
-                <div className=" m-input-icon m-input-icon--right">
-                  <select className='form-control m-input' placeholder='Tất cả ngày'>
-                  <option>Tất cả ngày</option>
-                    <option>Danh sách 02</option>
-                    <option>Danh sách 03</option>
-                    <option>Danh sách 04</option>
-                  </select>
-                  <span className="m-input-icon__icon m-input-icon__icon--right">
-                  <FontAwesomeIcon icon={faChevronDown} />
-                  </span>
-                </div>
+                <Select defaultValue="Từ ngày" style={{ width: '100%' }} onChange={handleChange}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="disabled" disabled>
+                    Disabled
+                  </Option>
+                  <Option value="Yiminghe">yiminghe</Option>
+                </Select>
               </div>
               <div className="col-lg-2 col-xl-2 col-sm-6 col-6  m--margin-top-10">
-                <div className=" m-input-icon m-input-icon--right">
-                  <select className='form-control m-input' placeholder='Tất cả ngày'>
-                  <option>Tất cả hợp đồng đang vay</option>
-                    <option>Danh sách 02</option>
-                    <option>Danh sách 03</option>
-                    <option>Danh sách 04</option>
-                  </select>
-                  <span className="m-input-icon__icon m-input-icon__icon--right">
-                  <FontAwesomeIcon icon={faChevronDown} />
-                  </span>
-                </div>
+                <Select defaultValue="Tất cả hợp đồng đang vay" style={{width: '100%'}} onChange={handleChange}>
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="disabled" disabled>
+                    Disabled
+                  </Option>
+                  <Option value="Yiminghe">yiminghe</Option>
+                </Select>
               </div>
               
               </div>
+              <Button  className='btn' onClick={showModal} type="primary"  style={{ background: "#36a3f7", borderColor: "#36a3f7", marginTop: '10px' }}>
+              {<SearchOutlined />} Tìm kiếm
+              </Button>
               <div  style={{width: '120px'}} className='col-lg-2 col-xl-2 col-sm-6 col-6  m--margin-top-10'>
                 <div style={{padding: '0.5rem 1rem !important'}} className='btn btn-info m-btn m-btn--air'>
                   <span style={{  marginTop: '0 !important'}}>

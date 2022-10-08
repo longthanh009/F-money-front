@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import './style.css'
 import { Button, Modal } from 'antd';
+import { DeleteOutlined, SyncOutlined } from '@ant-design/icons';
 
 
 type Props = {}
@@ -43,7 +44,7 @@ const Credit = (props: Props) => {
                   <td className="m-datatable__cell--center  m-datatable__cell m-datatable__cell--sort"  style={{ textAlign: 'center'}}><span style={{width: '80px', color: 'red'}} >10.800.000 đ</span></td>
                   <td style={{ textAlign: 'center'}} className="m-datatable__cell--center  m-datatable__cell m-datatable__cell--sort"><span style={{width: '80px'}}>Đang vay</span></td>
                   <td style={{ textAlign: 'center'}} className="m-datatable__cell--center  m-datatable__cell m-datatable__cell--sort"><span style={{width: '80px'}}>12-10-2022</span></td>
-                  <td className="m-datatable__cell--center  m-datatable__cell m-datatable__cell--sort"><span style={{width: '80px'}}>Chức năng</span></td>
+                  <td style={{textAlign: 'center'}} className="m-datatable__cell--center  m-datatable__cell m-datatable__cell--sort"><span style={{width: '80px'}}><DeleteOutlined style={{marginRight: '10px', color: 'red',  fontSize: '18px'}}/> <SyncOutlined  style={{ color: '#ffbb00', fontSize: '18px'}}/> </span></td>
                 </tr>
               </tbody>
             </table>
