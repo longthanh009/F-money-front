@@ -14,9 +14,10 @@ const RoutePage = () => {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Dashboard />} /
+                <Route path="/" element={<Dashboard />} />
                 <Route path='/client' element={<Website_Layout />}>
                     <Route index element={<HomePage />} />
+                </Route>
                 <Route path="/lender/customer/list" element={<CustomerList />} />
                 <Route path="/lender/customer/debitCustomer" element={<DebitCustomers />} />
                 <Route path='/signin' element={<SiginPage />}></Route>
