@@ -16,7 +16,11 @@ const Sidebar = () => {
       icon: AiOutlineUser,
       margin: true,
     },
-    { name: "Khách Cần Vay", link: "/", icon: AiOutlineUser },
+    {
+      name: "Khách Cần Vay",
+      link: "/lender/customer/debitCustomer",
+      icon: AiOutlineUser,
+    },
     { name: "Check TT Khách Hàng", link: "/", icon: AiOutlineUser },
     { name: "Chi Hoạt Động", link: "/", icon: FiShoppingCart, margin: true },
     { name: "Thu Hoạt Động", link: "/", icon: FiMessageSquare },
