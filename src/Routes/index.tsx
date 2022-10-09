@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import CustomerList from '../pages/Lender/CustomerList'
@@ -7,6 +6,7 @@ import AdminLender from '../pages/AdminLender'
 import Dashboard from '../pages/Lender/Dashboard'
 import SiginPage from '../pages/Signin'
 import SignupPage from '../pages/Signup'
+import AdminContractPage from '../pages/AdminContract'
 import Website_Layout from '../pages/Layout/Website_Layout'
 import HomePage from '../pages/HomePage'
 import DebitCustomers from '../pages/Lender/DebitCustomers'
@@ -23,7 +23,11 @@ const RoutePage = () => {
                 <Route path='/register' element={<SignupPage />}></Route>
                 <Route path="/" element={<LayoutDashboard />} >
                     <Route index element={<Dashboard />} />
-                    <Route path='admin/customer' element={<AdminLender />} />
+                </Route>
+                <Route path="/admin" element={<LayoutDashboard />} >
+                    <Route index element={<Dashboard />} />
+                    <Route path='customer' element={<AdminLender />} />
+                    <Route path='contract' element={<AdminContractPage />} />
                 </Route>
             </Routes>
         </div>
