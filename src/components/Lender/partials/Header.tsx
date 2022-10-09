@@ -363,7 +363,7 @@ const Header = (props: Props) => {
       "
                     href="#"
                   >
-                    Something else here
+                    Something else here .
                   </a>
                 </li>
               </ul>
