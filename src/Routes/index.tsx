@@ -7,12 +7,16 @@ import AdminLender from '../pages/AdminLender'
 import Dashboard from '../pages/Lender/Dashboard'
 import SiginPage from '../pages/Signin'
 import SignupPage from '../pages/Signup'
+import Website_Layout from '../pages/Layout/Website_Layout'
+import HomePage from '../pages/HomePage'
 import DebitCustomers from '../pages/Lender/DebitCustomers'
 const RoutePage = () => {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Dashboard />} />
+                <Route path="/" element={<Dashboard />} /
+                <Route path='/client' element={<Website_Layout />}>
+                    <Route index element={<HomePage />} />
                 <Route path="/lender/customer/list" element={<CustomerList />} />
                 <Route path="/lender/customer/debitCustomer" element={<DebitCustomers />} />
                 <Route path='/signin' element={<SiginPage />}></Route>
