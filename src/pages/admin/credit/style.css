@@ -1,0 +1,94 @@
+.m--margin-top-10 {
+    margin-top: 10px !important;
+}
+.col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.m-datatable.m-datatable--default.m-datatable--loaded {
+    display: block;
+}
+.m-datatable.m-datatable--default {
+    display: block;
+}
+.m-datatable {
+    display: none;
+}
+.table-bordered {
+    border: 1px solid #f4f5f8;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+.table .table {
+    background-color: #fff;
+}
+
+.tablecustomize {
+    font-size: 13px;
+    overflow-x: scroll;
+    /* display: block; */
+    overflow-y: hidden;
+}
+.tablecustomize {
+    font-size: 13px;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+table {
+    border-collapse: collapse;
+}
+.tablecustomize > thead {
+    background-color: #f4f3f7;
+    text-align: center;
+}
+.tablecustomize > thead {
+    background-color: #f4f3f7;
+    text-align: center;
+}
+.tablecustomize > thead > tr > th {
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.tablecustomize > thead > tr > th {
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.table-bordered thead th, .table-bordered thead td {
+    border-bottom-width: 2px;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #f4f5f8;
+}
+.table th, .table td {
+    padding: 0.6rem;
+    vertical-align: top;
+    border-top: 1px solid #f4f5f8;
+}
+.table th, .table td {
+    padding: 0.6rem;
+    vertical-align: top;
+    border-top: 1px solid #dcdee4 !important;
+    border-bottom: 1px solid #dcdee4 !important;
+}
+.table th {
+    font-weight: 500;
+}
+.table-bordered th, .table-bordered td {
+    border: 1px solid #f4f5f8;
+}
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #f4f5f8;
+}

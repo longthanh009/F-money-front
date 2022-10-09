@@ -1,58 +1,80 @@
-import { useState } from "react";
-const Sidebar = () => {
-  const [open, setOpen] = useState(true);
-  const Menus = [
-    { title: "Tín Chấp", src: "Chart_fill" },
-    { title: "Vay Lãi", src: "Chat" },
-    { title: "Danh Sách KH", src: "User", gap: true },
-    { title: "Khách Cần Vay ", src: "Calendar" },
-    { title: "Check Khách Hàng ", src: "Search" },
-    { title: "Chi Hoạt Động ", src: "Folder", gap: true },
-    { title: "Thu Hoạt Động", src: "Setting" },
-    { title: "Quản Lý ngồn Vốn", src: "Chart", gap: true },
-    { title: "Thống kê", src: "Chart" },
-  ];
+import React, { useState } from "react";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { RiSettings4Line } from "react-icons/ri";
+import { TbReportAnalytics } from "react-icons/tb";
+import { AiOutlineUser } from "react-icons/ai";
+import { FiMessageSquare, FiShoppingCart } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
+const Sidebar = () => {
+  const menus = [
+    { name: "Tín Chấp", link: "/", icon: TbReportAnalytics },
+    { name: "Trả Góp", link: "/", icon: TbReportAnalytics },
+    {
+      name: "Danh Sách Khách Hàng",
+      link: "/lender/customer/list",
+      icon: AiOutlineUser,
+      margin: true,
+    },
+    {
+      name: "Khách Cần Vay",
+      link: "/lender/customer/debitCustomer",
+      icon: AiOutlineUser,
+    },
+    { name: "Check TT Khách Hàng", link: "/", icon: AiOutlineUser },
+    { name: "Chi Hoạt Động", link: "/", icon: FiShoppingCart, margin: true },
+    { name: "Thu Hoạt Động", link: "/", icon: FiMessageSquare },
+    { name: "Thống Kê", link: "/", icon: RiSettings4Line },
+  ];
+  const [open, setOpen] = useState(true);
   return (
-    <div className="flex bg-slate-800">
+    <section className="flex gap-6 ">
       <div
-        className={` ${
-          open ? "w-60" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+        className={`bg-[#293541] min-h-screen ${
+          open ? "w-60" : "w-16"
+        } duration-500 text-white px-4`}
       >
-        <img
-          src="./src/assets/control.png"
-          className={`absolute cursor-pointer text center top-9 w-8 border-dark-purple
-           border-2 rounded-full  ${!open && "rotate-180"}`}
-          onClick={() => setOpen(!open)}
-        />
-        <div className="flex gap-x-4 items-center text-center">
-          <h1
-            className={`text-white origin-left font-medium text-2xl duration-200 pl-10 ${
-              !open && "scale-0"
-            }`}
-          >
-            F-MONNY
-          </h1>
+        <div className="py-3 flex justify-end">
+          <HiMenuAlt3
+            size={26}
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
         </div>
-        <ul className="pt-6">
-          {Menus.map((Menu, index) => (
-            <li
-              key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? "mt-9" : "mt-2"} ${
-                index === 0 && "bg-light-white"
-              } `}
+        <div className="mt-4 flex flex-col gap-4 relative">
+          {menus?.map((menu, i) => (
+            <Link
+              to={menu?.link}
+              key={i}
+              className={` ${
+                menu?.margin && "mt-5"
+              } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
             >
-              <img src={`./src/assets/${Menu.src}.png`} />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
-              </span>
-            </li>
+              <div className="text-white">
+                {React.createElement(menu?.icon, { size: "20" })}
+              </div>
+              <h2
+                style={{
+                  transitionDelay: `${i + 3}00ms`,
+                }}
+                className={`whitespace-pre duration-500  text-white ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
+              >
+                {menu?.name}
+              </h2>
+              <h2
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-300 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                {menu?.name}
+              </h2>
+            </Link>
           ))}
-        </ul>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default Sidebar;
