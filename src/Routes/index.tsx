@@ -13,7 +13,7 @@ import AdminContractPage from '../pages/AdminContract'
 import Website_Layout from '../layouts/LayoutWebsite'
 import HomePage from '../pages/HomePage'
 import SuportPage from '../pages/SuportPage'
-
+import ContractPage from '../pages/ContractPage'
 
 import DebitCustomers from '../pages/Lender/DebitCustomers'
 
@@ -25,6 +25,7 @@ const RoutePage = () => {
                 <Route path='/client' element={<Website_Layout />}>
                     <Route index element={<HomePage />} />
                     <Route path='suport' element={<SuportPage />} />
+                    <Route path='contract' element={<ContractPage />} />
                 </Route>
 
                 <Route path="/lender" element={<LayoutDashboard />} >
