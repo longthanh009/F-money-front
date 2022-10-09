@@ -1,13 +1,18 @@
 import React from 'react'
+import {Outlet} from 'react-router-dom'
+import Header_Client from '../components/HeaderClient'
+import Footer_client from '../components/FooterClient'
 
-const LayoutWebsite = () => {
+const Website_Layout = () => {
     return (
-        <div>
-            <div>
-                
-            </div>
-        </div>
+        <>
+            <Header_Client />
+            <main>
+                <Outlet />
+            </main>
+            <Footer_client />
+        </>
     )
 }
 
-export default LayoutWebsite
+export default Website_Layout

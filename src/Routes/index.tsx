@@ -7,7 +7,7 @@ import Dashboard from '../pages/Lender/Dashboard'
 import SiginPage from '../pages/Signin'
 import SignupPage from '../pages/Signup'
 import AdminContractPage from '../pages/AdminContract'
-import Website_Layout from '../pages/Layout/Website_Layout'
+import Website_Layout from '../layouts/LayoutWebsite'
 import HomePage from '../pages/HomePage'
 import DebitCustomers from '../pages/Lender/DebitCustomers'
 const RoutePage = () => {
