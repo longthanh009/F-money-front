@@ -6,7 +6,7 @@ const AdminLender = () => {
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-    const showModal = (type: any,title :any) => {
+    const showModal = (type: any, title: any) => {
         setOpen(true)
         setType(type)
         setTitle(title)
@@ -28,7 +28,7 @@ const AdminLender = () => {
             <BreadcrumbComponent />
             <div className='flex items-center space-x-1'>
                 <div className='modal-news'>
-                    <Button className='flex items-center' onClick={() => showModal("news","Thêm mới khách hàng")}> &#10010; Thêm mới</Button>
+                    <Button className='flex items-center' onClick={() => showModal("news", "Thêm mới khách hàng")}> &#10010; Thêm mới</Button>
 
                 </div>
                 <div className='search w-[300px]'>
@@ -80,7 +80,7 @@ const AdminLender = () => {
                         {/* Table body */}
                         <tbody className="text-sm font-medium divide-y divide-slate-100">
                             {/* Row */}
-                            <tr onDoubleClick={() => showModal("update","Thông tin khách hàng")}>
+                            <tr onDoubleClick={() => showModal("update", "Thông tin khách hàng")}>
                                 <td className="p-2">
                                     <div className="flex items-center">
                                         <div className="text-slate-800">1</div>
