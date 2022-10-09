@@ -18,21 +18,13 @@ const Header_Client = () => {
               </div>
             </div>
           </a>
-
           <div className="flex justify-around">
-            <div  className="flex justify-end ">
+            <div className="flex justify-end ">
               <div className=" whitespace-nowrap text-base px-4 font-semibold  text-gray-500 hover:text-gray-900">
                 <img className="m-1 inline-block h-14 w-14 p-2 rounded-full ring-2 ring-white" src="https://tinypng.com/images/social/website.jpg" />
                 Nguyễn Văn Trăm
               </div>
             </div>
-           
-
-
-
-
-
-
           </div>
         </div>
       </div>
@@ -40,7 +32,6 @@ const Header_Client = () => {
 
       <div className="font-sans leading-normal tracking-normal bg-black">
         <nav className="flex items-center flex-wrap p-2 w-full z-10 md:flex-row justify-center md:space-y-0 text-center">
-
           <div onClick={() => onToggle()} className="block lg:hidden xl:hidden md:hidden">
             <button id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
               <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
