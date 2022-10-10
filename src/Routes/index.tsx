@@ -4,6 +4,7 @@ import CustomerList from '../pages/Lender/CustomerList'
 import LayoutDashboard from '../layouts/LayoutDashboard'
 import AdminLender from '../pages/AdminLender'
 import Dashboard from '../pages/Lender/Dashboard'
+import LayoutAdmin from '../layouts/LayoutAdmin'
 import AdminDashboard from '../pages/AdminDashboard'
 import SiginPage from '../pages/Signin'
 import SignupPage from '../pages/Signup'
@@ -26,7 +27,7 @@ const RoutePage = () => {
                 <Route path="/" element={<LayoutDashboard />} >
                     <Route index element={<Dashboard />} />
                 </Route>
-                <Route path="/admin" element={<LayoutDashboard />} >
+                <Route path="/admin" element={<LayoutAdmin />} >
                     <Route index element={<AdminDashboard />} />
                     <Route path='customer' element={<AdminLender />} />
                     <Route path='contract' element={<AdminContractPage />} />
