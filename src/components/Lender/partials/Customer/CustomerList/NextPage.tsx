@@ -1,7 +1,7 @@
-import React from 'react'
-import { AiOutlineRight } from 'react-icons/ai';
-import { AiOutlineLeft } from 'react-icons/ai';
-type Props = {}
+import React from "react";
+import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft } from "react-icons/ai";
+type Props = {};
 
 const NextPage = (props: Props) => {
   return (
@@ -22,12 +22,13 @@ const NextPage = (props: Props) => {
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-700">
-            Hỗ Trợ: (+84)386300092
-          </p>
+          <p className="text-sm text-gray-700">Hỗ Trợ: (+84)386300092</p>
         </div>
         <div>
-          <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+          <nav
+            className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+            aria-label="Pagination"
+          >
             <a
               href="#"
               className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
@@ -47,7 +48,7 @@ const NextPage = (props: Props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NextPage
+export default NextPage;

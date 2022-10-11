@@ -1,6 +1,5 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Banner from '../components/Lender/partials/Banner'
 import Header from '../components/Lender/partials/Header'
 import Sidebar from '../components/Lender/partials/Sidebar'
 const LayoutDashboard = () => {
@@ -14,10 +13,9 @@ const LayoutDashboard = () => {
                         <Outlet></Outlet>
                     </div>
                 </main>
-                <Banner />
             </div>
         </div>
     )
 }
 
-export default LayoutDashboard
+export default LayoutDashboard  

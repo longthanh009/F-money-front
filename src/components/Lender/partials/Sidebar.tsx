@@ -17,13 +17,26 @@ const Sidebar = () => {
       margin: true,
     },
     {
-      name: "Khách Cần Vay",
-      link: "/lender/customer/debitCustomer",
+      name: "Check TT Khách Hàng",
+      link: "/lender/customer/checkCustomer",
       icon: AiOutlineUser,
     },
-    { name: "Check TT Khách Hàng", link: "/", icon: AiOutlineUser },
-    { name: "Chi Hoạt Động", link: "/", icon: FiShoppingCart, margin: true },
-    { name: "Thu Hoạt Động", link: "/", icon: FiMessageSquare },
+    {
+      name: "Chi Hoạt Động",
+      link: "/lender/customer/expense",
+      icon: FiShoppingCart,
+      margin: true,
+    },
+    {
+      name: "Thu Hoạt Động",
+      link: "/lender/customer/income",
+      icon: FiMessageSquare,
+    },
+    {
+      name: "Dịch Vụ",
+      link: "/lender/customer/service",
+      icon: FiMessageSquare,
+    },
     { name: "Thống Kê", link: "/", icon: RiSettings4Line },
   ];
   const [open, setOpen] = useState(true);
