@@ -7,6 +7,7 @@ import Dashboard from "../pages/Lender/Dashboard";
 import SiginPage from "../pages/Signin";
 import SignupPage from "../pages/Signup";
 import CustomerCheck from "../pages/Lender/CustomerCheck";
+import Expense from "../pages/Lender/Expense";
 // import DebitCustomers from '../pages/Lender/DebitCustomers'
 const RoutePage = () => {
   return (
@@ -17,6 +18,8 @@ const RoutePage = () => {
           path="/lender/customer/checkCustomer"
           element={<CustomerCheck />}
         />
+        <Route path="/lender/customer/expense" element={<Expense />} />
+
         {/* <Route path="/lender/customer/debitCustomer" element={<DebitCustomers />} /> */}
         <Route path="/signin" element={<SiginPage />}></Route>
         <Route path="/register" element={<SignupPage />}></Route>
@@ -29,4 +32,4 @@ const RoutePage = () => {
   );
 };
 
-export default RoutePage
+export default RoutePage;
