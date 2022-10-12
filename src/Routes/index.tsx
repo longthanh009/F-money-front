@@ -9,6 +9,7 @@ import SignupPage from "../pages/Signup";
 import CustomerCheck from "../pages/Lender/CustomerCheck";
 import Expense from "../pages/Lender/Expense";
 import Income from "../pages/Lender/Income";
+import Service from "../pages/Lender/Service";
 // import DebitCustomers from '../pages/Lender/DebitCustomers'
 const RoutePage = () => {
   return (
@@ -21,6 +22,8 @@ const RoutePage = () => {
         />
         <Route path="/lender/customer/expense" element={<Expense />} />
         <Route path="/lender/customer/income" element={<Income />} />
+        <Route path="/lender/customer/service" element={<Service />} />
+
         {/* <Route path="/lender/customer/debitCustomer" element={<DebitCustomers />} /> */}
         <Route path="/signin" element={<SiginPage />}></Route>
         <Route path="/register" element={<SignupPage />}></Route>
