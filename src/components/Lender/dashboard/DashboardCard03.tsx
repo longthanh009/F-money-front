@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from "../../../../images/icon-03.svg";
+import Icon from "../../../images/icon-03.svg";
 function DashboardCard03() {
 
 
