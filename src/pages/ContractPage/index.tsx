@@ -4,7 +4,6 @@ const ContractPage = () => {
     return (
         <>
             <Banner />
-            
             <div className='p-4'>
                 <h1 className='text-2xl p-2 font-bold'>Lịch Sử Hợp Đồng Vay Vốn</h1>
                 <table className="min-w-full table-auto">
