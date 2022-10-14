@@ -36,5 +36,4 @@ const RoutePage = () => {
         </div>
     )
 }
-
-export default RoutePage
+export default RoutePage;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import WelcomeBanner from "../../components/Lender/partials/dashboard/WelcomeBanner";
-import DashboardCard01 from "../../components/Lender/partials/dashboard/DashboardCard01";
-import DashboardCard02 from "../../components/Lender/partials/dashboard/DashboardCard02";
-import DashboardCard03 from "../../components/Lender/partials/dashboard/DashboardCard03";
-import DashboardCard04 from "../../components/Lender/partials/dashboard/DashboardCard04";
-import DashboardCard05 from "../../components/Lender/partials/dashboard/DashboardCard05";
-import DashboardCard06 from "../../components/Lender/partials/dashboard/DashboardCard06";
+import WelcomeBanner from "../../components/Lender/dashboard/WelcomeBanner";
+import DashboardCard01 from "../../components/Lender/dashboard/DashboardCard01";
+import DashboardCard02 from "../../components/Lender/dashboard/DashboardCard02";
+import DashboardCard03 from "../../components/Lender/dashboard/DashboardCard03";
+import DashboardCard04 from "../../components/Lender/dashboard/DashboardCard04";
+import DashboardCard05 from "../../components/Lender/dashboard/DashboardCard05";
+import DashboardCard06 from "../../components/Lender/dashboard/DashboardCard06";
 
 function Dashboard() {
   return (
