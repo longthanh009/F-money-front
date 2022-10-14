@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import Sidebar from "../../components/Lender/Sidebar";
 import Header from "../../components/Lender/Header";
-import WelcomeCustomer from "../../components/Lender/Customer/CustomerList/WelcomeCustomer";
-import TableCustomer from "../../components/Lender/Customer/CustomerList/TableCustomer";
-import Search from "../../components/Lender/Customer/CustomerList/SearchLender";
 import NextPage from "../../components/Lender/Customer/CustomerList/NextPage";
+import WelCusChec from "../../components/Lender/CustomerCheck/WelCusChec";
+import SearchCheck from "../../components/Lender/CustomerCheck/SearchCheck";
+import TableCustomerCheck from "../../components/Lender/CustomerCheck/TableCustomerCheck";
 
-function CustomerList() {
+function CustomerCheck() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -23,21 +23,20 @@ function CustomerList() {
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <h1 className="text-l text-gray-500">
-              Lender/Danh sách Khách hàng
+              Lender/Check Thông Tin Khách Hàng
             </h1>
             {/* Welcome banner */}
-            <WelcomeCustomer />
+            <WelCusChec />
 
             <div className="grid grid-cols-12 gap-6"></div>
-            <Search />
-            <TableCustomer />
+            <SearchCheck />
+            <TableCustomerCheck />
           </div>
           <NextPage />
         </main>
-
       </div>
     </div>
   );
 }
 
-export default CustomerList;
+export default CustomerCheck;

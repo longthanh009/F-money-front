@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import Sidebar from "../../components/Lender/Sidebar";
 import Header from "../../components/Lender/Header";
-import WelcomeCustomer from "../../components/Lender/Customer/CustomerList/WelcomeCustomer";
-import TableCustomer from "../../components/Lender/Customer/CustomerList/TableCustomer";
-import Search from "../../components/Lender/Customer/CustomerList/SearchLender";
 import NextPage from "../../components/Lender/Customer/CustomerList/NextPage";
+import WelcomeExpense from "../../components/Lender/Expense/WelcomeExpense";
+import SearchExpense from "../../components/Lender/Expense/SearchExpense";
+import TableExpense from "../../components/Lender/Expense/TableExpense";
 
-function CustomerList() {
+function Expense() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -22,22 +22,19 @@ function CustomerList() {
 
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-            <h1 className="text-l text-gray-500">
-              Lender/Danh sách Khách hàng
-            </h1>
+            <h1 className="text-l text-gray-500">Lender/lịch Sử Chi Tiền</h1>
             {/* Welcome banner */}
-            <WelcomeCustomer />
+            <WelcomeExpense />
 
             <div className="grid grid-cols-12 gap-6"></div>
-            <Search />
-            <TableCustomer />
+            <SearchExpense />
+            <TableExpense />
           </div>
           <NextPage />
         </main>
-
       </div>
     </div>
   );
 }
 
-export default CustomerList;
+export default Expense;

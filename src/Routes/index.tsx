@@ -5,11 +5,12 @@ import LayoutDashboard from '../layouts/LayoutDashboard'
 import AdminLender from '../pages/AdminLender'
 import Dashboard from '../pages/Lender/Dashboard'
 import Capital_Lender from '../pages/CapitalLender'
+import AdminContractPage from '../pages/AdminContract'
+import LayoutAdmin from '../layouts/LayoutAdmin'
+import AdminDashboard from '../pages/AdminDashboard'
 import SiginPage from '../pages/Signin'
 import SignupPage from '../pages/Signup'
 import AdminContractPage from '../pages/AdminContract'
-
-
 import Website_Layout from '../layouts/LayoutWebsite'
 import HomePage from '../pages/HomePage'
 import SuportPage from '../pages/SuportPage'
@@ -27,19 +28,20 @@ const RoutePage = () => {
                     <Route path='suport' element={<SuportPage />} />
                     <Route path='contract' element={<ContractPage />} />
                 </Route>
-
                 <Route path="/lender" element={<LayoutDashboard />} >
                     <Route index element={<Dashboard />} />
                     <Route path="customer/list" element={<CustomerList />} />
                     <Route path="customer/debitCustomer" element={<DebitCustomers />} />
                     <Route path='capital' element={<Capital_Lender />} />
-                </Route>
+                </Route
 
                 <Route path='/signin' element={<SiginPage />}></Route>
                 <Route path='/register' element={<SignupPage />}></Route>
 
                 <Route path="/admin" element={<LayoutDashboard />} >
                     <Route index element={<Dashboard />} />
+                <Route path="/admin" element={<LayoutAdmin />} >
+                    <Route index element={<AdminDashboard />} />
                     <Route path='customer' element={<AdminLender />} />
                     <Route path='contract' element={<AdminContractPage />} />
                 </Route>
@@ -47,5 +49,4 @@ const RoutePage = () => {
         </div>
     )
 }
-
-export default RoutePage
+export default RoutePage;
