@@ -37,12 +37,12 @@ const StatisticCustomers = (props: Props) => {
    
       {modal ? (
         <>
-          <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div>
             <div
               className="fixed inset-0 w-full h-full bg-black opacity-40"
               onClick={() => setShowModal(false)}
             ></div>
-            <div className="flex items-center min-h-screen px-4 py-8">
+            <div className="flex items-center min-h-screen">
               <div className="relative w-full max-w-lg px-4 mx-auto bg-white shadow-lg">
                 <div className="mt-3 sm:flex">
                   <div className="mt-2 text-center sm:ml-4 sm:text-left">
@@ -84,7 +84,7 @@ const StatisticCustomers = (props: Props) => {
           </div>
         </>
       ) : null}
-      <div className="p-3">
+      <div className="">
         <div
           style={{
             boxShadow: "0px 1px 15px 1px rgb(69 65 78 / 8%)",
@@ -93,17 +93,7 @@ const StatisticCustomers = (props: Props) => {
           }}
           className="bg-white rounded shadow-lg mb-9"
         >
-          <div className="border-b-[1px] table w-full px-9 h-20">
-            <div className="table-cell align-middle text-left">
-              <div className="table table-fixed h-full">
-                <h3 className="decoration-black text-xl align-middle table-cell font-semibold">
-                  Hợp đồng vay lãi
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div className="decoration-gray-500 pt-3 p-9 ">
-            <div className="flex flex-wrap mx-4">
+            <div >
               <div className="basis-full max-w-full">
                 <div className="border-0 mb-3 w-full shadow-sm flex flex-col min-w-0">
                   <div className="text-center flex flex-wrap mx-[-1rem]">
@@ -261,7 +251,6 @@ const StatisticCustomers = (props: Props) => {
               </Button>
               <Outlet />
             </div>
-          </div>
         </div>
       </div>
     </>

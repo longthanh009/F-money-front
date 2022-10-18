@@ -1,8 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Banner from '../components/Lender/partials/Banner'
-import Header from '../components/Lender/partials/Header'
-import Sidebar from '../components/Lender/partials/Sidebar'
+import Header from '../components/Lender/Header'
+import Sidebar from '../components/Lender/Sidebar'
 const LayoutDashboard = () => {
   return (
     <div className="flex h-screen overflow-hidden">
