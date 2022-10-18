@@ -8,8 +8,16 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const menus = [
-    { name: "Tín Chấp", link: "/", icon: TbReportAnalytics },
-    { name: "Trả Góp", link: "/", icon: TbReportAnalytics },
+    {
+      name: "Tín Chấp",
+      link: "/lender/Mortgage/index",
+      icon: TbReportAnalytics,
+    },
+    {
+      name: "Trả Góp",
+      link: "/lender/installment/index",
+      icon: TbReportAnalytics,
+    },
     {
       name: "Danh Sách Khách Hàng",
       link: "/lender/customer/list",
@@ -18,26 +26,26 @@ const Sidebar = () => {
     },
     {
       name: "Check TT Khách Hàng",
-      link: "/lender/customer/checkCustomer",
+      link: "/lender/customer/checkCustome",
       icon: AiOutlineUser,
     },
     {
       name: "Chi Hoạt Động",
-      link: "/lender/customer/expense",
+      link: "/lender/incomeAndExpense/expense",
       icon: FiShoppingCart,
       margin: true,
     },
     {
       name: "Thu Hoạt Động",
-      link: "/lender/customer/income",
+      link: "/lender/incomeAndExpense/income",
       icon: FiMessageSquare,
     },
     {
       name: "Dịch Vụ",
-      link: "/lender/customer/service",
+      link: "/lender/contact",
       icon: FiMessageSquare,
     },
-    { name: "Thống Kê", link: "/", icon: RiSettings4Line },
+    { name: "Thống Kê", link: "/lender", icon: RiSettings4Line },
   ];
   const [open, setOpen] = useState(true);
   return (
