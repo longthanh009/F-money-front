@@ -21,9 +21,11 @@ const RoutePage = () => {
                 <Route path='/client' element={<Website_Layout />}>
                     <Route index element={<HomePage />} />
                 </Route>
-                <Route path='/lender/customer' element={<CreditCustomer />}>
-                    <Route path="CreditCustomer" element={<LayoutCreditCustomer />} />
-                    <Route path="InstallmentCustomer" element={<InstallmentCustomer />} />
+                <Route path='/lender/customer/credit' element={<CreditCustomer />}>
+                    <Route index element={<LayoutCreditCustomer />} />
+                </Route>
+                <Route path='/lender/customer/installment' element={<CreditCustomer />}>
+                    <Route index element={<InstallmentCustomer />} />
                 </Route>
                 <Route path="/lender/customer/list" element={<CustomerList />} />
                 <Route path="/lender/customer/debitCustomer" element={<DebitCustomers />} />
