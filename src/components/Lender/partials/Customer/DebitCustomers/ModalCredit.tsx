@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 
-const ModalCredit = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modal, setShowModal] = useState(false);
+type Props = {
+    modal: boolean
+    setShowModal: any
+}
+
+const ModalCredit = (props: Props) => {
     return (
         <>
-            {modal ? (
+            {props.modal ? (
             <>
                 <div className="fixed inset-0 z-10 overflow-y-auto">
                 <div
                     className="fixed inset-0 w-full h-full bg-black opacity-40"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => props.setShowModal(false)}
                 ></div>
                 <div className="flex items-center min-h-screen px-4 py-8">
                     <div className="relative w-full max-w-lg px-4 mx-auto bg-white shadow-lg">
@@ -36,13 +39,13 @@ const ModalCredit = () => {
                         <div className="py-3 px-4 text-right border-t-[1px]">
                             <button
                             className="border-[1px] shadow cursor-pointer duration-1000 py-1 px-4 text-sm rounded-sm border-slate-400 mr-2"
-                            onClick={() => setShowModal(false)}
+                            onClick={() => props.setShowModal(false)}
                             >
                             Cancal
                             </button>
                             <button
                             className="bg-cyan-400 text-cyan-50 border-[1px] shadow cursor-pointer duration-1000 py-1 px-4 text-sm rounded-sm border-slate-400 "
-                            onClick={() => setShowModal(false)}
+                            onClick={() => props.setShowModal(false)}
                             >
                             Ok
                             </button>

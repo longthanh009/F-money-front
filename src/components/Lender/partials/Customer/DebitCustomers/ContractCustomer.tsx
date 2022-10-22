@@ -1,18 +1,15 @@
 import { Button } from 'antd'
 import React, { useState } from 'react'
-
-const ContractCustomer = () => {
-    const [modal, setShowModal] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
+type Props = {
+  showModal: any
+}
+const ContractCustomer = (props: Props) => {
     return (
     <>
          <div className="basis-full max-w-full mt-2">
                 <Button
                   className="mr-2"
-                  onClick={showModal}
+                  onClick={props.showModal}
                   type="primary"
                   style={{ background: "#00c5dc", borderColor: "#00c5dc" }}
                 >
@@ -20,7 +17,7 @@ const ContractCustomer = () => {
                 </Button>
                 <Button
                   className="mr-2"
-                  onClick={showModal}
+                  onClick={props.showModal}
                   type="primary"
                   style={{ background: "#34bfa3", borderColor: "#34bfa3" }}
                 >
@@ -29,7 +26,7 @@ const ContractCustomer = () => {
                 <button
                 className="px-3 py-[5px] text-purple-100 bg-[#2a85e0] rounded-[3px]"
                 type="button"
-                onClick={() => setShowModal(true)}
+                onClick={props.showModal}
                 >
                 Xem hợp đồng
                 </button>
