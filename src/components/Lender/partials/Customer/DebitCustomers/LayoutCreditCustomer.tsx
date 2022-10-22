@@ -3,7 +3,7 @@ import { DeleteOutlined, SyncOutlined } from '@ant-design/icons';
 
 type Props = {}
 
-const CreditCustomer = (props: Props) => {
+const LayoutCreditCustomer = (props: Props) => {
 
   
   return (
@@ -44,4 +44,4 @@ const CreditCustomer = (props: Props) => {
   )
 }
 
-export default CreditCustomer;
+export default LayoutCreditCustomer;

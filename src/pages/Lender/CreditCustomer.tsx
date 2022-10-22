@@ -12,7 +12,7 @@ import SearchContractCustomer from "../../components/Lender/partials/Customer/De
 
 type Props = {};
 
-const StatisticCustomers = (props: Props) => {
+const CreditCustomer = (props: Props) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -57,4 +57,4 @@ const StatisticCustomers = (props: Props) => {
   );
 };
 
-export default StatisticCustomers;
+export default CreditCustomer;

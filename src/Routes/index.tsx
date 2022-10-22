@@ -10,9 +10,10 @@ import AdminContractPage from '../pages/AdminContract'
 import Website_Layout from '../layouts/LayoutWebsite'
 import HomePage from '../pages/HomePage'
 import DebitCustomers from '../pages/Lender/DebitCustomers'
-import StatisticCustomers from '../pages/Lender/StatisticCustomers'
-import CreditCustomer from '../components/Lender/partials/Customer/DebitCustomers/CreditCustomer'
+import CreditCustomer from '../pages/Lender/CreditCustomer'
+import LayoutCreditCustomer from '../components/Lender/partials/Customer/DebitCustomers/LayoutCreditCustomer'
 import InstallmentCustomer from '../components/Lender/partials/Customer/DebitCustomers/InstallmentCustomer'
+
 const RoutePage = () => {
     return (
         <div>
@@ -21,8 +22,8 @@ const RoutePage = () => {
                 <Route path='/client' element={<Website_Layout />}>
                     <Route index element={<HomePage />} />
                 </Route>
-                <Route path='/lender/customer' element={<StatisticCustomers />}>
-                    <Route path="CreditCustomer" element={<CreditCustomer />} />
+                <Route path='/lender/customer' element={<CreditCustomer />}>
+                    <Route path="CreditCustomer" element={<LayoutCreditCustomer />} />
                     <Route path="InstallmentCustomer" element={<InstallmentCustomer />} />
                 </Route>
                 <Route path="/lender/customer/list" element={<CustomerList />} />
