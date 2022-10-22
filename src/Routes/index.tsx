@@ -24,7 +24,6 @@ const RoutePage = () => {
                 <Route path='/lender/customer' element={<StatisticCustomers />}>
                     <Route path="CreditCustomer" element={<CreditCustomer />} />
                     <Route path="InstallmentCustomer" element={<InstallmentCustomer />} />
-                    
                 </Route>
                 <Route path="/lender/customer/list" element={<CustomerList />} />
                 <Route path="/lender/customer/debitCustomer" element={<DebitCustomers />} />
