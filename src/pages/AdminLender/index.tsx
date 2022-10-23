@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import BreadcrumbComponent from '../../components/Breadcrumb';
-import { useLocation, useParams } from 'react-router-dom';
 const AdminLender = () => {
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
