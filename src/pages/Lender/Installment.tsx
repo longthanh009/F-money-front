@@ -34,7 +34,7 @@ const StatisticCustomers = (props: Props) => {
 
   return (
     <>
-   
+
       {modal ? (
         <>
           <div>
