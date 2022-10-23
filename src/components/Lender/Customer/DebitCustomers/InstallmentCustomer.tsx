@@ -34,8 +34,8 @@ const InstallmentCustomer = (props: Props) => {
                   <td className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}></span></td>
                   <td className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>600.000 đ</span></td>
                   <td className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px', color: 'red'}}>10.800.000 đ</span></td>
-                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Đang vay</span></td>
-                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>12-10-2022</span></td>
+                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '89px'}}>Đang vay</span></td>
+                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '81px'}}>12-10-2022</span></td>
                   <td style={{textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}><DeleteOutlined style={{marginRight: '10px', color: 'red',  fontSize: '18px'}}/> <SyncOutlined  style={{ color: '#ffbb00', fontSize: '18px'}}/> </span></td>
             </tr>
             </tbody>
