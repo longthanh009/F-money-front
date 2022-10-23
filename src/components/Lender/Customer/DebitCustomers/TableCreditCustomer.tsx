@@ -36,7 +36,7 @@ const TableCreditCustomer = (props: Props) => {
                 <td className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"  style={{ textAlign: 'center'}}><span style={{color: 'red'}} >10.800.000 đ</span></td>
                 <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span >Đang vay</span></td>
                 <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span >12-10-2022</span></td>
-                <td style={{textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span ><DeleteOutlined style={{marginRight: '10px', color: 'red',  fontSize: '17px'}}/> <SyncOutlined  style={{ color: '#ffbb00', fontSize: '18px'}}/> </span></td>
+                <td style={{textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span ><DeleteOutlined style={{marginRight: '10px', color: 'red',  fontSize: '17px'}}/> <SyncOutlined  style={{ color: '#ffbb00', fontSize: '17px'}}/> </span></td>
             </tr>
             </tbody>
         </table>
