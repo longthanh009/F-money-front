@@ -13,7 +13,7 @@ import ModalCreateContract from "../../components/Lender/Credit/ModalCreateContr
 
 type Props = {};
 
-const Installment = (props: Props) => {
+const CreditCustomer = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -63,4 +63,4 @@ const Installment = (props: Props) => {
   );
 };
 
-export default Installment;
+export default CreditCustomer;
