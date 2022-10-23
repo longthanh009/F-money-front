@@ -18,7 +18,7 @@ const InstallmentCustomer = (props: Props) => {
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Tiền 1 ngày</span></th>
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Còn phải đóng</span></th>
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>tình trạng</span></th>
-                  <th style={{ textAlign: 'center'}} className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Ngày phải đóng tiền</span></th>
+                  <th style={{ textAlign: 'center'}} className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '81px'}}>Ngày phải đóng tiền</span></th>
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Chức năng</span></th>
             </tr>
             </thead>
