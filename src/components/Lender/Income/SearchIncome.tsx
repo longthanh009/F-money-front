@@ -1,5 +1,5 @@
 import React from "react";
-// import Icon from "../../../../images/icon-01.svg";
+import Icon from "../../../../images/icon-01.svg";
 
 function SearchIncome() {
   return (
