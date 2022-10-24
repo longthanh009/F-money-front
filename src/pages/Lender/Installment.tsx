@@ -10,6 +10,7 @@ import ContractCustomer from "../../components/Lender/Credit/ContractCustomer";
 import SearchContractCustomer from "../../components/Lender/Credit/SearchContractCustomer";
 import Breadcrumb from "../../components/Lender/Credit/Breadcrumb";
 import ModalCreateContract from "../../components/Lender/Credit/ModalCreateContract";
+import TableInstallment from "../../components/Lender/Customer/DebitCustomers/TableInstallment";
 
 type Props = {};
 
@@ -54,7 +55,7 @@ const Installment = (props: Props) => {
               >
                 {<SearchOutlined />} Tìm kiếm
               </Button>
-              <Outlet />
+             <TableInstallment/>
             </div>
           </div>
         </div>

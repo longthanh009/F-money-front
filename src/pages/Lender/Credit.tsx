@@ -10,10 +10,11 @@ import ContractCustomer from "../../components/Lender/Credit/ContractCustomer";
 import SearchContractCustomer from "../../components/Lender/Credit/SearchContractCustomer";
 import Breadcrumb from "../../components/Lender/Credit/Breadcrumb";
 import ModalCreateContract from "../../components/Lender/Credit/ModalCreateContract";
+import TableCredit from "../../components/Lender/Customer/DebitCustomers/TableCredit";
 
 type Props = {};
 
-const CreditCustomer = (props: Props) => {
+const Credit = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -54,7 +55,7 @@ const CreditCustomer = (props: Props) => {
               >
                 {<SearchOutlined />} Tìm kiếm
               </Button>
-              <Outlet />
+              <TableCredit/>
             </div>
           </div>
         </div>
@@ -63,4 +64,4 @@ const CreditCustomer = (props: Props) => {
   );
 };
 
-export default CreditCustomer;
+export default Credit;

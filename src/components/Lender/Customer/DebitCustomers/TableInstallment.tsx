@@ -1,7 +1,7 @@
 import { DeleteOutlined, SyncOutlined } from '@ant-design/icons';
 type Props = {}
 
-const InstallmentCustomer = (props: Props) => {
+const TableInstallment = (props: Props) => {
   return (
     <>
         <table className="text-[13px] mb-[1rem] w-full border-collapse">
@@ -44,4 +44,4 @@ const InstallmentCustomer = (props: Props) => {
   )
 }
 
-export default InstallmentCustomer;
+export default TableInstallment;
