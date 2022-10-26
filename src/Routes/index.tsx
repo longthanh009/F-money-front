@@ -18,8 +18,10 @@ import CustomerCheck from "../pages/Lender/CustomerCheck";
 import Expense from "../pages/Lender/Expense";
 import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
+import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
 import Credit from "../pages/Lender/Credit";
+
 
 const RoutePage = () => {
   return (
@@ -30,10 +32,10 @@ const RoutePage = () => {
           <Route path="suport" element={<SuportPage />} />
           <Route path="contract" element={<ContractPage />} />
         </Route>
-
         <Route path="/lender" element={<LayoutDashboard />}>
           <Route index element={<Dashboard />} />
           <Route path="credit"  element={<Credit/>}/>
+          <Route path="installment"  element={<Installment/>}/>
           <Route path="Mortgage/index" element={<Mortgage/>} />
           <Route path="customer/list" element={<CustomerList />} />
           <Route path="customer/checkCustome" element={<CustomerCheck />} />

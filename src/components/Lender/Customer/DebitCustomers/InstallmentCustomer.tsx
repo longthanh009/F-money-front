@@ -18,7 +18,7 @@ const InstallmentCustomer = (props: Props) => {
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Tiền 1 ngày</span></th>
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Còn phải đóng</span></th>
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>tình trạng</span></th>
-                  <th style={{ textAlign: 'center'}} className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Ngày phải đóng tiền</span></th>
+                  <th style={{ textAlign: 'center'}} className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '81px'}}>Ngày phải đóng tiền</span></th>
                   <th className="p-[0.75rem] border-t-[1px] font-bold cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Chức năng</span></th>
             </tr>
             </thead>
@@ -34,8 +34,8 @@ const InstallmentCustomer = (props: Props) => {
                   <td className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}></span></td>
                   <td className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>600.000 đ</span></td>
                   <td className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px', color: 'red'}}>10.800.000 đ</span></td>
-                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>Đang vay</span></td>
-                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}>12-10-2022</span></td>
+                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '89px'}}>Đang vay</span></td>
+                  <td style={{ textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '81px'}}>12-10-2022</span></td>
                   <td style={{textAlign: 'center'}} className="p-[0.75rem] cursor-pointer align-middle border-b-[1px]"><span style={{width: '80px'}}><DeleteOutlined style={{marginRight: '10px', color: 'red',  fontSize: '18px'}}/> <SyncOutlined  style={{ color: '#ffbb00', fontSize: '18px'}}/> </span></td>
             </tr>
             </tbody>
