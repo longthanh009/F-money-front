@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
-import { Button, Modal } from 'antd';
+import { Button, Modal, Select, Form, Input, DatePicker, Upload } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
+import TextArea from 'antd/lib/input/TextArea';
+import { LoadingOutlined, PlusOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 const AdminLender = () => {
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const { Option } = Select;
+    const [form] = Form.useForm<{ name: string; age: number }>();
+    const [imageUrl, setImageUrl] = useState<string>();
     const showModal = (type: any, title: any) => {
         setOpen(true)
         setType(type)
@@ -22,33 +27,61 @@ const AdminLender = () => {
     const handleCancel = () => {
         setOpen(false);
     };
-
+    const uploadButton = (
+        <div>
+            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
     return (
         <div>
             <BreadcrumbComponent />
+            <h1 className='text-[25px]'>Danh sách khách hàng (0)</h1>
             <div className='flex items-center space-x-1'>
                 <div className='modal-news'>
                     <Button className='flex items-center' onClick={() => showModal("news", "Thêm mới khách hàng")}> &#10010; Thêm mới</Button>
-
                 </div>
                 <div className='search w-[300px]'>
                     <form>
-                        <div>
-                            <div className="relative">
-                                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                    <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                                </div>
-                                <input type="search" id="default-search" className="focus:outline-none block p-[5px] pl-10 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Tìm kiếm..." required />
-                            </div>
-                        </div>
+                        <Input placeholder="Tìm kiếm..." prefix={<SearchOutlined />} />
                     </form>
                 </div>
                 <div className='search-select'>
-                    <select id="small" className="block p-[5px] w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="1">Trạng thái</option>
-                        <option value="US">Hoạt động</option>
-                        <option value="CA">Khoá</option>
-                    </select>
+                    <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Trạng thái"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
+                        filterSort={(optionA, optionB) =>
+                            (optionA!.children as unknown as string)
+                                .toLowerCase()
+                                .localeCompare((optionB!.children as unknown as string).toLowerCase())
+                        }
+                    >
+                        <Option value="1">ALL</Option>
+                        <Option value="2">Hoạt động</Option>
+                        <Option value="3">Khoá</Option>
+                    </Select>
+
+                </div>
+                <div className="search-role">
+                    <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Loại khách hàng"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
+                        filterSort={(optionA, optionB) =>
+                            (optionA!.children as unknown as string)
+                                .toLowerCase()
+                                .localeCompare((optionB!.children as unknown as string).toLowerCase())
+                        }
+                    >
+                        <Option value="1">ALL</Option>
+                        <Option value="2">Lender</Option>
+                        <Option value="3">Người vay</Option>
+                    </Select>
                 </div>
             </div>
             <div className='content mt-[10px]'>
@@ -314,32 +347,65 @@ const AdminLender = () => {
                         Trở lại
                     </Button>,
                     <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-                        Submit
+                        Lưu
                     </Button>
                 ]}
             >
-                {type === "news" ?
-                    <form action="">
-                        <div className="mb-6">
-                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Base input</label>
-                            <input type="text" id="base-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                        </div>
-                        <div className="mb-6">
-                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Base input</label>
-                            <input type="text" id="base-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                        </div>
-                        <div className="mb-6">
-                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Base input</label>
-                            <input type="text" id="base-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                        </div>
-                        <div className="mb-6">
-                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Base input</label>
-                            <input type="text" id="base-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                        </div>
-                    </form> : <div>
+                    <div>
+                        <Form layout="vertical" autoComplete="off">
+                            <div className="flex space-x-[10px]">
+                                <Form.Item name="name" label="Họ Tên" className='w-[50%]'>
+                                    <Input />
+                                </Form.Item>
+                                <Form.Item name="email" label="Email" className='w-[50%]'>
+                                    <Input />
+                                </Form.Item>
+                            </div>
+                            <Form.Item name="address" label="Địa chỉ (Nơi ở)" className=''>
+                                <TextArea rows={2} placeholder="" />
+                            </Form.Item>
+                            {type =='news' ? <div className="flex space-x-[10px]">
+                                <Form.Item name="password" label="Mật khẩu" className='w-[50%]'>
+                                    <Input />
+                                </Form.Item>
+                                <Form.Item name="confirmPassword" label="Xác nhận mật khẩu" className='w-[50%]'>
+                                    <Input />
+                                </Form.Item>
+                            </div> : ""}
+                            <div className="flex space-x-[10px]">
+                                <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'>
+                                    <Input />
+                                </Form.Item>
+                                <Form.Item name="confirmPassword" label="Ngày sinh" className=''>
+                                    <DatePicker />
+                                </Form.Item>
+                                <Form.Item name="role" label="Vai trò" className=''>
+                                    <Select defaultValue="0">
+                                        <Option value="0">Customer</Option>
+                                        <Option value="1">Lender</Option>
+                                        <Option value="3">Quản trị</Option>
+                                    </Select>
+                                </Form.Item>
+                                <Form.Item name="role" label="Active" className=''>
+                                    <Select defaultValue="0">
+                                        <Option value="0">Khoá</Option>
+                                    </Select>
+                                </Form.Item>
+                            </div>
+                            <Form.Item name="avatar" label="Ảnh đại diện" className='w-[70%]'>
+                                <Upload
+                                    name="avatar"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList={false}
+                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
 
+                                >
+                                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                                </Upload>
+                            </Form.Item>
+                        </Form>
                     </div>
-                }
             </Modal>
         </div>
     )
