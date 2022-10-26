@@ -20,6 +20,8 @@ import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
 import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
+import Credit from "../pages/Lender/Credit";
+import Installment from "../pages/Lender/Installment";
 
 
 const RoutePage = () => {
@@ -32,7 +34,6 @@ const RoutePage = () => {
           <Route path="suport" element={<SuportPage />} />
           <Route path="contract" element={<ContractPage />} />
         </Route>
-
         <Route path="/lender" element={<LayoutDashboard />}>
           <Route index element={<Dashboard />} />
           
