@@ -1,66 +1,45 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
-import { SearchOutlined } from "@ant-design/icons";
-import { Calendar, DatePicker } from "antd";
-import type { CalendarMode } from "antd/es/calendar/generateCalendar";
-import type { Moment } from "moment";
-import { Button, Modal, Input, Select } from "antd";
-import InfoManyCutomers from "../../components/Lender/Credit/InfoManyCutomers";
-import ContractCustomer from "../../components/Lender/Credit/ContractCustomer";
-import SearchContractCustomer from "../../components/Lender/Credit/SearchContractCustomer";
-import Breadcrumb from "../../components/Lender/Credit/Breadcrumb";
-import ModalCreateContract from "../../components/Lender/Credit/ModalCreateContract";
+import Installment01 from "../../components/Lender/Installment/DashboardCard01";
+import Installment02 from "../../components/Lender/Installment/DashboardCard02";
+import Installment03 from "../../components/Lender/Installment/DashboardCard03";
+import Installment04 from "../../components/Lender/Installment/DashboardCard04";
+import Installment05 from "../../components/Lender/Installment/DashboardCard05";
+import DddExportList from "../../components/Lender/Installment/DddExportList";
+import SearchInstallment from "../../components/Lender/Installment/SearchInstallment";
+import TableInstallment from "../../components/Lender/Installment/TableInstallment";
 
-type Props = {};
-
-const Installment = (props: Props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const ReshowModal = () => {
-    setIsModalOpen(false);
-  };
-  console.log(isModalOpen);
-  
+function Installment() {
   return (
     <>
-        <ModalCreateContract isModalOpen={isModalOpen} showModal={showModal} ReshowModal={ReshowModal}/>
-        {/* <ModalCredit> */}
-        <div className="p-3">
-          <div
-            style={{
-              boxShadow: "0px 1px 15px 1px rgb(69 65 78 / 8%)",
-              WebkitBoxShadow: "0px 1px 15px 1px rgb(69 65 78 / 8%)",
-              MozBoxShadow: "0px 1px 15px 1px rgba(69, 65, 78, 0.08)",
-            }}
-            className="bg-white rounded shadow-lg mb-9"
-          >
-          <Breadcrumb/>
-          <div className="decoration-gray-500 pt-3 p-9 ">
-            <div className="flex flex-wrap mx-4">
-              <InfoManyCutomers/>
-              <ContractCustomer showModal={showModal}/>
-              <SearchContractCustomer/>
-              <Button
-                onClick={showModal}
-                type="primary"
-                style={{
-                  background: "#36a3f7",
-                  borderColor: "#36a3f7",
-                  margin: "10px 0",
-                  textAlign: "center",
-                }}
-              >
-                {<SearchOutlined />} Tìm kiếm
-              </Button>
-              <Outlet />
-            </div>
-          </div>
+      <div>
+        {/* Cards */}
+        <div className="text-gray-500 mb-3">Lender/Trả Góp</div>
+        <div className="grid grid-cols-12 gap-5 md:flex md:justify-center">
+
+          {/* Line chart (Acme Plus) */}
+          <Installment01 />
+          {/* Line chart (Acme Advanced) */}
+          <Installment02 />
+          {/* Line chart (Acme Professional) */}
+          <Installment03 />
+          <Installment04 />
+          <Installment05 />
+        </div>
+        <div>
+          <SearchInstallment />
+        </div>
+        <div>
+          <DddExportList />
+        </div>
+        <div>
+          <TableInstallment />
+        </div>
+        <div>
+          
         </div>
       </div>
     </>
   );
-};
+}
 
 export default Installment;
