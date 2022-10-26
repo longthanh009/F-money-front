@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
 import { Calendar, DatePicker } from "antd";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
-import type { Moment } from "moment";
 import { Button, Modal, Input, Select } from "antd";
 import InfoManyCutomers from "../../components/Lender/credit/InfoManyCutomers";
 import ContractCustomer from "../../components/Lender/credit/ContractCustomer";
@@ -11,6 +10,7 @@ import SearchContractCustomer from "../../components/Lender/credit/SearchContrac
 import Breadcrumb from "../../components/Lender/credit/Breadcrumb";
 import ModalCreateContract from "../../components/Lender/credit/ModalCreateContract";
 import TableCredit from "../../components/Lender/Customer/DebitCustomers/CreditCustomer";
+import BreadcrumbComponent from "../../components/Breadcrumb";
 
 type Props = {};
 
@@ -37,7 +37,7 @@ const Credit = (props: Props) => {
             }}
             className="bg-white rounded shadow-lg mb-9"
           >
-          <Breadcrumb/>
+          <BreadcrumbComponent/>
           <div className="decoration-gray-500 pt-3 p-9 ">
             <div className="flex flex-wrap mx-4">
               <InfoManyCutomers/>

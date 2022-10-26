@@ -3,3 +3,4 @@ const intance = axios.create({
     baseURL:"",
     
 })
+export default intance

@@ -18,7 +18,6 @@ import CustomerCheck from "../pages/Lender/CustomerCheck";
 import Expense from "../pages/Lender/Expense";
 import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
-import StatisticCustomers from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
 import Credit from "../pages/Lender/Credit";
 
@@ -26,8 +25,7 @@ const RoutePage = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/client" element={<Website_Layout />}>
+        <Route path="/" element={<Website_Layout />} >
           <Route index element={<HomePage />} />
           <Route path="suport" element={<SuportPage />} />
           <Route path="contract" element={<ContractPage />} />
@@ -50,8 +48,6 @@ const RoutePage = () => {
         <Route path="/register" element={<SignupPage />}></Route>
 
         <Route path="/admin" element={<LayoutDashboard />}>
-          <Route index element={<Dashboard />} />
-          <Route path="/admin" element={<LayoutAdmin />} />
           <Route index element={<AdminDashboard />} />
           <Route path="customer" element={<AdminLender />} />
           <Route path="contract" element={<AdminContractPage />} />
