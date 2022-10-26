@@ -21,7 +21,6 @@ import Service from "../pages/Lender/Service";
 import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
 import Credit from "../pages/Lender/Credit";
-import Installment from "../pages/Lender/Installment";
 
 
 const RoutePage = () => {
@@ -36,9 +35,8 @@ const RoutePage = () => {
         </Route>
         <Route path="/lender" element={<LayoutDashboard />}>
           <Route index element={<Dashboard />} />
-          
-
-          <Route path="installment/index" element={<Installment/>} />
+          <Route path="credit"  element={<Credit/>}/>
+          <Route path="installment"  element={<Installment/>}/>
           <Route path="Mortgage/index" element={<Mortgage/>} />
           <Route path="customer/list" element={<CustomerList />} />
           <Route path="customer/checkCustome" element={<CustomerCheck />} />
