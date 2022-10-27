@@ -18,7 +18,7 @@ import CustomerCheck from "../pages/Lender/CustomerCheck";
 import Expense from "../pages/Lender/Expense";
 import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
-import StatisticCustomers from "../pages/Lender/Installment";
+import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
 
 const RoutePage = () => {
@@ -31,12 +31,10 @@ const RoutePage = () => {
           <Route path="suport" element={<SuportPage />} />
           <Route path="contract" element={<ContractPage />} />
         </Route>
-
         <Route path="/lender" element={<LayoutDashboard />}>
           <Route index element={<Dashboard />} />
-
-          <Route path="installment/index" element={<StatisticCustomers />} />
-          <Route path="Mortgage/index" element={<Mortgage/>} />
+          <Route path="installment/index" element={<Installment />} />
+          <Route path="Mortgage/index" element={<Mortgage />} />
           <Route path="customer/list" element={<CustomerList />} />
           <Route path="customer/checkCustome" element={<CustomerCheck />} />
           <Route path="incomeAndExpense/expense" element={<Expense />} />
