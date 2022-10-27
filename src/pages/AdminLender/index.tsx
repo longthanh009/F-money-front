@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import { Button, Modal, Select, Form, Input, DatePicker, Upload } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
-import { LoadingOutlined, PlusOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 const AdminLender = () => {
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const [data, setData] = useState<any>({name : "abc"});
     const { Option } = Select;
-    const [form] = Form.useForm<{ name: string; age: number }>();
+    const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
     const showModal = (type: any, title: any) => {
         setOpen(true)
@@ -17,15 +18,16 @@ const AdminLender = () => {
         setTitle(title)
     }
     const handleOk = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            setOpen(false);
-        }, 3000);
+        // setLoading(true);
+        // setTimeout(() => {
+        //     setLoading(false);
+        //     setOpen(false);
+        // }, 3000);
     };
 
     const handleCancel = () => {
         setOpen(false);
+        form.resetFields();
     };
     const uploadButton = (
         <div>
@@ -33,6 +35,10 @@ const AdminLender = () => {
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
+    const onFinish = (values: any) => {
+        console.log('Success:', values);
+        form.resetFields();
+    };
     return (
         <div>
             <BreadcrumbComponent />
@@ -342,70 +348,87 @@ const AdminLender = () => {
                 </div>
             </div>
             <Modal open={open} style={{ top: 20 }} title={title} onOk={handleOk} onCancel={handleCancel} width={700}
-                footer={[
-                    <Button key="back" onClick={handleCancel}>
-                        Trở lại
-                    </Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-                        Lưu
-                    </Button>
-                ]}
+                footer={[]}
             >
-                    <div>
-                        <Form layout="vertical" autoComplete="off">
-                            <div className="flex space-x-[10px]">
-                                <Form.Item name="name" label="Họ Tên" className='w-[50%]'>
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item name="email" label="Email" className='w-[50%]'>
-                                    <Input />
-                                </Form.Item>
-                            </div>
-                            <Form.Item name="address" label="Địa chỉ (Nơi ở)" className=''>
-                                <TextArea rows={2} placeholder="" />
+                <div>
+                    <Form layout="vertical" autoComplete="on" onFinish={onFinish} form={form}>
+                        <div className="flex space-x-[10px]">
+                            <Form.Item
+                                name="name"
+                                label="Họ Tên" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
+                                <Input />
                             </Form.Item>
-                            {type =='news' ? <div className="flex space-x-[10px]">
-                                <Form.Item name="password" label="Mật khẩu" className='w-[50%]'>
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item name="confirmPassword" label="Xác nhận mật khẩu" className='w-[50%]'>
-                                    <Input />
-                                </Form.Item>
-                            </div> : ""}
-                            <div className="flex space-x-[10px]">
-                                <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'>
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item name="confirmPassword" label="Ngày sinh" className=''>
-                                    <DatePicker />
-                                </Form.Item>
-                                <Form.Item name="role" label="Vai trò" className=''>
-                                    <Select defaultValue="0">
-                                        <Option value="0">Customer</Option>
-                                        <Option value="1">Lender</Option>
-                                        <Option value="3">Quản trị</Option>
-                                    </Select>
-                                </Form.Item>
-                                <Form.Item name="role" label="Active" className=''>
-                                    <Select defaultValue="0">
-                                        <Option value="0">Khoá</Option>
-                                    </Select>
-                                </Form.Item>
-                            </div>
-                            <Form.Item name="avatar" label="Ảnh đại diện" className='w-[70%]'>
-                                <Upload
-                                    name="avatar"
-                                    listType="picture-card"
-                                    className="avatar-uploader"
-                                    showUploadList={false}
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-
-                                >
-                                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                                </Upload>
+                            <Form.Item
+                                name="email"
+                                label="Email" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng nhập email' },{
+                                    type: 'email',
+                                    message:'Không đúng định dạng email',
+                                }]}>
+                                <Input />
                             </Form.Item>
-                        </Form>
-                    </div>
+                        </div>
+                        <Form.Item name="address" label="Địa chỉ (Nơi ở)" className=''>
+                            <TextArea rows={2} placeholder="" />
+                        </Form.Item>
+                        <Form.Item name="username" label="Tên đăng nhập" className=''
+                                rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
+                                <Input />
+                            </Form.Item>
+                        {type == 'news' ? <div className="flex space-x-[10px]">
+                            <Form.Item name="password" label="Mật khẩu" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="confirmPassword" label="Xác nhận mật khẩu" className='w-[50%]'
+                                rules={[{ required: true, message: 'Xác nhận mật khẩu' }]}>
+                                <Input />
+                            </Form.Item>
+                        </div> : ""}
+                        <div className="flex space-x-[10px]">
+                            <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'
+                                rules={[{required: true, message: 'Không bỏ trống số điện thoại' },{max :11 , message: 'Nhập tối đa 11 ký tự số'},{type: 'string',message: 'Vui lòng nhập ký tự số'}]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="birthday" label="Ngày sinh" className=''>
+                                <DatePicker />
+                            </Form.Item>
+                            <Form.Item name="role" label="Vai trò" className='w-[100px]'
+                                rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
+                                <Select defaultValue={-1}>
+                                    <Option value={-1}>Vai trò</Option>
+                                    <Option value={0}>Customer</Option>
+                                    <Option value={1}>Lender</Option>
+                                    <Option value={2}>Quản trị</Option>
+                                </Select>
+                            </Form.Item>
+                            <Form.Item name="active" label="Trạng thái" className=''>
+                                <Select defaultValue="0">
+                                    <Option value="0">Khoá</Option>
+                                </Select>
+                            </Form.Item>
+                        </div>
+                        <Form.Item name="avatar" label="Ảnh đại diện" className='w-[70%]'>
+                            <Upload
+                                name="avatar"
+                                listType="picture-card"
+                                className="avatar-uploader"
+                                showUploadList={false}
+                            >
+                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                            </Upload>
+                        </Form.Item>
+                        <Form.Item className='flex justify-end'>
+                            <Button key="back" onClick={handleCancel} className="mr-[10px]">
+                                Trở lại
+                            </Button>
+                            <Button key="submit" htmlType="submit" type="primary">
+                                Lưu
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
             </Modal>
         </div>
     )
