@@ -12,18 +12,9 @@ import ModalCreateContract from "../../components/Lender/credit/ModalCreateContr
 import TableCredit from "../../components/Lender/Customer/DebitCustomers/CreditCustomer";
 import BreadcrumbComponent from "../../components/Breadcrumb";
 
-type Props = {};
+type Props = {}
 
 const Credit = (props: Props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const ReshowModal = () => {
-    setIsModalOpen(false);
-  };
-  console.log(isModalOpen);
-  
   return (
     <>
         <ModalCreateContract isModalOpen={isModalOpen} showModal={showModal} ReshowModal={ReshowModal}/>
@@ -64,4 +55,4 @@ const Credit = (props: Props) => {
   );
 };
 
-export default Credit;
+export default Credit

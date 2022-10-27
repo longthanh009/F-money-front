@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { Input } from "antd";
-import ModalInstallmentAdd from "./modal";
+import ModalInstallmentAdd from "./modalMortgage";
 
-function DddExportList() {
+function DddMortgage() {
   const { TextArea } = Input;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,4 +46,4 @@ function DddExportList() {
     </div>
   );
 }
-export default DddExportList;
+export default DddMortgage;

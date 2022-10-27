@@ -45,7 +45,7 @@ interface formAddInstallment {
   closinDate: number;
   desc: number;
 }
-const ModalInstallmentAdd = ({
+const modalMortgage = ({
   isModalOpen,
   handleOk,
   handleCancel,
@@ -195,4 +195,4 @@ const ModalInstallmentAdd = ({
   );
 };
 
-export default ModalInstallmentAdd;
+export default modalMortgage;

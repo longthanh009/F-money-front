@@ -63,13 +63,13 @@ function TableExpense() {
                   <div className="text-center text-sky-500">dv</div>
                 </td>
                 <td className="p-2 md:flex">
-                  <div className="items-center text-black pl-5 relative group">
+                  <div className="items-center text-gray-500 pl-5 relative group">
                     <span className="absolute top-0 hidden -mt-8 text-xs font-bold group-hover:block">
                       In Phiếu
                     </span>
                     <BiPrinter />
                   </div>
-                  <div className="items-center text-black pl-5 relative group">
+                  <div className="items-center text-gray-500 pl-5 relative group">
                     <span className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
                       Xóa
                     </span>
