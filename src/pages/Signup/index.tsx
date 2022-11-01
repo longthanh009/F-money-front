@@ -52,30 +52,35 @@ const SignupPage = () => {
                         >
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
+                        
                         <Form.Item
                             name="Email"
                             rules={[{ required: true, message: 'Vui lòng nhập email' }, { type: 'email' }]}
                         >
                             <Input placeholder='Email' />
                         </Form.Item>
+
                         <Form.Item
                             name="username"
                             rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
                         >
                             <Input placeholder="Tài khoản" />
                         </Form.Item>
+
                         <Form.Item
                             name="password"
                             rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
                         >
                             <Input.Password placeholder='Mật khẩu' />
                         </Form.Item>
+
                         <Form.Item
                             name="repassword"
                             rules={[{ required: true, message: 'Vui lòng nhập lại mật khẩu' }]}
                         >
                             <Input.Password placeholder="Xác nhận mật khẩu" />
                         </Form.Item>
+
                         <Form.Item
                             name="SDT"
 
@@ -93,6 +98,7 @@ const SignupPage = () => {
                             <Input placeholder="Mã OTP" style={{ width: '90%' }} />
                             <Button style={{ width: '10%' }} type="primary">Gửi</Button>
                         </Form.Item>
+
                         <Form.Item name="role" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
                             <Select
                                 placeholder="Vui lòng chọn đối tượng"
@@ -116,6 +122,7 @@ const SignupPage = () => {
                                         >
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
+
                                         <p style={{fontSize: "12px", fontStyle:"italic"}}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
                                         <div style={{ width: '100%', display: 'flex', textAlign:'center', marginBottom: 20 }}>
                                             <Space direction="vertical" style={{ width: '49%', padding:5 }} size="large">
@@ -129,7 +136,6 @@ const SignupPage = () => {
                                             </Space>
 
                                             <Space direction="vertical" style={{ width: '49%', padding:5 }} size="large">
-
                                                 <Upload
                                                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                                     listType="picture"
@@ -147,10 +153,11 @@ const SignupPage = () => {
                         <div className='flex justify-between'>
                             <p>
                                 <input type="checkbox" />
-                                <label htmlFor="">Tôi đồng ý với <a className='text-red-600 italic inline-block font-bold hover:text-red-600 ml-[5px]'>Điều khoản sử dụng</a></label>
+                                <label htmlFor=""> Tôi đồng ý với <a className='text-red-600 italic inline-block font-bold hover:text-red-600 ml-[5px]'> Điều khoản sử dụng </a></label>
                             </p>
                             <p>
-                                Bạn đã có tài khoản ? <a href='/signin' className='text-red-600 font-bold hover:text-red-600'>Đăng nhập ngay</a>
+                                Bạn đã có tài khoản? 
+                                <a href='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng nhập ngay </a>
                             </p>
                         </div>
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
