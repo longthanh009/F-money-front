@@ -28,7 +28,7 @@ const SiginPage = () => {
 							</div>
 							<Button className='w-[100%] rounded bg-orange-500 text-[20px]' type="primary" danger>Đăng Nhập</Button>
 						</form>
-						<p className='text-center mt-[5px]'>Bạn chưa có tài khoản ? <span className='text-red-700'>Đang ký ngay</span></p>
+						<p className='text-center mt-[5px]'>Bạn chưa có tài khoản ? <span className='text-red-700'><a href="/register">Đăng ký ngay</a></span></p>
 					</div>
 				</div>
 				<div className='hidden w-[50%] md:block'>
