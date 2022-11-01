@@ -9,7 +9,6 @@ const Option = Select;
 
 
 const SignupPage = () => {
-
     const [type, setType] = useState(1)
 
     const onChaneType = (e: any) => {
@@ -37,8 +36,8 @@ const SignupPage = () => {
                 <div className="logo">
                     <img className='mx-auto' src="https://res.cloudinary.com/df4kjrav4/image/upload/v1664807518/Rectangle_36_e9z7jl.png" alt="" width="300px" />
                 </div>
-                <h1 className='text-[22px] text-center mt-[40px] mb-[10px]'>Đăng ký tạo tài khoản</h1>
-                <p className='text-center text-[18px]'>Nhập đầy đủ thông tin để khởi tạo tài khoản của bạn</p>
+                <h1 className='text-[22px] text-center mt-[40px] mb-[10px] font-bold'>ĐĂNG KÝ TẠO TÀI KHOẢN</h1>
+                <p className='text-center text-[16px] italic'>Nhập đầy đủ thông tin để khởi tạo tài khoản của bạn</p>
                 <div>
                     <Form
                         name="basic"
@@ -59,8 +58,6 @@ const SignupPage = () => {
                         >
                             <Input placeholder='Email' />
                         </Form.Item>
-
-
                         <Form.Item
                             name="username"
                             rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
@@ -96,9 +93,6 @@ const SignupPage = () => {
                             <Input placeholder="Mã OTP" style={{ width: '90%' }} />
                             <Button style={{ width: '10%' }} type="primary">Gửi</Button>
                         </Form.Item>
-
-
-
                         <Form.Item name="role" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
                             <Select
                                 placeholder="Vui lòng chọn đối tượng"
@@ -122,8 +116,6 @@ const SignupPage = () => {
                                         >
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
-
-
                                         <p style={{fontSize: "12px", fontStyle:"italic"}}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
                                         <div style={{ width: '100%', display: 'flex', textAlign:'center', marginBottom: 20 }}>
                                             <Space direction="vertical" style={{ width: '49%', padding:5 }} size="large">
@@ -155,13 +147,12 @@ const SignupPage = () => {
                         <div className='flex justify-between'>
                             <p>
                                 <input type="checkbox" />
-                                <label htmlFor="">Tôi đồng ý với <a className='text-red-600 inline-block font-bold hover:text-red-600 ml-[5px]'>Điều khoản sử dụng</a></label>
+                                <label htmlFor="">Tôi đồng ý với <a className='text-red-600 italic inline-block font-bold hover:text-red-600 ml-[5px]'>Điều khoản sử dụng</a></label>
                             </p>
                             <p>
                                 Bạn đã có tài khoản ? <a href='/signin' className='text-red-600 font-bold hover:text-red-600'>Đăng nhập ngay</a>
                             </p>
                         </div>
-
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                             <Button className='w-[200px]' type="primary" htmlType="submit">
                                 Đăng Ký Ngay
