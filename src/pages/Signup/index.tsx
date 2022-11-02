@@ -1,34 +1,75 @@
 import React, { useState } from 'react'
-import { Input, Button, Select, message } from 'antd';
-import { Checkbox, Form } from 'antd';
+import { Input, Button, Select, message, DatePicker, Checkbox, Form } from 'antd';
 import { register } from './../../api/auth';
 import { UploadOutlined } from '@ant-design/icons';
 import { Space, Upload } from 'antd';
 import { useNavigate } from 'react-router-dom';
-const Option = Select;
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import Swal from 'sweetalert2'
 
+
+const Option = Select;
+const { RangePicker } = DatePicker;
 
 const SignupPage = () => {
     const [type, setType] = useState(1)
+    //checked đồng ý điều khoản
+    const [checked, setChecked] = useState(false)
+    const onChange = (e: CheckboxChangeEvent) => {
+        setChecked(e.target.checked)
+    };
+
+
+    //navigate chuyển trang khi thêm thành công
     const navigate = useNavigate();
+
     const onChaneType = (e: any) => {
         setType(parseInt(e))
     }
+
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
 
+    //onFinish kiểm tra đăng ký và thêm dữ liệu
     const onFinish = (values: any) => {
+
+        //kiểm tra mật khẩu đã khớp chưa
         if (values.password === values.repassword) {
-            register(values)
-                .then(() => {
-                    message.success({ content: "Thành công" })
-                    navigate('/signin');
+
+            //kiểm tra lại checked
+            if (checked == true) {
+                register(values)
+                    .then(() => {
+                        //Swal thông báo thành công
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đăng Ký Thành Công',
+                            text: 'Vui lòng đăng nhập',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setTimeout(() => { navigate('/signin') }, 2000)
+                    })
+                    //kiểm tra các trường giữ liệu có tồn tại chưa
+                    .catch(({ response }) => message.error({ content: response.data.message })
+                    )
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Bạn chưa đồng ý với điều khoản sử dụng',
                 })
-                .catch(({ response }) => message.error({ content: response.data.message })
-                )
-        } else {
-            message.error({ content: "Mật khẩu không khớp" });
+            }
+        }
+        //thông báo lỗi khi mật khẩu nhập lại không khớp
+        else {
+            //Swal thông báo lỗi
+            Swal.fire({
+                icon: 'error',
+                title: 'Mật khẩu không khớp',
+                text: 'Vui lòng nhập lại mật khẩu',
+            })
         }
         console.log(values);
 
@@ -36,7 +77,7 @@ const SignupPage = () => {
 
     return (
         <div className='bg-gray-300 flex items-center justify-center min-h-[100vh]'>
-            <div className='w-[700px] mx-auto bg-[white] py-[60px] shadow-lg px-[100px]'>
+            <div className='w-[700px] mx-auto bg-[white] py-[30px] shadow-lg px-[100px]'>
                 <div className="logo">
                     <img className='mx-auto' src="https://res.cloudinary.com/df4kjrav4/image/upload/v1664807518/Rectangle_36_e9z7jl.png" alt="" width="300px" />
                 </div>
@@ -57,9 +98,15 @@ const SignupPage = () => {
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
+                        <Form.Item name="dateOfBirth"
+                            rules={[{ required: true, message: 'Vui lòng nhập ngày tháng năm sinh' }]}
+                        >
+                            <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
+                        </Form.Item>
+
                         <Form.Item
                             name="email"
-                            rules={[{ required: true, message: 'Vui lòng nhập email' }, 
+                            rules={[{ required: true, message: 'Vui lòng nhập email' },
                             { type: 'email', message: 'Vui lòng nhập đúng định dạng email' }]}
                         >
                             <Input placeholder='Email' />
@@ -72,20 +119,24 @@ const SignupPage = () => {
                             <Input placeholder="Tài khoản" />
                         </Form.Item>
 
-                        <Form.Item
-                            name="password"
-                            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }, 
-                            {min:5, message: "Vui lòng nhập lớn hơn 5 kí tự"}]}
-                        >
-                            <Input.Password placeholder='Mật khẩu' />
-                        </Form.Item>
+                        <div style={{ display: "flex" }}>
+                            <Form.Item
+                                name="password"
+                                style={{ width: '50%' }}
+                                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' },
+                                { min: 5, message: "Vui lòng nhập lớn hơn 5 kí tự" }]}
+                            >
+                                <Input.Password placeholder='Mật khẩu' />
+                            </Form.Item>
 
-                        <Form.Item
-                            name="repassword"
-                            rules={[{ required: true, message: 'Vui lòng nhập lại mật khẩu' }]}
-                        >
-                            <Input.Password placeholder="Xác nhận mật khẩu" />
-                        </Form.Item>
+                            <Form.Item
+                                name="repassword"
+                                style={{ width: '50%', paddingLeft: 5 }}
+                                rules={[{ required: true, message: 'Vui lòng nhập lại mật khẩu' }]}
+                            >
+                                <Input.Password placeholder="Xác nhận mật khẩu" />
+                            </Form.Item>
+                        </div>
 
                         <Form.Item
                             name="phone"
@@ -158,21 +209,27 @@ const SignupPage = () => {
                                 ) : null
                             }
                         </Form.Item>
-                        <div className='flex justify-between'>
+                        <div className='text-[12px]'>
                             <p>
-                                <input type="checkbox" />
-                                <label htmlFor=""> Tôi đồng ý với <a className='text-red-600 italic inline-block font-bold hover:text-red-600 ml-[5px]'> Điều khoản sử dụng </a></label>
-                            </p>
-                            <p>
-                                Bạn đã có tài khoản?
-                                <a href='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng nhập ngay </a>
+                                <Checkbox onChange={onChange}>
+                                    <label htmlFor=""> Tôi đồng ý với
+                                        <a className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
+                                            Điều khoản sử dụng </a>
+                                    </label>
+                                </Checkbox>
                             </p>
                         </div>
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                            <Button className='w-[200px]' type="primary" htmlType="submit">
-                                Đăng Ký Ngay
+                            <Button className='w-[200px] font-bold' disabled={checked == false ? true : false} type="primary" htmlType="submit">
+                                Đăng Ký
                             </Button>
                         </Form.Item>
+                        <div className='text-[12px]'>
+                            <p className='italic'>
+                                Bạn đã có tài khoản?
+                                <a href='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng Nhập </a>
+                            </p>
+                        </div>
                     </Form>
                 </div>
             </div>
