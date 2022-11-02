@@ -4,7 +4,6 @@ import { Checkbox, Form } from 'antd';
 import { register } from './../../api/auth';
 import { UploadOutlined } from '@ant-design/icons';
 import { Space, Upload } from 'antd';
-
 const Option = Select;
 
 
@@ -24,10 +23,13 @@ const SignupPage = () => {
                 .then(() => {
                     message.success({ content: "Thành công" })
                 })
+                .catch(({ response }) => message.error({ content: response.data.message })
+                )
         } else {
-            message.error({ content: "Mật khẩu không khớp" })
+            message.error({ content: "Mật khẩu không khớp" });
         }
         console.log(values);
+
     };
 
     return (
@@ -55,7 +57,8 @@ const SignupPage = () => {
 
                         <Form.Item
                             name="email"
-                            rules={[{ required: true, message: 'Vui lòng nhập email' }, { type: 'email', message: 'Vui lòng nhập đúng định dạng email' }]}
+                            rules={[{ required: true, message: 'Vui lòng nhập email' }, 
+                            { type: 'email', message: 'Vui lòng nhập đúng định dạng email' }]}
                         >
                             <Input placeholder='Email' />
                         </Form.Item>
@@ -69,7 +72,8 @@ const SignupPage = () => {
 
                         <Form.Item
                             name="password"
-                            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
+                            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }, 
+                            {min:5, message: "Vui lòng nhập lớn hơn 5 kí tự"}]}
                         >
                             <Input.Password placeholder='Mật khẩu' />
                         </Form.Item>
@@ -125,6 +129,7 @@ const SignupPage = () => {
                                         </Form.Item>
 
                                         <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
+
                                         <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
                                             <Space direction="vertical" style={{ width: '49%', padding: 5 }} size="large">
                                                 <Upload
