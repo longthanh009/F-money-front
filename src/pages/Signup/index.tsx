@@ -4,12 +4,13 @@ import { Checkbox, Form } from 'antd';
 import { register } from './../../api/auth';
 import { UploadOutlined } from '@ant-design/icons';
 import { Space, Upload } from 'antd';
+import { useNavigate } from 'react-router-dom';
 const Option = Select;
 
 
 const SignupPage = () => {
     const [type, setType] = useState(1)
-
+    const navigate = useNavigate();
     const onChaneType = (e: any) => {
         setType(parseInt(e))
     }
@@ -22,6 +23,7 @@ const SignupPage = () => {
             register(values)
                 .then(() => {
                     message.success({ content: "Thành công" })
+                    navigate('/signin');
                 })
                 .catch(({ response }) => message.error({ content: response.data.message })
                 )
