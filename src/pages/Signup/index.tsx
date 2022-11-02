@@ -52,10 +52,10 @@ const SignupPage = () => {
                         >
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
-                        
+
                         <Form.Item
-                            name="Email"
-                            rules={[{ required: true, message: 'Vui lòng nhập email' }, { type: 'email' }]}
+                            name="email"
+                            rules={[{ required: true, message: 'Vui lòng nhập email' }, { type: 'email', message: 'Vui lòng nhập đúng định dạng email' }]}
                         >
                             <Input placeholder='Email' />
                         </Form.Item>
@@ -82,21 +82,22 @@ const SignupPage = () => {
                         </Form.Item>
 
                         <Form.Item
-                            name="SDT"
-
+                            name="phone"
                             rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
-                            { len: 10, message: "Vui lòng nhập đủ 10 số điện thọai" }]
+                            {
+                                pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                                message: "Số điện thoại không đúng định dạng!"
+                            }]
                             }
                         >
                             <Input placeholder="Số điện thoại" />
                         </Form.Item>
 
                         <Form.Item
-                            name="otp"
-                            rules={[{ required: true, message: 'Vui lòng nhập mã OTP' },]}
+                            name="address"
+                            rules={[{ required: true, message: 'Vui lòng nhập chi tiết địa chỉ' }]}
                         >
-                            <Input placeholder="Mã OTP" style={{ width: '90%' }} />
-                            <Button style={{ width: '10%' }} type="primary">Gửi</Button>
+                            <Input placeholder="Địa chỉ" />
                         </Form.Item>
 
                         <Form.Item name="role" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
@@ -123,9 +124,9 @@ const SignupPage = () => {
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
 
-                                        <p style={{fontSize: "12px", fontStyle:"italic"}}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
-                                        <div style={{ width: '100%', display: 'flex', textAlign:'center', marginBottom: 20 }}>
-                                            <Space direction="vertical" style={{ width: '49%', padding:5 }} size="large">
+                                        <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
+                                        <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
+                                            <Space direction="vertical" style={{ width: '49%', padding: 5 }} size="large">
                                                 <Upload
                                                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                                     listType="picture"
@@ -135,7 +136,7 @@ const SignupPage = () => {
                                                 </Upload>
                                             </Space>
 
-                                            <Space direction="vertical" style={{ width: '49%', padding:5 }} size="large">
+                                            <Space direction="vertical" style={{ width: '49%', padding: 5 }} size="large">
                                                 <Upload
                                                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                                     listType="picture"
@@ -156,7 +157,7 @@ const SignupPage = () => {
                                 <label htmlFor=""> Tôi đồng ý với <a className='text-red-600 italic inline-block font-bold hover:text-red-600 ml-[5px]'> Điều khoản sử dụng </a></label>
                             </p>
                             <p>
-                                Bạn đã có tài khoản? 
+                                Bạn đã có tài khoản?
                                 <a href='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng nhập ngay </a>
                             </p>
                         </div>
