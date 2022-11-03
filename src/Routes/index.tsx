@@ -26,30 +26,31 @@ const RoutePage = () => {
     <div>
       <Routes>
         <Route path="/" element={<Website_Layout />} >
-          <Route index element={<HomePage />} />
-          <Route path="suport" element={<SuportPage />} />
-          <Route path="contract" element={<ContractPage />} />
-        </Route>
+          <Route index element={<HomePage />} />  {/**Trang chủ */}
+          <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
+          <Route path="contract" element={<ContractPage />} /> {/**Lịch sử hợp đồng */}
+        </Route> 
+
+
         <Route path="/lender" element={<LayoutDashboard />}>
           <Route index element={<Dashboard />} />
-          <Route path="installment/index" element={<Installment />} />
-          <Route path="Mortgage/index" element={<Mortgage />} />
-          <Route path="customer/list" element={<CustomerList />} />
-          <Route path="customer/checkCustome" element={<CustomerCheck />} />
-          <Route path="incomeAndExpense/expense" element={<Expense />} />
-          <Route path="incomeAndExpense/income" element={<Income />} />
-          <Route path="contact" element={<Service />} />
-
-          <Route path="capital" element={<Capital_Lender />} />
+          <Route path="installment/index" element={<Installment />} /> {/**Trả góp */}
+          <Route path="Mortgage/index" element={<Mortgage />} /> {/**Tín chấp */}
+          <Route path="customer/list" element={<CustomerList />} />  {/**Danh sách khách hàng */}
+          <Route path="customer/checkCustome" element={<CustomerCheck />} /> {/**Check thông tin khách hàng */}
+          <Route path="incomeAndExpense/expense" element={<Expense />} /> {/**Lịch sử chi tiêu */}
+          <Route path="incomeAndExpense/income" element={<Income />} /> {/**Lịch sử thu tiền */}
+          <Route path="contact" element={<Service />} /> {/**Dịch vụ thanh toán tiền */}
+          <Route path="capital" element={<Capital_Lender />} /> {/**Quản lí nguồn vốn */}
         </Route>
 
-        <Route path="/signin" element={<SiginPage />}></Route>
-        <Route path="/register" element={<SignupPage />}> </Route>
+        <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
+        <Route path="/register" element={<SignupPage />}> </Route> {/**Đăng ký */}
 
         <Route path="/admin" element={<LayoutDashboard />}>
           <Route index element={<AdminDashboard />} />
-          <Route path="customer" element={<AdminLender />} />
-          <Route path="contract" element={<AdminContractPage />} />
+          <Route path="customer" element={<AdminLender />} /> {/**Danh sách khách hàng */}
+          <Route path="contract" element={<AdminContractPage />} /> {/**Danh sách giao dịch */}
         </Route>
       </Routes>
     </div>
