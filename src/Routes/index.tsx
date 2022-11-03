@@ -44,7 +44,7 @@ const RoutePage = () => {
         </Route>
 
         <Route path="/signin" element={<SiginPage />}></Route>
-        <Route path="/register" element={<SignupPage />}></Route>
+        <Route path="/register" element={<SignupPage />}> </Route>
 
         <Route path="/admin" element={<LayoutDashboard />}>
           <Route index element={<AdminDashboard />} />
