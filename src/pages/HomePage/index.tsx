@@ -2,14 +2,18 @@ import React from 'react'
 import { Button } from 'antd';
 import Banner from './Banner'
 import Solution from './Solution';
+import { UserType } from '../../models/users';
 
-type Props = {}
+type Props = {
+  users: UserType[],
+}
 
-const index = (props: Props) => {
+const index = (users: Props) => {
+  console.log(users);
+  
   return (
     <>
       {/**Banner */}
-
       <Banner />
 
       {/**Content */}
