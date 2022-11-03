@@ -1,8 +1,19 @@
 import React from 'react'
 import { UserOutlined, EditOutlined } from '@ant-design/icons';
-import { Input, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Input, Button, Form } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { userLogin } from '../../models/auth';
+import { useAppDispatch } from '../../app/hooks';
+import { loginAuth } from '../../api/auth';
 const SiginPage = () => {
+	const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+	const loginUser = async( user : userLogin) =>{
+		const payload = await dispatch(loginAuth(user));
+	}
+	const onFinish =  (values: userLogin) => {
+		loginUser(values)
+	};
 	return (
 		<div className='bg-gray-300 flex items-center justify-center h-[100vh]'>
 			<div className='flex w-[900px] mx-auto bg-[white] py-[60px] shadow-lg'>
@@ -12,22 +23,29 @@ const SiginPage = () => {
 					</div>
 					<h1 className='text-[18px] text-center mt-[50px] mb-[20px]'>Đăng nhập vào hệ thông</h1>
 					<div>
-						<form action="">
-							<div>
+						<Form
+							onFinish={onFinish}>
+							<Form.Item
+								name="username"
+								rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập' }]}
+							>
 								<Input size="large" placeholder="Tên đăng nhập" prefix={<UserOutlined />} />
-							</div>
-							<div className='mt-[20px] mb-[20px]'>
+							</Form.Item>
+							<Form.Item className='mt-[20px] mb-[20px]'
+								name="password"
+								rules={[{ required: true, message: 'Nhập mật khẩu để đăng nhập' }]}
+							>
 								<Input type='password' size="large" placeholder="Mật khẩu" prefix={<EditOutlined />} />
-							</div>
-							<div className='flex justify-between mb-[40px]'>
+							</Form.Item>
+							<Form.Item className='flex justify-between mb-[40px]'>
 								<label htmlFor="">
-									<input type="checkbox" id='checkboxGn'/>
+									<input type="checkbox" id='checkboxGn' />
 									<label className='ml-[5px]' htmlFor="checkboxGn">Ghi nhớ</label>
 								</label>
-								<Link to ="" className='text-black hover:text-red-500'>Quên mật khẩu</Link>
-							</div>
-							<Button className='w-[100%] rounded bg-orange-500 text-[20px]' type="primary" danger>Đăng Nhập</Button>
-						</form>
+								<Link to="" className='text-black hover:text-red-500'>Quên mật khẩu</Link>
+							</Form.Item>
+							<Button htmlType="submit" className='w-[100%] rounded bg-orange-500 text-[20px]' type="primary" danger>Đăng Nhập</Button>
+						</Form>
 						<p className='text-center mt-[5px]'>Bạn chưa có tài khoản ? <span className='text-red-700'><a href="/register">Đăng ký ngay</a></span></p>
 					</div>
 				</div>
