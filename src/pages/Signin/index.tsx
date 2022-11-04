@@ -1,8 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { UserOutlined, EditOutlined } from '@ant-design/icons';
-import { Input, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Input, Button, Form } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { userLogin } from '../../models/auth';
+import { useAppDispatch } from '../../app/hooks';
+import { login } from '../../features/auth/authSlice';
+import Swal from 'sweetalert2'
+
 const SiginPage = () => {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const [validate, setValidate] = useState();
+	const loginUser = async (user: userLogin) => {
+		const { payload } = await dispatch(login(user));
+		if (payload.error) {
+			setValidate(payload.error)
+			Swal.fire({
+				icon: 'error',
+				title: payload.error
+			})
+		} else {
+			Swal.fire({
+				icon: 'success',
+				title: 'Đăng nhập thành công',
+				showConfirmButton: false,
+				timer: 1500
+			})
+			setTimeout(() => { navigate('/') }, 2000)
+		}
+	}
+	const onFinish = (values: userLogin) => {
+		loginUser(values)
+	};
 	return (
 		<div className='bg-gray-300 flex items-center justify-center h-[100vh]'>
 			<div className='flex w-[900px] mx-auto bg-[white] py-[60px] shadow-lg'>
@@ -12,29 +41,38 @@ const SiginPage = () => {
 					</div>
 					<h1 className='text-[18px] text-center mt-[50px] mb-[20px]'>Đăng nhập vào hệ thông</h1>
 					<div>
-						<form action="">
-							<div>
+						<Form
+							onFinish={onFinish}>
+							<Form.Item
+								name="username"
+								rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập' }]}
+							>
 								<Input size="large" placeholder="Tên đăng nhập" prefix={<UserOutlined />} />
-							</div>
-							<div className='mt-[20px] mb-[20px]'>
+							</Form.Item>
+
+							<Form.Item className='mt-[20px] mb-[20px]'
+								name="password"
+								rules={[{ required: true, message: 'Nhập mật khẩu để đăng nhập' },
+								]}
+							>
 								<Input type='password' size="large" placeholder="Mật khẩu" prefix={<EditOutlined />} />
-							</div>
+							</Form.Item>
 							<div className='flex justify-between mb-[40px]'>
 								<label htmlFor="">
-									<input type="checkbox" id='checkboxGn'/>
+									<input type="checkbox" id='checkboxGn' />
 									<label className='ml-[5px]' htmlFor="checkboxGn">Ghi nhớ</label>
 								</label>
-								<Link to ="" className='text-black hover:text-red-500'>Quên mật khẩu</Link>
+								<Link to="" className='text-black hover:text-red-500'>Quên mật khẩu</Link>
 							</div>
-							<Button className='w-[100%] rounded bg-orange-500 text-[20px]' type="primary" danger>Đăng Nhập</Button>
-						</form>
-						<p className='text-center mt-[5px]'>Bạn chưa có tài khoản ? <span className='text-red-700'><a href="/register">Đăng ký ngay</a></span></p>
+							<Button htmlType="submit" className='w-[100%] rounded bg-orange-500 text-[20px]' type="primary" danger>Đăng Nhập</Button>
+						</Form>
+						<p className='text-center mt-[5px]'>Bạn chưa có tài khoản ? <span className='text-red-700'><Link to="/register">Đăng ký ngay</Link></span></p>
 					</div>
 				</div>
 				<div className='hidden w-[50%] md:block'>
 					<div className='px-[20px]'>
 						<h2 className='text-[19px] text-center text-orange-500 mb-[20px]'>Chào mừng bạn đã đến với F-MONEY
-							nơi cung cấp các nhà cho vay vốn uy tín hàng đầu</h2>
+							nơi cung cấp các nhà cho vay vốn uy tín</h2>
 						<img className='w-full' src="https://res.cloudinary.com/df4kjrav4/image/upload/v1660550665/cld-sample.jpg" alt="" />
 						<p className='text-center mt-[30px]'>© Copyright 2022 F-Money - Website hỗ trợ vay vốn đầu tư hàng đầu thế Giới</p>
 					</div>
