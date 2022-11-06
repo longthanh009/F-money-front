@@ -13,7 +13,7 @@ export const getAll = createAsyncThunk(
         return data
     });
 export const removeUser = createAsyncThunk(
-    "auth/getAllUser", async (id : any) => {
+    "auth/removeUser", async (id : any) => {
         const { data } = await deletelUser(id);
         return data
     });
@@ -38,12 +38,9 @@ const authSlice = createSlice({
             state.loading = false;
             state.values = action.payload.users;
         },
-        [newUser.rejected]: (state, action) => {
-            state.loading = false;
-        },
         [removeUser.fulfilled]: (state, action) => {
             state.loading = false;
-            state.values = action.payload.users;
+            state.values = state.values.filter(item => item._id !== action.payload._id)
         },
     }
 })

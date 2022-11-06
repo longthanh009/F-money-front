@@ -4,7 +4,7 @@ import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAll, newUser } from '../../features/customer/customerSlice';
+import { getAll, newUser, removeUser } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
 import { getUser } from '../../api/user';
 
@@ -16,7 +16,6 @@ const AdminLender = () => {
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-    const [data, setData] = useState<any>({ name: "abc" });
     const { Option } = Select;
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
@@ -24,17 +23,13 @@ const AdminLender = () => {
         setOpen(true)
         setType(type)
         setTitle(title)
+        if (type == "news") {
+            setUser(undefined)
+        }
     }
-    const handleOk = () => {
-        // setLoading(true);
-        // setTimeout(() => {
-        //     setLoading(false);
-        //     setOpen(false);
-        // }, 3000);
-    };
-
     const handleCancel = () => {
         setOpen(false);
+        setUser(undefined)
         form.resetFields();
     };
     const uploadButton = (
@@ -70,14 +65,16 @@ const AdminLender = () => {
         const { data } = await getUser(id)
         setUser(data)
     }
-    const handlerRemoveCustumer = (id :any) => {
+    const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
             title: 'Bạn có chắc muốn xoá người dùng này ?',
             showCancelButton: true,
             confirmButtonText: 'Có',
             cancelButtonText: 'Không',
             showLoaderOnConfirm: true,
-            preConfirm: async() => {
+            preConfirm: async () => {
+                await dispatch(removeUser(id))
+                handleCancel();
             },
             allowOutsideClick: () => !Swal.isLoading()
         })
@@ -206,12 +203,12 @@ const AdminLender = () => {
                     </div>
                 </div>
             </div>
-            <Modal open={open} style={{ top: 20 }} title={title} onOk={handleOk} onCancel={handleCancel} width={700}
+            <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
                 footer={[]}
             >
                 <div>
                     <Form layout="vertical" autoComplete="on" onFinish={onFinish} form={form}
-                        initialValues={user}
+                        initialValues = {type == "news" ? undefined : user}
                     >
                         <div className="flex space-x-[10px]">
                             <Form.Item
@@ -284,7 +281,7 @@ const AdminLender = () => {
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
                             </Button>
-                            {type == "update" ? <Button key="back" onClick={() => handlerRemoveCustumer(user._id ? user._id  : "")} className="mr-[10px]">
+                            {type == "update" ? <Button key="back" onClick={() => handlerRemoveCustumer(user._id ? user._id : "")} className="mr-[10px]">
                                 Xoá
                             </Button> : ""}
                             <Button key="submit" htmlType="submit" type="primary">
