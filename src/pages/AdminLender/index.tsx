@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Select, Form, Input, DatePicker, Upload } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
@@ -11,7 +11,7 @@ import { getUser } from '../../api/user';
 const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers = useAppSelector(state => state.customer.values)
-    const [user,setUser] = useState();
+    const [user, setUser] = useState();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
@@ -43,9 +43,9 @@ const AdminLender = () => {
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
-    useEffect(() =>{
+    useEffect(() => {
         dispatch(getAll())
-    },[])
+    }, [])
     const onFinish = async (values: any) => {
         const { payload } = await dispatch(newUser(values))
         if (payload.error) {
@@ -66,9 +66,21 @@ const AdminLender = () => {
             form.resetFields();
         }
     };
-    const getCustumer = async(id :any) =>{
-        const {data} = await getUser(id)
+    const getCustumer = async (id: any) => {
+        const { data } = await getUser(id)
         setUser(data)
+    }
+    const handlerRemoveCustumer = (id :any) => {
+        Swal.fire({
+            title: 'Bạn có chắc muốn xoá người dùng này ?',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Không',
+            showLoaderOnConfirm: true,
+            preConfirm: async() => {
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        })
     }
     return (
         <div>
@@ -150,31 +162,31 @@ const AdminLender = () => {
                         {/* Table body */}
                         <tbody className="text-sm font-medium divide-y divide-slate-100">
                             {/* Row */}
-                            {customers && customers.map((cus :any,index) => {
-                                return <tr key={cus._id} onDoubleClick={() => {showModal("update", "Thông tin khách hàng");getCustumer(cus._id)}}>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">{index +1}</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">{cus.email}</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">{cus.name}</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">0{cus.phone}</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">{cus.createdAt}</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Hoạt động</div>
-                                </td>
-                            </tr>
+                            {customers && customers.map((cus: any, index) => {
+                                return <tr key={cus._id} onDoubleClick={() => { showModal("update", "Thông tin khách hàng"); getCustumer(cus._id) }}>
+                                    <td className="p-2">
+                                        <div className="flex items-center">
+                                            <div className="text-slate-800">{index + 1}</div>
+                                        </div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">{cus.email}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">{cus.name}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">0{cus.phone}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">{cus.createdAt}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center text-green-600">Hoạt động</div>
+                                    </td>
+                                </tr>
                             })}
-                            
+
                         </tbody>
                     </table>
                     <div className="flex flex-col justify-center items-end mt-[40px]">
@@ -199,7 +211,7 @@ const AdminLender = () => {
             >
                 <div>
                     <Form layout="vertical" autoComplete="on" onFinish={onFinish} form={form}
-                    initialValues = {user}
+                        initialValues={user}
                     >
                         <div className="flex space-x-[10px]">
                             <Form.Item
@@ -272,6 +284,9 @@ const AdminLender = () => {
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
                             </Button>
+                            {type == "update" ? <Button key="back" onClick={() => handlerRemoveCustumer(user._id ? user._id  : "")} className="mr-[10px]">
+                                Xoá
+                            </Button> : ""}
                             <Button key="submit" htmlType="submit" type="primary">
                                 Lưu
                             </Button>

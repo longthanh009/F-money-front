@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginAuth, register } from "../../api/auth";
-import { getAllUser } from "../../api/user";
+import { deletelUser, getAllUser } from "../../api/user";
 import { userLogin } from "../../models/auth";
 export const newUser = createAsyncThunk(
     "auth/newUser", async (formData: userLogin) => {
@@ -10,6 +10,11 @@ export const newUser = createAsyncThunk(
 export const getAll = createAsyncThunk(
     "auth/getAllUser", async () => {
         const { data } = await getAllUser();
+        return data
+    });
+export const removeUser = createAsyncThunk(
+    "auth/getAllUser", async (id : any) => {
+        const { data } = await deletelUser(id);
         return data
     });
 const authSlice = createSlice({
@@ -31,10 +36,14 @@ const authSlice = createSlice({
         },
         [getAll.fulfilled]: (state, action) => {
             state.loading = false;
-            state.values = action.payload.users;            
+            state.values = action.payload.users;
         },
         [newUser.rejected]: (state, action) => {
             state.loading = false;
+        },
+        [removeUser.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.values = action.payload.users;
         },
     }
 })
