@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Button, Modal, Select, Form, Input, DatePicker, Upload } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getAll, newUser } from '../../features/customer/customerSlice';
+import Swal from 'sweetalert2'
+import { getUser } from '../../api/user';
+
 const AdminLender = () => {
+    const dispatch = useAppDispatch();
+    const customers = useAppSelector(state => state.customer.values)
+    const [user,setUser] = useState();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
-    const [data, setData] = useState<any>({name : "abc"});
+    const [data, setData] = useState<any>({ name: "abc" });
     const { Option } = Select;
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
@@ -35,14 +43,37 @@ const AdminLender = () => {
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
-        form.resetFields();
+    useEffect(() =>{
+        dispatch(getAll())
+    },[])
+    const onFinish = async (values: any) => {
+        const { payload } = await dispatch(newUser(values))
+        if (payload.error) {
+            Swal.fire({
+                icon: 'error',
+                text: payload.error,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        } else {
+            handleCancel();
+            Swal.fire({
+                icon: 'success',
+                text: "Thêm mới thành công",
+                showConfirmButton: false,
+                timer: 1500
+            })
+            form.resetFields();
+        }
     };
+    const getCustumer = async(id :any) =>{
+        const {data} = await getUser(id)
+        setUser(data)
+    }
     return (
         <div>
             <BreadcrumbComponent />
-            <h1 className='text-[25px]'>Danh sách khách hàng (0)</h1>
+            <h1 className='text-[25px]'>Danh sách khách hàng ({customers ? customers.length : ""})</h1>
             <div className='flex items-center space-x-1'>
                 <div className='modal-news'>
                     <Button className='flex items-center' onClick={() => showModal("news", "Thêm mới khách hàng")}> &#10010; Thêm mới</Button>
@@ -119,215 +150,31 @@ const AdminLender = () => {
                         {/* Table body */}
                         <tbody className="text-sm font-medium divide-y divide-slate-100">
                             {/* Row */}
-                            <tr onDoubleClick={() => showModal("update", "Thông tin khách hàng")}>
+                            {customers && customers.map((cus :any,index) => {
+                                return <tr key={cus._id} onDoubleClick={() => {showModal("update", "Thông tin khách hàng");getCustumer(cus._id)}}>
                                 <td className="p-2">
                                     <div className="flex items-center">
-                                        <div className="text-slate-800">1</div>
+                                        <div className="text-slate-800">{index +1}</div>
                                     </div>
                                 </td>
                                 <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
+                                    <div className="text-center">{cus.email}</div>
                                 </td>
                                 <td className="p-2">
-                                    <div className="text-center">VL01</div>
+                                    <div className="text-center">{cus.name}</div>
                                 </td>
                                 <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
+                                    <div className="text-center">0{cus.phone}</div>
                                 </td>
                                 <td className="p-2">
-                                    <div className="text-center">22/3/2021</div>
+                                    <div className="text-center">{cus.createdAt}</div>
                                 </td>
                                 <td className="p-2">
                                     <div className="text-center text-green-600">Hoạt động</div>
                                 </td>
                             </tr>
-                            {/* Row */}
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">2</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center ">VL02</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/5/2022</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Khoá</div>
-                                </td>
-
-                            </tr>
-                            {/* Row */}
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">3</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Tin Chấp</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">VL03</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/6/2021</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Khoá</div>
-                                </td>
-
-                            </tr>
-                            {/* Row */}
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">4</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">VL01</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/11/2021</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Hoạt động</div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">4</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">VL01</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/11/2021</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Hoạt động</div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">4</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">VL01</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/11/2021</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Hoạt động</div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">4</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">VL01</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/11/2021</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Hoạt động</div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">4</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">VL01</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/11/2021</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Hoạt động</div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td className="p-2">
-                                    <div className="flex items-center">
-                                        <div className="text-slate-800">4</div>
-                                    </div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Vay Lãi</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">VL01</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">Anh Đai</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center">22/11/2021</div>
-                                </td>
-                                <td className="p-2">
-                                    <div className="text-center text-green-600">Hoạt động</div>
-                                </td>
-
-                            </tr>
+                            })}
+                            
                         </tbody>
                     </table>
                     <div className="flex flex-col justify-center items-end mt-[40px]">
@@ -351,7 +198,9 @@ const AdminLender = () => {
                 footer={[]}
             >
                 <div>
-                    <Form layout="vertical" autoComplete="on" onFinish={onFinish} form={form}>
+                    <Form layout="vertical" autoComplete="on" onFinish={onFinish} form={form}
+                    initialValues = {user}
+                    >
                         <div className="flex space-x-[10px]">
                             <Form.Item
                                 name="name"
@@ -362,9 +211,9 @@ const AdminLender = () => {
                             <Form.Item
                                 name="email"
                                 label="Email" className='w-[50%]'
-                                rules={[{ required: true, message: 'Vui lòng nhập email' },{
+                                rules={[{ required: true, message: 'Vui lòng nhập email' }, {
                                     type: 'email',
-                                    message:'Không đúng định dạng email',
+                                    message: 'Không đúng định dạng email',
                                 }]}>
                                 <Input />
                             </Form.Item>
@@ -373,9 +222,9 @@ const AdminLender = () => {
                             <TextArea rows={2} placeholder="" />
                         </Form.Item>
                         <Form.Item name="username" label="Tên đăng nhập" className=''
-                                rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
-                                <Input />
-                            </Form.Item>
+                            rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
+                            <Input />
+                        </Form.Item>
                         {type == 'news' ? <div className="flex space-x-[10px]">
                             <Form.Item name="password" label="Mật khẩu" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
@@ -388,7 +237,7 @@ const AdminLender = () => {
                         </div> : ""}
                         <div className="flex space-x-[10px]">
                             <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'
-                                rules={[{required: true, message: 'Không bỏ trống số điện thoại' },{max :11 , message: 'Nhập tối đa 11 ký tự số'},{type: 'string',message: 'Vui lòng nhập ký tự số'}]}>
+                                rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
                                 <Input />
                             </Form.Item>
                             <Form.Item name="birthday" label="Ngày sinh" className=''>
