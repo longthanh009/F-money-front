@@ -1,63 +1,64 @@
 import React, { useState } from 'react'
 
+
+
 const Header_Client = () => {
   const [isACtive, setActive] = useState(false)
   const onToggle = () => {
     setActive(!isACtive)
   }
+  
   // document.getElementById('nav-toggle').onclick = function(){
   // document.getElementById("nav-content").classList.toggle("hidden");
   return (
     <>
-      <div className="max-w-full mx-auto my-5 px-4 sm:px-6 ">
-        <div className="flex flex-col-reverse md:flex-row min-w-full space-y-4 justify-center md:justify-between  md:space-x-10">
-          <input id="search" className="flex px-4 leading-none focus:outline-none  border-b-2 hover:border-b-3 border-red-800  w-5/6 mt-12 mx-auto md:w-1/4 md:mt-0 md:mx-0 " type="text" placeholder=" Searsh.." /><a className="flex-1 md:self-start" href="/MarketPlace_AisModa/">
-            <div className="flex justify-center ">
-              <div className="flex justify-center items-center">
-                <img src="./src/assets/image/logo.png" alt="" width={200} />
-              </div>
-            </div>
-          </a>
-          <div className="flex justify-around">
-            <div className="flex justify-end ">
-              <div className=" whitespace-nowrap text-base px-4 font-semibold  text-gray-500 hover:text-gray-900">
-                <img className="m-1 inline-block h-14 w-14 p-2 rounded-full ring-2 ring-white" src="https://tinypng.com/images/social/website.jpg" />
-                Nguyễn Văn Trăm
-              </div>
-            </div>
+      <nav className="flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-solid border-t-2 border-blue-700">
+        <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
+          <div className="flex items-center flex-shrink-0 text-gray-800 mr-16">
+            <a href=""><img src="./src/assets/image/logo.png" alt="" width={200} /></a>
           </div>
-        </div>
-      </div>
-
-
-      <div className="font-sans leading-normal tracking-normal bg-black">
-        <nav className="flex items-center flex-wrap p-2 w-full z-10 md:flex-row justify-center md:space-y-0 text-center">
-          <div onClick={() => onToggle()} className="block lg:hidden xl:hidden md:hidden">
-            <button id="nav-toggle" className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
+          <div  onClick={() => onToggle()} className="block lg:hidden xl:hidden md:hidden ">
+            <button id="nav" className="flex items-center px-3 py-2 border-2 rounded text-blue-700 border-blue-700 hover:text-blue-700 hover:border-blue-700">
               <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+              </svg>
             </button>
           </div>
-
-          <div className={isACtive ? "" : "w-full lg:flex xl:flex md:flex lg:items-center lg:w-auto hidden lg:block xl:block md:block pt-6 lg:pt-0 xl:pt-0 md:pt-0"} id="nav-content">
-            <ul className="list-reset lg:flex xl:flex md:flex sm:text-left justify-end flex-1 items-center">
-              <li className="mr-3">
-                <a className="text-lg  font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 hover:underline decoration-1" href="#">Trang chủ</a>
-              </li>
-              <li className="mr-3">
-                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6 hover:underline decoration-1" href="#">Hợp đồng</a>
-              </li>
-              <li className="mr-3">
-                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6 hover:underline decoration-1" href="#">Lịch sử hợp đồng</a>
-              </li>
-              <li className="mr-3">
-                <a className="text-lg font-semibold inline-block text-white no-underline hover:-translate-y-1 hover:scale-110 hover:text-orange-400 py-2 px-6 hover:underline decoration-1" href="#">Hỗ trợ</a>
-              </li>
-            </ul>
+        </div>
+        <div className= {isACtive ? "" : "menu w-full flex-grow lg:flex lg:items-center hidden lg:w-auto lg:px-3 px-8" } id="menu_pc">
+          <div className="text-md font-bold text-black lg:flex-grow">
+            <a href="#responsive-header" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+              Trang Chủ
+            </a>
+            <a href="#responsive-header" className="  text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+              Hợp đồng
+            </a>
+            <a href="#responsive-header" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+              Lịch sử hợp đồng
+            </a>
+            <a href="#responsive-header" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+              Hỗ trợ
+            </a>
           </div>
-        </nav>
+          
+          {/* This is an example component */}
+          <div className="relative mx-auto text-gray-600 lg:block hidden">
+            <input className="border-2 border-gray-300 bg-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none" type="search" name="search" placeholder="Search" />
+            
+            <button type="submit" className="absolute right-0 top-0 mt-3 mr-2">
+              <svg className="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 56.966 56.966" xmlSpace="preserve" width="512px" height="512px">
+                <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+              </svg>
+            </button>
+          </div>
+          <div className="flex ">
+            <a href="#" className="block text-zinc-500 text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng Nhập</a>
+            <a href="#" className=" block text-zinc-500 text-md px-4  ml-2 py-2 rounded text-blue-700 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng ký</a>
+          </div>
+        </div>
+       
+      </nav>
 
-      </div>
     </>
 
 
