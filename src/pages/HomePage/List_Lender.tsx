@@ -84,9 +84,11 @@ for (let i = 0; i < 100; i++) {
 }
 const List_Lender = () => {
     const [fixedTop, setFixedTop] = useState(true);
-    
+
     return (
-        <Table 
+        <>
+        <h1 className='text-[28px] font-bold text-lg text-orange-600 py-4'>DANH SÁCH CÁC NHÀ CHO VAY VỐN</h1>
+        <Table
             columns={columns}
             dataSource={data}
             scroll={{ x: 1400 }}
@@ -103,8 +105,8 @@ const List_Lender = () => {
                                 }}
                             />
                         </Table.Summary.Cell>
-                        <Table.Summary.Cell index={2} colSpan={3}>
-                           
+                        <Table.Summary.Cell index={4} colSpan={4}>
+
                         </Table.Summary.Cell>
                         <Table.Summary.Cell index={20} colSpan={2.5}>
                             <Filter />
@@ -113,7 +115,7 @@ const List_Lender = () => {
                 </Table.Summary>
             )}
             sticky
-        />
+        /></>
     )
 }
 

@@ -1,7 +1,7 @@
 import { Select } from 'antd';
 import React, { useState } from 'react';
 
-const OPTIONS = ['Hà Nội', 'Hồ Chí Minh', 'Bắc Giang', 'Bắc Ninh'];
+const OPTIONS = ['Hà Nội', 'Hồ Chí Minh','Hải Phòng', 'Thái Bình', 'Hà Nam', 'Ninh Bình', 'Thanh Hoá','Bắc Giang','Bắc Ninh', 'Vĩnh Phúc','Hải Dương','Hưng Yên','Thái Nguyên','Bắc Kạn','Quảng Ninh','Hoà Bình','Nghệ An','Hà Tĩnh','Lai Châu'];
 
 const Filter: React.FC = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
