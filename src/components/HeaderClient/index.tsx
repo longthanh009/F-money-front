@@ -52,8 +52,8 @@ const Header_Client = () => {
             </button>
           </div>
           <div className="flex ">
-            <a href="#" className="block text-zinc-500 text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng Nhập</a>
-            <a href="#" className=" block text-zinc-500 text-md px-4  ml-2 py-2 rounded text-blue-700 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng ký</a>
+            <a href="/signin" className="block text-zinc-500 text-md px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng Nhập</a>
+            <a href="/register" className=" block text-zinc-500 text-md px-4  ml-2 py-2 rounded text-blue-700 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng ký</a>
           </div>
         </div>
        

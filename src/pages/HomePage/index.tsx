@@ -11,7 +11,6 @@ import Suport_homepage from './Suport_homepage';
 
 const index = () => {
   
-  
   const [random, setRandom] = useState<number>();
 
   return (

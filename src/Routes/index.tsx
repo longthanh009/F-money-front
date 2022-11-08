@@ -26,11 +26,6 @@ import { login } from './../features/auth/authSlice';
 
 
 const RoutePage = () => {
-
-  
-
-
-
   return (
     <div>
       <Routes>

@@ -2,10 +2,8 @@ import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import React from 'react';
 import { UserType } from '../../models/users';
+import useLender from './../../hook/usersHomePage';
 
-type Props = {
-    users: UserType[],
-  }
 
 
 interface DataType {
@@ -18,27 +16,52 @@ interface DataType {
     address: string;
 }
 
+const List_Lender = () => {
+    const { data: DataType, error } = useLender()
+    console.log("data", DataType?.data);
 
-const List_Lender = (props: Props) => {
-    console.log(props.users);
-    
+    let dataFilter = DataType?.data.users.map((item: any) => {
+        return {
+            text: item.address,
+            value: item.address
+        }
+    })
+    console.log(dataFilter);
+    // dataFilter?.filter((item, index) => {
+
+    //     console.log(
+    //         // a. Item
+    //         item,
+    //         // b. Index
+    //         index, 
+    //         // c. indexOf
+    //         dataFilter?.filter.indexOf(item),
+    //         // d. Condition
+    //         dataFilter?.filter.indexOf(item) === index,
+    //    );
+
+    //    return dataFilter?.filter.indexOf(item) === index
+    // });
+    // dataFilter?.filter((item, index) => {
+    //    return dataFilter.indexOf(item.value) != index
+    // });
+
     const columns: ColumnsType<DataType> = [
         {
             title: <strong>STT</strong>,
             dataIndex: 'key',
             width: 30,
-            render: text => <p>{text}</p>,
         },
         {
             title: <strong>Họ và tên</strong>,
             dataIndex: 'name',
             width: '20%',
         },
+
         {
-            title: <strong>Tuổi</strong>,
-            dataIndex: 'age',
-            sorter: (a, b) => a.age - b.age,
-            width: '10%',
+            title: <strong>Ngày sinh</strong>,
+            dataIndex: 'dateOfBirth',
+            width: '15%',
         },
         {
             title: <strong>Số điện thoại</strong>,
@@ -49,6 +72,7 @@ const List_Lender = (props: Props) => {
             title: <strong>Email</strong>,
             dataIndex: 'email',
             width: '20%',
+
         },
         {
             title: <strong>Lãi Xuất</strong>,
@@ -70,71 +94,28 @@ const List_Lender = (props: Props) => {
         {
             title: <strong>Địa chỉ</strong>,
             dataIndex: 'address',
-            filters: [
-                {
-                    text: 'London',
-                    value: 'London',
-                },
-                {
-                    text: 'New York',
-                    value: 'New York',
-                },
-            ],
-            onFilter: (value: string, record) => record.address.startsWith(value),
+            filters:
+                dataFilter
+            ,
+            onFilter: (value: string, record) => record.address.includes(value),
             filterSearch: true,
             width: '40%',
+
         },
     ];
-    
-    const data: DataType[] = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            phone: "0326869406",
-            email: "tramnvph14967@gmail.com",
-            interest: '2%',
-            address: 'New York No. 1 Lake Park',
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            phone: "0326869406",
-            email: "tramnvph14967@gmail.com",
-            interest: '4%',
-            address: 'London No. 1 Lake Park',
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            phone: "0326869406",
-            email: "tramnvph14967@gmail.com",
-            interest: '5%',
-            address: 'Sidney No. 1 Lake Park',
-        },
-        {
-            key: '4',
-            name: 'Jim Red',
-            age: 32,
-            phone: "0326869406",
-            email: "tramnvph14967@gmail.com",
-            interest: '5%',
-            address: 'London No. 2 Lake Park',
-        },
-    ];
-    
+
     const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
     };
-  return (
+    return (
+
+        <>
+            <h1 className='text-2xl font-bold text-orange-600 p-4'>Danh Sách Các Nhà Cho Vay Vốn</h1>
+            <Table columns={columns} dataSource={DataType?.data?.users} onChange={onChange} />
+        </>
 
 
-    <Table columns={columns} dataSource={data} onChange={onChange} />
-
-
-  )
+    )
 }
 
 export default List_Lender

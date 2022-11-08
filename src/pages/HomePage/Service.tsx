@@ -2,12 +2,15 @@ import React from 'react'
 import { Button, Tabs, Image, Space } from 'antd';
 const Service = () => {
     return (
-        <div>
-            <div className='bg-slate-50 p-4 pt-16'>
+        <div >
+            <div className='bg-slate-50 p-4 pt-16' >
                 <h1 className='text-center text-3xl font-bold text-orange-600'>Dịch Vụ Nổi Bật</h1>
-                <p className='text-center text-lg'>Khám phá dịch vụ cầm cố, vay vốn uy tín hoàn toàn mới đang được giao dịch nhiều nhất trên cả nước tại F-Money</p>
+                <p  className='text-center text-lg'>Khám phá dịch vụ cầm cố, vay vốn uy tín hoàn toàn mới đang được giao dịch nhiều nhất trên cả nước tại F-Money</p>
             </div>
-            <Tabs className='text-center items-center p-4' defaultActiveKey="1">
+            <Tabs 
+                data-aos="fade-up"
+                data-aos-duration="2000"
+             className='text-center items-center p-4' defaultActiveKey="1">
                 <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Đăng Ký Xe Máy" key="1">
                     <div className=' text-left'>
                         <strong className=' text-xl font-bold'>GÓI VAY ĐĂNG KÝ XE MÁY</strong>

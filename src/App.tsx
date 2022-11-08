@@ -5,10 +5,14 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useEffect } from 'react';
 function App() {
+
+
   const [count, setCount] = useState(0)
-  useEffect(()=>{
+  useEffect(() => {
     AOS.init();
-  },[])
+  }, [])
+
+  
   return (
     <div className="App">
       <RoutePage />
