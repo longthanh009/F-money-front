@@ -1,7 +1,13 @@
-import { Switch, Table, Input } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import React, { useState } from 'react';
-import Filter from './Filter';
+import { Table } from 'antd';
+import type { ColumnsType, TableProps } from 'antd/es/table';
+import React from 'react';
+import { UserType } from '../../models/users';
+
+type Props = {
+    users: UserType[],
+  }
+
+
 interface DataType {
     key: React.Key;
     name: string;
@@ -12,111 +18,123 @@ interface DataType {
     address: string;
 }
 
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'STT',
-        width: 30,
-        dataIndex: 'key',
-        key: 'key',
-        fixed: 'left',
-    },
-    {
-        title: 'Họ tên',
-        width: 100,
-        dataIndex: 'name',
-        key: 'name',
-        fixed: 'left',
-    },
-    {
-        title: 'Tuổi',
-        width: 50,
-        dataIndex: 'age',
-        key: 'age',
-        fixed: 'left',
-    },
-    {
-        title: 'Số điện thoại',
-        dataIndex: 'phone',
-        key: 'phone',
-        width: 80,
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-        width: 100,
-    },
-    {
-        title: 'Lãi Xuất',
-        dataIndex: 'interest',
-        key: 'interest',
-        width: 50,
-    },
 
-    {
-        title: 'Địa chỉ',
-        dataIndex: 'address',
-        key: '3',
-        width: 80,
-    },
+const List_Lender = (props: Props) => {
+    console.log(props.users);
+    
+    const columns: ColumnsType<DataType> = [
+        {
+            title: <strong>STT</strong>,
+            dataIndex: 'key',
+            width: 30,
+            render: text => <p>{text}</p>,
+        },
+        {
+            title: <strong>Họ và tên</strong>,
+            dataIndex: 'name',
+            width: '20%',
+        },
+        {
+            title: <strong>Tuổi</strong>,
+            dataIndex: 'age',
+            sorter: (a, b) => a.age - b.age,
+            width: '10%',
+        },
+        {
+            title: <strong>Số điện thoại</strong>,
+            dataIndex: 'phone',
+            width: '10%',
+        },
+        {
+            title: <strong>Email</strong>,
+            dataIndex: 'email',
+            width: '20%',
+        },
+        {
+            title: <strong>Lãi Xuất</strong>,
+            dataIndex: 'interest',
+            filters: [
+                {
+                    text: '5%',
+                    value: '5%',
+                },
+                {
+                    text: '2%',
+                    value: '2%',
+                },
+            ],
+            onFilter: (value: string, record) => record.interest.startsWith(value),
+            filterSearch: true,
+            width: '10%',
+        },
+        {
+            title: <strong>Địa chỉ</strong>,
+            dataIndex: 'address',
+            filters: [
+                {
+                    text: 'London',
+                    value: 'London',
+                },
+                {
+                    text: 'New York',
+                    value: 'New York',
+                },
+            ],
+            onFilter: (value: string, record) => record.address.startsWith(value),
+            filterSearch: true,
+            width: '40%',
+        },
+    ];
+    
+    const data: DataType[] = [
+        {
+            key: '1',
+            name: 'John Brown',
+            age: 32,
+            phone: "0326869406",
+            email: "tramnvph14967@gmail.com",
+            interest: '2%',
+            address: 'New York No. 1 Lake Park',
+        },
+        {
+            key: '2',
+            name: 'Jim Green',
+            age: 42,
+            phone: "0326869406",
+            email: "tramnvph14967@gmail.com",
+            interest: '4%',
+            address: 'London No. 1 Lake Park',
+        },
+        {
+            key: '3',
+            name: 'Joe Black',
+            age: 32,
+            phone: "0326869406",
+            email: "tramnvph14967@gmail.com",
+            interest: '5%',
+            address: 'Sidney No. 1 Lake Park',
+        },
+        {
+            key: '4',
+            name: 'Jim Red',
+            age: 32,
+            phone: "0326869406",
+            email: "tramnvph14967@gmail.com",
+            interest: '5%',
+            address: 'London No. 2 Lake Park',
+        },
+    ];
+    
+    const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+        console.log('params', pagination, filters, sorter, extra);
+    };
+  return (
 
 
-    {
-        title: 'Chi tiết',
-        key: 'operation',
-        fixed: 'right',
-        width: 30,
-        render: () => <a>Chi tiết</a>,
-    },
-];
+    <Table columns={columns} dataSource={data} onChange={onChange} />
 
-const data: DataType[] = [];
-for (let i = 0; i < 100; i++) {
-    data.push({
-        key: i + 1,
-        name: `Nguyễn Văn Trăm ${i}`,
-        age: 32,
-        phone: `0326869406`,
-        email: `tramnvph14967@gmail.com`,
-        interest: `5%`,
-        address: `Hà Nội ${i}`,
-    });
-}
-const List_Lender = () => {
-    const [fixedTop, setFixedTop] = useState(true);
 
-    return (
-        <>
-        <h1 className='text-[28px] font-bold text-lg text-orange-600 py-4'>DANH SÁCH CÁC NHÀ CHO VAY VỐN</h1>
-        <Table
-            columns={columns}
-            dataSource={data}
-            scroll={{ x: 1400 }}
-            summary={() => (
-                <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
-                    <Table.Summary.Row>
-                        <Table.Summary.Cell index={0} colSpan={2}>
-                            <Switch
-                                checkedChildren="Fixed Top"
-                                unCheckedChildren="Fixed Top"
-                                checked={fixedTop}
-                                onChange={() => {
-                                    setFixedTop(!fixedTop);
-                                }}
-                            />
-                        </Table.Summary.Cell>
-                        <Table.Summary.Cell index={4} colSpan={4}>
-
-                        </Table.Summary.Cell>
-                        <Table.Summary.Cell index={20} colSpan={2.5}>
-                            <Filter />
-                        </Table.Summary.Cell>
-                    </Table.Summary.Row>
-                </Table.Summary>
-            )}
-            sticky
-        /></>
-    )
+  )
 }
 
 export default List_Lender

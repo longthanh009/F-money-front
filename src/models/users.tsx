@@ -1,6 +1,5 @@
 export type UserType = {
-    _id?: number,
-    name: String,
+    _id?: string,
     username: String,
     password: String,
     phone: Number,

@@ -20,28 +20,22 @@ import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
 import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
-
 {/**api user */ }
 import { getUsers } from "../api/user";
+import { login } from './../features/auth/authSlice';
+
 
 const RoutePage = () => {
 
   
-  const [users, setusers] = useState();
-  useEffect(() => {
-    const getUser = async () => {
-      const res = await getUsers();
-      setusers(res);
-    };
-    getUser();
-  }, []);
+
 
 
   return (
     <div>
       <Routes>
         <Route path="/" element={<Website_Layout />} >
-          <Route index element={<HomePage users = {users}/>} />  {/**Trang chủ */}
+          <Route index element={<HomePage />} />  {/**Trang chủ */}
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contract" element={<ContractPage />} /> {/**Lịch sử hợp đồng */}
         </Route>
