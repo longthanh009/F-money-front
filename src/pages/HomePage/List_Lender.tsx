@@ -1,10 +1,7 @@
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import React from 'react';
-import { UserType } from '../../models/users';
 import useLender from './../../hook/usersHomePage';
-
-import { bindActionCreators } from 'redux';
 import { formatDate } from './../../ultils/formatDate';
 
 
@@ -14,87 +11,61 @@ interface DataType {
     age: number;
     phone: string;
     email: string;
+    birthDay: string;
     interest: string;
     address: string;
 }
 
-
 const List_Lender = () => {
     const { data: DataType, error } = useLender()
-    console.log(DataType?.data.users);
-
-
     // lọc dữ liệu role
-
     // const data =  DataType?.data.users.filter((item:any)=>item.role=="userLender")
 
+    // Convert địa chị thành mảng
+    let dataFilterWait = DataType?.data.users.map((item: any) =>
+        item.address
+    )
 
-    let dataFilter = DataType?.data.users.map((item: any) => {
-        return {
-            text: item.address,
-            value: item.address
+    // Dùng vòng lặp xóa phần tử trùng lặp
+    let dataFilter: any = [];
+    dataFilterWait?.forEach((item: any) => {
+        // includes Xác trịnh giá trị của một mảng
+        if (!dataFilter.includes(item)) {
+            dataFilter.push(item);
         }
-    })
-    // dataFilter?.filter((item, index) => {
-
-    //     console.log(
-    //         // a. Item
-    //         item,
-    //         // b. Index
-    //         index, 
-    //         // c. indexOf
-    //         dataFilter?.filter.indexOf(item),
-    //         // d. Condition
-    //         dataFilter?.filter.indexOf(item) === index,
-    //    );
-
-    //    return dataFilter?.filter.indexOf(item) === index
-    // });
-    // dataFilter?.filter((item, index) => {
-    //    return dataFilter.indexOf(item.value) != index
-    // });
+    });
 
     const columns: ColumnsType<DataType> = [
         {
             title: <strong>STT</strong>,
             dataIndex: 'key',
             width: 30,
-            render: (key) => {
-                return <span className="">{key}</span>
-            }
+            render: (key) => { return <span className="">{key}</span> }
         },
         {
             title: <strong>Họ và tên</strong>,
             dataIndex: 'name',
             width: '20%',
-            render: (name) => {
-                return <span className="">{name}</span>
-            }
+            render: (name) => { return <span className="">{name}</span> }
         },
 
         {
             title: <strong>Ngày sinh</strong>,
             dataIndex: 'birthDay',
             width: '15%',
-            render: (birthDay) => {
-                return <span className="">{formatDate(birthDay)}</span>
-            }
+            render: (birthDay) => { return <span className="">{formatDate(birthDay)}</span> }
         },
         {
             title: <strong>Số điện thoại</strong>,
             dataIndex: 'phone',
             width: '10%',
-            render: (phone) => {
-                return <span className="">{phone}</span>
-            }
+            render: (phone) => { return <span className="">{phone}</span> }
         },
         {
             title: <strong>Email</strong>,
             dataIndex: 'email',
             width: '20%',
-            render: (email) => {
-                return <span className="">{email}</span>
-            }
+            render: (email) => { return <span className="">{email}</span> }
         },
         {
             title: <strong>Lãi Xuất</strong>,
@@ -120,7 +91,12 @@ const List_Lender = () => {
             title: <strong>Địa chỉ</strong>,
             dataIndex: 'address',
             filters:
-                dataFilter
+                dataFilter?.map((item: any) => {
+                    return {
+                        text: item,
+                        value: item
+                    }
+                })
             ,
             onFilter: (value: string, record) => record.address.includes(value),
             filterSearch: true,
@@ -132,7 +108,7 @@ const List_Lender = () => {
     ];
 
     const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra);
+        // console.log('params', pagination, filters, sorter, extra);
     };
     return (
 
