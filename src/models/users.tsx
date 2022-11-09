@@ -4,6 +4,7 @@ export type UserType = {
     password: String,
     phone: Number,
     email: String,
+    birthDay: Date,
     CCCD: String,
     imgCCCD: String,
     address: String,

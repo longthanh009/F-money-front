@@ -4,6 +4,8 @@ import React from 'react';
 import { UserType } from '../../models/users';
 import useLender from './../../hook/usersHomePage';
 
+import { bindActionCreators } from 'redux';
+import { formatDate } from './../../ultils/formatDate';
 
 
 interface DataType {
@@ -16,9 +18,16 @@ interface DataType {
     address: string;
 }
 
+
 const List_Lender = () => {
     const { data: DataType, error } = useLender()
-    console.log("data", DataType?.data);
+    console.log(DataType?.data.users);
+
+
+    // lọc dữ liệu role
+
+    // const data =  DataType?.data.users.filter((item:any)=>item.role=="userLender")
+
 
     let dataFilter = DataType?.data.users.map((item: any) => {
         return {
@@ -26,7 +35,6 @@ const List_Lender = () => {
             value: item.address
         }
     })
-    console.log(dataFilter);
     // dataFilter?.filter((item, index) => {
 
     //     console.log(
@@ -51,28 +59,42 @@ const List_Lender = () => {
             title: <strong>STT</strong>,
             dataIndex: 'key',
             width: 30,
+            render: (key) => {
+                return <span className="">{key}</span>
+            }
         },
         {
             title: <strong>Họ và tên</strong>,
             dataIndex: 'name',
             width: '20%',
+            render: (name) => {
+                return <span className="">{name}</span>
+            }
         },
 
         {
             title: <strong>Ngày sinh</strong>,
-            dataIndex: 'dateOfBirth',
+            dataIndex: 'birthDay',
             width: '15%',
+            render: (birthDay) => {
+                return <span className="">{formatDate(birthDay)}</span>
+            }
         },
         {
             title: <strong>Số điện thoại</strong>,
             dataIndex: 'phone',
             width: '10%',
+            render: (phone) => {
+                return <span className="">{phone}</span>
+            }
         },
         {
             title: <strong>Email</strong>,
             dataIndex: 'email',
             width: '20%',
-
+            render: (email) => {
+                return <span className="">{email}</span>
+            }
         },
         {
             title: <strong>Lãi Xuất</strong>,
@@ -90,6 +112,9 @@ const List_Lender = () => {
             onFilter: (value: string, record) => record.interest.startsWith(value),
             filterSearch: true,
             width: '10%',
+            render: (interest) => {
+                return <span className="">{interest}</span>
+            }
         },
         {
             title: <strong>Địa chỉ</strong>,
@@ -100,7 +125,9 @@ const List_Lender = () => {
             onFilter: (value: string, record) => record.address.includes(value),
             filterSearch: true,
             width: '40%',
-
+            render: (address) => {
+                return <span className="">{address}</span>
+            }
         },
     ];
 
