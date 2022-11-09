@@ -98,7 +98,7 @@ const SignupPage = () => {
                         </Form.Item>
 
                         <Form.Item name="birthDay"
-                            rules={[{ required: true, type:"date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
+                            rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
                         </Form.Item>
