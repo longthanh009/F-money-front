@@ -36,12 +36,12 @@ const List_Lender = () => {
     });
 
     const columns: ColumnsType<DataType> = [
-        {
-            title: <strong>STT</strong>,
-            dataIndex: 'key',
-            width: 30,
-            render: (key) => { return <span className="">{key}</span> }
-        },
+        // {
+        //     title: <strong>STT</strong>,
+        //     dataIndex: 'key',
+        //     width: 30,
+        //     render: (key) => { return <span className="">{key}</span> }
+        // },
         {
             title: <strong>Họ và tên</strong>,
             dataIndex: 'name',
@@ -58,34 +58,14 @@ const List_Lender = () => {
         {
             title: <strong>Số điện thoại</strong>,
             dataIndex: 'phone',
-            width: '10%',
+            width: '15%',
             render: (phone) => { return <span className="">{phone}</span> }
         },
         {
             title: <strong>Email</strong>,
             dataIndex: 'email',
-            width: '20%',
+            width: '25%',
             render: (email) => { return <span className="">{email}</span> }
-        },
-        {
-            title: <strong>Lãi Xuất</strong>,
-            dataIndex: 'interest',
-            filters: [
-                {
-                    text: '5%',
-                    value: '5%',
-                },
-                {
-                    text: '2%',
-                    value: '2%',
-                },
-            ],
-            onFilter: (value: string, record) => record.interest.startsWith(value),
-            filterSearch: true,
-            width: '10%',
-            render: (interest) => {
-                return <span className="">{interest}</span>
-            }
         },
         {
             title: <strong>Địa chỉ</strong>,
@@ -111,13 +91,9 @@ const List_Lender = () => {
         // console.log('params', pagination, filters, sorter, extra);
     };
     return (
-
         <>
-            <h1 className='text-2xl font-bold text-orange-600 p-4'>Danh Sách Các Nhà Cho Vay Vốn</h1>
-            <Table columns={columns} dataSource={DataType?.data?.users} onChange={onChange} />
+            <Table  columns={columns} dataSource={DataType?.data?.users} onChange={onChange} />
         </>
-
-
     )
 }
 
