@@ -7,7 +7,7 @@ import List_Lender from './List_Lender';
 import Service from './Service';
 import Suport_homepage from './Suport_homepage';
 import Search from './Search_Page'
-
+import News_Pages from './News_Pages';
 
 const index = () => {
 
@@ -24,13 +24,14 @@ const index = () => {
       {/**Content */}
       <div className="overflow-x-auto">
         <div className="min-w-screen  flex items-center justify-center font-sans overflow-hidden">
-          <div className="w-full lg:w-5/6 p-6">
+          <div className="w-full p-6">
 
 
             {/**Tìm kiềm Lender */}
             <Search />
-
-
+            <hr />
+            {/**Tin Tức */}
+            <News_Pages />
             <hr />
           </div>
         </div>
