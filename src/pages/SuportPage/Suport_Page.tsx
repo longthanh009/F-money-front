@@ -7,9 +7,10 @@ const Suport_Page = () => {
                 <div className='text-center p-4'>
                     <h1 className="text-4xl font-medium">THÔNG TIN CẦN HỖ TRỢ</h1>
                     <hr />
-                    <p className="mt-3">Bảo mật tuyệt đối thông tin của khách hàng</p>
+                    <p className="mt-3">Hãy để lại thông tin của bạn, chúng tôi sẽ liên hệ với bạn một cách sớm nhất!</p>
+                    <p className="italic">(Bảo mật tuyệt đối thông tin của khách hàng)</p>
                 </div>
-                <form action="https://api.web3forms.com/submit" className="mt-10">
+                <form action="https://api.web3forms.com/submit" className="mt-6">
                     <input type="hidden" name="access_key" defaultValue="YOUR_ACCESS_KEY_HERE" />
                     <div className="grid gap-6 sm:grid-cols-2">
                         <div className="relative z-0">

@@ -8,7 +8,7 @@ const Solution = () => {
             {/**Giải pháp đáng tin cậy */}
             <div className="flex flex-col p-12">
                 <div className='text-center'>
-                    <h2 data-aos="zoom-out" data-aos-duration="1000" className="mb-4 text-3xl font-bold text-orange-600">F-MONEY - GIẢI PHÁP TÀI CHÍNH ĐÁNG TIN CẬY</h2>
+                    <h2 data-aos="zoom-out" data-aos-duration="1000" className="mb-4 text-3xl font-bold text-orange-600">F - MONEY   Giải pháp tài chính đáng tin cậy</h2>
                     <p data-aos="zoom-out" data-aos-duration="1800" className='text-base'>Trải nghiệm dịch vụ hỗ trợ, tìm kiếm các nhà cho vay vốn hoàn toàn mới với hệ thống giao dịch trên toàn quốc.</p>
                 </div>
                 <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

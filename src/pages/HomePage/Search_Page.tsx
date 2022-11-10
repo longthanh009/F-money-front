@@ -1,7 +1,9 @@
-import { Button, Modal, Select } from 'antd';
+import { Button, Modal, Select, Input, Col, Row } from 'antd';
 import React, { useState } from 'react';
 import List_Lender from './List_Lender';
-
+import { SearchOutlined } from '@ant-design/icons';
+const { Search } = Input;
+const onSearch = (value) => console.log(value);
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import useLender from './../../hook/usersHomePage';
@@ -113,26 +115,40 @@ const App: React.FC = () => {
         // console.log('params', pagination, filters, sorter, extra);
     };
     return (
-        <div className='text-center p-8'>
+        <div className='p-8'>
+
             <div>
-                <input placeholder='Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Gần Bạn' className='px-4 w-1/2 h-8 border border-slate-400' onClick={showModal} type="text" />
+                <h1 className='text-center text-3xl text-orange-600 font-bold'>Vay tiền ở đâu nhanh và an toàn?</h1>
+                <p className='text-lg italic text-center'>Khi cần gấp một khoản tiền, hầu hết chúng ta đều chú trọng yếu tố nhanh chóng, tiện lợi mà xem nhẹ mức độ uy tín, sự minh bạch của nguồn vay, dễ dàng gặp phải tình huống “tiền mất, tật mang".  Vay tiền online không khó, nhưng muốn an toàn và nhanh chóng thì bạn phải tìm đến ngay <span className='font-bold text-lg text-orange-600'>F-Money</span>.</p>
+                <div className='text-center py-4'>
+                    <Search
+                        placeholder="Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Gần Bạn"
+                        onSearch={onSearch} onClick={showModal}
+                        style={{
+                            width: 800,
+                        }}
+                    />
+                </div>
+                
             </div>
 
-
-            <Modal className='text-center' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
+            <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
                 <div className='pb-4'>
-                    <h1 className='text-xl font-bold'>Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Hàng Đầu Tại F-Money</h1>
+                    <h1 className='text-2xl font-bold text-center p-4 text-orange-600'>Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Hàng Đầu Tại F-Money</h1>
                     <Select
+                    
                         mode="multiple"
-                        placeholder="Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Gần Bạn"
+                        placeholder="Tìm kiếm các nhà cho vay vốn uy tín gần bạn"
                         value={selectedItems}
                         onChange={(e) => { setSelectedItems(e), handleFilter(e) }}
-                        style={{ width: '50%' }}
-                        options={filteredOptions.map(item => ({
+                        style={{ width: '35%' }}
+                        options={filteredOptions.map((item: any) => ({
                             value: item,
                             label: item,
                         }))}
                     />
+                    
+                    
                 </div>
                 <Table columns={columns} dataSource={dataTable.length == 0 ? DataType?.data?.users : dataTable} onChange={onChange} />
             </Modal>

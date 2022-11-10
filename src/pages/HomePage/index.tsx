@@ -16,23 +16,22 @@ const index = () => {
   return (
     <>
       {/**Banner */}
-
       <Banner />
 
       <Service />
-
+      <br />
       <hr />
       {/**Content */}
       <div className="overflow-x-auto">
         <div className="min-w-screen  flex items-center justify-center font-sans overflow-hidden">
           <div className="w-full lg:w-5/6 p-6">
+
+
             {/**Tìm kiềm Lender */}
             <Search />
+
+
             <hr />
-
-            {/* Danh sách các nhà cho vay
-            <List_Lender /> */}
-
           </div>
         </div>
       </div>
