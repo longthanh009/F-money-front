@@ -117,7 +117,7 @@ const ContractPage = () => {
                             </Select>
                         </Form.Item>
                         <Form.Item name="money" rules={[{ required: true, message: 'Please select gender!' }]} label="Số tiền muốn vay ">
-                            <Input type='number' placeholder="CCCD" />
+                            <Input type='number' placeholder="1.000.000 VNĐ" />
                         </Form.Item>
 
                         <div className=" mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
