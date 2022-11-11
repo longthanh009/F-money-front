@@ -52,7 +52,7 @@ const SignupPage = () => {
                         setTimeout(() => { navigate('/signin') }, 2000)
                     })
                     //kiểm tra các trường giữ liệu có tồn tại chưa
-                    .catch(({ response }) => message.error({ content: response.data.message })
+                    .catch(({ response }) => message.error({ content: response.data.error })
                     )
             }
             else {
@@ -72,7 +72,6 @@ const SignupPage = () => {
             })
         }
         console.log(values);
-
     };
 
     return (
@@ -98,8 +97,8 @@ const SignupPage = () => {
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
-                        <Form.Item name="dateOfBirth"
-                            rules={[{ required: true, message: 'Vui lòng nhập ngày tháng năm sinh' }]}
+                        <Form.Item name="birthDay"
+                            rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
                         </Form.Item>
