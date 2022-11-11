@@ -41,8 +41,13 @@ const Header_Client = () => {
             </a>
           </div>
           <div className="flex ">
-            <a href="/signin" className="block text-zinc-500 text-base px-4 py-2 rounded text-blue-700 ml-2 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng Nhập</a>
-            <a href="/register" className=" block text-zinc-500 text-base px-4  ml-2 py-2 rounded text-blue-700 font-bold hover:text-white mt-4 hover:bg-blue-700 lg:mt-0">Đăng ký</a>
+            <div className="mr-2 mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
+              <a href="/signin"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng nhập</span></a>
+            </div>
+            <div className="mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
+              <a href="/register"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng ký</span></a>
+            </div>
+
           </div>
         </div>
 

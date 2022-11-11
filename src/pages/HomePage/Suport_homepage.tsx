@@ -14,7 +14,7 @@ const Suport_homepage = () => {
                         <br />
                         Chúng tôi sẽ giúp bạn tìm những nhà cho vay uy tín hàng đầu thế giới với những lãi xuất thấp, thủ tục đơn giản, bảo mật tuyệt đối thông tin của bạn, hỗ trợ vay vốn lên đến 100 triệu đồng !!!
                     </p>
-                    <img style={{boxShadow: "1px 2px 3px #999999"}} src="https://mafc.com.vn/wp-content/uploads/2021/06/1200x490-Bao-hiem-khoa%CC%89n-vay-1.jpg" alt="" />
+                    <img style={{boxShadow: "1px 2px 3px #999999"}} src="./src/assets/image/client_homepage/banner_5.jpg" alt="" />
                 </div>
                 <div className="relative sm:mt-0 mt-10 px-6 sm:px-0">
                    <Suport_Page />

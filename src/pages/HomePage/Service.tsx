@@ -31,7 +31,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Chi phí vay hợp lý</p></div>
                     </div>
-                    <img src="https://md37nghean.com/wp-content/uploads/2021/01/dk-xe-mo-to-2.jpg" alt="" width={350} className="pl-4" />
+                    <img src="./src/assets/image/client_homepage/dichvu_1.jpg" alt="" width={350} className="pl-4" />
                 </Tabs.TabPane>
                 <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Đăng Ký Ô-tô" key="2">
                     <div className=' text-left'>
@@ -53,7 +53,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Chi phí vay thấp</p></div>
                     </div>
-                    <img src="https://www.tcqtkd.edu.vn/wp-content/uploads/2022/08/vay-tien-bang-dang-ky-o-to-7.png" alt="" width={300} className="pl-4" />
+                    <img src="./src/assets/image/client_homepage/dichvu_2.png" alt="" width={300} className="pl-4" />
                 </Tabs.TabPane>
                 <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Thế Chấp" key="3">
                     <div className=' text-left'>
@@ -79,7 +79,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Chi phí vay hợp lý</p></div>
                     </div>
-                    <img src="https://www.baolongan.vn/image/news/2021/20211024/images/Q1.png" alt="" width={350} className="pl-4" />
+                    <img src="./src/assets/image/client_homepage/dichvu_3.png" alt="" width={350} className="pl-4" />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Vay Trả Góp" className='grid grid-cols-2 w-auto' key="4">
                     <div className=' text-left'>
@@ -101,7 +101,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Lãi xuất thấp</p></div>
                     </div>
-                    <img src="https://metvay.com/wp-content/uploads/2021/05/vay-tra-gop-hang-thang.jpeg" alt="" width={400} className="pl-4" />
+                    <img src="./src/assets/image/client_homepage/dichvu_4.jpeg" alt="" width={400} className="pl-4" />
                 </Tabs.TabPane>
             </Tabs>
         </div>

@@ -14,13 +14,13 @@ const banner = () => {
 
     <Carousel autoplay>
       <div>
-        <h3 style={contentStyle}><img src="https://fbtool.shop/wp-content/uploads/2022/06/banner-8.png" alt=""  /></h3>
+        <h3 style={contentStyle}><img src="./src/assets/image/client_homepage/banner_1.png" alt=""  /></h3>
       </div>
       <div>
-        <h3 style={contentStyle}><img src="https://www.vaytiennongnhanhtphcm.com/wp-content/uploads/2021/10/home-web-banner-2.jpg" alt="" /></h3>
+        <h3 style={contentStyle}><img src="./src/assets/image/client_homepage/banner_2.jpg" alt="" /></h3>
       </div>
       <div>
-        <h3 style={contentStyle}><img src="http://vaytiennongnhanhtphcm.com/wp-content/uploads/2021/10/home-web-banner-3.jpg" alt="" /></h3>
+        <h3 style={contentStyle}><img src="./src/assets/image/client_homepage/banner_3.jpg" alt="" /></h3>
       </div>
     </Carousel>
   )
