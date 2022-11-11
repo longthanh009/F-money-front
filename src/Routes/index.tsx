@@ -13,6 +13,7 @@ import AdminContractPage from "../pages/AdminContract";
 import Website_Layout from "../layouts/LayoutWebsite";
 import HomePage from "../pages/HomePage";
 import SuportPage from "../pages/SuportPage";
+import ContractPage from './../pages/ContractPage/index';
 import Historic_ContractPage from "../pages/Historic_ContractPage";
 import CustomerCheck from "../pages/Lender/CustomerCheck";
 import Expense from "../pages/Lender/Expense";
@@ -24,6 +25,7 @@ import Mortgage from "../pages/Lender/Mortgage";
 import { login } from './../features/auth/authSlice';
 
 
+
 const RoutePage = () => {
   return (
     <div>
@@ -31,9 +33,9 @@ const RoutePage = () => {
         <Route path="/" element={<Website_Layout />} >
           <Route index element={<HomePage />} />  {/**Trang chủ */}
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
+          <Route path="contractPage" element={<ContractPage />} /> {/**Yêu cầu hợp đồng */}
           <Route path="historic_Contract" element={<Historic_ContractPage />} /> {/**Lịch sử hợp đồng */}
         </Route>
-
 
         <Route path="/lender" element={<LayoutDashboard />}>
           <Route index element={<Dashboard />} />

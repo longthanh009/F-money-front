@@ -15,7 +15,7 @@ const Header_Client = () => {
       <nav className="flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-solid border-t-2 border-blue-700">
         <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
           <div className="flex items-center flex-shrink-0 text-gray-800 mr-16">
-            <a href=""><img src="./src/assets/image/logo.png" alt="" width={200} /></a>
+            <a href="/"><img src="./src/assets/image/logo.png" alt="" width={200} /></a>
           </div>
           <div onClick={() => onToggle()} className="block lg:hidden xl:hidden md:hidden ">
             <button id="nav" className="flex items-center px-3 py-2 border-2 rounded text-blue-700 border-blue-700 hover:text-blue-700 hover:border-blue-700">
@@ -30,7 +30,7 @@ const Header_Client = () => {
             <a href="/" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Trang Chủ
             </a>
-            <a href="/contract" className="  text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            <a href="/contractPage" className="  text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Hợp đồng
             </a>
             <a href="/historic_Contract" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
