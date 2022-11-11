@@ -116,14 +116,14 @@ const App: React.FC = () => {
         // console.log('params', pagination, filters, sorter, extra);
     };
     return (
-        <div className='p-8'>
+        <div className='py-8'>
 
             <div data-aos="fade-up"
                 data-aos-duration="2000">
                 <h1 className='title text-center text-3xl lg:text-2xl md:text-xl ms:text-lg text-orange-600 font-bold'>Vay tiền ở đâu nhanh và an toàn?</h1>
                 <p className='xl:text-lg lg: text-base md:text-sm ms:text-xs italic text-center'>Khi cần gấp một khoản tiền, hầu hết chúng ta đều chú trọng yếu tố nhanh chóng, tiện lợi mà xem nhẹ mức độ uy tín, sự minh bạch của nguồn vay, dễ dàng gặp phải tình huống “tiền mất, tật mang".  Vay tiền online không khó, nhưng muốn an toàn và nhanh chóng thì bạn phải tìm đến ngay <span className='font-bold text-lg text-orange-600'>F-Money</span>.</p>
 
-                <div className='m-auto py-4 xl:w-1/2 lg:w-96 md:w-72  sm:w-72 lg:text-sm xl:text-xs'>
+                <div className='mx-auto py-4 xl:w-1/2 lg:w-96 md:w-72  sm:w-72 lg:text-sm xl:text-xs'>
                     <Search
                         placeholder="Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Gần Bạn"
                         onSearch={onSearch} onClick={showModal}

@@ -3,8 +3,8 @@ import React from 'react'
 const News_Pages = () => {
     return (
         <section className="bg-white dark:bg-gray-900">
-            <div className="container px-6 py-10 mx-auto">
-                <img src="./src/assets/image/bi_quyet.jpg" alt="" />
+            <img src="./src/assets/image/bi_quyet.jpg" alt="" />
+            <div className=" container px-6 py-10 mx-auto">
                 <hr />
                 <div>
                     <hr />
@@ -18,11 +18,12 @@ const News_Pages = () => {
                     <div className="grid grid-cols-1 md:grid-cols-[auto_600px]">
                         <div className="flex flex-col justify-between py-4 lg:mx-6">
                             <p className="text-base text-gray-700 dark:text-gray-300">Một trong những điều đầu tiên mà các ngân hàng xem xét là uy tín của người đi vay và người bảo lãnh hoặc theo dõi lịch sử thanh toán các khoản nợ. Tại Việt Nam, các ngân hàng sẽ tham khảo báo cáo tín dụng từ trung tâm thông tin tín dụng quốc gia để kiểm tra thông tin này. Chỉ Trung tâm thông tin tín dụng (CIC) được chấp thuận bởi Ngân hàng Nhà nước Việt Nam mới được phép thu thập thông tin tín dụng về cá nhân và doanh nghiệp. Một báo cáo thông tin tín dụng thường bao gồm các nội dung như sau:
+
                                 + Tất cả các giao dịch tín dụng của doanh nghiệp
                                 + Tình hình trả nợ trong vòng 12 tháng gần nhất
                                 + Thông tin mặc định hoặc có thể kiểm tra thời gian thông tin được tải lên CIC</p>
                         </div>
-                        <img className="md:order-1 object-cover w-full rounded-lg lg:w-100%" src="./src/assets/image/client_homepage/biquyet_2.jpg" />
+                        <img className=" object-cover w-full rounded-lg lg:w-100%" src="./src/assets/image/client_homepage/biquyet_2.jpg" />
                     </div>
                     <hr />
                     <div className="grid grid-cols-1 md:grid-cols-[600px_auto]">

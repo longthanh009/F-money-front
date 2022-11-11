@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Tabs, Image, Space } from 'antd';
 const Service = () => {
     return (
-        <div >
+        <div>
             <div className='bg-slate-50 p-4 pt-16' >
                 <h1 className='text-center text-3xl font-bold text-orange-600'>Dịch vụ nổi bật</h1>
                 <p className='text-center text-lg'>Khám phá dịch vụ cầm cố, vay vốn uy tín hoàn toàn mới đang được giao dịch nhiều nhất trên cả nước tại F-Money</p>
@@ -10,8 +10,8 @@ const Service = () => {
             <Tabs
                 data-aos="fade-up"
                 data-aos-duration="2000"
-                className='text-center items-center p-4' defaultActiveKey="1">
-                <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Đăng Ký Xe Máy" key="1">
+                className='text-center items-center p-4 ' defaultActiveKey="1">
+                <Tabs.TabPane className='grid grid-cols-2 w-full' tab="Vay Đăng Ký Xe Máy" key="1">
                     <div className=' text-left'>
                         <strong className=' text-xl font-bold'>GÓI VAY ĐĂNG KÝ XE MÁY</strong>
                         <div className='flex pt-4 pl-4'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
@@ -101,7 +101,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Lãi xuất thấp</p></div>
                     </div>
-                    <img src="./src/assets/image/client_homepage/dichvu_4.jpeg" alt="" width={400} className="pl-4" />
+                    <img src="./src/assets/image/client_homepage/dichvu_4.jpg" alt="" width={400} className="pl-4" />
                 </Tabs.TabPane>
             </Tabs>
         </div>

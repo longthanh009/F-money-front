@@ -4,7 +4,6 @@ import React from 'react'
 const Solution = () => {
     return (
         <div className='Solution text-center'>
-
             {/**Giải pháp đáng tin cậy */}
             <div className="flex flex-col p-12">
                 <div className='text-center'>

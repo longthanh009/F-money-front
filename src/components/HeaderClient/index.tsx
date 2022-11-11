@@ -27,16 +27,16 @@ const Header_Client = () => {
         </div>
         <div className={isACtive ? "" : "menu w-full flex-grow lg:flex lg:items-center hidden lg:w-auto lg:px-3 px-8"} id="menu_pc">
           <div className="text-base font-bold text-black lg:flex-grow">
-            <a href="#responsive-header" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            <a href="/" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Trang Chủ
             </a>
-            <a href="#responsive-header" className="  text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            <a href="/contract" className="  text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Hợp đồng
             </a>
-            <a href="#responsive-header" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            <a href="/historic_Contract" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Lịch sử hợp đồng
             </a>
-            <a href="#responsive-header" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            <a href="/suport" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Hỗ trợ
             </a>
           </div>

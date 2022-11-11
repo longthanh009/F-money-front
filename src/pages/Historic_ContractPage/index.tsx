@@ -1,6 +1,6 @@
 import React from 'react'
 import Banner from '../HomePage/Banner'
-const ContractPage = () => {
+const Historic_ContractPage = () => {
     return (
         <>
             <Banner />
@@ -99,4 +99,4 @@ const ContractPage = () => {
     )
 }
 
-export default ContractPage
+export default Historic_ContractPage

@@ -13,7 +13,7 @@ import AdminContractPage from "../pages/AdminContract";
 import Website_Layout from "../layouts/LayoutWebsite";
 import HomePage from "../pages/HomePage";
 import SuportPage from "../pages/SuportPage";
-import ContractPage from "../pages/ContractPage";
+import Historic_ContractPage from "../pages/Historic_ContractPage";
 import CustomerCheck from "../pages/Lender/CustomerCheck";
 import Expense from "../pages/Lender/Expense";
 import Income from "../pages/Lender/Income";
@@ -21,7 +21,6 @@ import Service from "../pages/Lender/Service";
 import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
 {/**api user */ }
-import { getUsers } from "../api/user";
 import { login } from './../features/auth/authSlice';
 
 
@@ -32,7 +31,7 @@ const RoutePage = () => {
         <Route path="/" element={<Website_Layout />} >
           <Route index element={<HomePage />} />  {/**Trang chủ */}
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
-          <Route path="contract" element={<ContractPage />} /> {/**Lịch sử hợp đồng */}
+          <Route path="historic_Contract" element={<Historic_ContractPage />} /> {/**Lịch sử hợp đồng */}
         </Route>
 
 

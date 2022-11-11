@@ -4,7 +4,6 @@ import React from 'react';
 const contentStyle: React.CSSProperties = {
 
   color: '#fff',
-  lineHeight: '160px',
   textAlign: 'center',
   background: '#364d79',
 };
