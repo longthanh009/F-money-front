@@ -32,6 +32,7 @@ function DddExportList() {
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             handleCancel={handleCancel}
+            setIsModalOpen={setIsModalOpen}
           />
         </div>
         <div className="mb-3 xl:w-96 pr-10 text-left">
