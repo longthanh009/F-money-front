@@ -56,10 +56,6 @@ const ContractPage = () => {
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
                         >
-                            <Form.Item name="nguoi_yeu_cau">
-                                <input type="radio" hidden checked />
-                            </Form.Item>
-
                             <Form.Item
                                 name="ho_ten"
                                 rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
