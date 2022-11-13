@@ -8,8 +8,6 @@ const { RangePicker } = DatePicker;
 import { createMenuLoan } from '../../api/menuLoan';
 import Solution from './../HomePage/Solution';
 
-
-
 const ContractPage = () => {
     const [type, setType] = useState(1)
     //checked đồng ý điều khoản
@@ -37,7 +35,6 @@ const ContractPage = () => {
         })
         setTimeout(() => { navigate('/') }, 3000)
     }
-
     return (
         <>
             <Banner />
@@ -80,10 +77,10 @@ const ContractPage = () => {
                                 <Input placeholder="Địa chỉ" />
                             </Form.Item>
 
-                            <Form.Item name="tien_vay" rules={[{ required: true, message: 'Please select gender!' }]} label="Số tiền muốn vay ">
+                            <Form.Item name="tien_vay" rules={[{ required: true, message: 'Vui lòng nhập số tiền muốn vay' }]} label="Số tiền muốn vay ">
                                 <Input type='number' placeholder="1.000.000 VNĐ" />
                             </Form.Item>
-                            <Form.Item name="ghi_chu" rules={[{ required: true, message: 'Please select gender!' }]} label="Ghi chú:">
+                            <Form.Item name="ghi_chu" label="Ghi chú:">
                                 <TextArea rows={4} />
                             </Form.Item>
 
