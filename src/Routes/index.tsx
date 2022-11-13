@@ -21,6 +21,7 @@ import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
 import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
+
 {/**api user */ }
 import { login } from './../features/auth/authSlice';
 
@@ -36,7 +37,6 @@ const RoutePage = () => {
           <Route path="contractPage" element={<ContractPage />} /> {/**Yêu cầu hợp đồng */}
           <Route path="historic_Contract" element={<Historic_ContractPage />} /> {/**Lịch sử hợp đồng */}
         </Route>
-
         <Route path="/lender" element={<LayoutDashboard />}>
           <Route index element={<Dashboard />} />
           <Route path="installment/index" element={<Installment />} /> {/**Trả góp */}

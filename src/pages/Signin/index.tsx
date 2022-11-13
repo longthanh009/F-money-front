@@ -30,6 +30,7 @@ const SiginPage = () => {
 		}
 	}
 	const onFinish = (values: userLogin) => {
+		console.log(values);
 		loginUser(values)
 	};
 	return (

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { userLogin } from './../../models/auth';
 
 
 
@@ -7,6 +8,10 @@ const Header_Client = () => {
   const onToggle = () => {
     setActive(!isACtive)
   }
+  
+  const user = JSON.parse(localStorage.getItem("loginUser") as string)?.loginUser;
+
+console.log(user);
 
   // document.getElementById('nav-toggle').onclick = function(){
   // document.getElementById("nav-content").classList.toggle("hidden");
@@ -30,9 +35,6 @@ const Header_Client = () => {
             <a href="/" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Trang Chủ
             </a>
-            <a href="/contractPage" className="  text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
-              Hợp đồng
-            </a>
             <a href="/historic_Contract" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Lịch sử hợp đồng
             </a>
@@ -40,15 +42,23 @@ const Header_Client = () => {
               Hỗ trợ
             </a>
           </div>
-          <div className="flex ">
-            <div className="mr-2 mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-              <a href="/signin"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng nhập</span></a>
+          {user?.username}
+          {user ?
+            <div>
+              <span style={{ cursor: "pointer" }} >Logout</span>
             </div>
-            <div className="mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-              <a href="/register"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng ký</span></a>
-            </div>
+            :
+            <div className="flex ">
 
-          </div>
+              <div className="mr-2 mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
+                <a href="/signin"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng nhập</span></a>
+              </div>
+              <div className="mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
+                <a href="/register"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng ký</span></a>
+              </div>
+
+            </div>
+          }
         </div>
 
       </nav>
