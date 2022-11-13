@@ -9,8 +9,10 @@ import {
   InputNumber,
   Modal,
   Row,
-  Select,
 } from "antd";
+import { useAppDispatch } from "../../../app/hooks";
+import { addContract } from "../../../features/contract/contractSlice";
+import { useNavigate } from "react-router-dom";
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -31,6 +33,7 @@ type Props = {
   isModalOpen: any;
   handleOk: any;
   handleCancel: any;
+  setIsModalOpen?: any;
 };
 
 interface formAddInstallment {
@@ -49,12 +52,18 @@ const ModalInstallmentAdd = ({
   isModalOpen,
   handleOk,
   handleCancel,
+  setIsModalOpen,
 }: Props) => {
   const { TextArea } = Input;
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const onFinish = (data: any) => {
-    console.log(data);
+    dispatch(addContract(data));
+    setIsModalOpen(false);
+    navigate("/lender/installment/index");
   };
-  
+
   return (
     <div>
       <Modal
@@ -74,22 +83,20 @@ const ModalInstallmentAdd = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="name"
-                labelCol={{ span: 24 }}
-                label="Tên Khách Hàng"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                label="Tên Khách hàng"
+                name="ten_khach_hang"
+                rules={[{ required: true, message: "Không để trống" }]}
               >
-                <Input size="large" />
+                <Input placeholder="..." style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
-                name="code"
+                name="ma_hd"
                 label="MÃ Hóa Đơn"
-                labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <Input style={{ width: "100%" }} size="large" />
+                <Input placeholder="..." style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
@@ -97,56 +104,59 @@ const ModalInstallmentAdd = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="idCard"
+                name="cmnd"
                 label="CMND/CCCD"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
 
             <Col span={12}>
               <Form.Item
-                name="phone"
+                name="dien_thoai"
                 label="Số Điện Thoại"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
           {/* Row 3 */}
           <Form.Item
-            name="address"
-            labelCol={{ span: 24 }}
             label="Địa Chỉ"
+            name="dia_chi"
             rules={[{ required: true, message: "Không để trống" }]}
           >
-            <TextArea name="feature" style={{ height: 150 }} />
+            <TextArea placeholder="..." style={{ width: "100%" }} />
           </Form.Item>
-          {/* Row 4 */}
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="loan"
+                name="khoan_vay"
                 label="Tiền Đưa khách"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber
+                  formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  }
+                  style={{ width: "100%" }}
+                />
               </Form.Item>
             </Col>
 
             <Col span={12}>
               <Form.Item
-                name="PayCustom"
-                label="Tiền Khách Đóng"
+                name="lai_xuat"
+                label="% Lãi xuất"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
@@ -154,35 +164,41 @@ const ModalInstallmentAdd = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="BorrWithin"
+                name="han_vay"
                 label="Vay Trong Vòng (Ngày)"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
 
             <Col span={12}>
               <Form.Item
-                name="closinDate"
+                name="han_tra"
                 label="Số Ngày Đóng 1 Lần"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
-            
-          {/* Row 7 */}
-          <Form.Item
-            name="desc"
-            labelCol={{ span: 24 }}
-            label="Ghi Chú"
+          {/* Row thời gian */}
+
+          {/* <Form.Item
+            name="loanDate"
             rules={[{ required: true, message: "Không để trống" }]}
           >
-            <TextArea name="feature" style={{ height: 150 }} />
+            <DatePicker placeholder="Ngày vay" style={{ width: "100%" }} />
+          </Form.Item> */}
+          {/* ghi chú */}
+          <Form.Item
+            label="Ghi Chú"
+            name="ghi_chu"
+            rules={[{ required: true, message: "Không để trống" }]}
+          >
+            <TextArea placeholder="..." style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item style={{ textAlign: "right" }}>
             <Button type="primary" htmlType="submit">

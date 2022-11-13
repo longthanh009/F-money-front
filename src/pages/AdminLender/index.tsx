@@ -11,7 +11,7 @@ import { getUser } from '../../api/user';
 const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers = useAppSelector(state => state.customer.values)
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
@@ -41,6 +41,16 @@ const AdminLender = () => {
     useEffect(() => {
         dispatch(getAll())
     }, [])
+    const [sortUsers, setSortUsers] = useState<any>(null)
+    const hanleSort = async (event:any) => {
+        const {payload} = await dispatch(getAll())
+        if (event) {
+            setSortUsers(payload.users.filter((item: any) => item.role == event ))
+        }
+        if (event == 3) {
+            setSortUsers(payload.users)
+        }
+    }
     const onFinish = async (values: any) => {
         const { payload } = await dispatch(newUser(values))
         if (payload.error) {
@@ -113,6 +123,7 @@ const AdminLender = () => {
                 </div>
                 <div className="search-role">
                     <Select
+                        onChange={hanleSort}
                         showSearch
                         style={{ width: 200 }}
                         placeholder="Loại khách hàng"
@@ -124,9 +135,9 @@ const AdminLender = () => {
                                 .localeCompare((optionB!.children as unknown as string).toLowerCase())
                         }
                     >
-                        <Option value="1">ALL</Option>
-                        <Option value="2">Lender</Option>
-                        <Option value="3">Người vay</Option>
+                        <Option value="3">ALL</Option>
+                        <Option value="1">Lender</Option>
+                        <Option value="2">Người vay</Option>
                     </Select>
                 </div>
             </div>
@@ -159,7 +170,8 @@ const AdminLender = () => {
                         {/* Table body */}
                         <tbody className="text-sm font-medium divide-y divide-slate-100">
                             {/* Row */}
-                            {customers && customers.map((cus: any, index) => {
+                            {sortUsers 
+                            ?  sortUsers?.map((cus: any, index:any) => {
                                 return <tr key={cus._id} onDoubleClick={() => { showModal("update", "Thông tin khách hàng"); getCustumer(cus._id) }}>
                                     <td className="p-2">
                                         <div className="flex items-center">
@@ -173,7 +185,31 @@ const AdminLender = () => {
                                         <div className="text-center">{cus.name}</div>
                                     </td>
                                     <td className="p-2">
-                                        <div className="text-center">0{cus.phone}</div>
+                                        <div className="text-center">{cus.role}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">{cus.createdAt}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center text-green-600">Hoạt động</div>
+                                    </td>
+                                </tr>
+                            })
+                            : customers.map((cus: any, index) => {
+                                return <tr key={cus._id} onDoubleClick={() => { showModal("update", "Thông tin khách hàng"); getCustumer(cus._id) }}>
+                                    <td className="p-2">
+                                        <div className="flex items-center">
+                                            <div className="text-slate-800">{index + 1}</div>
+                                        </div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">{cus.email}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">{cus.name}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-center">{cus.role}</div>
                                     </td>
                                     <td className="p-2">
                                         <div className="text-center">{cus.createdAt}</div>
@@ -183,6 +219,7 @@ const AdminLender = () => {
                                     </td>
                                 </tr>
                             })}
+                           
 
                         </tbody>
                     </table>
