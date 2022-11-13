@@ -11,7 +11,7 @@ import { getUser } from '../../api/user';
 const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers = useAppSelector(state => state.customer.values)
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
