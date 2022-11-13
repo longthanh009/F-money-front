@@ -5,7 +5,7 @@ import Banner from './../HomePage/Banner';
 import Swal from 'sweetalert2'
 const Option = Select;
 const { RangePicker } = DatePicker;
-import { createMenuLoan } from '../../api/contract';
+import { createMenuLoan } from '../../api/menuLoan';
 import Solution from './../HomePage/Solution';
 
 
@@ -35,7 +35,7 @@ const ContractPage = () => {
             timer: 3000,
             width: 700,
         })
-        // setTimeout(() => { navigate('/') }, 3000)
+        setTimeout(() => { navigate('/') }, 3000)
     }
 
     return (
