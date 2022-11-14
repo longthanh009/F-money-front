@@ -92,7 +92,7 @@ const List_Lender = () => {
     };
     return (
         <>
-            <Table  columns={columns} dataSource={DataType?.data?.users} onChange={onChange} />
+            <Table columns={columns} dataSource={DataType?.data?.users} onChange={onChange} />
         </>
     )
 }

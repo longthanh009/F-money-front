@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { DownOutlined, SmileOutlined } from '@ant-design/icons';
-import { Dropdown, Menu, Space, message,Button } from 'antd';
+import { Dropdown, Menu, Space, message, Button } from 'antd';
 import { userLogin } from './../../models/auth';
 import { DownloadOutlined } from '@ant-design/icons';
 
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { logout} from '../../features/auth/authSlice';
+import { logout } from '../../features/auth/authSlice';
 import { Link } from 'react-router-dom';
 const Header_Client = () => {
   const navigate = useNavigate();
-const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
   const [isACtive, setActive] = useState(false)
   const onToggle = () => {
     setActive(!isACtive)
   }
-  const {inforUser,isLogin} = useAppSelector(state=>state.auth)
+  const { inforUser, isLogin } = useAppSelector(state => state.auth)
   const handleLogout = () => {
     dispatch(logout())
     message.success("Đăng xuất thành công.");
@@ -48,7 +48,7 @@ const dispatch = useAppDispatch()
       <nav className="flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-solid border-t-2 border-blue-700">
         <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
           <div className="flex items-center flex-shrink-0 text-gray-800 mr-16">
-            <a href="/"><img src="./src/assets/image/logo.png" alt="" width={200} /></a>
+            <Link to="/"><img src="./src/assets/image/logo.png" alt="" width={200} /></Link>
           </div>
           <div onClick={() => onToggle()} className="block lg:hidden xl:hidden md:hidden ">
             <button id="nav" className="flex items-center px-3 py-2 border-2 rounded text-blue-700 border-blue-700 hover:text-blue-700 hover:border-blue-700">
@@ -76,7 +76,7 @@ const dispatch = useAppDispatch()
               <p>
                 <Space className='text-base font-semibold text-zinc-500 bg-orange-500'>
                   <Button shape="round" >
-                  {inforUser.user.name}<DownOutlined />
+                    {inforUser.user.name}<DownOutlined />
                   </Button>
                 </Space>
               </p>
@@ -85,10 +85,10 @@ const dispatch = useAppDispatch()
             <div className="flex ">
 
               <div className="mr-2 mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                <a href="/signin"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng nhập</span></a>
+                <Link to="/signin"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng nhập</span></Link>
               </div>
               <div className="mx-auto button w-36 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                <a href="/register"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng ký</span></a>
+                <Link to="/register"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Đăng ký</span></Link>
               </div>
 
             </div>
