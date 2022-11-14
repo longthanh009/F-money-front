@@ -1,17 +1,44 @@
 import React, { useEffect, useState } from 'react'
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
+import { Dropdown, Menu, Space, message,Button } from 'antd';
 import { userLogin } from './../../models/auth';
+import { DownloadOutlined } from '@ant-design/icons';
 
-
-
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { logout} from '../../features/auth/authSlice';
 const Header_Client = () => {
+  const navigate = useNavigate();
+const dispatch = useAppDispatch()
   const [isACtive, setActive] = useState(false)
   const onToggle = () => {
     setActive(!isACtive)
   }
-  
-  const user = JSON.parse(localStorage.getItem("loginUser") as string)?.loginUser;
-
-console.log(user);
+  const {inforUser,isLogin} = useAppSelector(state=>state.auth)
+  const handleLogout = () => {
+    dispatch(logout())
+    message.success("Đăng xuất thành công.");
+    navigate("/signin");
+  };
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">Thông tin của tôi</a>
+          ),
+        },
+        {
+          key: '4',
+          danger: true,
+          label: (
+            <button onClick={handleLogout}><p className='font-bold'>Đăng Xuất</p></button>
+          ),
+        },
+      ]}
+    />
+  );
 
   // document.getElementById('nav-toggle').onclick = function(){
   // document.getElementById("nav-content").classList.toggle("hidden");
@@ -42,11 +69,17 @@ console.log(user);
               Hỗ trợ
             </a>
           </div>
-          {user?.username}
-          {user ?
-            <div>
-              <span style={{ cursor: "pointer" }} >Logout</span>
-            </div>
+
+          {isLogin ?
+            <Dropdown overlay={menu}>
+              <p>
+                <Space className='text-base font-semibold text-zinc-500 bg-orange-500'>
+                  <Button shape="round" >
+                  {inforUser.user.name}<DownOutlined />
+                  </Button>
+                </Space>
+              </p>
+            </Dropdown>
             :
             <div className="flex ">
 

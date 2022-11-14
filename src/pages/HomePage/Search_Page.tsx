@@ -115,7 +115,6 @@ const App: React.FC = () => {
     };
     return (
         <div className='py-8'>
-
             <div data-aos="fade-up"
                 data-aos-duration="2000">
                 <h1 className='title text-center text-3xl lg:text-2xl md:text-xl ms:text-lg text-orange-600 font-bold'>Vay tiền ở đâu nhanh và an toàn?</h1>

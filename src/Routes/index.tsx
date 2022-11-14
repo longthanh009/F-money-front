@@ -21,9 +21,9 @@ import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
 import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
-
 {/**api user */ }
 import { login } from './../features/auth/authSlice';
+
 
 
 

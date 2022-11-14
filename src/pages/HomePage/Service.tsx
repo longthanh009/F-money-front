@@ -11,7 +11,7 @@ const Service = () => {
                 data-aos="fade-up"
                 data-aos-duration="2000"
                 className='text-center items-center p-4 ' defaultActiveKey="1">
-                <Tabs.TabPane tab="Vay Trả Góp" className='grid grid-cols-2 w-auto' key="4">
+                <Tabs.TabPane tab="Vay Trả Góp" className='grid grid-cols-2 w-auto' key="1">
                     <div className=' text-left pb-8'>
                         <strong className=' text-xl font-bold'>GÓI VAY TRẢ GÓP</strong>
                         <div className='flex pt-4 pl-4'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
@@ -38,7 +38,7 @@ const Service = () => {
                     </div>
                     <img src="./src/assets/image/client_homepage/dichvu_4.jpeg" alt="" width={400} className="pl-4" />
                 </Tabs.TabPane>
-                <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Thế Chấp" key="3">
+                <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Thế Chấp" key="2">
                     <div className=' text-left p-8'>
                         <strong className=' text-xl font-bold'>GÓI VAY THẾ CHẤP TÀI SẢN</strong>
                         <div className='flex pt-4 pl-4'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
@@ -68,7 +68,7 @@ const Service = () => {
                     <img src="./src/assets/image/client_homepage/dichvu_3.png" alt="" width={350} className="pl-4" />
                 </Tabs.TabPane>
 
-                <Tabs.TabPane className='grid grid-cols-2 w-full' tab="Vay Đăng Ký Xe Máy" key="1">
+                <Tabs.TabPane className='grid grid-cols-2 w-full' tab="Vay Đăng Ký Xe Máy" key="3">
                     <div className=' text-left p-8'>
                         <strong className=' text-xl font-bold'>GÓI VAY ĐĂNG KÝ XE MÁY</strong>
                         <div className='flex pt-4 pl-4'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
@@ -93,7 +93,7 @@ const Service = () => {
                     </div>
                     <img src="./src/assets/image/client_homepage/dichvu_1.jpg" alt="" width={350} className="pl-4" />
                 </Tabs.TabPane>
-                <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Đăng Ký Ô-tô" key="2">
+                <Tabs.TabPane className='grid grid-cols-2 w-auto' tab="Vay Đăng Ký Ô-tô" key="4">
                     <div className=' text-left p-8'>
                         <strong className=' text-xl font-bold'>GÓI VAY ĐĂNG KÝ OTO</strong>
                         <div className='flex pt-4 pl-4'> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
