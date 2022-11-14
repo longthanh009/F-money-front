@@ -27,7 +27,7 @@ const Header_Client = () => {
         {
           key: '1',
           label: (
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">Thông tin của tôi</a>
+            <Link target="_blank" rel="noopener noreferrer" to="/accountClient">Thông tin của tôi</Link>
           ),
         },
         {

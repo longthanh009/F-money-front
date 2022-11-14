@@ -23,7 +23,7 @@ import Installment from "../pages/Lender/Installment";
 import Mortgage from "../pages/Lender/Mortgage";
 {/**api user */ }
 import { login } from './../features/auth/authSlice';
-
+import AccountClient from "../pages/accountClient";
 
 
 
@@ -33,6 +33,7 @@ const RoutePage = () => {
       <Routes>
         <Route path="/" element={<Website_Layout />} >
           <Route index element={<HomePage />} />  {/**Trang chủ */}
+          <Route path="accountClient" element={<AccountClient />} /> {/**Thông tin tài khoản */}
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contractPage" element={<ContractPage />} /> {/**Yêu cầu hợp đồng */}
           <Route path="historic_Contract" element={<Historic_ContractPage />} /> {/**Lịch sử hợp đồng */}
