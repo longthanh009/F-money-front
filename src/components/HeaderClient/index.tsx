@@ -17,7 +17,7 @@ const Header_Client = () => {
   }
   const { inforUser, isLogin } = useAppSelector(state => state.auth)
   const handleLogout = () => {
-    dispatch(logout())
+    dispatch(logout());
     message.success("Đăng xuất thành công.");
     navigate("/signin");
   };
@@ -31,7 +31,7 @@ const Header_Client = () => {
           ),
         },
         {
-          key: '4',
+          key: '2',
           danger: true,
           label: (
             <button onClick={handleLogout}><p className='font-bold'>Đăng Xuất</p></button>
