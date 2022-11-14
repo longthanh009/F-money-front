@@ -7,6 +7,7 @@ import { DownloadOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout} from '../../features/auth/authSlice';
+import { Link } from 'react-router-dom';
 const Header_Client = () => {
   const navigate = useNavigate();
 const dispatch = useAppDispatch()
@@ -59,15 +60,15 @@ const dispatch = useAppDispatch()
         </div>
         <div className={isACtive ? "" : "menu w-full flex-grow lg:flex lg:items-center hidden lg:w-auto lg:px-3 px-8"} id="menu_pc">
           <div className="text-base font-bold text-black lg:flex-grow">
-            <a href="/" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            <Link to="/" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Trang Chủ
-            </a>
-            <a href="/historic_Contract" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            </Link>
+            <Link to="/historic_Contract" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Lịch sử hợp đồng
-            </a>
-            <a href="/suport" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
+            </Link>
+            <Link to="/suport" className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]">
               Hỗ trợ
-            </a>
+            </Link>
           </div>
 
           {isLogin ?

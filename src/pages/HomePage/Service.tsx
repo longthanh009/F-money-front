@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Tabs, Image, Space } from 'antd';
+import { Link } from 'react-router-dom';
 const Service = () => {
     return (
         <div>
@@ -33,7 +34,7 @@ const Service = () => {
 
                         </div>
                         <div className="mx-auto button pb-100 w-32 h-8 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                            <a href="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></a>
+                            <Link to="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></Link>
                         </div>
                     </div>
                     <img src="./src/assets/image/client_homepage/dichvu_4.jpeg" alt="" width={400} className="pl-4" />
@@ -62,7 +63,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Chi phí vay hợp lý</p></div>
                         <div className="mx-auto button pb-100 w-32 h-8 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                            <a href="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></a>
+                            <Link to="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></Link>
                         </div>
                     </div>
                     <img src="./src/assets/image/client_homepage/dichvu_3.png" alt="" width={350} className="pl-4" />
@@ -88,7 +89,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Chi phí vay hợp lý</p></div>
                         <div className="mx-auto button pb-100 w-32 h-8 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                            <a href="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></a>
+                            <Link to="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></Link>
                         </div>
                     </div>
                     <img src="./src/assets/image/client_homepage/dichvu_1.jpg" alt="" width={350} className="pl-4" />
@@ -113,7 +114,7 @@ const Service = () => {
                         </svg>
                             <p className='text-lg pl-4'>Chi phí vay thấp</p></div>
                         <div className="mx-auto button pb-100 w-32 h-8 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                            <a href="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></a>
+                            <Link to="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Vay Ngay</span></Link>
                         </div>
                     </div>
                     <img src="./src/assets/image/client_homepage/dichvu_2.png" alt="" width={300} className="pl-4" />
