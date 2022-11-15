@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { Input } from "antd";
 import ModalInstallmentAdd from "./modalMortgage";
+import { useAppSelector } from "../../../app/hooks";
+import { CSVLink } from "react-csv";
 
 function DddMortgage() {
   const { TextArea } = Input;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //có api của mortgage nhập vô đây
+  const contracts = useAppSelector((state) => state.contract.value);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -39,7 +43,7 @@ function DddMortgage() {
             style={{ background: "green", color: "white" }}
             className="flex md:h-9 cursor-pointer justify-center  bg-green-600 p-2  rounded-md text-white"
           >
-            Xuất Excel
+             <CSVLink data={contracts} filename="mortgageData" > Xuất Excel</CSVLink>
           </Button>
         </div>
       </div>
