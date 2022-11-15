@@ -1,17 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginAuth, register } from "../../api/auth";
+import { getAllUser } from "../../api/user";
 import { userLogin } from "../../models/auth";
 export const login = createAsyncThunk(
     "auth/login", async (formData: userLogin) => {
         const { data } = await loginAuth(formData);
         return data
     });
-    const initialState:any = {
-        inforUser: {},
-        loading: false,
-        message: "",
-        isLogin:false
-    }
+export const getAll = createAsyncThunk(
+    "user/getall", async () => {
+        const { data } = await getAllUser();
+        return data
+    });
+const initialState: any = {
+    inforUser: {},
+    loading: false,
+    message: "",
+    isLogin: false,
+    users: []
+}
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -33,6 +40,9 @@ const authSlice = createSlice({
         [login.rejected]: (state, action) => {
             state.loading = false;
         },
+        [getAll.fulfilled]: (state, action) => {
+            state.users = action.payload.users
+        }
     }
 })
 export const { logout } = authSlice.actions

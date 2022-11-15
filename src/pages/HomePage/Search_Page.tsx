@@ -1,6 +1,5 @@
 import { Button, Modal, Select, Input, Col, Row, } from 'antd';
 import React, { useState } from 'react';
-import List_Lender from './List_Lender';
 import { SearchOutlined } from '@ant-design/icons';
 const { Search } = Input;
 const onSearch = (value) => console.log(value);

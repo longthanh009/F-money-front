@@ -16,7 +16,7 @@ const Header_Client = () => {
   }
   const { inforUser, isLogin } = useAppSelector(state => state.auth)
   console.log(inforUser);
-  
+
   const handleLogout = () => {
     dispatch(logout());
     message.success("Đăng xuất thành công.");
@@ -28,7 +28,7 @@ const Header_Client = () => {
         {
           key: '1',
           label: (
-            <Link target="_blank" rel="noopener noreferrer" to={`/accountClient/${inforUser.user._id}`}>Thông tin của tôi</Link>
+            <Link to={`/accountClient/${inforUser.user._id}`}>Thông tin của tôi</Link>
           ),
         },
         {
