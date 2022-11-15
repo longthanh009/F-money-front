@@ -14,7 +14,7 @@ const { RangePicker } = DatePicker;
 const accountClient = () => {
     const [type, setType] = useState(1)
     const [form] = Form.useForm()
-    //navigate chuyển trang khi thêm thành công
+
     const navigate = useNavigate();
 
     const onChaneType = (e: any) => {
@@ -28,7 +28,7 @@ const accountClient = () => {
     const { id } = useParams();
     const { users } = useAppSelector(state => state.auth)
     const data = users?.find((item: any) => item._id === id)
-    console.log("users", data);
+    // console.log("users", data);
 
     useEffect(() => {
         dispatch(getAll())
@@ -41,7 +41,7 @@ const accountClient = () => {
     //onFinish kiểm tra đăng ký và thêm dữ liệu
     const onFinish = (values: any) => {
     };
-    if (!data) return <div>loading...</div>
+    // if (!data) return <div>loading...</div>
     return (
         <div className='bg-gray-100 flex px-72 pt-8 pb-8 min-h-[85vh]'>
             <div className='w-[700px] mx-auto bg-[white] py-[30px] shadow-lg px-[100px]'>
@@ -102,7 +102,24 @@ const accountClient = () => {
                             <Input placeholder="Địa chỉ" />
                         </Form.Item>
 
+                        <div style={{ display: "flex" }}>
+                            <Form.Item
+                                name="password"
+                                style={{ width: '50%' }}
+                                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' },
+                                { min: 5, message: "Vui lòng nhập lớn hơn 5 kí tự" }]}
+                            >
+                                <Input.Password placeholder='Mật khẩu' />
+                            </Form.Item>
 
+                            <Form.Item
+                                name="repassword"
+                                style={{ width: '50%', paddingLeft: 5 }}
+                                rules={[{ required: true, message: 'Vui lòng nhập lại mật khẩu' }]}
+                            >
+                                <Input.Password placeholder="Xác nhận mật khẩu" />
+                            </Form.Item>
+                        </div>
                         <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
                             <div className=" mx-auto p-1 button w-40 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
                                 <button type='submit' className="flex flex-col mx-auto items-center h-full text-white font-bold text-lg"> Cập nhật </button>
