@@ -9,6 +9,7 @@ function DddMortgage() {
   const { TextArea } = Input;
   const [isModalOpen, setIsModalOpen] = useState(false);
   //có api của mortgage nhập vô đây
+  
   const contracts = useAppSelector((state) => state.contract.value);
 
   const showModal = () => {
