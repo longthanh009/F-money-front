@@ -14,3 +14,4 @@ export const removeContract = (id: any) => {
   const url = `contract/${id}`;
   return intance.delete(url);
 };
+

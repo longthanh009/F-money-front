@@ -8,6 +8,7 @@ import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import useLender from './../../hook/usersHomePage';
 import { formatDate } from './../../ultils/formatDate';
+import { Link } from 'react-router-dom';
 
 
 
@@ -34,8 +35,6 @@ const App: React.FC = () => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-
 
     const { data: DataType, error } = useLender()
     // lọc dữ liệu role
@@ -117,7 +116,6 @@ const App: React.FC = () => {
     };
     return (
         <div className='py-8'>
-
             <div data-aos="fade-up"
                 data-aos-duration="2000">
                 <h1 className='title text-center text-3xl lg:text-2xl md:text-xl ms:text-lg text-orange-600 font-bold'>Vay tiền ở đâu nhanh và an toàn?</h1>
@@ -130,7 +128,7 @@ const App: React.FC = () => {
                     />
                 </div>
                 <div className="mx-auto button w-64 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                    <a href=""><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Tạo yêu cầu vay vốn</span></a>
+                    <Link to="/contractPage"><span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">Tạo yêu cầu vay vốn</span></Link>
                 </div>
 
             </div>

@@ -55,31 +55,31 @@ const Solution = () => {
                 <div className='text-center'>
                     <h2 data-aos="fade-up"
                         data-aos-duration="1000"
-                 className="mb-4 text-3xl font-bold text-orange-600">CHO VAY TIỀN MẶT</h2>
+                        className="mb-4 text-3xl font-bold text-orange-600">CHO VAY TIỀN MẶT</h2>
                 </div>
                 <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-                    <div 
-                    data-aos="fade-up"
-                    data-aos-duration="1500"
-                    className=" p-4 shadow-lg flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b">
+                    <div
+                        data-aos="fade-up"
+                        data-aos-duration="1500"
+                        className=" p-4 shadow-lg flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b">
                         <img src="./src/assets/image/client_homepage/tintuc_1.jpg" alt="" />
                         <strong className="mt-2 text-lg text-gray-900 font-semibold">Tự kinh doanh</strong>
                         <p className='p-4'>Bạn đang kinh doanh tại chợ/ trung tâm thương mại; nuôi trồng tại nhà, hoặc có nguồn thu nhập ổn định. <br />
                             Đăng ký ngay để tìm hiểu cách vay vốn để cải thiện đời sống và mở ra nhiều cơ hội mới nào!</p>
                     </div>
                     <div
-                    data-aos="fade-up"
-                    data-aos-duration="2000"
-                    className=" p-4 shadow-lg flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b">
+                        data-aos="fade-up"
+                        data-aos-duration="2000"
+                        className=" p-4 shadow-lg flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b">
                         <img src="./src/assets/image/client_homepage/tintuc_2.jpg" alt="" />
                         <strong className="mt-2 text-lg text-gray-900 font-semibold">Vay cá nhân</strong>
                         <p className='p-4'>Bạn là cán bộ, công nhân viên đang công tác tại các tổ chức/cơ sở tư nhân/doanh nghiệp/công ty và có bảng lương hàng tháng. <br />
                             Bạn cần hỗ trợ tài chính cá nhân, chần chờ chi mà không click ngay!</p>
                     </div>
                     <div
-                    data-aos="fade-up"
-                    data-aos-duration="2500" 
-                    className=" p-4 shadow-lg flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b">
+                        data-aos="fade-up"
+                        data-aos-duration="2500"
+                        className=" p-4 shadow-lg flex flex-col items-center text-center group md:lg:xl:border-r md:lg:xl:border-b">
                         <img src="./src/assets/image/client_homepage/tintuc_3.jpg" alt="" />
                         <strong className="mt-2 text-lg text-gray-900 font-semibold">Vay doanh nghiệp</strong>
                         <p className='p-4'>Quý khách hàng là doanh nghiệp vừa và nhỏ, đôi khi cần tiền gấp mà không biết “xoay” đâu. <br />

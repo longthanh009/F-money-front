@@ -6,6 +6,7 @@ import { Space, Upload } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom';
 
 
 const Option = Select;
@@ -212,8 +213,8 @@ const SignupPage = () => {
                             <p>
                                 <Checkbox onChange={onChange}>
                                     <label htmlFor=""> Tôi đồng ý với
-                                        <a className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
-                                            Điều khoản sử dụng </a>
+                                        <Link  to="" className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
+                                            Điều khoản sử dụng </Link>
                                     </label>
                                 </Checkbox>
                             </p>
@@ -226,7 +227,7 @@ const SignupPage = () => {
                         <div className='text-[12px]'>
                             <p className='italic'>
                                 Bạn đã có tài khoản?
-                                <a href='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng Nhập </a>
+                                <Link to='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng Nhập </Link>
                             </p>
                         </div>
                     </Form>
