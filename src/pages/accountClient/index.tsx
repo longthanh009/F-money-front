@@ -112,45 +112,6 @@ const accountClient = () => {
                     </Form>
                 </div>
             </div>
-            {/* <div className=' w-[500px] h-[350px] mx-auto bg-[white] py-[30px] shadow-lg px-[100px]'>
-                <h1 className='text-[22px]  mb-[10px] font-bold'>Cập nhật mật khẩu</h1>
-                <div>
-                    <Form
-                        name="basic"
-                        initialValues={{ remember: true }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="off"
-                    >
-                        <Form.Item
-                            name="name"
-                            rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
-                        >
-                            <Input placeholder='Mật khẩu cũ' />
-                        </Form.Item>
-
-                        <Form.Item
-                            name="name"
-                            rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
-                        >
-                            <Input placeholder='Mật khẩu mới' />
-                        </Form.Item>
-                        <Form.Item
-                            name="name"
-                            rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
-                        >
-                            <Input placeholder='Nhập lại mật khẩu' />
-                        </Form.Item>
-
-                        <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-                            <Button className='w-[200px] font-bold' type="primary" htmlType="submit">
-                                Đăng Ký
-                            </Button>
-                        </Form.Item>
-                       
-                    </Form>
-                </div>
-            </div> */}
         </div>
     )
 }
