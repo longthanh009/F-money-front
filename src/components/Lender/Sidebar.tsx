@@ -5,10 +5,15 @@ import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { BiBookmarkAlt } from "react-icons/bi";
+import { BiArch, BiBookmarkAlt } from "react-icons/bi";
 
 const Sidebar = () => {
   const menus = [
+    {
+      name: "Dashboard",
+      link: "/admin",
+      icon: BiArch
+    },
     {
       name: "Tín Chấp",
       link: "/lender/Mortgage/index",
