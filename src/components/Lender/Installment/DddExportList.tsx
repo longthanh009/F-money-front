@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { Input } from "antd";
 import ModalInstallmentAdd from "./modal";
+import { useAppSelector } from "../../../app/hooks";
+import {CSVLink} from 'react-csv'
 
 function DddExportList() {
   const { TextArea } = Input;
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const contracts = useAppSelector((state) => state.contract.value);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -32,14 +34,16 @@ function DddExportList() {
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             handleCancel={handleCancel}
+            setIsModalOpen={setIsModalOpen}
           />
         </div>
         <div className="mb-3 xl:w-96 pr-10 text-left">
+            
           <Button
             style={{ background: "green", color: "white" }}
             className="flex md:h-9 cursor-pointer justify-center  bg-green-600 p-2  rounded-md text-white"
           >
-            Xuất Excel
+            <CSVLink data={contracts} filename="contractsData" > Xuất Excel</CSVLink>
           </Button>
         </div>
       </div>

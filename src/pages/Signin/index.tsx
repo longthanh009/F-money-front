@@ -26,10 +26,11 @@ const SiginPage = () => {
 				showConfirmButton: false,
 				timer: 1500
 			})
-			setTimeout(() => { navigate('/') }, 2000)
+			setTimeout(() => { navigate('/') }, 1500)
 		}
 	}
 	const onFinish = (values: userLogin) => {
+		console.log(values);
 		loginUser(values)
 	};
 	return (

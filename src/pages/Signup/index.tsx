@@ -6,6 +6,7 @@ import { Space, Upload } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom';
 
 
 const Option = Select;
@@ -52,7 +53,7 @@ const SignupPage = () => {
                         setTimeout(() => { navigate('/signin') }, 2000)
                     })
                     //kiểm tra các trường giữ liệu có tồn tại chưa
-                    .catch(({ response }) => message.error({ content: response.data.message })
+                    .catch(({ response }) => message.error({ content: response.data.error })
                     )
             }
             else {
@@ -72,7 +73,6 @@ const SignupPage = () => {
             })
         }
         console.log(values);
-
     };
 
     return (
@@ -98,8 +98,8 @@ const SignupPage = () => {
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
-                        <Form.Item name="dateOfBirth"
-                            rules={[{ required: true, message: 'Vui lòng nhập ngày tháng năm sinh' }]}
+                        <Form.Item name="birthDay"
+                            rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
                         </Form.Item>
@@ -213,8 +213,8 @@ const SignupPage = () => {
                             <p>
                                 <Checkbox onChange={onChange}>
                                     <label htmlFor=""> Tôi đồng ý với
-                                        <a className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
-                                            Điều khoản sử dụng </a>
+                                        <Link  to="" className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
+                                            Điều khoản sử dụng </Link>
                                     </label>
                                 </Checkbox>
                             </p>
@@ -227,7 +227,7 @@ const SignupPage = () => {
                         <div className='text-[12px]'>
                             <p className='italic'>
                                 Bạn đã có tài khoản?
-                                <a href='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng Nhập </a>
+                                <Link to='/signin' className='text-red-600 font-bold hover:text-red-600'> Đăng Nhập </Link>
                             </p>
                         </div>
                     </Form>

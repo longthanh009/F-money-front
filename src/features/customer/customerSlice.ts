@@ -25,6 +25,11 @@ const authSlice = createSlice({
         message: ""
     },
     reducers: {
+        searchNameUser : (state,action) =>{
+            const name = action.payload;
+            const newArr = state.values.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
+            state.values = newArr
+        }
     },
     extraReducers: {
         [newUser.pending]: (state, action) => {
@@ -44,4 +49,5 @@ const authSlice = createSlice({
         },
     }
 })
+export const {searchNameUser} = authSlice.actions
 export default authSlice.reducer

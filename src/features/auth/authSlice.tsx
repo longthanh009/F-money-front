@@ -6,17 +6,19 @@ export const login = createAsyncThunk(
         const { data } = await loginAuth(formData);
         return data
     });
-const authSlice = createSlice({
-    name: "auth",
-    initialState: {
+    const initialState:any = {
         inforUser: {},
         loading: false,
-        message: ""
-    },
+        message: "",
+        isLogin:false
+    }
+const authSlice = createSlice({
+    name: "auth",
+    initialState,
     reducers: {
         logout: (state, action) => {
             state.inforUser = {};
-            console.log(state.inforUser);
+            state.isLogin = false
         }
     },
     extraReducers: {
@@ -26,6 +28,7 @@ const authSlice = createSlice({
         [login.fulfilled]: (state, action) => {
             state.loading = false;
             state.inforUser = action.payload;
+            state.isLogin = true
         },
         [login.rejected]: (state, action) => {
             state.loading = false;
