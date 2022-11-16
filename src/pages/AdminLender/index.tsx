@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createRef, useRef } from 'react'
-import { Button, Modal, Select, Form, Input, DatePicker, Upload, Table, Space, Checkbox } from 'antd';
+import { Button, Modal, Select, Form, Input, DatePicker, Upload, Table, Space, Checkbox, Dropdown } from 'antd';
+import type { MenuProps } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
@@ -39,12 +40,6 @@ const AdminLender = () => {
         setUser(undefined)
         form.resetFields();
     };
-    const uploadButton = (
-        <div>
-            {loading ? <LoadingOutlined /> : <PlusOutlined />}
-            <div style={{ marginTop: 8 }}>Upload</div>
-        </div>
-    );
     useEffect(() => {
         dispatch(getAll())
     }, [])
@@ -79,10 +74,6 @@ const AdminLender = () => {
         }
     };
     const getCustumer = async (id: any) => {
-        console.log(id);
-        formRef.current!.setFieldsValue({
-            name: id.name
-        })
         showModal("update", "Thông tin khách hàng")
     }
     const handlerRemoveCustumer = (id: any) => {
@@ -167,7 +158,7 @@ const AdminLender = () => {
         searchRef.current = setTimeout(() => {
             dispatch(searchNameUser(keyword))
         }, 1000)
-    }
+    };
     return (
         <div>
             <BreadcrumbComponent />
@@ -218,6 +209,9 @@ const AdminLender = () => {
                         <Option value="1">Lender</Option>
                         <Option value="2">Người vay</Option>
                     </Select>
+                </div>
+                <div className="actions-user">
+                    <Button type="primary" danger className='flex items-center'>&#10020; Xoá nhiều</Button>
                 </div>
             </div>
             <div className='content mt-[10px]'>
@@ -288,16 +282,6 @@ const AdminLender = () => {
                                 </Select>
                             </Form.Item>
                         </div>
-                        <Form.Item name="avatar" label="Ảnh đại diện" className='w-[70%]'>
-                            <Upload
-                                name="avatar"
-                                listType="picture-card"
-                                className="avatar-uploader"
-                                showUploadList={false}
-                            >
-                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                            </Upload>
-                        </Form.Item>
                         <Form.Item className='flex justify-end'>
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
