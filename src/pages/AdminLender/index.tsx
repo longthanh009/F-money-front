@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createRef, useRef } from 'react'
 import { Button, Modal, Select, Form, Input, DatePicker, Upload, Table, Space, Checkbox } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAll, newUser, removeUser } from '../../features/customer/customerSlice';
+import { getAll, newUser, removeUser, searchNameUser } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
 import { getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { formatDate } from '../../ultils/formatDate';
+import type { FormInstance } from 'antd/es/form';
 
 const AdminLender = () => {
     const dispatch = useAppDispatch();
@@ -23,6 +24,8 @@ const AdminLender = () => {
     const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
+    const formRef = createRef<FormInstance>()
+    const searchRef = useRef(null);
     const showModal = (type: any, title: any) => {
         setOpen(true)
         setType(type)
@@ -77,9 +80,10 @@ const AdminLender = () => {
     };
     const getCustumer = async (id: any) => {
         console.log(id);
-        
-        const { data } = await getUser(id)
-        setUser(data)
+        formRef.current!.setFieldsValue({
+            name: id.name
+        })
+        showModal("update", "Thông tin khách hàng")
     }
     const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
@@ -148,13 +152,22 @@ const AdminLender = () => {
             render: (item: any) => {
                 return (
                     <Space size="middle">
-                        <button onClick={() => {getCustumer(item._id);showModal("update", "Thông tin khách hàng");}}><AiFillEdit /></button>
+                        <button onClick={() => { getCustumer(item);; }}><AiFillEdit /></button>
                         <button className='text-red-600' onClick={() => handlerRemoveCustumer(item._id)}><AiFillDelete /></button>
                     </Space>
                 );
             },
         },
     ];
+    const searchName = (keyword: string) => {
+        dispatch(getAll())
+        if (searchRef.current) {
+            clearTimeout(searchRef.current)
+        };
+        searchRef.current = setTimeout(() => {
+            dispatch(searchNameUser(keyword))
+        }, 1000)
+    }
     return (
         <div>
             <BreadcrumbComponent />
@@ -165,7 +178,7 @@ const AdminLender = () => {
                 </div>
                 <div className='search w-[300px]'>
                     <form>
-                        <Input placeholder="Tìm kiếm..." prefix={<SearchOutlined />} />
+                        <Input onChange={(e) => searchName(e.target.value)} placeholder="Tìm kiếm..." prefix={<SearchOutlined />} />
                     </form>
                 </div>
                 <div className='search-select'>
@@ -220,7 +233,7 @@ const AdminLender = () => {
             >
                 <div>
                     <Form layout="vertical" autoComplete="on" onFinish={onFinish} form={form}
-                        onValuesChange={user}
+                        ref={formRef}
                     >
                         <div className="flex space-x-[10px]">
                             <Form.Item
