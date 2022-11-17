@@ -66,7 +66,7 @@ const accountClient = () => {
     return (
         <div className='bg-gray-100 flex px-72 pt-8 pb-8 min-h-[85vh]'>
             <div className='w-[700px] mx-auto bg-[white] py-[30px] shadow-lg px-[100px]'>
-                <h1 className='text-[22px]  mb-[10px] font-bold'>Cài đặt thông tin</h1>
+                <h1 className='text-[30px]  mb-[10px] font-bold'>Cài đặt thông tin</h1>
                 <div>
                     <Form
                         name="basic"
