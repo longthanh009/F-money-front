@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Button, Select, DatePicker, Form } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getUser } from '../../api/user';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import useSWR from 'swr';
 import { getAll } from '../../features/auth/authSlice';
-
-
+import { updateUser } from '../../api/user';
+import moment from 'moment';
 
 const Option = Select;
 const { RangePicker } = DatePicker;
@@ -29,17 +28,22 @@ const accountClient = () => {
     const { users } = useAppSelector(state => state.auth)
     const data = users?.find((item: any) => item._id === id)
     // console.log("users", data);
-
     useEffect(() => {
         dispatch(getAll())
         form.setFieldsValue({
-            ...data
+            ...data,
+            birthDay: moment(data?.birthDay)
         })
 
     }, [])
 
     //onFinish kiểm tra đăng ký và thêm dữ liệu
     const onFinish = (values: any) => {
+        values._id = id
+        values.birthDay = new Date(moment(values.birthDay).format())
+        console.log(values);
+        updateUser(values)
+
     };
     // if (!data) return <div>loading...</div>
     return (
@@ -62,7 +66,7 @@ const accountClient = () => {
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
-                        <Form.Item name=""
+                        <Form.Item name="birthDay"
                             rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />

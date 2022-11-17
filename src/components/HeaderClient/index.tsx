@@ -28,7 +28,7 @@ const Header_Client = () => {
         {
           key: '1',
           label: (
-            <Link to={`/accountClient/${inforUser.user._id}`}>Thông tin của tôi</Link>
+            <Link to={`/accountClient/${inforUser?.user?._id}`}>Thông tin của tôi</Link>
           ),
         },
         {
