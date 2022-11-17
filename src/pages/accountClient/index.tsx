@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Input, Button, Select, DatePicker, Form } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Input, Button, Select, DatePicker, Form, Checkbox } from 'antd';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import useSWR from 'swr';
 import { getAll } from '../../features/auth/authSlice';
 import { updateUser } from '../../api/user';
 import moment from 'moment';
+import Swal from 'sweetalert2';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 const Option = Select;
 const { RangePicker } = DatePicker;
@@ -13,7 +15,10 @@ const { RangePicker } = DatePicker;
 const accountClient = () => {
     const [type, setType] = useState(1)
     const [form] = Form.useForm()
-
+    const [checked, setChecked] = useState(false)
+    const onChange = (e: CheckboxChangeEvent) => {
+        setChecked(e.target.checked)
+    };
     const navigate = useNavigate();
 
     const onChaneType = (e: any) => {
@@ -37,19 +42,42 @@ const accountClient = () => {
 
     }, [])
 
-    //onFinish kiểm tra đăng ký và thêm dữ liệu
+
     const onFinish = (values: any) => {
         values._id = id
-        values.birthDay = new Date(moment(values.birthDay).format())
-        console.log(values);
-        updateUser(values)
+        if (values.password === values.repassword) {
+            if (checked == true) {
+                values.birthDay = new Date(moment(values.birthDay).format())
+                console.log(values);
+                updateUser(values)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cập thật thành công',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Bạn chưa đồng ý với điều khoản sử dụng',
+                })
+            }
+        } else {
+            //Swal thông báo lỗi
+            Swal.fire({
+                icon: 'error',
+                title: 'Mật khẩu không khớp',
+                text: 'Vui lòng nhập lại mật khẩu',
+            })
+        }
 
     };
-    // if (!data) return <div>loading...</div>
+
     return (
         <div className='bg-gray-100 flex px-72 pt-8 pb-8 min-h-[85vh]'>
             <div className='w-[700px] mx-auto bg-[white] py-[30px] shadow-lg px-[100px]'>
-                <h1 className='text-[22px]  mb-[10px] font-bold'>Cài đặt thông tin</h1>
+                <h1 className='text-[30px]  mb-[10px] font-bold'>Cài đặt thông tin</h1>
                 <div>
                     <Form
                         name="basic"
@@ -59,20 +87,20 @@ const accountClient = () => {
                         autoComplete="off"
                         form={form}
                     >
-                        <Form.Item
+                        Họ và Tên: <Form.Item
                             name="name"
                             rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
                         >
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
-                        <Form.Item name="birthDay"
+                        Ngày sinh:<Form.Item name="birthDay"
                             rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
                         </Form.Item>
 
-                        <Form.Item
+                        Email: <Form.Item
                             name="email"
                             rules={[{ required: true, message: 'Vui lòng nhập email' },
                             { type: 'email', message: 'Vui lòng nhập đúng định dạng email' }]}
@@ -80,14 +108,14 @@ const accountClient = () => {
                             <Input placeholder='Email' />
                         </Form.Item>
 
-                        <Form.Item
+                        Tài khoản: <Form.Item
                             name="username"
                             rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
                         >
                             <Input placeholder="Tài khoản" />
                         </Form.Item>
 
-                        <Form.Item
+                        Số điện thoại: <Form.Item
                             name="phone"
                             rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
                             {
@@ -99,14 +127,14 @@ const accountClient = () => {
                             <Input placeholder="Số điện thoại" />
                         </Form.Item>
 
-                        <Form.Item
+                        Tỉnh/Thành Phố: <Form.Item
                             name="address"
                             rules={[{ required: true, message: 'Vui lòng nhập chi tiết địa chỉ' }]}
                         >
                             <Input placeholder="Địa chỉ" />
                         </Form.Item>
 
-                        <div style={{ display: "flex" }}>
+                        Mật khẩu: <div style={{ display: "flex" }}>
                             <Form.Item
                                 name="password"
                                 style={{ width: '50%' }}
@@ -124,15 +152,23 @@ const accountClient = () => {
                                 <Input.Password placeholder="Xác nhận mật khẩu" />
                             </Form.Item>
                         </div>
-                        <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-                            <div className=" mx-auto p-1 button w-40 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                                <button type='submit' className="flex flex-col mx-auto items-center h-full text-white font-bold text-lg"> Cập nhật </button>
-                            </div>
+                        <div className='text-[12px]'>
+                            <p>
+                                <Checkbox onChange={onChange}>
+                                    <label className='text-red-500' htmlFor=""> Xác nhận </label>
+                                </Checkbox>
+                            </p>
+                        </div>
+                        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                            <Button className='w-[200px] font-bold' disabled={checked == false ? true : false} type="primary" htmlType="submit">
+                                Cập nhật
+                            </Button>
                         </Form.Item>
 
                     </Form>
                 </div>
             </div>
+
         </div>
     )
 }
