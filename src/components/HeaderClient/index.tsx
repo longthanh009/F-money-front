@@ -33,6 +33,12 @@ const Header_Client = () => {
         },
         {
           key: '2',
+          label: (
+            <Link to={`/password/${inforUser?.user?._id}`}>Đổi mật khẩu</Link>
+          ),
+        },
+        {
+          key: '3',
           danger: true,
           label: (
             <button onClick={handleLogout}><p className='font-bold'>Đăng Xuất</p></button>

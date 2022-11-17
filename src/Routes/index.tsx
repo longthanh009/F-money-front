@@ -24,7 +24,7 @@ import Mortgage from "../pages/Lender/Mortgage";
 {/**api user */ }
 import { login } from './../features/auth/authSlice';
 import AccountClient from "../pages/accountClient";
-
+import Passwword from "../pages/accountClient/password";
 
 
 const RoutePage = () => {
@@ -34,6 +34,7 @@ const RoutePage = () => {
         <Route path="/" element={<Website_Layout />} >
           <Route index element={<HomePage />} />  {/**Trang chủ */}
           <Route path="accountClient/:id" element={<AccountClient />} /> {/**Thông tin tài khoản */}
+          <Route path="password/:id" element={<Passwword />} /> {/**Đổi mật khẩu */}
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contractPage" element={<ContractPage />} /> {/**Yêu cầu hợp đồng */}
           <Route path="historic_Contract" element={<Historic_ContractPage />} /> {/**Lịch sử hợp đồng */}

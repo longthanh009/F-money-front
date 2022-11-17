@@ -97,12 +97,7 @@ const accountClient = () => {
                             <Input placeholder='Email' />
                         </Form.Item>
 
-                        Tài khoản: <Form.Item
-                            name="username"
-                            rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
-                        >
-                            <Input placeholder="Tài khoản" />
-                        </Form.Item>
+
 
                         Số điện thoại: <Form.Item
                             name="phone"
@@ -122,7 +117,12 @@ const accountClient = () => {
                         >
                             <Input placeholder="Địa chỉ" />
                         </Form.Item>
-
+                        {/* Tài khoản: <Form.Item
+                            name="username"
+                            rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
+                        >
+                            <Input placeholder="Tài khoản" />
+                        </Form.Item> */}
                         {/* Mật khẩu:<div style={{ display: "flex" }}>
                             <Form.Item
                                 name="password"
