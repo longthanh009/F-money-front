@@ -7,11 +7,13 @@ import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getAll, newUser, removeUser, searchNameUser } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
-import { getUser } from '../../api/user';
+import { deletelManyUser, getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { formatDate } from '../../ultils/formatDate';
 import type { FormInstance } from 'antd/es/form';
+import { getContract } from '../../features/contract/contractSlice';
+import axios from 'axios';
 
 const AdminLender = () => {
     const dispatch = useAppDispatch();
@@ -23,10 +25,12 @@ const AdminLender = () => {
     const [open, setOpen] = useState(false);
     const { Option } = Select;
     const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
+    const [isChecked, setisChecked]= useState<any>([]);
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
     const formRef = createRef<FormInstance>()
     const searchRef = useRef(null);
+
     const showModal = (type: any, title: any) => {
         setOpen(true)
         setType(type)
@@ -90,16 +94,33 @@ const AdminLender = () => {
             allowOutsideClick: () => !Swal.isLoading()
         })
     }
-    const rowSelection = {
-        onChange: (selectedRowKeys: React.Key[], selectedRows: any) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        getCheckboxProps: (record: any) => ({
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name,
-        }),
-    };
+
+    const HandlerOngetMany = (e:any) => {
+        const {value ,checked} = e.target;
+        if (checked) {
+            setisChecked([...isChecked, value]);
+        }
+        else{
+            setisChecked(isChecked.filter((e:any) => e !== value))
+        }
+    }
+    const HandlerOnRemoveMany = async () =>{ 
+        console.log(isChecked)
+        console.log(isChecked)
+        if(isChecked.length!==0){
+            const responce= await axios.delete(`http://localhost:9000/api/users?`, {
+                params: {id: isChecked}
+            });
+            
+        } else {
+            alert("please Select at least one check box !");
+        }
+      }
     const columns: ColumnsType<ColumnsType> = [
+        {
+            title: <input type="checkbox" name="" id="" />,
+            render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)} checked={text.isChecked} />
+        },
         {
             title: "STT",
             dataIndex: "index",
@@ -211,15 +232,12 @@ const AdminLender = () => {
                     </Select>
                 </div>
                 <div className="actions-user">
-                    <Button type="primary" danger className='flex items-center'>&#10020; Xoá nhiều</Button>
+                    <Button onClick={HandlerOnRemoveMany} type="primary" danger className='flex items-center'>&#10020; Xoá nhiều</Button>
                 </div>
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
-                    <Table rowSelection={{
-                        type: selectionType,
-                        ...rowSelection,
-                    }} columns={columns} dataSource={customers} />
+                    <Table columns={columns} dataSource={customers} />
                 </div>
             </div>
             <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
