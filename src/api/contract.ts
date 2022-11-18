@@ -9,7 +9,10 @@ export const getContracts = (id: any) => {
   const url = `contracts?id=${id}`;
   return intance.get(url);
 };
-
+export const getContractDetail = (id: any) => {
+  const url = `contract/${id}`;
+  return intance.get(url);
+};
 export const removeContract = (id: any) => {
   const url = `contract/${id}`;
   return intance.delete(url);

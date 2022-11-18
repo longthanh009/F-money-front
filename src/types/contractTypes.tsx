@@ -20,6 +20,7 @@ export type ContractType = {
 
 
 // {
+  // nguoi_tao_hd: '34u834576'
 //   "ma_hd": "113",
 //   "ten_khach_hang": "Acde",
 //   "cccd":1232423425,
