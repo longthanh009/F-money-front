@@ -13,4 +13,8 @@ export const deletelUser = (id : String) => {
     const url = `/users/${id}`;
     return intance.delete(url);
 }
+export const deletelManyUser = (id : String) => {
+    const url = `/users?=${id}`;
+    return intance.delete(url);
+}
 
