@@ -1,19 +1,13 @@
-import React from "react";
-import {
-  Button,
-  Calendar,
-  Cascader,
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Row,
-} from "antd";
-import { useAppDispatch } from "../../../app/hooks";
+import React, { useEffect, useState } from "react";
+import { Checkbox, Input, Modal, Row } from "antd";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addContract } from "../../../features/contract/contractSlice";
 import { useNavigate } from "react-router-dom";
+import { CheckboxValueType } from "antd/lib/checkbox/Group";
+import { contractDetail } from "../../../features/contract/contractDetailSlice ";
+import { getContractDetail } from "../../../api/contract";
+import FomatNumber from "../../FomatNumber/fomatNumber";
+import { formatDate } from "../../../ultils/formatDate";
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -24,47 +18,51 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
-const config = {
-  rules: [
-    { type: "object" as const, required: true, message: "Please select time!" },
-  ],
-};
 
 type Props = {
   isModalOpen: any;
   handleOk: any;
   handleCancel: any;
   setIsModalOpen?: any;
+  contracts?: any;
 };
 
-interface formAddInstallment {
-  name: string;
-  code: number;
-  phone: number;
-  idCard: number;
-  address: number;
-  loan: number;
-  PayCustom: number;
-  BorrWithin: number;
-  closinDate: number;
-  desc: number;
-}
 const ModalInstallmentDetail = ({
   isModalOpen,
   handleOk,
   handleCancel,
   setIsModalOpen,
+  contracts,
 }: Props) => {
   const { TextArea } = Input;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const [contractDetaill, setcontractDetaill] = useState<any>();
 
   const onFinish = (data: any) => {
     dispatch(addContract(data));
     setIsModalOpen(false);
     navigate("/lender/installment/index");
   };
+  const onChange = (checkedValues: CheckboxValueType[]) => {
+    console.log("checked = ", checkedValues);
+  };
 
+  useEffect(() => {
+    dispatch(contractDetail(contracts));
+  }, [contracts]);
+  console.log({ contracts });
+
+  useEffect(() => {
+    const getcontract = async () => {
+      const { data } = await getContractDetail(contracts);
+      setcontractDetaill(data);
+    };
+    getcontract();
+  }, []);
+
+  console.log({ contracts });
   return (
     <div>
       <Modal
@@ -74,8 +72,58 @@ const ModalInstallmentDetail = ({
         onCancel={handleCancel}
         footer={null}
       >
-        <div>
-          <div>
+        <div className="ml-2 mr-10 flex border-dashed text-center">
+          <div className="mb-10 pr-10">
+            <div>
+              <label htmlFor="" className="text-base text-rose-400">
+                Tên Khách Hàng
+              </label>
+              <p>{contractDetaill?.ten_khach_hang}</p>
+            </div>
+            <div>
+              <label htmlFor="" className="text-base text-rose-400">
+                Tổng Dư Nợ
+              </label>
+              <p>
+                <FomatNumber number={contractDetaill?.khoan_vay} />
+              </p>
+            </div>
+          </div>
+          <div className="mb-2 pr-10">
+            <div>
+              <label htmlFor="" className="text-base text-rose-400">
+                Ngày Vay
+              </label>
+              <p>{formatDate(contractDetaill?.createdAt)}</p>
+            </div>
+            <div>
+              <label htmlFor="" className="text-base text-rose-400">
+                Khoản Nợ Đã Trả
+              </label>
+              <p>
+                <FomatNumber number={contractDetaill?.da_thanh_toan} />
+              </p>
+            </div>
+          </div>
+          <div className="mb-2">
+            <div>
+              <label htmlFor="" className="text-base text-rose-400">
+                Ngày Đến Hạn
+              </label>
+              <p>{formatDate(contractDetaill?.han_tra)}</p>
+            </div>
+            <div>
+              <label htmlFor="" className="text-base text-rose-400">
+                Dư Nợ Còn Lại
+              </label>
+              <p>
+                <FomatNumber
+                  number={
+                    contractDetaill?.khoan_vay - contractDetaill?.da_thanh_toan
+                  }
+                />
+              </p>
+            </div>
           </div>
         </div>
         <table className="table-auto w-full">
@@ -86,28 +134,51 @@ const ModalInstallmentDetail = ({
                 <div className="font-semibold text-left">STT</div>
               </th>
               <th className="p-2">
-                <div className="font-semibold text-center">Mã khách hàng</div>
+                <div className="font-semibold text-center">Ngày Phải Trả</div>
               </th>
               <th className="p-2">
-                <div className="font-semibold text-center">Tên khách hàng</div>
+                <div className="font-semibold text-center">TIền Phải Trả</div>
               </th>
+              <th className="p-2">
+                <div className="font-semibold text-center">Ngày Giao Dịch</div>
+              </th>
+              <td></td>
             </tr>
           </thead>
           {/* Table body */}
           <tbody className="text-sm font-medium divide-y divide-slate-100">
-            <tr>
-              <td className="p-2">
-                <div className="flex items-center">
-                  <div className="text-slate-800">1</div>
-                </div>
-              </td>
-              <td className="p-2">
-                <div className="text-center">2</div>
-              </td>
-              <td className="p-2">
-                <div className="text-center text-green-500">3</div>
-              </td>
-            </tr>
+            {contractDetaill?.han_thanh_toan?.map((item: any, index: any) => {
+              return (
+                <tr key={index} className="text-center">
+                  <td className="p-2">
+                    <div className="flex items-center">
+                      <div className="text-slate-800">{index + 1}</div>
+                    </div>
+                  </td>
+                  <td className="p-2">
+                    <p>{formatDate(item.ngay)}</p>
+                  </td>
+                  <td className="p-2">
+                    <div className="text-center">
+                      <FomatNumber number={item.tien} />
+                    </div>
+                  </td>
+                  <td className="p-2 text-blue-500">
+                    <p>{formatDate(item.ngay)}</p>
+                  </td>
+                  <td>
+                    <Checkbox.Group
+                      style={{ width: "100%" }}
+                      onChange={onChange}
+                    >
+                      <Row>
+                        <Checkbox value="trang_thai"></Checkbox>
+                      </Row>
+                    </Checkbox.Group>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </Modal>

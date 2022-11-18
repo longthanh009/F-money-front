@@ -10,6 +10,7 @@ import {
 import { FcSalesPerformance } from "react-icons/fc";
 import { GiAnchor } from "react-icons/gi";
 import ModalInstallmentDetail from "./ModalInstallmentDetail";
+import FomatNumber from "../../FomatNumber/fomatNumber";
 
 type Props = {};
 
@@ -43,10 +44,7 @@ const TableInstallment = (props: Props) => {
       dispatch(deleteContract(id));
     }
   };
-  console.log({ contracts });
-  const a = (b: any, c: any) => {
-    console.log(111111);
-  };
+  const a = (b: any, c: any) => {};
   const columns: ColumnsType<ColumnsType> = [
     {
       title: "STT",
@@ -68,39 +66,65 @@ const TableInstallment = (props: Props) => {
     {
       title: "Khoản vay",
       dataIndex: "khoan_vay",
+      render: (khoan_vay) => (
+        <div>
+          <FomatNumber number={khoan_vay} />
+        </div>
+      ),
       key: "khoan_vay",
     },
     {
-      title: "Lãi xuất",
+      title: "Lãi Suất",
       dataIndex: "lai_xuat",
       render: (lai_xuat) => <div>{lai_xuat} %</div>,
 
       key: "lai_xuat",
     },
     {
-      title: "Vay trong vòng",
+      title: "Thời Gian Vay",
       dataIndex: "han_vay",
       render: (han_vay) => <div>{han_vay} Ngày</div>,
       key: "han_vay",
     },
     {
-      title: "Đã thanh toán",
+      title: "Số Ngày Đóng 1 Lần",
+      dataIndex: "han_tra",
+      render: (han_tra) => <div>{han_tra} Ngày</div>,
+      key: "han_tra",
+    },
+    {
+      title: "Khoản Nợ Đã Trả",
       dataIndex: "da_thanh_toan",
+      render: (da_thanh_toan) => <div>{da_thanh_toan}</div>,
       key: "da_thanh_toan",
     },
     {
       title: "Còn phải đóng",
-      render: () => <div></div>,
+      render: (_, record: any) => (
+        <FomatNumber number={record.khoan_vay - record.da_thanh_toan} />
+      ),
     },
+    // 3 trạng thái  0: đang vay  1: quá hạn  2: kết thúc
     {
       title: "Trạng thái họp đồng",
-      dataIndex: "trang_thai",
+      dataIndex: "status",
+      render: (_, record: any) => {
+        let trangThai = record.status;
+        if (trangThai === 0) {
+          return <div>Đang Vay</div>;
+        } else if (trangThai === 1) {
+          return <div>Quá Hạn</div>;
+        } else {
+          return <div>Kết Thức Hợp Dồng</div>;
+        }
+      },
       key: "trang_thai",
     },
     {
       title: "Action",
       key: "action",
       render: (_, record: any) => {
+        const id = record._id;
         return (
           <Space size="middle">
             <div className="pr-2">
@@ -109,6 +133,7 @@ const TableInstallment = (props: Props) => {
               </Button>
               <ModalInstallmentDetail
                 isModalOpen={isModalOpen}
+                contracts={id}
                 handleOk={handleOk}
                 handleCancel={handleCancel}
                 setIsModalOpen={setIsModalOpen}
