@@ -9,7 +9,7 @@ function DddMortgage() {
   const { TextArea } = Input;
   const [isModalOpen, setIsModalOpen] = useState(false);
   //có api của mortgage nhập vô đây
-  
+
   const contracts = useAppSelector((state) => state.contract.value);
 
   const showModal = () => {
@@ -17,7 +17,6 @@ function DddMortgage() {
   };
 
   const handleOk = () => {
-    console.log(11111111111)
     setIsModalOpen(false);
   };
 
@@ -35,6 +34,7 @@ function DddMortgage() {
           </Button>
           <ModalInstallmentAdd
             isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
             handleOk={handleOk}
             handleCancel={handleCancel}
           />
@@ -44,7 +44,10 @@ function DddMortgage() {
             style={{ background: "green", color: "white" }}
             className="flex md:h-9 cursor-pointer justify-center  bg-green-600 p-2  rounded-md text-white"
           >
-             <CSVLink data={contracts} filename="mortgageData" > Xuất Excel</CSVLink>
+            <CSVLink data={contracts} filename="mortgageData">
+              {" "}
+              Xuất Excel
+            </CSVLink>
           </Button>
         </div>
       </div>

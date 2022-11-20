@@ -1,0 +1,21 @@
+export type ContractDetailType = {
+  _id?: string;
+  ma_hd?: string;
+  ten_khach_hang?: string;
+  cccd?: number;
+  dien_thoai?: number;
+  dia_chi?: string;
+  khoan_vay?: number;
+  lai_xuat?: number;
+  tong_hd?: number;
+  han_vay?: number;
+  han_tra?: number;
+  nguoi_tao_hd?: string;
+  ngay?: number;
+  tien?: number;
+  trang_thai?: number;
+  da_thanh_toan?: number;
+  han_hd?: number;
+  status?: number;
+  han_thanh_toan?: any;
+};
