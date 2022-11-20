@@ -39,8 +39,16 @@ export const deleteContract = createAsyncThunk(
 
 const contractSlive = createSlice({
   name: "contract",
-  initialState,
-  reducers: {},
+  initialState: {
+    value: []
+  },
+  reducers: {
+    searchNameContract : (state,action) =>{
+      const name = action.payload;
+      const newArr = state.value.filter(item => item.ten_khach_hang.toLowerCase().includes(name.toLowerCase()));
+      state.value = newArr
+  }
+  },
   extraReducers: (builder) => {
     builder.addCase(getContract.fulfilled, (state, action) => {
       state.value = action.payload;
@@ -53,5 +61,5 @@ const contractSlive = createSlice({
     });
   },
 });
-
+export const {searchNameContract} = contractSlive.actions
 export default contractSlive.reducer;
