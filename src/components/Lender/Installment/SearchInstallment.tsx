@@ -50,12 +50,15 @@ function SearchInstallment() {
                   label: 'Trạng thái',
                 },
                 {
-                  value: 'jack',
-                  label: 'Jack',
+                  value: '0',
+                  label: 'Đang vay',
                 },
                 {
-                  value: 'lucy',
-                  label: 'Lucy',
+                  value: '1',
+                  label: 'Quá hạn',
+                },{
+                  value: '2',
+                  label: 'Hoàn tất',
                 }
               ]}
             />
