@@ -47,8 +47,8 @@ export const updateBank = createAsyncThunk(
     }
   );
 
-const contractSlive = createSlice({
-  name: "contract",
+const bankSlive = createSlice({
+  name: "bank",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -67,4 +67,4 @@ const contractSlive = createSlice({
   },
 });
 
-export default contractSlive.reducer;
+export default bankSlive.reducer;

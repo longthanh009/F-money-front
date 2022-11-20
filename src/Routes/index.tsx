@@ -58,7 +58,8 @@ const RoutePage = () => {
           <Route index element={<AdminDashboard />} />
           <Route path="customer" element={<AdminLender />} /> {/**Danh sách khách hàng */}
           <Route path="contract" element={<AdminContractPage />} /> {/**Danh sách giao dịch */}
-          <Route path="service" element={<ServiceList />} /> {/**Danh sách dichh vu */}
+          <Route path="service" element={<ServiceList />} /> {/**Danh sách dich vu */}
+
         </Route>
       </Routes>
     </div>

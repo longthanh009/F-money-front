@@ -5,7 +5,10 @@ export const getAllBank = () => {
     const url = `/bankAccount`;
     return intance.get(url);
 }
-
+export const getBank = (id : String) => {
+    const url = `/bankAccount/${id}`;
+    return intance.get(url);
+}
 export const deletelBank = (id :any) => {
     const url = `/bankAccount/${id}`;
     return intance.delete(url);
