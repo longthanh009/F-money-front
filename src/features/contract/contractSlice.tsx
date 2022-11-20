@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  getContracts,
-  createContracts,
-  removeContract,
-} from "../../api/contract";
+import {getContracts,createContracts,removeContract,getContractsDate,} from "../../api/contract";
+
 import { ContractType } from "../../types/contractTypes";
 
 interface Icontract {
@@ -20,7 +17,13 @@ export const getContract = createAsyncThunk(
     return data;
   }
 );
-
+export const getContractDate = createAsyncThunk(
+  "contract/getContractDate",
+  async (prams: object) => {
+    const { data } = await getContractsDate(prams.formdate, prams.todate);
+    return data;
+  }
+);
 export const addContract = createAsyncThunk(
   "contract/addContract",
   async (prams: ContractType) => {
@@ -58,6 +61,9 @@ const contractSlive = createSlice({
     });
     builder.addCase(deleteContract.fulfilled, (state, action) => {
       state.value = state.value.filter((item) => item.id != action.payload);
+    });
+    builder.addCase(getContractDate.fulfilled, (state, action) => {
+      state.value = action.payload;
     });
   },
 });
