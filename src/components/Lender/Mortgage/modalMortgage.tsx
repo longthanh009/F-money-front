@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Button,
-  Calendar,
   Col,
   DatePicker,
   Form,
@@ -9,8 +8,10 @@ import {
   InputNumber,
   Modal,
   Row,
-  Select,
 } from "antd";
+import { useAppDispatch } from "../../../app/hooks";
+import { useNavigate } from "react-router-dom";
+import { addMortgage } from "../../../features/mortgage/mortgage";
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -31,6 +32,7 @@ type Props = {
   isModalOpen: any;
   handleOk: any;
   handleCancel: any;
+  setIsModalOpen: any;
 };
 
 interface formAddInstallment {
@@ -49,16 +51,24 @@ const modalMortgage = ({
   isModalOpen,
   handleOk,
   handleCancel,
+  setIsModalOpen,
 }: Props) => {
   const { TextArea } = Input;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const onFinish = (data: any) => {
     console.log(data);
+    data.nguoi_tao_hd = "636a2127a281e92df41190ee";
+    dispatch(addMortgage(data));
+    setIsModalOpen(false);
+    navigate("/lender/Mortgage/index");
   };
-  
+
   return (
     <div>
       <Modal
-        title="Thêm Mới Hợp Đồng"
+        title="Thêm Mới Hợp Đồng Tín Chấp"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -77,9 +87,15 @@ const modalMortgage = ({
                 name="name"
                 labelCol={{ span: 24 }}
                 label="Tên Khách Hàng"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                rules={[
+                  {
+                    required: true,
+                    min: 5,
+                    message: "Không được để trống, Nhập lớn hơn 5",
+                  },
+                ]}
               >
-                <Input size="large" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -87,9 +103,15 @@ const modalMortgage = ({
                 name="code"
                 label="MÃ Hóa Đơn"
                 labelCol={{ span: 24 }}
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[
+                  {
+                    required: true,
+                    min: 4,
+                    message: "Không được để trống, Nhập lớn hơn 4 (HD00)",
+                  },
+                ]}
               >
-                <Input style={{ width: "100%" }} size="large" />
+                <Input style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
@@ -102,7 +124,7 @@ const modalMortgage = ({
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
 
@@ -111,9 +133,14 @@ const modalMortgage = ({
                 name="phone"
                 label="Số Điện Thoại"
                 labelCol={{ span: 24 }}
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Không được để trống, ",
+                  },
+                ]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
@@ -124,29 +151,29 @@ const modalMortgage = ({
             label="Địa Chỉ"
             rules={[{ required: true, message: "Không để trống" }]}
           >
-            <TextArea name="feature" style={{ height: 150 }} />
+            <TextArea name="feature" />
           </Form.Item>
           {/* Row 4 */}
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="loan"
-                label="Tiền Đưa khách"
+                name="tin_chap"
+                label="Tài Sản Tín Chấp"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
 
             <Col span={12}>
               <Form.Item
-                name="PayCustom"
-                label="Tiền Khách Đóng"
+                name="khoan_vay"
+                label="Tiền Vay"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
@@ -154,27 +181,51 @@ const modalMortgage = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="BorrWithin"
+                name="han_vay"
                 label="Vay Trong Vòng (Ngày)"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
 
             <Col span={12}>
               <Form.Item
-                name="closinDate"
-                label="Số Ngày Đóng 1 Lần"
+                name="lai_phi"
+                label="Lãi Phí"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} size="large" />
+                <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
-            
+          {/* Row 5 */}
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="ky_lai_phi"
+                label="Kỳ Đóng Lãi Phí (Ngày)"
+                labelCol={{ span: 24 }}
+                rules={[{ required: true, message: "Không để trống" }]}
+              >
+                <InputNumber style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <Form.Item
+                name="Ngay_vay"
+                label="Ngày Vay"
+                labelCol={{ span: 24 }}
+                rules={[{ required: true, message: "Không để trống" }]}
+              >
+                <DatePicker />
+              </Form.Item>
+            </Col>
+          </Row>
+
           {/* Row 7 */}
           <Form.Item
             name="desc"
@@ -182,11 +233,11 @@ const modalMortgage = ({
             label="Ghi Chú"
             rules={[{ required: true, message: "Không để trống" }]}
           >
-            <TextArea name="feature" style={{ height: 150 }} />
+            <TextArea name="feature" />
           </Form.Item>
           <Form.Item style={{ textAlign: "right" }}>
             <Button type="primary" htmlType="submit">
-              Tạo mới sản phẩm
+              Tạo mới họp đồng
             </Button>
           </Form.Item>
         </Form>
