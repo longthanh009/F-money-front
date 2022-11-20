@@ -257,9 +257,6 @@ const AdminLender = () => {
                                 rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
                                 <Input />
                             </Form.Item>
-                            <Form.Item name="birthday" label="Ngày sinh" className=''>
-                                <DatePicker />
-                            </Form.Item>
                             <Form.Item name="role" label="Vai trò" className='w-[100px]'
                                 rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
                                 <Select defaultValue={-1}>
@@ -275,16 +272,6 @@ const AdminLender = () => {
                                 </Select>
                             </Form.Item>
                         </div>
-                        <Form.Item name="avatar" label="Ảnh đại diện" className='w-[70%]'>
-                            <Upload
-                                name="avatar"
-                                listType="picture-card"
-                                className="avatar-uploader"
-                                showUploadList={false}
-                            >
-                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                            </Upload>
-                        </Form.Item>
                         <Form.Item className='flex justify-end'>
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
