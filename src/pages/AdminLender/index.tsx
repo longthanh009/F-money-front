@@ -5,7 +5,7 @@ import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser } from '../../features/customer/customerSlice';
+import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser,addMuiltipleValues } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
 import { deletelManyUser, getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
@@ -14,10 +14,13 @@ import { formatDate } from '../../ultils/formatDate';
 import type { FormInstance } from 'antd/es/form';
 import { getContract } from '../../features/contract/contractSlice';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers = useAppSelector(state => state.customer.values)
+    const check = useAppSelector(state => state.customer.check)
+    console.log(check)
     const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
@@ -25,7 +28,7 @@ const AdminLender = () => {
     const [open, setOpen] = useState(false);
     const { Option } = Select;
     const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
-    const [isChecked, setisChecked]= useState<any>([]);
+   
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
     const formRef = createRef<FormInstance>()
@@ -94,20 +97,20 @@ const AdminLender = () => {
             allowOutsideClick: () => !Swal.isLoading()
         })
     }
-
+    const [isChecked, setisChecked]= useState<any>([]);
     const HandlerOngetMany = (e:any) => {
-        const {value ,checked} = e.target;
-        dispatch(removeMultipleUser(e.target))
+        dispatch(addMuiltipleValues(e.target))
+        // const {value ,checked} = e.target;
         // if (checked) {
         //     setisChecked([...isChecked, value]);
         // }
         // else{
         //     setisChecked(isChecked.filter((e:any) => e !== value))
         // }
+       
     }
     const HandlerOnRemoveMany = async () =>{ 
-        
-        if(isChecked.length!==0){
+        if(check.length!==0){
             Swal.fire({
                 title: 'Bạn có chắc muốn xoá người dùng này ?',
                 showCancelButton: true,
@@ -115,29 +118,30 @@ const AdminLender = () => {
                 cancelButtonText: 'Không',
                 showLoaderOnConfirm: true,
                 preConfirm: async () => {
-                        await dispatch(deleteMany({params: {id: isChecked}}))
+                    dispatch(deleteMany({params: {id: check}}))
+                    dispatch(removeMultipleUser(check))
                     handleCancel();
+                    // navigate(0)
+
                 },
+                
                 allowOutsideClick: () => !Swal.isLoading()
             })
-            // const responce= await deletelManyUser({
+            // const responce = await deletelManyUser({
             //     params: {id: isChecked}
             // });
+           
         } 
-        // if(isChecked.length!==0){
-        //     const responce= await axios.delete(`http://localhost:9000/api/users?`, {
-        //         params: {id: isChecked}
-        //     });
-            
-        // } 
         else {
             alert("please Select at least one check box !");
         }
       }
     const columns: ColumnsType<ColumnsType> = [
         {
-            title: <input type="checkbox" name="" id="" />,
-            render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)} checked={text.isChecked} />
+            title: <div className="actions-user">
+                 <button className='text-red-600 text-lg'  onClick={HandlerOnRemoveMany}><AiFillDelete /></button>
+            </div>,
+            render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)}/>
         },
         {
             title: "STT",
@@ -249,9 +253,7 @@ const AdminLender = () => {
                         <Option value="2">Người vay</Option>
                     </Select>
                 </div>
-                <div className="actions-user">
-                    <Button onClick={HandlerOnRemoveMany} type="primary" danger className='flex items-center'>&#10020; Xoá nhiều</Button>
-                </div>
+                
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
