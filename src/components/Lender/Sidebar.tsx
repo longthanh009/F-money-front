@@ -30,7 +30,7 @@ const Sidebar = () => {
       icon: AiOutlineUser
     }, {
       name: "Khách Hàng",
-      link: "/admin/customer",
+      link: "/lender/customer/list",
       icon: AiOutlineUsergroupAdd
     },
     {

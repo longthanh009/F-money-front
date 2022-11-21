@@ -1,5 +1,19 @@
+import { Button } from "antd";
 import React, { useState } from "react";
+import ModalAddLenderCustumer from "./modalAddCustommer";
 function Search() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="mb-3 flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="px-5 pt-5">
@@ -38,10 +52,19 @@ function Search() {
               placeholder="Tên Khách Hàng..."
             />
           </div>
-          <div className="mb-3 xl:w-96 pr-10">
-            <button className="flex  cursor-pointer justify-center  bg-blue-600 p-2  rounded-md text-white">
-              Tìm Kiếm
-            </button>
+          <div className="pr-2">
+            <Button type="primary">Tìm Kiếm</Button>
+          </div>
+          <div className="pr-2">
+            <Button type="primary" onClick={showModal}>
+              Thêm mới
+            </Button>
+            <ModalAddLenderCustumer
+              isModalOpen={isModalOpen}
+              handleOk={handleOk}
+              handleCancel={handleCancel}
+              setIsModalOpen={setIsModalOpen}
+            />
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React from 'react';
 
 function TableCustomer() {
@@ -36,7 +37,7 @@ function TableCustomer() {
                   <div className="font-semibold text-center">Trạng Thái</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">Hợp Đồng</div>
+                  <div className="font-semibold text-center">Action</div>
                 </th>
               </tr>
             </thead>
@@ -67,9 +68,11 @@ function TableCustomer() {
                 <td className="p-2">
                   <div className="text-center text-sky-500">Đang Vay</div>
                 </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">Link</div>
+                <td className="p-2 text-right">
+                  <Button className="text-center text-sky-500 mr-2">Xóa</Button>
+                  <Button className="text-center text-sky-500">Xóa</Button> 
                 </td>
+                
               </tr>
            
             </tbody>
