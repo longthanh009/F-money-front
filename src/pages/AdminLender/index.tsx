@@ -5,7 +5,7 @@ import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAll, newUser, removeUser, searchNameUser } from '../../features/customer/customerSlice';
+import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
 import { deletelManyUser, getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
@@ -97,22 +97,40 @@ const AdminLender = () => {
 
     const HandlerOngetMany = (e:any) => {
         const {value ,checked} = e.target;
-        if (checked) {
-            setisChecked([...isChecked, value]);
-        }
-        else{
-            setisChecked(isChecked.filter((e:any) => e !== value))
-        }
+        dispatch(removeMultipleUser(e.target))
+        // if (checked) {
+        //     setisChecked([...isChecked, value]);
+        // }
+        // else{
+        //     setisChecked(isChecked.filter((e:any) => e !== value))
+        // }
     }
     const HandlerOnRemoveMany = async () =>{ 
-        console.log(isChecked)
-        console.log(isChecked)
+        
         if(isChecked.length!==0){
-            const responce= await axios.delete(`http://localhost:9000/api/users?`, {
-                params: {id: isChecked}
-            });
+            Swal.fire({
+                title: 'Bạn có chắc muốn xoá người dùng này ?',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không',
+                showLoaderOnConfirm: true,
+                preConfirm: async () => {
+                        await dispatch(deleteMany({params: {id: isChecked}}))
+                    handleCancel();
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            })
+            // const responce= await deletelManyUser({
+            //     params: {id: isChecked}
+            // });
+        } 
+        // if(isChecked.length!==0){
+        //     const responce= await axios.delete(`http://localhost:9000/api/users?`, {
+        //         params: {id: isChecked}
+        //     });
             
-        } else {
+        // } 
+        else {
             alert("please Select at least one check box !");
         }
       }

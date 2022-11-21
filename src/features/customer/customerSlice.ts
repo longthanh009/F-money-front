@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginAuth, register } from "../../api/auth";
-import { deletelUser, getAllUser } from "../../api/user";
+import { deletelManyUser, deletelUser, getAllUser } from "../../api/user";
 import { userLogin } from "../../models/auth";
 export const newUser = createAsyncThunk(
     "auth/newUser", async (formData: userLogin) => {
@@ -10,6 +10,13 @@ export const newUser = createAsyncThunk(
 export const getAll = createAsyncThunk(
     "auth/getAllUser", async () => {
         const { data } = await getAllUser();
+        return data
+    });
+export const deleteMany = createAsyncThunk(
+    "auth/deleteManyUser", async (params:any) => {
+        console.log(params)
+        const { data } = await deletelManyUser(params);
+        console.log(data)
         return data
     });
 export const removeUser = createAsyncThunk(
@@ -29,6 +36,14 @@ const authSlice = createSlice({
             const name = action.payload;
             const newArr = state.values.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
             state.values = newArr
+        },
+         removeMultipleUser: (state, action) => {
+            // state.values = action.payload
+            console.log(action.payload)
+            // console.log(action.payload.checked)
+            // const currentItem = state.values.find((item) => item._id === action.payload);
+            // const data =  state.values.push({...currentItem});
+            // console.log(data);
         }
     },
     extraReducers: {
@@ -49,5 +64,5 @@ const authSlice = createSlice({
         },
     }
 })
-export const {searchNameUser} = authSlice.actions
+export const {searchNameUser, removeMultipleUser} = authSlice.actions
 export default authSlice.reducer
