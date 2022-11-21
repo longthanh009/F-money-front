@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginAuth, register } from "../../api/auth";
-import { deletelUser, getAllUser } from "../../api/user";
+import { deletelManyUser, deletelUser, getAllUser } from "../../api/user";
 import { userLogin } from "../../models/auth";
 export const newUser = createAsyncThunk(
     "auth/newUser", async (formData: userLogin) => {
@@ -10,6 +10,13 @@ export const newUser = createAsyncThunk(
 export const getAll = createAsyncThunk(
     "auth/getAllUser", async () => {
         const { data } = await getAllUser();
+        return data
+    });
+export const deleteMany = createAsyncThunk(
+    "auth/deleteManyUser", async (params:any) => {
+        console.log(params)
+        const { data } = await deletelManyUser(params);
+        console.log(data)
         return data
     });
 export const removeUser = createAsyncThunk(
@@ -22,13 +29,26 @@ const authSlice = createSlice({
     initialState: {
         values: [],
         loading: false,
-        message: ""
+        message: "",
+        check: []
     },
     reducers: {
         searchNameUser : (state,action) =>{
             const name = action.payload;
             const newArr = state.values.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
             state.values = newArr
+        },
+        removeMultipleUser:  (state, action) => {
+            const data = action.payload
+            state.values = state.values.filter((x:any) => state.check.every((x2:any) => x2 !== x._id))
+        },
+        addMuiltipleValues: (state, action) => {
+            const {value ,checked} = action.payload
+            if(checked){
+                state.check = [...state.check, value]
+            }else{
+                state.check =  state.check.filter((e:any) => e !=  value)
+            }   
         }
     },
     extraReducers: {
@@ -49,5 +69,5 @@ const authSlice = createSlice({
         },
     }
 })
-export const {searchNameUser} = authSlice.actions
+export const {searchNameUser, removeMultipleUser, addMuiltipleValues} = authSlice.actions
 export default authSlice.reducer
