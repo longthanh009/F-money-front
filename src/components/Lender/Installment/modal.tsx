@@ -84,7 +84,7 @@ const ModalInstallmentAdd = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Tên Khách hàng"
+                label="Tên khách hàng"
                 name="ten_khach_hang"
                 rules={[{ required: true, message: "Không để trống" }]}
               >

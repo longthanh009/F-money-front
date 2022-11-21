@@ -14,6 +14,7 @@ import customerSlice from "../features/customer/customerSlice";
 import contractReducer from "../features/contract/contractSlice";
 import contractDetailReducer from "../features/contract/contractDetailSlice ";
 import lenderCustomerReducer from "../features/lender/lenderCustomerSlice";
+import bankReducer from "../features/bank/bankSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   contract: contractReducer,
   contractDetail: contractDetailReducer,
   lenderCustomer: lenderCustomerReducer,
+  bank: bankReducer,
 });
 const persistConfig = {
   key: "root",

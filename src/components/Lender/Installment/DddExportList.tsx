@@ -37,7 +37,7 @@ function DddExportList() {
             setIsModalOpen={setIsModalOpen}
           />
         </div>
-        <div className="mb-3 xl:w-96 pr-10 text-left">
+        <div className="mb-3 xl:w-96 text-left">
             
           <Button
             style={{ background: "green", color: "white" }}
@@ -45,6 +45,9 @@ function DddExportList() {
           >
             <CSVLink data={contracts} filename="contractsData" > Xuất Excel</CSVLink>
           </Button>
+        </div>
+        <div className="mb-3 xl:w-96 text-left">
+          <Button>Xoá nhiều</Button>
         </div>
       </div>
     </div>

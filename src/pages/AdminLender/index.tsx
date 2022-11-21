@@ -5,17 +5,22 @@ import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAll, newUser, removeUser, searchNameUser } from '../../features/customer/customerSlice';
+import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser,addMuiltipleValues } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
-import { getUser } from '../../api/user';
+import { deletelManyUser, getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { formatDate } from '../../ultils/formatDate';
 import type { FormInstance } from 'antd/es/form';
+import { getContract } from '../../features/contract/contractSlice';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers = useAppSelector(state => state.customer.values)
+    const check = useAppSelector(state => state.customer.check)
+    console.log(check)
     const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
@@ -23,10 +28,12 @@ const AdminLender = () => {
     const [open, setOpen] = useState(false);
     const { Option } = Select;
     const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
+   
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
     const formRef = createRef<FormInstance>()
     const searchRef = useRef(null);
+
     const showModal = (type: any, title: any) => {
         setOpen(true)
         setType(type)
@@ -90,16 +97,52 @@ const AdminLender = () => {
             allowOutsideClick: () => !Swal.isLoading()
         })
     }
-    const rowSelection = {
-        onChange: (selectedRowKeys: React.Key[], selectedRows: any) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        getCheckboxProps: (record: any) => ({
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name,
-        }),
-    };
+    const [isChecked, setisChecked]= useState<any>([]);
+    const HandlerOngetMany = (e:any) => {
+        dispatch(addMuiltipleValues(e.target))
+        // const {value ,checked} = e.target;
+        // if (checked) {
+        //     setisChecked([...isChecked, value]);
+        // }
+        // else{
+        //     setisChecked(isChecked.filter((e:any) => e !== value))
+        // }
+       
+    }
+    const HandlerOnRemoveMany = async () =>{ 
+        if(check.length!==0){
+            Swal.fire({
+                title: 'Bạn có chắc muốn xoá người dùng này ?',
+                showCancelButton: true,
+                confirmButtonText: 'Có',
+                cancelButtonText: 'Không',
+                showLoaderOnConfirm: true,
+                preConfirm: async () => {
+                    dispatch(deleteMany({params: {id: check}}))
+                    dispatch(removeMultipleUser(check))
+                    handleCancel();
+                    // navigate(0)
+
+                },
+                
+                allowOutsideClick: () => !Swal.isLoading()
+            })
+            // const responce = await deletelManyUser({
+            //     params: {id: isChecked}
+            // });
+           
+        } 
+        else {
+            alert("please Select at least one check box !");
+        }
+      }
     const columns: ColumnsType<ColumnsType> = [
+        {
+            title: <div className="actions-user">
+                 <button className='text-red-600 text-lg'  onClick={HandlerOnRemoveMany}><AiFillDelete /></button>
+            </div>,
+            render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)}/>
+        },
         {
             title: "STT",
             dataIndex: "index",
@@ -210,16 +253,11 @@ const AdminLender = () => {
                         <Option value="2">Người vay</Option>
                     </Select>
                 </div>
-                <div className="actions-user">
-                    <Button type="primary" danger className='flex items-center'>&#10020; Xoá nhiều</Button>
-                </div>
+                
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
-                    <Table rowSelection={{
-                        type: selectionType,
-                        ...rowSelection,
-                    }} columns={columns} dataSource={customers} />
+                    <Table columns={columns} dataSource={customers} />
                 </div>
             </div>
             <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
@@ -263,9 +301,6 @@ const AdminLender = () => {
                             <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'
                                 rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
                                 <Input />
-                            </Form.Item>
-                            <Form.Item name="birthday" label="Ngày sinh" className=''>
-                                <DatePicker />
                             </Form.Item>
                             <Form.Item name="role" label="Vai trò" className='w-[100px]'
                                 rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
