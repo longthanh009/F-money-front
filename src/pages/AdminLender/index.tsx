@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Modal, Select, Form, Input, DatePicker, Upload } from 'antd';
+import React, { useState, useEffect, createRef, useRef } from 'react'
+import { Button, Modal, Select, Form, Input, DatePicker, Upload, Table, Space, Checkbox, Dropdown } from 'antd';
+import type { MenuProps } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getAll, newUser, removeUser } from '../../features/customer/customerSlice';
+import { getAll, newUser, removeUser, searchNameUser } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
 import { getUser } from '../../api/user';
+import { ColumnsType } from 'antd/lib/table';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import { formatDate } from '../../ultils/formatDate';
+import type { FormInstance } from 'antd/es/form';
 
 const AdminLender = () => {
     const dispatch = useAppDispatch();
@@ -17,8 +22,11 @@ const AdminLender = () => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const { Option } = Select;
+    const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
+    const formRef = createRef<FormInstance>()
+    const searchRef = useRef(null);
     const showModal = (type: any, title: any) => {
         setOpen(true)
         setType(type)
@@ -32,20 +40,14 @@ const AdminLender = () => {
         setUser(undefined)
         form.resetFields();
     };
-    const uploadButton = (
-        <div>
-            {loading ? <LoadingOutlined /> : <PlusOutlined />}
-            <div style={{ marginTop: 8 }}>Upload</div>
-        </div>
-    );
     useEffect(() => {
         dispatch(getAll())
     }, [])
     const [sortUsers, setSortUsers] = useState<any>(null)
-    const hanleSort = async (event:any) => {
-        const {payload} = await dispatch(getAll())
+    const hanleSort = async (event: any) => {
+        const { payload } = await dispatch(getAll())
         if (event) {
-            setSortUsers(payload.users.filter((item: any) => item.role == event ))
+            setSortUsers(payload.users.filter((item: any) => item.role == event))
         }
         if (event == 3) {
             setSortUsers(payload.users)
@@ -72,8 +74,7 @@ const AdminLender = () => {
         }
     };
     const getCustumer = async (id: any) => {
-        const { data } = await getUser(id)
-        setUser(data)
+        showModal("update", "Thông tin khách hàng")
     }
     const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
@@ -89,17 +90,86 @@ const AdminLender = () => {
             allowOutsideClick: () => !Swal.isLoading()
         })
     }
+    const rowSelection = {
+        onChange: (selectedRowKeys: React.Key[], selectedRows: any) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        getCheckboxProps: (record: any) => ({
+            disabled: record.name === 'Disabled User', // Column configuration not to be checked
+            name: record.name,
+        }),
+    };
+    const columns: ColumnsType<ColumnsType> = [
+        {
+            title: "STT",
+            dataIndex: "index",
+            key: "index",
+            render: (text, object, index) => <div>{index + 1}</div>,
+        },
+        {
+            title: "Tên khách hàng",
+            dataIndex: "name",
+            key: "ten_khach_hang",
+        },
+        {
+            title: "Email",
+            dataIndex: "email",
+            key: "khoan_vay",
+        },
+        {
+            title: "Điện thoại",
+            dataIndex: "phone",
+            key: "phone",
+        },
+        {
+            title: "Ngày tạo",
+            dataIndex: "createdAt",
+            render: (item: any) => {
+                return (
+                    <div>
+                        {formatDate(item)}
+                    </div>
+                );
+            },
+        },
+        {
+            title: "Trạng thái",
+            dataIndex: "status",
+            key: "da_thanh_toan",
+        },
+        {
+            title: "Action",
+            key: "action",
+            render: (item: any) => {
+                return (
+                    <Space size="middle">
+                        <button onClick={() => { getCustumer(item);; }}><AiFillEdit /></button>
+                        <button className='text-red-600' onClick={() => handlerRemoveCustumer(item._id)}><AiFillDelete /></button>
+                    </Space>
+                );
+            },
+        },
+    ];
+    const searchName = (keyword: string) => {
+        dispatch(getAll())
+        if (searchRef.current) {
+            clearTimeout(searchRef.current)
+        };
+        searchRef.current = setTimeout(() => {
+            dispatch(searchNameUser(keyword))
+        }, 1000)
+    };
     return (
         <div>
             <BreadcrumbComponent />
             <h1 className='text-[25px]'>Danh sách khách hàng ({customers ? customers.length : ""})</h1>
             <div className='flex items-center space-x-1'>
                 <div className='modal-news'>
-                    <Button className='flex items-center' onClick={() => showModal("news", "Thêm mới khách hàng")}> &#10010; Thêm mới</Button>
+                    <Button type="primary" className='flex items-center' onClick={() => showModal("news", "Thêm mới khách hàng")}> &#10010; Thêm mới</Button>
                 </div>
                 <div className='search w-[300px]'>
                     <form>
-                        <Input placeholder="Tìm kiếm..." prefix={<SearchOutlined />} />
+                        <Input onChange={(e) => searchName(e.target.value)} placeholder="Tìm kiếm..." prefix={<SearchOutlined />} />
                     </form>
                 </div>
                 <div className='search-select'>
@@ -140,104 +210,16 @@ const AdminLender = () => {
                         <Option value="2">Người vay</Option>
                     </Select>
                 </div>
+                <div className="actions-user">
+                    <Button type="primary" danger className='flex items-center'>&#10020; Xoá nhiều</Button>
+                </div>
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
-                    <table className="table-auto w-full">
-                        {/* Table header */}
-                        <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
-                            <tr>
-                                <th className="p-2">
-                                    <div className="font-semibold text-left">STT</div>
-                                </th>
-                                <th className="p-2">
-                                    <div className="font-semibold text-center">Email</div>
-                                </th>
-                                <th className="p-2">
-                                    <div className="font-semibold text-center">Họ và tên</div>
-                                </th>
-                                <th className="p-2">
-                                    <div className="font-semibold text-center">Điện thoại</div>
-                                </th>
-                                <th className="p-2">
-                                    <div className="font-semibold text-center">Ngày tạo</div>
-                                </th>
-                                <th className="p-2">
-                                    <div className="font-semibold text-center">Trạng thái</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        {/* Table body */}
-                        <tbody className="text-sm font-medium divide-y divide-slate-100">
-                            {/* Row */}
-                            {sortUsers 
-                            ?  sortUsers?.map((cus: any, index:any) => {
-                                return <tr key={cus._id} onDoubleClick={() => { showModal("update", "Thông tin khách hàng"); getCustumer(cus._id) }}>
-                                    <td className="p-2">
-                                        <div className="flex items-center">
-                                            <div className="text-slate-800">{index + 1}</div>
-                                        </div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.email}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.name}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.role}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.createdAt}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center text-green-600">Hoạt động</div>
-                                    </td>
-                                </tr>
-                            })
-                            : customers.map((cus: any, index) => {
-                                return <tr key={cus._id} onDoubleClick={() => { showModal("update", "Thông tin khách hàng"); getCustumer(cus._id) }}>
-                                    <td className="p-2">
-                                        <div className="flex items-center">
-                                            <div className="text-slate-800">{index + 1}</div>
-                                        </div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.email}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.name}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.role}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center">{cus.createdAt}</div>
-                                    </td>
-                                    <td className="p-2">
-                                        <div className="text-center text-green-600">Hoạt động</div>
-                                    </td>
-                                </tr>
-                            })}
-                           
-
-                        </tbody>
-                    </table>
-                    <div className="flex flex-col justify-center items-end mt-[40px]">
-                        {/* Help text */}
-                        <span className="text-sm text-gray-700 dark:text-gray-400">
-                            Showing <span className="font-semibold text-gray-900 dark:text-white">1</span> to <span className="font-semibold text-gray-900 dark:text-white">10</span> of <span className="font-semibold text-gray-900 dark:text-white">100</span> Entries
-                        </span>
-                        {/* Buttons */}
-                        <div className="inline-flex mt-2 xs:mt-0">
-                            <button className="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                Prev
-                            </button>
-                            <button className="py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-r border-0 border-l border-gray-700 hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                Next
-                            </button>
-                        </div>
-                    </div>
+                    <Table rowSelection={{
+                        type: selectionType,
+                        ...rowSelection,
+                    }} columns={columns} dataSource={customers} />
                 </div>
             </div>
             <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
@@ -245,7 +227,7 @@ const AdminLender = () => {
             >
                 <div>
                     <Form layout="vertical" autoComplete="on" onFinish={onFinish} form={form}
-                        initialValues = {type == "news" ? undefined : user}
+                        ref={formRef}
                     >
                         <div className="flex space-x-[10px]">
                             <Form.Item
@@ -271,23 +253,16 @@ const AdminLender = () => {
                             rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
                             <Input />
                         </Form.Item>
-                        {type == 'news' ? <div className="flex space-x-[10px]">
+                        <div className="flex space-x-[10px]">
                             <Form.Item name="password" label="Mật khẩu" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
                                 <Input />
                             </Form.Item>
-                            <Form.Item name="confirmPassword" label="Xác nhận mật khẩu" className='w-[50%]'
-                                rules={[{ required: true, message: 'Xác nhận mật khẩu' }]}>
-                                <Input />
-                            </Form.Item>
-                        </div> : ""}
+                        </div>
                         <div className="flex space-x-[10px]">
                             <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'
                                 rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
                                 <Input />
-                            </Form.Item>
-                            <Form.Item name="birthday" label="Ngày sinh" className=''>
-                                <DatePicker />
                             </Form.Item>
                             <Form.Item name="role" label="Vai trò" className='w-[100px]'
                                 rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
@@ -304,23 +279,10 @@ const AdminLender = () => {
                                 </Select>
                             </Form.Item>
                         </div>
-                        <Form.Item name="avatar" label="Ảnh đại diện" className='w-[70%]'>
-                            <Upload
-                                name="avatar"
-                                listType="picture-card"
-                                className="avatar-uploader"
-                                showUploadList={false}
-                            >
-                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                            </Upload>
-                        </Form.Item>
                         <Form.Item className='flex justify-end'>
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
                             </Button>
-                            {type == "update" ? <Button key="back" onClick={() => handlerRemoveCustumer(user._id ? user._id : "")} className="mr-[10px]">
-                                Xoá
-                            </Button> : ""}
                             <Button key="submit" htmlType="submit" type="primary">
                                 Lưu
                             </Button>

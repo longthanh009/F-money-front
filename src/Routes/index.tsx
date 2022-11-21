@@ -25,6 +25,9 @@ import Mortgage from "../pages/Lender/Mortgage";
 import { login } from './../features/auth/authSlice';
 import AccountClient from "../pages/accountClient";
 import Passwword from "../pages/accountClient/password";
+import ServiceList from "../pages/AdminService/ServiceList";
+// api service
+
 
 
 const RoutePage = () => {
@@ -58,6 +61,8 @@ const RoutePage = () => {
           <Route index element={<AdminDashboard />} />
           <Route path="customer" element={<AdminLender />} /> {/**Danh sách khách hàng */}
           <Route path="contract" element={<AdminContractPage />} /> {/**Danh sách giao dịch */}
+          <Route path="service" element={<ServiceList />} /> {/**Danh sách dich vu */}
+
         </Route>
       </Routes>
     </div>

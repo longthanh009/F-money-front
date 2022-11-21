@@ -59,6 +59,7 @@ const ModalInstallmentAdd = ({
   const dispatch = useAppDispatch();
 
   const onFinish = (data: any) => {
+    data.nguoi_tao_hd = "636a2127a281e92df41190ee";
     dispatch(addContract(data));
     setIsModalOpen(false);
     navigate("/lender/installment/index");
@@ -83,7 +84,7 @@ const ModalInstallmentAdd = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Tên Khách hàng"
+                label="Tên khách hàng"
                 name="ten_khach_hang"
                 rules={[{ required: true, message: "Không để trống" }]}
               >
