@@ -300,9 +300,6 @@ const AdminLender = () => {
                                 rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
                                 <Input />
                             </Form.Item>
-                            <Form.Item name="birthday" label="Ngày sinh" className=''>
-                                <DatePicker />
-                            </Form.Item>
                             <Form.Item name="role" label="Vai trò" className='w-[100px]'
                                 rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
                                 <Select defaultValue={-1}>

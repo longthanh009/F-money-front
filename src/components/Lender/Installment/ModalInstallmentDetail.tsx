@@ -75,14 +75,14 @@ const ModalInstallmentDetail = ({
         <div className="ml-2 mr-10 flex border-dashed text-center">
           <div className="mb-10 pr-10">
             <div>
-              <label htmlFor="" className="text-base text-rose-400">
-                Tên Khách Hàng
+              <label htmlFor="" className="text-base text-rose-400 text-[14px]">
+                Tên khách hàng
               </label>
               <p>{contractDetaill?.ten_khach_hang}</p>
             </div>
             <div>
-              <label htmlFor="" className="text-base text-rose-400">
-                Tổng Dư Nợ
+              <label htmlFor="" className="text-base text-rose-400 text-[14px]">
+                Tổng dư nợ
               </label>
               <p>
                 <FomatNumber number={contractDetaill?.khoan_vay} />
@@ -91,14 +91,14 @@ const ModalInstallmentDetail = ({
           </div>
           <div className="mb-2 pr-10">
             <div>
-              <label htmlFor="" className="text-base text-rose-400">
-                Ngày Vay
+              <label htmlFor="" className="text-base text-rose-400 text-[14px]">
+                Ngày vay
               </label>
               <p>{formatDate(contractDetaill?.createdAt)}</p>
             </div>
             <div>
-              <label htmlFor="" className="text-base text-rose-400">
-                Khoản Nợ Đã Trả
+              <label htmlFor="" className="text-base text-rose-400 text-[14px]">
+                Khoản nợ đã trả
               </label>
               <p>
                 <FomatNumber number={contractDetaill?.da_thanh_toan} />
@@ -107,14 +107,14 @@ const ModalInstallmentDetail = ({
           </div>
           <div className="mb-2">
             <div>
-              <label htmlFor="" className="text-base text-rose-400">
-                Ngày Đến Hạn
+              <label htmlFor="" className="text-base text-rose-400 text-[14px]">
+                Ngày đến hạn
               </label>
               <p>{formatDate(contractDetaill?.han_tra)}</p>
             </div>
             <div>
-              <label htmlFor="" className="text-base text-rose-400">
-                Dư Nợ Còn Lại
+              <label htmlFor="" className="text-base text-rose-400 text-[14px]">
+                Dư nợ còn lại
               </label>
               <p>
                 <FomatNumber
