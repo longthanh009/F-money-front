@@ -37,10 +37,10 @@ const App: React.FC = () => {
 
     const { data: DataType, error } = useLender()
     // lọc dữ liệu role
-    // const data =  DataType?.data.users.filter((item:any)=>item.role=="userLender")
+    const data = DataType?.data.users.filter((item: any) => item.role == "1")
 
     // Convert địa chị thành mảng
-    let dataFilterWait = DataType?.data.users.map((item: any) =>
+    let dataFilterWait = data?.map((item: any) =>
         item.address
     )
 
