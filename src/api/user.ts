@@ -13,9 +13,4 @@ export const deletelUser = (id: String) => {
     const url = `/users/${id}`;
     return intance.delete(url);
 }
-export const updateUser = (data: any) => {
-    const url = `/users/${data._id}`;
-    return intance.put(url, data);
-}
-
 
