@@ -3,10 +3,11 @@ import { Input, Button, Select, DatePicker, Form } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import useSWR from 'swr';
-import { getAll } from '../../features/auth/authSlice';
+import { getAll, login } from '../../features/auth/authSlice';
 import { updateUser } from '../../api/user';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import useLender from '../../hook/usersHomePage';
 
 const Option = Select;
 const { RangePicker } = DatePicker;
@@ -31,34 +32,37 @@ const Passwword = () => {
     // console.log("users", data);
     useEffect(() => {
         dispatch(getAll())
-        form.setFieldsValue({
-            ...data,
-            birthDay: moment(data?.birthDay)
-        })
-
     }, [])
-
-
-    const onFinish = (values: any) => {
+    const onFinish = async (values: any) => {
         values._id = id
-        if (values.password === values.repassword) {
-            values.birthDay = new Date(moment(values.birthDay).format())
-            console.log(values);
-            updateUser(values)
-            Swal.fire({
-                icon: 'success',
-                title: 'Cập thật thành công',
-                showConfirmButton: false,
-                timer: 1500
-            })
+        const user = {
+            username: data.username,
+            password: values.passwordOld
+        }
 
-        } else {
-            //Swal thông báo lỗi
+        const { payload } = await dispatch(login(user));
+        if (payload.error) {
             Swal.fire({
                 icon: 'error',
-                title: 'Mật khẩu không khớp',
-                text: 'Vui lòng nhập lại mật khẩu',
+                title: "Mật khẩu sai"
             })
+        } else {
+            if (values.password === values.repasswords) {
+                updateUser({ _id: id, password: values.password });
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đổi mật khẩu thành công',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Mật khẩu không khớp"
+                })
+            }
+
         }
 
     };
@@ -77,15 +81,8 @@ const Passwword = () => {
                         form={form}
                     >
 
-                        Tài khoản: <Form.Item
-                            name="username"
-                            rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
-                        >
-                            <Input placeholder="Tài khoản" />
-                        </Form.Item>
-
                         Mật khẩu cũ: <Form.Item
-                            name="password"
+                            name="passwordOld"
 
                             rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' },
                             { min: 5, message: "Vui lòng nhập lớn hơn 5 kí tự" }]}
@@ -94,7 +91,7 @@ const Passwword = () => {
                         </Form.Item>
 
                         Mật khẩu mới: <Form.Item
-                            name="passwords"
+                            name="password"
 
                             rules={[{ required: true, message: 'Vui lòng nhập lại mật khẩu' }]}
                         >
@@ -109,7 +106,7 @@ const Passwword = () => {
                         </Form.Item>
                         <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
                             <div className=" mx-auto p-1 button w-40 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                                <button type='submit' className="flex flex-col mx-auto items-center h-full text-white font-bold text-lg"> Xác nhận </button>
+                                <button className="flex flex-col mx-auto items-center h-full text-white font-bold text-lg"> Xác nhận </button>
                             </div>
                         </Form.Item>
 

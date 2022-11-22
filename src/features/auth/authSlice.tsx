@@ -3,7 +3,7 @@ import { loginAuth, register } from "../../api/auth";
 import { getAllUser } from "../../api/user";
 import { userLogin } from "../../models/auth";
 export const login = createAsyncThunk(
-    "auth/login", async (formData: userLogin) => {
+    "auth/login", async (formData: any) => {
         const { data } = await loginAuth(formData);
         return data
     });

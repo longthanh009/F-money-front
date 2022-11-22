@@ -83,7 +83,7 @@ const Header_Client = () => {
               <p>
                 <Space className='text-base font-semibold text-zinc-500 bg-orange-500'>
                   <Button shape="round" >
-                    {inforUser.user.name}<DownOutlined />
+                    {inforUser?.user?.name}<DownOutlined />
                   </Button>
                 </Space>
               </p>
