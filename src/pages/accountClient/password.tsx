@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Input, Button, Select, DatePicker, Form } from 'antd';
+import { Input, Button, Select, DatePicker, Form, message } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import useSWR from 'swr';
@@ -8,6 +8,7 @@ import { updateUser } from '../../api/user';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import useLender from '../../hook/usersHomePage';
+import { logout } from '../../api/auth';
 
 const Option = Select;
 const { RangePicker } = DatePicker;
@@ -33,6 +34,9 @@ const Passwword = () => {
     useEffect(() => {
         dispatch(getAll())
     }, [])
+
+
+
     const onFinish = async (values: any) => {
         values._id = id
         const user = {
@@ -55,6 +59,7 @@ const Passwword = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
+                setTimeout(() => { navigate('/') }, 2000)
 
             } else {
                 Swal.fire({
