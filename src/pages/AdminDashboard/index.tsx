@@ -1,21 +1,28 @@
 import axios from 'axios';
 import React from 'react'
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getAll } from '../../features/customer/customerSlice';
 
 
 const AdminDashboard = () => {
+  const dispath =  useAppDispatch()
   const contracts = useAppSelector((state) => state.contract.value);
-  const [customers, setCustomers] = React.useState([])
+  const customers = useAppSelector(state => state.customer.values)
   const [customer, setCustomer] = React.useState([])
   const [lender, setLender] = React.useState([])
+  if (customers) {
+    setCustomer(customers.filter((user:any) => user.role == 0)) 
+    setLender(customers.filter((user:any) => user.role == 1))
+  }
   React.useEffect(() => {
-      axios.get('http://localhost:9000/api/users').then(({data}) => {
-        if (data) {
-          setCustomers(data.users)
-          setCustomer(data.users.filter((user:any) => user.role == 0)) 
-          setLender(data.users.filter((user:any) => user.role == 1))
-        }
-      })
+    dispath(getAll())
+      // axios.get('http://localhost:9000/api/users').then(({data}) => {
+      //   if (data) {
+      //     setCustomers(data.users)
+      //     setCustomer(data.users.filter((user:any) => user.role == 0)) 
+      //     setLender(data.users.filter((user:any) => user.role == 1))
+      //   }
+      // })
   },[])
   return (
     <div>
