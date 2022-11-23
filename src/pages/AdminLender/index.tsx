@@ -200,7 +200,6 @@ const AdminLender = () => {
             dispatch(searchNameUser(keyword))
         }, 1000)
     };
-
     const hanlderSortStatus = async (e:any) => {
         if (e == 0) {
             dispatch(getAll())
