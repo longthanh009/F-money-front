@@ -213,7 +213,7 @@ const SignupPage = () => {
                             <p>
                                 <Checkbox onChange={onChange}>
                                     <label htmlFor=""> Tôi đồng ý với
-                                        <Link  to="" className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
+                                        <Link to="" className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
                                             Điều khoản sử dụng </Link>
                                     </label>
                                 </Checkbox>

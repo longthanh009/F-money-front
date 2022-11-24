@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, Space, message, Button } from 'antd';
-import { userLogin } from './../../models/auth';
-import { DownloadOutlined } from '@ant-design/icons';
-
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../features/auth/authSlice';
 import { Link } from 'react-router-dom';
+
+
 const Header_Client = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
@@ -16,6 +15,8 @@ const Header_Client = () => {
     setActive(!isACtive)
   }
   const { inforUser, isLogin } = useAppSelector(state => state.auth)
+  console.log(inforUser);
+
   const handleLogout = () => {
     dispatch(logout());
     message.success("Đăng xuất thành công.");
@@ -27,11 +28,17 @@ const Header_Client = () => {
         {
           key: '1',
           label: (
-            <Link target="_blank" rel="noopener noreferrer" to="/accountClient">Thông tin của tôi</Link>
+            <Link to={`/accountClient/${inforUser?.user?._id}`}>Thông tin của tôi</Link>
           ),
         },
         {
           key: '2',
+          label: (
+            <Link to={`/password/${inforUser?.user?._id}`}>Đổi mật khẩu</Link>
+          ),
+        },
+        {
+          key: '3',
           danger: true,
           label: (
             <button onClick={handleLogout}><p className='font-bold'>Đăng Xuất</p></button>
@@ -76,7 +83,7 @@ const Header_Client = () => {
               <p>
                 <Space className='text-base font-semibold text-zinc-500 bg-orange-500'>
                   <Button shape="round" >
-                    {inforUser.user.name}<DownOutlined />
+                    {inforUser?.user?.name}<DownOutlined />
                   </Button>
                 </Space>
               </p>
