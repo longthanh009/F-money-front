@@ -26,12 +26,9 @@ const AdminLender = () => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const { Option } = Select;
-    const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
-   
     const [form] = Form.useForm<any>();
-    const [imageUrl, setImageUrl] = useState<string>();
     const formRef = createRef<FormInstance>()
-    const searchRef = useRef(null);
+    const searchRef = useRef<any>(null);
 
     const showModal = (type: any, title: any) => {
         setOpen(true)
@@ -106,7 +103,6 @@ const AdminLender = () => {
         // else{
         //     setisChecked(isChecked.filter((e:any) => e !== value))
         // }
-       
     }
     const HandlerOnRemoveMany = async () =>{ 
         if(check.length!==0){
@@ -129,12 +125,11 @@ const AdminLender = () => {
             // const responce = await deletelManyUser({
             //     params: {id: isChecked}
             // });
-           
         } 
         else {
             alert("please Select at least one check box !");
         }
-      }
+    }
     const columns: ColumnsType<ColumnsType> = [
         {
             title: <div className="actions-user">
@@ -321,8 +316,8 @@ const AdminLender = () => {
                             </Form.Item>
                             <Form.Item name="status" label="Trạng thái" className=''>
                                 <Select defaultValue="true">
-                                    <Option value="false">Khoá</Option>
-                                    <Option value="true">Hoạt động</Option>
+                                    <Option value={false}>Khoá</Option>
+                                    <Option value={true}>Hoạt động</Option>
                                 </Select>
                             </Form.Item>
                         </div>

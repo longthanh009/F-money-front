@@ -1,12 +1,16 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import { DatePicker, Input, Select, Space } from 'antd';
 import { useAppDispatch } from "../../../app/hooks";
-import { getContractDate,searchNameContract,getContract } from "../../../features/contract/contractSlice";
+import { getContractDate, searchNameContract, getContract } from "../../../features/contract/contractSlice";
 import { SearchOutlined } from "@ant-design/icons";
-function SearchInstallment() {
+type PropsType = {
+  type: Number
+}
+function SearchInstallment({ type }: PropsType) {
   const { RangePicker } = DatePicker;
   const dispatch = useAppDispatch();
   const searchRef = useRef(null);
+
   const handlerDate = async (e: any) => {
     let tu_ngay = new Date(e[0]._d).getTime();
     let den_ngay = new Date(e[1]._d).getTime();
@@ -14,15 +18,21 @@ function SearchInstallment() {
       formdate: tu_ngay,
       todate: den_ngay
     }
-    await dispatch(getContractDate(objFind))
+    if (type == 0) {
+      await dispatch(getContractDate(objFind))
+    }
   };
   const searchName = (keyword: string) => {
-    dispatch(getContract())
+    if (type == 0) {
+      dispatch(getContract())
+    }
     if (searchRef.current) {
-        clearTimeout(searchRef.current)
+      clearTimeout(searchRef.current)
     };
     searchRef.current = setTimeout(() => {
+      if (type == 0) {
         dispatch(searchNameContract(keyword))
+      }
     }, 1000)
   }
   return (
@@ -32,7 +42,7 @@ function SearchInstallment() {
           <div className="mb-3 xl:w-96">
           </div>
           <div className="mb-3 xl:w-96">
-          <Input onChange={(e) => searchName(e.target.value)} placeholder="Tên khách hàng" prefix={<SearchOutlined />} />
+            <Input onChange={(e) => searchName(e.target.value)} placeholder="Tên khách hàng" prefix={<SearchOutlined />} />
           </div>
           <div className="mb-3 xl:w-96">
             <RangePicker onChange={(e) => {
@@ -56,7 +66,7 @@ function SearchInstallment() {
                 {
                   value: '1',
                   label: 'Quá hạn',
-                },{
+                }, {
                   value: '2',
                   label: 'Hoàn tất',
                 }

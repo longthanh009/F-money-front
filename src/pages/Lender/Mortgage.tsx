@@ -6,12 +6,12 @@ import Search from "../../components/Lender/Customer/CustomerList/SearchLender";
 import NextPage from "../../components/Lender/Customer/CustomerList/NextPage";
 import DddMortgage from "../../components/Lender/Mortgage/DddMortgage";
 import TableMortgage from "../../components/Lender/Mortgage/TableMortgage";
-import SearchMortgage from "../../components/Lender/Mortgage/SearchMortgage";
 import MortgageCard05 from "../../components/Lender/Mortgage/MortgageCard05";
 import MortgageCard04 from "../../components/Lender/Mortgage/MortgageCard04";
 import MortgageCard03 from "../../components/Lender/Mortgage/MortgageCard03";
 import MortgageCard02 from "../../components/Lender/Mortgage/MortgageCard02";
 import MortgageCard01 from "../../components/Lender/Mortgage/MortgageCard01";
+import SearchInstallment from "../../components/Lender/Installment/SearchInstallment";
 
 function Mortgage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,7 +31,7 @@ function Mortgage() {
         <MortgageCard05 />
       </div>
       <div>
-        <SearchMortgage />
+        <SearchInstallment type={1}/>
       </div>
       <div>
         <DddMortgage />

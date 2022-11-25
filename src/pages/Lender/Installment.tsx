@@ -23,7 +23,7 @@ function Installment() {
           <Installment04 />
         </div>
         <div>
-          <SearchInstallment />
+          <SearchInstallment type={0} />
         </div>
         <div>
           <DddExportList />

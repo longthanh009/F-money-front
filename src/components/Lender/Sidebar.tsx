@@ -34,11 +34,6 @@ const Sidebar = () => {
       icon: AiOutlineUsergroupAdd
     },
     {
-      name: "Quản lý hợp đồng",
-      link: "/admin/customer",
-      icon: BiBookmarkAlt
-    },
-    {
       name: "Kiểm tra khách hàng",
       link: "/lender/customer/checkCustome",
       icon: RiShieldUserFill
