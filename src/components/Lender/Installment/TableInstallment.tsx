@@ -22,7 +22,6 @@ const TableInstallment = (props: Props) => {
   };
 
   const handleOk = () => {
-    console.log(11111111111);
     setIsModalOpen(false);
   };
 
@@ -44,7 +43,7 @@ const TableInstallment = (props: Props) => {
       dispatch(deleteContract(id));
     }
   };
-  const a = (b: any, c: any) => {};
+
   const columns: ColumnsType<ColumnsType> = [
     {
       title: "STT",
@@ -156,18 +155,26 @@ const TableInstallment = (props: Props) => {
   ];
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
     },
     getCheckboxProps: (record: any) => ({
-      disabled: record.name === 'Disabled User', // Column configuration not to be checked
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
       name: record.name,
     }),
   };
   return (
     <div className="mb-3 mt-5 flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
-      <Table  rowSelection={{
+      <Table
+        rowSelection={{
           ...rowSelection,
-        }} columns={columns} dataSource={contracts} />
+        }}
+        columns={columns}
+        dataSource={contracts}
+      />
     </div>
   );
 };

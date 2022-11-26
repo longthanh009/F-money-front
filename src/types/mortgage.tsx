@@ -1,22 +1,32 @@
-export type MortgageType = {
+export type IMortgageType = {
   _id?: string;
   ma_hd?: string; // mã hợp đồng
-  nguoi_tao_hd: string // ng
+  nguoi_tao_hd: string; // ng
   ten_khach_hang?: string; // name người vay
   cccd?: number; // căn cước công dân
   dien_thoai?: number; // số điện thoại
   dia_chi?: string; // địa chỉ
-  tin_chap?: number; // Thế Chấp
-  khoan_vay?: number; // tiền khách hàng nhận được
-  lai_phi?: number; // lãi suất
+  thong_tin?: number; // Thế Chấp
+  khoan_vay?: number; // khoann vay
+  da_thanh_toan?: number; // đã thanh toán
+  tong_hd?: number; // tiền khách hàng nhận được
+  phi_dv?: number; // phi dv
   han_vay?: number; // bốc trong vòng
-  ky_lai_phi: string // 10 ngày đóng lãi phí 1 lần thì điền số 10
-  ngay_vay?: string
+  han_hd?: string; // ngày trả
   ghi_chu?: string; // ghi chú
-  //
-  da_thanh_toan?: number;
-  han_thanh_toan?: number;
-  tong_hd: number;
-  trang_thai: number;
-  con_phai_dong: number;
+  status: number; // trạng thái
 };
+
+  // {
+  //   "nguoi_tao_hd": "636a2127a281e92df41190ee",
+  //   "ma_hd": "HD7",
+  //   "ten_khach_hang": "Nguyen Van A",
+  //   "cccd":1232423425,
+  //   "dien_thoai":84356199105,
+  //   "dia_chi": "Hà Nội 2",
+  //   "khoan_vay":5000000,
+  //   "phi_dv":10,
+  //   "han_vay":30,
+  //   "thong_tin":"aaaa",
+  //   "tong_hd":2
+  // }
