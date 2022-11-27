@@ -3,13 +3,14 @@ import { DatePicker, Input, Select, Space } from 'antd';
 import { useAppDispatch } from "../../../app/hooks";
 import { getContractDate, searchNameContract, getContract } from "../../../features/contract/contractSlice";
 import { SearchOutlined } from "@ant-design/icons";
+import { getContractMorDate, listMortgage } from "../../../features/mortgage/mortgage";
 type PropsType = {
   type: Number
 }
 function SearchInstallment({ type }: PropsType) {
   const { RangePicker } = DatePicker;
   const dispatch = useAppDispatch();
-  const searchRef = useRef(null);
+  const searchRef = useRef<any>(null);
 
   const handlerDate = async (e: any) => {
     let tu_ngay = new Date(e[0]._d).getTime();
@@ -20,11 +21,17 @@ function SearchInstallment({ type }: PropsType) {
     }
     if (type == 0) {
       await dispatch(getContractDate(objFind))
+    } else {
+      console.log("Tín chấp");
+      
+      dispatch(getContractMorDate(objFind))
     }
   };
   const searchName = (keyword: string) => {
     if (type == 0) {
       dispatch(getContract())
+    } else {
+      dispatch(listMortgage())
     }
     if (searchRef.current) {
       clearTimeout(searchRef.current)

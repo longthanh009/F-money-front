@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createMortgage, getMortgage } from "../../api/mortgage";
+import { createMortgage, getContractsDate, getMortgage } from "../../api/mortgage";
 import { IMortgageType } from "../../types/mortgage";
 
 interface Icontract {
@@ -24,6 +24,13 @@ export const listMortgage = createAsyncThunk(
     return data;
   }
 );
+export const getContractMorDate = createAsyncThunk(
+  "contract/getContractDate",
+  async (prams: object) => {
+    const { data } = await getContractsDate(prams.formdate, prams.todate);
+    return data;
+  }
+);
 const mortgageSlive = createSlice({
   name: "mortgage",
   initialState,
@@ -34,6 +41,9 @@ const mortgageSlive = createSlice({
     });
     builder.addCase(addMortgage.fulfilled, (state, action) => {
       state.value.unshift(action.payload);
+    });
+    builder.addCase(getContractMorDate.fulfilled, (state, action) => {
+      state.value = action.payload;
     });
   },
 });
