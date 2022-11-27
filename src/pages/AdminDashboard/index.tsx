@@ -7,22 +7,17 @@ import { getAll } from '../../features/customer/customerSlice';
 const AdminDashboard = () => {
   const dispath =  useAppDispatch()
   const contracts = useAppSelector((state) => state.contract.value);
-  const customers = useAppSelector(state => state.customer.values)
   const [customer, setCustomer] = React.useState([])
+  const [customers, setCustomers] = React.useState([])
   const [lender, setLender] = React.useState([])
-  if (customers) {
-    setCustomer(customers.filter((user:any) => user.role == 0)) 
-    setLender(customers.filter((user:any) => user.role == 1))
-  }
   React.useEffect(() => {
-    dispath(getAll())
-      // axios.get('http://localhost:9000/api/users').then(({data}) => {
-      //   if (data) {
-      //     setCustomers(data.users)
-      //     setCustomer(data.users.filter((user:any) => user.role == 0)) 
-      //     setLender(data.users.filter((user:any) => user.role == 1))
-      //   }
-      // })
+    dispath(getAll()).then(({payload})=> {
+      if (payload) {
+        setCustomers(payload.users)
+        setCustomer(payload.users.filter((user:any) => user.role == 0)) 
+        setLender(payload.users.filter((user:any) => user.role == 1))
+      }
+    })
   },[])
   return (
     <div>
@@ -289,7 +284,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số khách đăng ký cho vay</a>
                         </div>
                         <div className="self-center">
-                          3000
+                          {lender?.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>
