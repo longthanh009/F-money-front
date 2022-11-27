@@ -96,6 +96,7 @@ function TableMortgage() {
       key: "action",
       render: (_, record: any) => {
         const id = record._id;
+        console.log(id);
         return <div></div>;
       },
     },

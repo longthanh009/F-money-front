@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createMortgage, getMortgage } from "../../api/mortgage";
+import {
+  createMortgage,
+  getDetailMortgage,
+  getMortgage,
+} from "../../api/mortgage";
 import { IMortgageType } from "../../types/mortgage";
 
 interface Icontract {
@@ -24,6 +28,15 @@ export const listMortgage = createAsyncThunk(
     return data;
   }
 );
+
+export const listDetailMortgage = createAsyncThunk(
+  "mortgage/listDetailMortgage",
+  async (prams: IMortgageType) => {
+    const { data } = await getDetailMortgage(prams);
+    return data;
+  }
+);
+
 const mortgageSlive = createSlice({
   name: "mortgage",
   initialState,
