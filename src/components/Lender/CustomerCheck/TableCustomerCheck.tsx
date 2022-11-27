@@ -1,77 +1,110 @@
-import React from "react";
+import Table, { ColumnsType } from "antd/lib/table";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { getContract } from "../../../features/contract/contractSlice";
+import { formatDate } from "../../../ultils/formatDate";
+import FomatNumber from "../../FomatNumber/fomatNumber";
 
 function TableCustomerCheck() {
-  return (
-    <div className="col-span-full  bg-white shadow-lg  rounded-sm border border-slate-200">
-      <header className="px-5 py-4 border-b border-slate-100">
-        <h2 className="font-semibold text-blue-800">Nguyên Xuân Tài: 0773830999</h2>
-      </header>
-      <div className="p-3">
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full">
-            {/* Table header */}
-            <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
-              <tr>
-                <th className="p-2">
-                  <div className="font-semibold text-left">STT</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">
-                    Tên Cửa Hàng Vay
-                  </div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Ngày Bắt Đầu </div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Ngày Hết Hạn</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Số Tiền Vay</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">
-                   Đã Trả
-                  </div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Trạng Thái</div>
-                </th>
-              </tr>
-            </thead>
-            {/* Table body */}
-            <tbody className="text-sm font-medium divide-y divide-slate-100">
-              {/* Row */}
-              <tr>
-                <td className="p-2">
-                  <div className="flex items-center">
-                    <div className="text-slate-800">1</div>
-                  </div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center">Anh Đô</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-green-500">10/2/2022</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center">10/3/2022</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">10.000.000</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">8.000.000</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-red-500">Nợ Xấu</div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  const dispatch = useAppDispatch();
+  const customer = useAppSelector((state) => state.contract.value);
+  useEffect(() => {
+    dispatch(getContract());
+  }, []);
+  console.log({ customer });
+
+  const columns: ColumnsType<ColumnsType> = [
+    {
+      title: "STT",
+      dataIndex: "index",
+      key: "index",
+      render: (text, object, index) => <div>{index + 1}</div>,
+    },
+    {
+      title: "Tên khách hàng",
+      dataIndex: "ten_khach_hang",
+      key: "ten_khach_hang",
+    },
+    {
+      title: "Địa Chỉ",
+      dataIndex: "dia_chi",
+      key: "dia_chi",
+    },
+    {
+      title: "CMND/CCCD",
+      dataIndex: "cmnd",
+      key: "cmnd",
+    },
+    {
+      title: "Khoản vay",
+      dataIndex: "khoan_vay",
+      render: (khoan_vay) => (
+        <div>
+          <FomatNumber number={khoan_vay} />
         </div>
-      </div>
+      ),
+      key: "khoan_vay",
+    },
+    {
+      title: "Ngày Vay",
+      dataIndex: "lai_xuat",
+      render: (lai_xuat) => <div>{lai_xuat} %</div>,
+
+      key: "lai_xuat",
+    },
+    {
+      title: "Đã đóng",
+      dataIndex: "lai_xuat",
+      render: (lai_xuat) => <div>{lai_xuat} %</div>,
+
+      key: "lai_xuat",
+    },
+    {
+      title: "Ngày Kết Thúc",
+      dataIndex: "han_vay",
+      render: (han_vay) => <div>{han_vay} Ngày</div>,
+      key: "han_vay",
+    },
+    // 3 trạng thái  0: đang vay  1: quá hạn  2: kết thúc
+    {
+      title: "Trạng thái họp đồng",
+      dataIndex: "status",
+      render: (_, record: any) => {
+        let trangThai = record.status;
+        if (trangThai === 0) {
+          return <div>Đang Vay</div>;
+        } else if (trangThai === 1) {
+          return <div>Quá Hạn</div>;
+        } else {
+          return <div>Kết Thức Hợp Dồng</div>;
+        }
+      },
+      key: "trang_thai",
+    },
+  ];
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    getCheckboxProps: (record: any) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+
+  return (
+    <div className="mb-3 mt-5 flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+      <Table
+        rowSelection={{
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={customer}
+      />
     </div>
   );
 }

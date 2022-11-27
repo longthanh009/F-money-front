@@ -59,7 +59,7 @@ const modalMortgage = ({
 
   const onFinish = (data: any) => {
     console.log(data);
-    data.nguoi_tao_hd = "636a2127a281e92df41190ee";
+    data.nguoi_tao_hd = "637e3292baffb14ee19d1b25";
     dispatch(addMortgage(data));
     setIsModalOpen(false);
     navigate("/lender/Mortgage/index");
