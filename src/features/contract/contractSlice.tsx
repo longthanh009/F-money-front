@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {getContracts,createContracts,removeContract,getContractsDate,} from "../../api/contract";
+import {
+  getContracts,
+  createContracts,
+  removeContract,
+  getContractsDate,
+} from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
 
@@ -13,7 +18,7 @@ const initialState: Icontract = {
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts("636a2127a281e92df41190ee");
+    const { data } = await getContracts("6383735cbd0f6c53128eb118");
     return data;
   }
 );
@@ -43,14 +48,16 @@ export const deleteContract = createAsyncThunk(
 const contractSlive = createSlice({
   name: "contract",
   initialState: {
-    value: []
+    value: [],
   },
   reducers: {
-    searchNameContract : (state,action) =>{
+    searchNameContract: (state, action) => {
       const name = action.payload;
-      const newArr = state.value.filter(item => item.ten_khach_hang.toLowerCase().includes(name.toLowerCase()));
-      state.value = newArr
-  }
+      const newArr = state.value.filter((item) =>
+        item.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
+      );
+      state.value = newArr;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getContract.fulfilled, (state, action) => {
@@ -67,5 +74,5 @@ const contractSlive = createSlice({
     });
   },
 });
-export const {searchNameContract} = contractSlive.actions
+export const { searchNameContract } = contractSlive.actions;
 export default contractSlive.reducer;
