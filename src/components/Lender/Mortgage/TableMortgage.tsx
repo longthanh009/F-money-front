@@ -118,7 +118,6 @@ function TableMortgage() {
                 setIsModalOpen={setIsModalOpen}
               />
             </div>
-
             <div
               onClick={() => removeItem(record._id)}
               className="items-center text-gray-500 pl-5 relative group mr-3"
