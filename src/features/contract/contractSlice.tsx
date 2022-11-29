@@ -29,6 +29,15 @@ export const getContractDate = createAsyncThunk(
     return data;
   }
 );
+
+export const getCmndLenderList = createAsyncThunk(
+  "contract/getCmndLenderList",
+  async (prams: number) => {
+    const { data } = await getCccdlender(prams);
+    return data;
+  }
+);
+
 export const addContract = createAsyncThunk(
   "contract/addContract",
   async (prams: ContractType) => {
@@ -70,6 +79,9 @@ const contractSlive = createSlice({
       state.value = state.value.filter((item) => item.id != action.payload);
     });
     builder.addCase(getContractDate.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+    builder.addCase(getCmndLenderList.fulfilled, (state, action) => {
       state.value = action.payload;
     });
   },

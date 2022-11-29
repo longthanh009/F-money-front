@@ -1,42 +1,43 @@
-import React from "react";
-import Icon from "../../../../images/icon-01.svg";
+import { SearchOutlined } from "@ant-design/icons";
+import { Input } from "antd";
+import React, { useState } from "react";
+import { useAppDispatch } from "../../../app/hooks";
+import { getCmndLenderList } from "../../../features/contract/contractSlice";
 
 function SearchCheck() {
+  const dispatch = useAppDispatch();
+  const [checkcustomer, setCheckcustomer] = useState("");
+
+  const handleCheckCustomer: any = async (keyword: number) => {
+    if (keyword) {
+      const cccdCustomer: any = await dispatch(getCmndLenderList(keyword));
+      setCheckcustomer(cccdCustomer.payload.message);
+    } else {
+      setCheckcustomer("");
+    }
+  };
   return (
-    <div className="mb-3 flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
-      <div className="px-5 pt-5">
-        <div className="flex justify-center">
-          <div className="mb-3 xl:w-96 pr-10">
-            <input
-              type="search"
-              className="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-              id="exampleSearch"
-              placeholder="Số CMND/CCCD"
-            />
-          </div>
-          <div className="mb-3 xl:w-96 pr-10">
-            <button className="flex  cursor-pointer justify-center  bg-blue-600 p-2  rounded-md text-white">
-              Tìm Kiếm
-            </button>
-          </div>
+    <div className="">
+      <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
+        {/* Content */}
+        <div className="relative">
+          {checkcustomer ? (
+            <h1 className="text-s md:text-xl text-slate-800 font-bold mb-1">
+              {checkcustomer}
+            </h1>
+          ) : (
+            <h1 className="text-s md:text-xl text-slate-800 font-bold mb-1">
+              Kiểm Tra Khách Hàng Có Vay Ở Cửa Hàng Khác Trong Hệ Thống Hay
+              Không?
+            </h1>
+          )}
         </div>
       </div>
+      <Input
+        onChange={(e) => handleCheckCustomer(e.target.value)}
+        placeholder="Nhập Chứng Minh Nhân Dân"
+        prefix={<SearchOutlined />}
+      />
     </div>
   );
 }
