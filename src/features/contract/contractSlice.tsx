@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {getContracts,createContracts,removeContract,getContractsDate,} from "../../api/contract";
+import {
+  getContracts,
+  createContracts,
+  removeContract,
+  getContractsDate,
+  getCccdlender,
+} from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
 
@@ -13,7 +19,7 @@ const initialState: Icontract = {
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts("637e3292baffb14ee19d1b25");
+    const { data } = await getContracts("6383735cbd0f6c53128eb118");
     return data;
   }
 );
@@ -24,6 +30,15 @@ export const getContractDate = createAsyncThunk(
     return data;
   }
 );
+
+export const getCmndLenderList = createAsyncThunk(
+  "contract/getCmndLenderList",
+  async (prams: number) => {
+    const { data } = await getCccdlender(prams);
+    return data;
+  }
+);
+
 export const addContract = createAsyncThunk(
   "contract/addContract",
   async (prams: ContractType) => {
@@ -43,14 +58,16 @@ export const deleteContract = createAsyncThunk(
 const contractSlive = createSlice({
   name: "contract",
   initialState: {
-    value: []
+    value: [],
   },
   reducers: {
-    searchNameContract : (state,action) =>{
+    searchNameContract: (state, action) => {
       const name = action.payload;
-      const newArr = state.value.filter(item => item.ten_khach_hang.toLowerCase().includes(name.toLowerCase()));
-      state.value = newArr
-  }
+      const newArr = state.value.filter((item) =>
+        item.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
+      );
+      state.value = newArr;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getContract.fulfilled, (state, action) => {
@@ -65,7 +82,10 @@ const contractSlive = createSlice({
     builder.addCase(getContractDate.fulfilled, (state, action) => {
       state.value = action.payload;
     });
+    builder.addCase(getCmndLenderList.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
   },
 });
-export const {searchNameContract} = contractSlive.actions
+export const { searchNameContract } = contractSlive.actions;
 export default contractSlive.reducer;

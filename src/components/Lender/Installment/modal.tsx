@@ -59,7 +59,7 @@ const ModalInstallmentAdd = ({
   const dispatch = useAppDispatch();
 
   const onFinish = (data: any) => {
-    data.nguoi_tao_hd = "637e3292baffb14ee19d1b25";
+    data.nguoi_tao_hd = "6383735cbd0f6c53128eb118";
     dispatch(addContract(data));
     setIsModalOpen(false);
     navigate("/lender/installment/index");
@@ -105,7 +105,7 @@ const ModalInstallmentAdd = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="cmnd"
+                name="cccd"
                 label="CMND/CCCD"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}

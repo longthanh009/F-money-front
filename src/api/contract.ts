@@ -17,7 +17,12 @@ export const removeContract = (id: any) => {
   const url = `contract/${id}`;
   return intance.delete(url);
 };
-export const getContractsDate = (formdate  : any, todate : any) => {
+export const getContractsDate = (formdate: any, todate: any) => {
   const url = `contracts?id=636a2127a281e92df41190ee&formdate=${formdate}&todate=${todate}`;
+  return intance.get(url);
+};
+
+export const getCccdlender = (cccd: number) => {
+  const url = `checkUser?cccd=${cccd}`;
   return intance.get(url);
 };
