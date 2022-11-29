@@ -1,129 +1,159 @@
-import React from "react";
+import { Button, Space } from "antd";
+import Table, { ColumnsType } from "antd/lib/table";
+import React, { useEffect, useState } from "react";
 import { FcSalesPerformance } from "react-icons/fc";
 import { FcOvertime } from "react-icons/fc";
 import { GiAnchor } from "react-icons/gi";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { listMortgage } from "../../../features/mortgage/mortgage";
+import { formatDate } from "../../../ultils/formatDate";
+import FomatNumber from "../../FomatNumber/fomatNumber";
+import ModalMortgageDetail from "./ModalMortgageDetail";
 
 function TableMortgage() {
-  return (
-    <div className="col-span-full  bg-white shadow-lg  rounded-sm border border-slate-200">
-      <header className="px-5 py-4 border-b border-slate-100">
-        <h2 className="font-semibold text-slate-800">Giao Dịch Mới Nhất</h2>
-      </header>
-      <div className="p-3">
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full">
-            {/* Table header */}
-            <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
-              <tr>
-                <th className="p-2">
-                  <div className="font-semibold text-left">STT</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Mã HĐ</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">
-                    Tên Khách Hàng
-                  </div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Tài Sản</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">VNĐ</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Ngày Vay</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">
-                    Lãi Phí Đã Đóng
-                  </div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Nợ cũ</div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">
-                    Lãi Phí Đến Hôm Nay
-                  </div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">Tình Trạng </div>
-                </th>
-                <th className="p-2">
-                  <div className="font-semibold text-center">
-                    Ngày Phải Đóng Lãi Phí{" "}
-                  </div>
-                </th>
-                <td></td>
-              </tr>
-            </thead>
-            {/* Table body */}
-            <tbody className="text-sm font-medium divide-y divide-slate-100">
-              {/* Row */}
-              <tr>
-                <td className="p-2">
-                  <div className="flex items-center">
-                    <div className="text-slate-800">1</div>
-                  </div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center">KH-01</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-green-500">Anh Duy</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center">10,000,000</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">2%</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">22/3/2022</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">500.000</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">400,000</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">400,000</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">Đang vay</div>
-                </td>
-                <td className="p-2">
-                  <div className="text-center text-sky-500">hôm nay</div>
-                </td>
-                <td className="flex pt-5">
-                  <div className="items-center text-gray-500 pl-5 relative group">
-                    <span className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
-                      Đóng tiền
-                    </span>
-                    <FcSalesPerformance />
-                  </div>
-                  <div className="items-center text-gray-500 pl-5 relative group">
-                    <span className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
-                      Hẹn
-                    </span>
-                    <FcOvertime />
-                  </div>
-                  <div className="items-center text-gray-500 pl-5 relative group mr-3">
-                    <span className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
-                      Đóng HĐ
-                    </span>
-                    <GiAnchor />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const mortgage = useAppSelector((state) => state.mortgage.value);
+  useEffect(() => {
+    dispatch(listMortgage());
+  }, []);
+
+  const removeItem = (id: any) => {
+    const confirm = window.confirm("bạn có muốn xóa không");
+    if (confirm) {
+      // dispatch((id));
+    }
+  };
+  const columns: ColumnsType<ColumnsType> = [
+    {
+      title: "STT",
+      dataIndex: "index",
+      key: "index",
+      render: (text, object, index) => <div>{index + 1}</div>,
+    },
+    {
+      title: "Mã hóa đơn",
+      dataIndex: "ma_hd",
+      render: (ma_hd) => <div>{ma_hd}</div>,
+      key: "ma_hd",
+    },
+    {
+      title: "Tên khách hàng",
+      dataIndex: "ten_khach_hang",
+      key: "ten_khach_hang",
+    },
+    {
+      title: "Khoản vay",
+      dataIndex: "khoan_vay",
+      render: (khoan_vay) => (
+        <div>
+          <FomatNumber number={khoan_vay} />
         </div>
-      </div>
+      ),
+      key: "khoan_vay",
+    },
+    {
+      title: "Tín chấp",
+      dataIndex: "thong_tin",
+      render: (thong_tin) => <div>{thong_tin}</div>,
+
+      key: "thong_tin",
+    },
+    {
+      title: "Thời Gian Vay",
+      dataIndex: "han_vay",
+      render: (han_vay) => <div>{han_vay} Ngày</div>,
+      key: "han_vay",
+    },
+    {
+      title: "Ngày Vay",
+      dataIndex: "createdAt",
+      render: (createdAt) => <div>{formatDate(createdAt)}</div>,
+      key: "createdAt",
+    },
+    // 3 trạng thái  0: đang vay  1: quá hạn  2: kết thúc
+    {
+      title: "Trạng thái họp đồng",
+      dataIndex: "status",
+      render: (_, record: any) => {
+        let trangThai = record.status;
+        if (trangThai === 0) {
+          return <div>Đang Vay</div>;
+        } else if (trangThai === 1) {
+          return <div>Quá Hạn</div>;
+        } else {
+          return <div>Kết Thức Hợp Dồng</div>;
+        }
+      },
+      key: "trang_thai",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record: any) => {
+        const id = record._id;
+        return (
+          <Space size="middle">
+            <div className="pr-2">
+              <Button onClick={showModal}>
+                <FcSalesPerformance />
+              </Button>
+              <ModalMortgageDetail
+                isModalOpen={isModalOpen}
+                Mortgage={id}
+                handleOk={handleOk}
+                handleCancel={handleCancel}
+                setIsModalOpen={setIsModalOpen}
+              />
+            </div>
+            <div
+              onClick={() => removeItem(record._id)}
+              className="items-center text-gray-500 pl-5 relative group mr-3"
+            >
+              <button className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
+                Đóng HĐ
+              </button>
+              <GiAnchor />
+            </div>
+          </Space>
+        );
+      },
+    },
+  ];
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: any[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    getCheckboxProps: (record: any) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+  return (
+    <div className="mb-3 mt-5 flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+      <Table
+        rowSelection={{
+          ...rowSelection,
+        }}
+        columns={columns}
+        dataSource={mortgage}
+      />
     </div>
   );
 }

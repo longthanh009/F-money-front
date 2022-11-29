@@ -4,7 +4,6 @@ import {
   createContracts,
   removeContract,
   getContractsDate,
-  getCccdlender,
 } from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";

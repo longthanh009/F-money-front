@@ -49,6 +49,10 @@ const authSlice = createSlice({
             }else{
                 state.check =  state.check.filter((e:any) => e !=  value)
             }   
+        },
+        sortStatusCustomer: (state, action) => {
+            const status = action.payload
+            state.values = state.values.filter((item:any) => item.status === status)
         }
     },
     extraReducers: {
@@ -69,5 +73,5 @@ const authSlice = createSlice({
         },
     }
 })
-export const {searchNameUser, removeMultipleUser, addMuiltipleValues} = authSlice.actions
+export const {searchNameUser, removeMultipleUser, addMuiltipleValues,sortStatusCustomer} = authSlice.actions
 export default authSlice.reducer

@@ -5,7 +5,7 @@ import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser,addMuiltipleValues } from '../../features/customer/customerSlice';
+import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser,addMuiltipleValues, sortStatusCustomer } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
 import { deletelManyUser, getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
@@ -20,7 +20,6 @@ const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers = useAppSelector(state => state.customer.values)
     const check = useAppSelector(state => state.customer.check)
-    console.log(check)
     const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
@@ -177,8 +176,7 @@ const AdminLender = () => {
         },
         {
             title: "Trạng thái",
-            dataIndex: "status",
-            key: "da_thanh_toan",
+            render: (values,record,index) => <div>{values.status ? <div style={{color: '#61bd4f'}}>Đang hoạt động</div> : <div style={{color: 'red' }}>Khóa</div>}</div>,
         },
         {
             title: "Action",
@@ -202,6 +200,15 @@ const AdminLender = () => {
             dispatch(searchNameUser(keyword))
         }, 1000)
     };
+    const hanlderSortStatus = async (e:any) => {
+        if (e == 0) {
+            dispatch(getAll())
+        }
+        else{
+            await dispatch(getAll())
+            dispatch(sortStatusCustomer(JSON.parse(e) as boolean))
+        }
+    }
     return (
         <div>
             <BreadcrumbComponent />
@@ -220,6 +227,7 @@ const AdminLender = () => {
                         showSearch
                         style={{ width: 200 }}
                         placeholder="Trạng thái"
+                        onChange={hanlderSortStatus}
                         optionFilterProp="children"
                         filterOption={(input, option) => (option!.children as unknown as string).includes(input)}
                         filterSort={(optionA, optionB) =>
@@ -228,9 +236,9 @@ const AdminLender = () => {
                                 .localeCompare((optionB!.children as unknown as string).toLowerCase())
                         }
                     >
-                        <Option value="1">ALL</Option>
-                        <Option value="2">Hoạt động</Option>
-                        <Option value="3">Khoá</Option>
+                        <Option value="0">ALL</Option>
+                        <Option value="true">Hoạt động</Option>
+                        <Option value="false">Khoá</Option>
                     </Select>
 
                 </div>
@@ -311,9 +319,10 @@ const AdminLender = () => {
                                     <Option value={2}>Quản trị</Option>
                                 </Select>
                             </Form.Item>
-                            <Form.Item name="active" label="Trạng thái" className=''>
-                                <Select defaultValue="0">
-                                    <Option value="0">Khoá</Option>
+                            <Form.Item name="status" label="Trạng thái" className=''>
+                                <Select defaultValue="true">
+                                    <Option value="false">Khoá</Option>
+                                    <Option value="true">Hoạt động</Option>
                                 </Select>
                             </Form.Item>
                         </div>

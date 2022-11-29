@@ -1,7 +1,24 @@
+import axios from 'axios';
 import React from 'react'
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getAll } from '../../features/customer/customerSlice';
 
 
 const AdminDashboard = () => {
+  const dispath =  useAppDispatch()
+  const contracts = useAppSelector((state) => state.contract.value);
+  const [customer, setCustomer] = React.useState([])
+  const [customers, setCustomers] = React.useState([])
+  const [lender, setLender] = React.useState([])
+  React.useEffect(() => {
+    dispath(getAll()).then(({payload})=> {
+      if (payload) {
+        setCustomers(payload.users)
+        setCustomer(payload.users.filter((user:any) => user.role == 0)) 
+        setLender(payload.users.filter((user:any) => user.role == 1))
+      }
+    })
+  },[])
   return (
     <div>
       <div className="h-full">
@@ -13,7 +30,7 @@ const AdminDashboard = () => {
               <svg width={30} height={30} fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">30000</p>
+              <p className="text-2xl">{lender?.length}</p>
               <p>Người Cho Vay</p>
             </div>
           </div>
@@ -26,7 +43,7 @@ const AdminDashboard = () => {
 
             </div>
             <div className="text-right">
-              <p className="text-2xl">20000</p>
+              <p className="text-2xl">{customer?.length}</p>
               <p>Người đi vay</p>
             </div>
           </div>
@@ -35,7 +52,7 @@ const AdminDashboard = () => {
               <svg width={30} height={30} fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">100000</p>
+              <p className="text-2xl">{contracts?.length}</p>
               <p>Số Lượng Hợp Đồng</p>
             </div>
           </div>
@@ -66,6 +83,7 @@ const AdminDashboard = () => {
               <div className="block w-full overflow-x-auto">
                 <table className="items-center w-full bg-transparent border-collapse">
                   <thead>
+                 
                     <tr>
                       <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">STT</th>
                       <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Họ tên</th>
@@ -75,16 +93,17 @@ const AdminDashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                      <td className="px-4 py-3 text-sm">1</td>
+                  {customer?.map((item:any,index) =>(
+                    <tr key={index}className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                      <td className="px-4 py-3 text-sm">{index + 1}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
                           <div>
-                            <p className="font-semibold">Nguyễn Văn A</p>
+                            <p className="font-semibold">{item.name}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-sm">18/01/2002</td>
+                      <td className="px-4 py-3 text-sm">{item.createdAt}</td>
                       <td className="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         <div className="flex items-center">
                           <span className="mr-2">80%</span>
@@ -97,7 +116,9 @@ const AdminDashboard = () => {
                       </td>
                       <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a>
                     </tr>
-                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                  ))}
+                    
+                    {/* <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
                       <td className="px-4 py-3 text-sm">2</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
@@ -163,8 +184,8 @@ const AdminDashboard = () => {
                       </td>
                       <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a>
                     </tr>
-                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                      <td className="px-4 py-3 text-sm">5</td>
+                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"> */}
+                      {/* <td className="px-4 py-3 text-sm">5</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
                           <div>
@@ -183,8 +204,8 @@ const AdminDashboard = () => {
                           </div>
                         </div>
                       </td>
-                      <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a>
-                    </tr>
+                      <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a> */}
+                    {/* </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -241,7 +262,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số khách đăng ký tài khoản</a>
                         </div>
                         <div className="self-center">
-                          3000
+                          {customers?.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>
@@ -263,7 +284,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số khách đăng ký cho vay</a>
                         </div>
                         <div className="self-center">
-                          3000
+                          {lender?.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>
