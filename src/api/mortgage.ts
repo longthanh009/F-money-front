@@ -9,3 +9,8 @@ export const getMortgage = (id: any) => {
   const url = `contractMortgage?id=${id}`;
   return intance.get(url);
 };
+
+export const getDetailMortgage = (id: any) => {
+  const url = `contractMortgage/${id}`;
+  return intance.get(url);
+};
