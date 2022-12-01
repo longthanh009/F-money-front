@@ -1,6 +1,29 @@
 import React from 'react'
+import { createSp } from '../../api/supportCs';
+import { Button, Checkbox, Form, Input } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Suport_Page = () => {
+    const Navigate = useNavigate();
+    const onFinish = (values: any) => {
+        createSp(values);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Yêu cầu hỗ trợ đã được ghi nhận',
+            text: "Cảm ơn bạn đã liên hệ với chúng tôi, chúng tôi sẽ liên hệ sớm lại cho bạn.",
+            showConfirmButton: false,
+            width: 700,
+            timer: 1500
+        })
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+    };
+
     return (
         <div className="relative sm:pt-0">
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center md:gap-20">
@@ -24,41 +47,55 @@ const Suport_Page = () => {
                                 <p className="mt-3">Hãy để lại thông tin của bạn, chúng tôi sẽ liên hệ với bạn một cách sớm nhất!</p>
                                 <p className="italic">(Bảo mật tuyệt đối thông tin của khách hàng)</p>
                             </div>
-                            <form action="https://api.web3forms.com/submit" className="mt-6 max-w-lg mx-auto">
-                                <input type="hidden" name="access_key" defaultValue="YOUR_ACCESS_KEY_HERE" />
-                                <div className="grid gap-6 sm:grid-cols-2 pb-6">
-                                    <div className="relative z-0">
-                                        <input type="text" name="name" className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0" placeholder=" " />
-                                        <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Họ Và Tên:</label>
-                                    </div>
-                                    <div className="relative z-0">
-                                        <input type="number" name="phone" className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0" placeholder=" " />
-                                        <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Số Điện thoại:</label>
-                                    </div>
+                            <Form
+                                name="basic"
 
-                                    <div className="relative z-0">
-                                        <input type="text" name="email" className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0" placeholder=" " />
-                                        <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Email:</label>
-                                    </div>
+                                initialValues={{ remember: true }}
+                                onFinish={onFinish}
+                                onFinishFailed={onFinishFailed}
+                                autoComplete="off"
+                            >
+                                <Form.Item
 
-                                    <div className="relative z-0">
-                                        <input type="text" name="number" className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0" placeholder=" " />
-                                        <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Địa chỉ:</label>
+                                    name="ho_ten"
+                                    rules={[{ required: true, message: 'Vui lòng nhật đầy đủ thông tin họ tên' }]}
+                                >
+                                    <Input placeholder='Họ và tên:' />
+                                </Form.Item>
+
+                                <Form.Item
+
+                                    name="dien_thoai"
+                                    rules={[{ required: true, message: 'Vui lòng nhật đầy đủ thông tin số điện thoại' }, {
+                                        pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                                        message: "Số điện thoại không đúng định dạng!"
+                                    }]}
+                                >
+                                    <Input placeholder='Số điện thoại:' />
+                                </Form.Item>
+                                <Form.Item
+
+                                    name="email"
+                                    rules={[{ required: true, message: 'Vui lòng nhật đầy đủ thông tin email' }, { type: 'email', message: 'Vui lòng nhập đúng định dạng email' }]}
+                                >
+                                    <Input placeholder='Email:' />
+                                </Form.Item>
+
+                                <Form.Item name="ghi_chu">
+                                    <TextArea rows={4} placeholder="Lí do cần hỗ trợ:" />
+                                </Form.Item>
+
+                                <Form.Item wrapperCol={{ offset: 8, span: 8 }}>
+                                    <div className="mx-auto p-1 button w-20 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
+                                        <button type="primary" htmlType="submit" className="flex flex-col mx-auto items-center h-full text-white font-bold text-lg ">Gửi</button>
                                     </div>
-                                    <div className="relative z-0 col-span-2">
-                                        <textarea name="message" rows={5} className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0" placeholder=" " defaultValue={""} />
-                                        <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500">Lý do cần hỗ trợ: </label>
-                                    </div>
-                                </div>
-                                <div className="mx-auto p-1 button w-40 h-10 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                                    <button type='submit' className="flex flex-col mx-auto items-center h-full text-white font-bold text-lg ">Đăng Ký Ngay </button>
-                                </div>
-                            </form>
+                                </Form.Item>
+                            </Form>
                         </div>
                     </div >
                 </div>
-
             </div>
+
         </div>
     )
 }
