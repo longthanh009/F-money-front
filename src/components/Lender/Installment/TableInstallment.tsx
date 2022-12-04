@@ -20,6 +20,9 @@ function TableInstallment() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const [contractDetaill, setcontractDetaill] = useState<any>();
+  const contracts = useAppSelector((state) => state.contract.value);
+
   const showModal = (record: any) => {
     setIsModalOpen(true);
   };
@@ -32,7 +35,6 @@ function TableInstallment() {
     setIsModalOpen(false);
   };
 
-  const contracts = useAppSelector((state) => state.contract.value);
   useEffect(() => {
     dispatch(getContract());
   }, []);
@@ -42,7 +44,6 @@ function TableInstallment() {
       dispatch(deleteContract(id));
     }
   };
-  const [contractDetaill, setcontractDetaill] = useState<any>();
 
   const getcontracts = async () => {
     const { data } = await getContractDetail(contractDetail);
