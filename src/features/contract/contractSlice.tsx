@@ -4,6 +4,7 @@ import {
   createContracts,
   removeContract,
   getContractsDate,
+  getCccdlender,
 } from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
@@ -18,13 +19,13 @@ const initialState: Icontract = {
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts("6383735cbd0f6c53128eb118");
+    const { data } = await getContracts("638c54551ab35050b4083dc3");
     return data;
   }
 );
 export const getContractDate = createAsyncThunk(
   "contract/getContractDate",
-  async (prams: object) => {
+  async (prams: any) => {
     const { data } = await getContractsDate(prams.formdate, prams.todate);
     return data;
   }
@@ -63,7 +64,7 @@ const contractSlive = createSlice({
     searchNameContract: (state, action) => {
       const name = action.payload;
       const newArr = state.value.filter((item) =>
-        item.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
+        item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
       );
       state.value = newArr;
     },
