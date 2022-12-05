@@ -12,13 +12,13 @@ import { ColumnsType } from 'antd/lib/table';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { formatDate } from '../../ultils/formatDate';
 import type { FormInstance } from 'antd/es/form';
-import { getContract } from '../../features/contract/contractSlice';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers = useAppSelector(state => state.customer.values)
+    const [custommerDetaill, setcustommerDetaill] = useState<any>();
     const check = useAppSelector(state => state.customer.check)
     const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
@@ -48,7 +48,8 @@ const AdminLender = () => {
     };
     useEffect(() => {
         dispatch(getAll())
-    }, [])
+        
+    }, [])    
     const [sortUsers, setSortUsers] = useState<any>(null)
     const hanleSort = async (event: any) => {
         const { payload } = await dispatch(getAll())
@@ -81,6 +82,8 @@ const AdminLender = () => {
     };
     const getCustumer = async (id: any) => {
         showModal("update", "Thông tin khách hàng")
+
+
     }
     const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
@@ -184,7 +187,7 @@ const AdminLender = () => {
             render: (item: any) => {
                 return (
                     <Space size="middle">
-                        <button onClick={() => { getCustumer(item);; }}><AiFillEdit /></button>
+                        <button onClick={() => { getCustumer(item._id);; }}><AiFillEdit /></button>
                         <button className='text-red-600' onClick={() => handlerRemoveCustumer(item._id)}><AiFillDelete /></button>
                     </Space>
                 );
@@ -268,7 +271,7 @@ const AdminLender = () => {
                     <Table columns={columns} dataSource={customers} />
                 </div>
             </div>
-            <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
+            <Modal  open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
                 footer={[]}
             >
                 <div>
@@ -277,6 +280,7 @@ const AdminLender = () => {
                     >
                         <div className="flex space-x-[10px]">
                             <Form.Item
+                                
                                 name="name"
                                 label="Họ Tên" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
