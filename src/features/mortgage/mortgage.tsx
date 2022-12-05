@@ -24,7 +24,7 @@ export const addMortgage = createAsyncThunk(
 export const listMortgage = createAsyncThunk(
   "mortgage/listMortgage",
   async () => {
-    const { data } = await getMortgage("6383735cbd0f6c53128eb118");
+    const { data } = await getMortgage("638def2eddf010d625efe18c");
     return data;
   }
 );

@@ -52,7 +52,6 @@ const ModalInstallmentDetail = ({
   useEffect(() => {
     dispatch(contractDetail(contracts));
   }, [contracts]);
-  console.log({ contracts });
 
   useEffect(() => {
     const getcontract = async () => {
@@ -62,7 +61,6 @@ const ModalInstallmentDetail = ({
     getcontract();
   }, []);
 
-  console.log({ contracts });
   return (
     <div>
       <Modal

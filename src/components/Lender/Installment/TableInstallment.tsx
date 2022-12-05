@@ -32,11 +32,7 @@ const TableInstallment = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const contracts = useAppSelector((state) => state.contract.value);
-
-  useEffect(() => {
-    dispatch(getContract());
-  }, []);
-
+  console.log(contracts)  
   const removeItem = (id: any) => {
     const confirm = window.confirm("bạn có muốn xóa không");
     if (confirm) {
