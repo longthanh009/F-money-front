@@ -12,6 +12,9 @@ import MortgageCard04 from "../../components/Lender/Mortgage/MortgageCard04";
 import MortgageCard03 from "../../components/Lender/Mortgage/MortgageCard03";
 import MortgageCard02 from "../../components/Lender/Mortgage/MortgageCard02";
 import MortgageCard01 from "../../components/Lender/Mortgage/MortgageCard01";
+import Installment02 from "../../components/Lender/Installment/DashboardCard02";
+import Installment03 from "../../components/Lender/Installment/DashboardCard03";
+import Installment04 from "../../components/Lender/Installment/DashboardCard04";
 
 function Mortgage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,13 +25,15 @@ function Mortgage() {
       <div className="text-gray-500 mb-3">Lender/Tín Chấp</div>
       <div className="grid grid-cols-12 gap-5 md:flex md:justify-center">
         {/* Line chart (Acme Plus) */}
-        <MortgageCard01 />
-        {/* Line chart (Acme Advanced) */}
-        <MortgageCard02 />
+        <Installment02 />
         {/* Line chart (Acme Professional) */}
+        <Installment03 />
+        <Installment04 />
+        {/* <MortgageCard01 />
+        <MortgageCard02 />
         <MortgageCard03 />
         <MortgageCard04 />
-        <MortgageCard05 />
+        <MortgageCard05 /> */}
       </div>
       <div>
         <SearchMortgage />

@@ -8,7 +8,39 @@ type Props = {
   handeCheckBok: any;
 };
 
-const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
+const ModalInstallmentDetail = ({
+  isModalOpen,
+  handleOk,
+  handleCancel,
+  setIsModalOpen,
+  contracts,
+}: Props) => {
+  const { TextArea } = Input;
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [contractDetaill, setcontractDetaill] = useState<any>();
+
+  const onFinish = (data: any) => {
+    dispatch(addContract(data));
+    setIsModalOpen(false);
+    navigate("/lender/installment/index");
+  };
+  const onChange = (checkedValues: CheckboxValueType[]) => {
+    console.log("checked = ", checkedValues);
+  };
+
+  useEffect(() => {
+    dispatch(contractDetail(contracts));
+  }, [contracts]);
+
+  useEffect(() => {
+    const getcontract = async () => {
+      const { data } = await getContractDetail(contracts);
+      setcontractDetaill(data);
+    };
+    getcontract();
+  }, []);
   return (
     <div>
       <div>

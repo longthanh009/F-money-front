@@ -19,7 +19,8 @@ const initialState: Icontract = {
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts("638c54551ab35050b4083dc3");
+    const { data } = await getContracts("638def2eddf010d625efe18c");
+
     return data;
   }
 );

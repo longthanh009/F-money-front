@@ -6,6 +6,7 @@ export const createContracts = (contract: any) => {
 };
 
 export const getContracts = (id: any) => {
+  console.log(id)
   const url = `contracts?id=${id}`;
   return intance.get(url);
 };
