@@ -40,7 +40,15 @@ export const listDetailMortgage = createAsyncThunk(
 const mortgageSlive = createSlice({
   name: "mortgage",
   initialState,
-  reducers: {},
+  reducers: {
+    searchNameMortgage: (state, action) => {
+      const name = action.payload;
+      const newArr = state.value.filter((item) =>
+        item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
+      );
+      state.value = newArr;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(listMortgage.fulfilled, (state, action) => {
       state.value = action.payload;
@@ -50,5 +58,5 @@ const mortgageSlive = createSlice({
     });
   },
 });
-
+export const { searchNameMortgage } = mortgageSlive.actions;
 export default mortgageSlive.reducer;
