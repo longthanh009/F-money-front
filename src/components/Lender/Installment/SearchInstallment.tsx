@@ -1,16 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { DatePicker, Input, Select, Space } from "antd";
 import { useAppDispatch } from "../../../app/hooks";
 import {
   getContractDate,
   searchNameContract,
   getContract,
+  searchStatusContract,
 } from "../../../features/contract/contractSlice";
 import { SearchOutlined } from "@ant-design/icons";
 function SearchInstallment() {
   const { RangePicker } = DatePicker;
   const dispatch = useAppDispatch();
-  const searchRef = useRef(null);
+  const searchRef = useRef<any>(null);
 
   const handlerDate = async (e: any) => {
     let tu_ngay = new Date(e[0]._d).getTime();
@@ -30,6 +31,17 @@ function SearchInstallment() {
       dispatch(searchNameContract(keyword));
     }, 1000);
   };
+
+  const handleStatus = (e: any) => {
+    dispatch(getContract());
+    if (searchRef.current) {
+      clearTimeout(searchRef.current);
+    }
+    searchRef.current = setTimeout(() => {
+      dispatch(searchStatusContract(e));
+    }, 500);
+  };
+
   return (
     <div className="mb-3 mt-5 flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="px-5 pt-5">
@@ -52,6 +64,7 @@ function SearchInstallment() {
           <div className="mb-3 xl:w-96 ">
             <Select
               defaultValue="status"
+              onChange={(e) => handleStatus(e)}
               style={{ width: 120 }}
               options={[
                 {
