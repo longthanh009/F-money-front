@@ -1,30 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Checkbox, Input, Modal, Row } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { addContract } from "../../../features/contract/contractSlice";
-import { useNavigate } from "react-router-dom";
-import { CheckboxValueType } from "antd/lib/checkbox/Group";
-import { contractDetail } from "../../../features/contract/contractDetailSlice ";
-import { getContractDetail } from "../../../api/contract";
-import FomatNumber from "../../FomatNumber/fomatNumber";
+import { Checkbox, Row } from "antd";
+import React from "react";
 import { formatDate } from "../../../ultils/formatDate";
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
+import FomatNumber from "../../FomatNumber/fomatNumber";
 
 type Props = {
-  isModalOpen: any;
-  handleOk: any;
-  handleCancel: any;
-  setIsModalOpen?: any;
-  contracts?: any;
+  contractDetaill: any;
+  handeCheckBok: any;
 };
 
 const ModalInstallmentDetail = ({
@@ -60,16 +41,9 @@ const ModalInstallmentDetail = ({
     };
     getcontract();
   }, []);
-
   return (
     <div>
-      <Modal
-        title="Chi Tiết Hợp Đồng"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-      >
+      <div>
         <div className="ml-2 mr-10 flex border-dashed text-center">
           <div className="mb-10 pr-10">
             <div>
@@ -165,12 +139,12 @@ const ModalInstallmentDetail = ({
                     <p>{formatDate(item.ngay)}</p>
                   </td>
                   <td>
-                    <Checkbox.Group
-                      style={{ width: "100%" }}
-                      onChange={onChange}
-                    >
+                    <Checkbox.Group style={{ width: "100%" }}>
                       <Row>
-                        <Checkbox value="trang_thai"></Checkbox>
+                        <Checkbox
+                          value="trang_thai"
+                          onChange={() => handeCheckBok(item.ngay)}
+                        ></Checkbox>
                       </Row>
                     </Checkbox.Group>
                   </td>
@@ -179,7 +153,7 @@ const ModalInstallmentDetail = ({
             })}
           </tbody>
         </table>
-      </Modal>
+      </div>
     </div>
   );
 };

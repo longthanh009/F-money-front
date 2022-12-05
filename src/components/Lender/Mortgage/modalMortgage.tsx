@@ -59,7 +59,7 @@ const modalMortgage = ({
 
   const onFinish = (data: any) => {
     console.log(data);
-    data.nguoi_tao_hd = "637e3292baffb14ee19d1b25";
+    data.nguoi_tao_hd = "638c54551ab35050b4083dc3";
 
     dispatch(addMortgage(data));
     setIsModalOpen(false);

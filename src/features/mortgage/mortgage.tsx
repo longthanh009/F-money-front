@@ -22,9 +22,10 @@ export const addMortgage = createAsyncThunk(
 );
 
 export const listMortgage = createAsyncThunk(
-  "mortgage/listMortgage",
+  "mortgage/listMortgage"
   async () => {
-    const { data } = await getMortgage("638def2eddf010d625efe18c");
+
+    const { data } = await getMortgage("638c54551ab35050b4083dc3");
     return data;
   }
 );
@@ -40,7 +41,15 @@ export const listDetailMortgage = createAsyncThunk(
 const mortgageSlive = createSlice({
   name: "mortgage",
   initialState,
-  reducers: {},
+  reducers: {
+    searchNameMortgage: (state, action) => {
+      const name = action.payload;
+      const newArr = state.value.filter((item) =>
+        item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
+      );
+      state.value = newArr;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(listMortgage.fulfilled, (state, action) => {
       state.value = action.payload;
@@ -50,5 +59,5 @@ const mortgageSlive = createSlice({
     });
   },
 });
-
+export const { searchNameMortgage } = mortgageSlive.actions;
 export default mortgageSlive.reducer;
