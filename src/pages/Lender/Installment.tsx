@@ -15,7 +15,6 @@ function Installment() {
         <div className="text-gray-500 mb-3">Lender/Trả Góp</div>
         <div className="grid grid-cols-12 gap-5 md:flex md:justify-center">
           {/* Line chart (Acme Plus) */}
-          <Installment01 />
           {/* Line chart (Acme Advanced) */}
           <Installment02 />
           {/* Line chart (Acme Professional) */}
