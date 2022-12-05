@@ -4,6 +4,7 @@ import {
   createContracts,
   removeContract,
   getContractsDate,
+  getCccdlender,
 } from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
@@ -24,7 +25,7 @@ export const getContract = createAsyncThunk(
 );
 export const getContractDate = createAsyncThunk(
   "contract/getContractDate",
-  async (prams: object) => {
+  async (prams: any) => {
     const { data } = await getContractsDate(prams.formdate, prams.todate);
     return data;
   }
@@ -62,29 +63,42 @@ const contractSlive = createSlice({
   reducers: {
     searchNameContract: (state, action) => {
       const name = action.payload;
-      const newArr = state.value.filter((item) =>
-        item.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
+      console.log(state, action);
+      const newArr = state.value.filter((item: any) =>
+        item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
       );
       state.value = newArr;
+      console.log({ newArr });
+    },
+    searchStatusContract: (state, action) => {
+      const trangThai = action.payload;
+      console.log(trangThai);
+      const newArrStatus = state.value.filter(
+        (item: any) => +item.status === +trangThai
+      );
+      state.value = newArrStatus;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getContract.fulfilled, (state, action) => {
+    builder.addCase(getContract.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
     });
-    builder.addCase(addContract.fulfilled, (state, action) => {
+    builder.addCase(addContract.fulfilled, (state: any, action: any) => {
       state.value.unshift(action.payload);
     });
-    builder.addCase(deleteContract.fulfilled, (state, action) => {
-      state.value = state.value.filter((item) => item.id != action.payload);
+    builder.addCase(deleteContract.fulfilled, (state: any, action: any) => {
+      state.value = state.value.filter(
+        (item: any) => item.id != action.payload
+      );
     });
-    builder.addCase(getContractDate.fulfilled, (state, action) => {
+    builder.addCase(getContractDate.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
     });
-    builder.addCase(getCmndLenderList.fulfilled, (state, action) => {
+    builder.addCase(getCmndLenderList.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
     });
   },
 });
 export const { searchNameContract } = contractSlive.actions;
+export const { searchStatusContract } = contractSlive.actions;
 export default contractSlive.reducer;
