@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { deletelManyContract } from "../../api/contract";
 import {
   createMortgage,
   getDetailMortgage,
@@ -29,7 +30,6 @@ export const listMortgage = createAsyncThunk(
   }
 );
 
-
 export const listDetailMortgage = createAsyncThunk(
   "mortgage/listDetailMortgage",
   async (prams: IMortgageType) => {
@@ -38,9 +38,24 @@ export const listDetailMortgage = createAsyncThunk(
   }
 );
 
+export const deleteMany = createAsyncThunk(
+  "contract/deleteManyContract",
+  async (params: any) => {
+    console.log(params);
+    const { data } = await deletelManyContract(params);
+    console.log(data);
+    return data;
+  }
+);
+
 const mortgageSlive = createSlice({
   name: "mortgage",
-  initialState,
+  initialState: {
+    value: [],
+    loading: false,
+    message: "",
+    check: [],
+  },
   reducers: {
     searchNameMortgage: (state, action) => {
       const name = action.payload;
@@ -48,6 +63,20 @@ const mortgageSlive = createSlice({
         item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
       );
       state.value = newArr;
+    },
+    removeMultipleMortgage: (state, action) => {
+      const data = action.payload;
+      state.value = state.value.filter((x: any) =>
+        state.check.every((x2: any) => x2 !== x._id)
+      );
+    },
+    addMuiltipleValues: (state, action) => {
+      const { value, checked } = action.payload;
+      if (checked) {
+        state.check = [...state.check, value];
+      } else {
+        state.check = state.check.filter((e: any) => e != value);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -59,5 +88,9 @@ const mortgageSlive = createSlice({
     });
   },
 });
-export const { searchNameMortgage } = mortgageSlive.actions;
+export const {
+  searchNameMortgage,
+  removeMultipleMortgage,
+  addMuiltipleValues,
+} = mortgageSlive.actions;
 export default mortgageSlive.reducer;
