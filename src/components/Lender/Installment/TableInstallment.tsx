@@ -5,11 +5,16 @@ import { GiAnchor } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { getContractDetail } from "../../../api/contract";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import Swal from "sweetalert2";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { moneyOneDay } from "../../../constants/formula";
 import {
   addContract,
   deleteContract,
   getContract,
+  deleteMany,
+  removeMultipleContract,
+  addMuiltipleValues
 } from "../../../features/contract/contractSlice";
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalInstallmentDetail from "./ModalInstallmentDetail";
@@ -19,10 +24,10 @@ function TableInstallment() {
   const [contractDetail, setContractDetail] = useState<any>("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
+  const check = useAppSelector((state) => state.contract.check);
   const [contractDetaill, setcontractDetaill] = useState<any>();
   const contracts = useAppSelector((state) => state.contract.value);
-  console.log({contracts})
+  console.log({ contracts });
 
   const showModal = (record: any) => {
     setIsModalOpen(true);
@@ -35,7 +40,7 @@ function TableInstallment() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  console.log(contracts)  
+  console.log(contracts);
   useEffect(() => {
     dispatch(getContract());
   }, []);
@@ -71,6 +76,33 @@ function TableInstallment() {
       return <div>Quá Hạn</div>;
     } else {
       return <div>Kết Thức Hợp Dồng</div>;
+    }
+  };
+  const HandlerOngetMany = (e: any) => {
+    dispatch(addMuiltipleValues(e.target));
+  };
+  const HandlerOnRemoveMany = async () => {
+    if (check.length !== 0) {
+      Swal.fire({
+        title: "Bạn có chắc muốn xoá người dùng này ?",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          dispatch(deleteMany({ params: { id: check } }));
+          dispatch(removeMultipleContract(check));
+          handleCancel();
+          // navigate(0)
+        },
+
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+      // const responce = await deletelManyUser({
+      //     params: {id: isChecked}
+      // });
+    } else {
+      alert("please Select at least one check box !");
     }
   };
 
@@ -129,7 +161,14 @@ function TableInstallment() {
                 <th className="p-2">
                   <div className="font-semibold text-center">Trạng thái</div>
                 </th>
-                <td></td>
+                <td>
+                  <button
+                    className="text-white bg-red-600 text-ms rounded-md p-2"
+                    onClick={HandlerOnRemoveMany}
+                  >
+                    Xoá nhiều
+                  </button>
+                </td>
               </tr>
             </thead>
             {/* Table body */}
@@ -202,7 +241,10 @@ function TableInstallment() {
                         className="items-center text-gray-500 pl-5 relative group"
                         onClick={() => handleClickModal(item._id)}
                       >
-                        <button className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
+                        <button
+                          className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block"
+                          onChange={(e) => HandlerOngetMany(e)}
+                        >
                           Đóng tiền
                         </button>
                         <div className="pr-2">
@@ -219,6 +261,15 @@ function TableInstallment() {
                           Đóng HĐ
                         </button>
                         <GiAnchor />
+                      </div>
+                      <div className="pr-2">
+                        <div>
+                          <input
+                            type="checkbox"
+                            value={item._id}
+                            onChange={(e) => HandlerOngetMany(e)}
+                          />
+                        </div>
                       </div>
                     </td>
                   </tr>

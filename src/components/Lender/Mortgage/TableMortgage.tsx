@@ -6,12 +6,14 @@ import { FcOvertime } from "react-icons/fc";
 import { GiAnchor } from "react-icons/gi";
 import { getDetailMortgage } from "../../../api/mortgage";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { listMortgage } from "../../../features/mortgage/mortgage";
+import { addMuiltipleValues, deleteMany, listMortgage, removeMultipleMortgage } from "../../../features/mortgage/mortgage";
 import { formatDate } from "../../../ultils/formatDate";
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalMortgageDetail from "./ModalMortgageDetail";
+import Swal from "sweetalert2";
 
 function TableMortgage() {
+  const check = useAppSelector((state) => state.mortgage.check);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mortgageId, setMortgageId] = useState();
@@ -58,6 +60,33 @@ function TableMortgage() {
     setIsModalOpen(true);
     setMortgageId(id);
   };
+  const HandlerOngetMany = (e: any) => {
+    dispatch(addMuiltipleValues(e.target));
+  };
+  const HandlerOnRemoveMany = async () => {
+    if (check.length !== 0) {
+      Swal.fire({
+        title: "Bạn có chắc muốn xoá người dùng này ?",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          dispatch(deleteMany({ params: { id: check } }));
+          dispatch(removeMultipleMortgage(check));
+          handleCancel();
+          // navigate(0)
+        },
+
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+      // const responce = await deletelManyUser({
+      //     params: {id: isChecked}
+      // });
+    } else {
+      alert("please Select at least one check box !");
+    }
+  };
 
   return (
     <div className="col-span-full  bg-white shadow-lg  rounded-sm border border-slate-200">
@@ -101,7 +130,14 @@ function TableMortgage() {
                     Trạng thái họp đồng
                   </div>
                 </th>
-                <td></td>
+                <td>
+                <button
+                    className="text-white bg-red-600 text-ms rounded-md p-2"
+                    onClick={HandlerOnRemoveMany}
+                  >
+                    Xoá nhiều
+                  </button>
+                </td>
               </tr>
             </thead>
             {/* Table body */}
@@ -170,6 +206,15 @@ function TableMortgage() {
                           Đóng HĐ
                         </button>
                         <GiAnchor />
+                      </div>
+                      <div className="pr-2">
+                        <div>
+                          <input
+                            type="checkbox"
+                            value={item._id}
+                            onChange={(e) => HandlerOngetMany(e)}
+                          />
+                        </div>
                       </div>
                     </td>
                   </tr>
