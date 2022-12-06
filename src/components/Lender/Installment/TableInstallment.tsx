@@ -35,8 +35,6 @@ function TableInstallment() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const dispatch = useAppDispatch();
-  const contracts = useAppSelector((state) => state.contract.value);
   console.log(contracts)  
   useEffect(() => {
     dispatch(getContract());
