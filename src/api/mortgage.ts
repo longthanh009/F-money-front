@@ -14,3 +14,9 @@ export const getDetailMortgage = (id: any) => {
   const url = `contractMortgage/${id}`;
   return intance.get(url);
 };
+
+export const deletelManyMortgage = (params: any) => {
+  console.log(params)
+  const url = `/mortgage?`;
+  return intance.delete(url, params);
+}

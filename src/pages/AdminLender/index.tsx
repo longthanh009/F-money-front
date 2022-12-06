@@ -121,16 +121,13 @@ const AdminLender = () => {
                     dispatch(removeMultipleUser(check))
                     handleCancel();
                     // navigate(0)
-
-                },
-                
+                },               
                 allowOutsideClick: () => !Swal.isLoading()
             })
             // const responce = await deletelManyUser({
             //     params: {id: isChecked}
-            // });
-           
-        } 
+            // });          
+        }
         else {
             alert("please Select at least one check box !");
         }

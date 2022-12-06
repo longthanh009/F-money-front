@@ -5,6 +5,7 @@ import {
   removeContract,
   getContractsDate,
   getCccdlender,
+  deletelManyContract,
 } from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
@@ -54,11 +55,21 @@ export const deleteContract = createAsyncThunk(
     return prams;
   }
 );
+export const deleteMany = createAsyncThunk(
+  "contract/deleteManyContract",
+  async (params: any) => {
+    console.log(params);
+    const { data } = await deletelManyContract(params);
+    console.log(data);
+    return data;
+  }
+);
 
 const contractSlive = createSlice({
   name: "contract",
   initialState: {
     value: [],
+    check: [],
   },
   reducers: {
     searchNameContract: (state, action) => {
@@ -77,6 +88,20 @@ const contractSlive = createSlice({
         (item: any) => +item.status === +trangThai
       );
       state.value = newArrStatus;
+    },
+    removeMultipleContract: (state, action) => {
+      const data = action.payload;
+      state.value = state.value.filter((x: any) =>
+        state.check.every((x2: any) => x2 !== x._id)
+      );
+    },
+    addMuiltipleValues: (state, action) => {
+      const { value, checked } = action.payload;
+      if (checked) {
+        state.check = [...state.check, value];
+      } else {
+        state.check = state.check.filter((e: any) => e != value);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -99,6 +124,10 @@ const contractSlive = createSlice({
     });
   },
 });
-export const { searchNameContract } = contractSlive.actions;
+export const {
+  searchNameContract,
+  removeMultipleContract,
+  addMuiltipleValues,
+} = contractSlive.actions;
 export const { searchStatusContract } = contractSlive.actions;
 export default contractSlive.reducer;
