@@ -20,14 +20,12 @@ import Expense from "../pages/Lender/Expense";
 import Income from "../pages/Lender/Income";
 import Service from "../pages/Lender/Service";
 import Installment from "../pages/Lender/Installment";
-import MenuLoan from "../pages/Lender/Menuloan";
 import Mortgage from "../pages/Lender/Mortgage";
 {/**api user */ }
 import { login } from './../features/auth/authSlice';
 import AccountClient from "../pages/accountClient";
 import Passwword from "../pages/accountClient/password";
 import ServiceList from "../pages/AdminService/ServiceList";
-
 // api service
 
 
@@ -54,7 +52,6 @@ const RoutePage = () => {
           <Route path="incomeAndExpense/income" element={<Income />} /> {/**Lịch sử thu tiền */}
           <Route path="contact" element={<Service />} /> {/**Dịch vụ thanh toán tiền */}
           <Route path="capital" element={<Capital_Lender />} /> {/**Quản lí nguồn vốn */}
-          <Route path="menuLoan" element={<MenuLoan />} /> {/**Yêu cầu vay tiền*/}
         </Route>
 
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginAuth, register } from "../../api/auth";
-import { deletelManyUser, deletelUser, getAllUser, getUser } from "../../api/user";
+import { deletelManyUser, deletelUser, getAllUser } from "../../api/user";
 import { userLogin } from "../../models/auth";
 export const newUser = createAsyncThunk(
     "auth/newUser", async (formData: userLogin) => {
@@ -13,8 +13,9 @@ export const getAll = createAsyncThunk(
         return data
     });
 export const deleteMany = createAsyncThunk(
-    "auth/deleteManyUser", async (id :any) => {
-        const { data } = await deletelManyUser(id);
+    "auth/deleteManyUser", async (params:any) => {
+        console.log(params)
+        const { data } = await deletelManyUser(params);
         console.log(data)
         return data
     });
