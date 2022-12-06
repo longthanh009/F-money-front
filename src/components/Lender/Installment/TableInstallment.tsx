@@ -35,7 +35,10 @@ function TableInstallment() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  console.log(contracts)  
+  useEffect(() => {
+    dispatch(getContract());
+  }, []);
   const removeItem = (id: any) => {
     const confirm = window.confirm("bạn có muốn xóa không");
     if (confirm) {
