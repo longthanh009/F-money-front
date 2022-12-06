@@ -60,6 +60,7 @@ const ModalInstallmentAdd = ({
 
   const onFinish = (data: any) => {
     data.nguoi_tao_hd = "638c54551ab35050b4083dc3";
+
     dispatch(addContract(data));
     setIsModalOpen(false);
     navigate("/lender/installment/index");

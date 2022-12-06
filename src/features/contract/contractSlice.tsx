@@ -20,7 +20,6 @@ export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
     const { data } = await getContracts("638c54551ab35050b4083dc3");
-
     return data;
   }
 );
