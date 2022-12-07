@@ -18,6 +18,7 @@ const Header_Client = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem('token');
     message.success("Đăng xuất thành công.");
     navigate("/signin");
   };
