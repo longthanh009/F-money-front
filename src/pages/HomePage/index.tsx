@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Tabs, Image, Space } from 'antd';
 import Banner from './Banner'
 import Solution from './Solution';
@@ -10,7 +10,7 @@ import Suport_Page from '../SuportPage/Suport_Page';
 const index = () => {
 
   const [random, setRandom] = useState<number>();
-
+  
   return (
     < div>
       {/**Banner */}

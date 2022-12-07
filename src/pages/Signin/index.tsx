@@ -13,6 +13,7 @@ const SiginPage = () => {
 	const [validate, setValidate] = useState();
 	const loginUser = async (user: userLogin) => {
 		const { payload } = await dispatch(login(user));
+		localStorage.setItem('token' ,payload.data);
 		if (payload.error) {
 			setValidate(payload.error)
 			Swal.fire({
@@ -30,7 +31,6 @@ const SiginPage = () => {
 		}
 	}
 	const onFinish = (values: userLogin) => {
-		console.log(values);
 		loginUser(values)
 	};
 	return (
