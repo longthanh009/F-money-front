@@ -9,7 +9,7 @@ export const PrivateRouterLender = ({children }:any) => {
     if (decodedToken?.role != 1) {
         <Navigate to="/"/> 
     }
-    return <div>{children}</div>
+    return children
 };
 
 export const PrivateRouterAdmin = ({children }:any) => {
@@ -19,7 +19,7 @@ export const PrivateRouterAdmin = ({children }:any) => {
     if (decodedToken?.role != 2) {
         <Navigate to="/"/> 
     }
-    return <div>{children}</div>
+    return children
 };
 // const PrivateRouter = async (props: PrivateRouterProps) => {
 //     console.log(props?.children)

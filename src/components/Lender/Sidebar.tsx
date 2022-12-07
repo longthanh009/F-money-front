@@ -6,42 +6,50 @@ import { AiOutlineUser, AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { BiArch, BiBookmarkAlt } from "react-icons/bi";
+import jwt_decode from "jwt-decode";
 
 const Sidebar = () => {
   const menus = [
     {
       name: "Dashboard",
       link: "/admin",
-      icon: BiArch
+      icon: BiArch,
+      role: 2,
     },
     {
       name: "Tín Chấp",
       link: "/lender/Mortgage/index",
-      icon: TbReportAnalytics
+      icon: TbReportAnalytics,
+      role: 1,
     },
     {
       name: "Trả Góp",
       link: "/lender/installment/index",
-      icon: TbReportAnalytics
+      icon: TbReportAnalytics,
+      role: 1,
     },
     {
       name: "Yêu cầu vay tiền",
       link: "/lender/customer/list",
-      icon: AiOutlineUser
+      icon: AiOutlineUser,
+      role: 1,
     }, {
       name: "Khách Hàng",
       link: "/admin/customer",
-      icon: AiOutlineUsergroupAdd
+      icon: AiOutlineUsergroupAdd,
+      role: 2,
     },
     {
       name: "Quản lý hợp đồng",
       link: "/admin/customer",
-      icon: BiBookmarkAlt
+      icon: BiBookmarkAlt,
+      role: 2,
     },
     {
       name: "Kiểm tra khách hàng",
       link: "/lender/customer/checkCustome",
-      icon: RiShieldUserFill
+      icon: RiShieldUserFill,
+      role: 1,
     },
     // {
     //   name: "Chi Hoạt Động",
@@ -56,10 +64,14 @@ const Sidebar = () => {
     {
       name: "Dịch Vụ",
       link: "/lender/contact",
-      icon: FiMessageSquare
+      icon: FiMessageSquare,
+      role: 1,
     },
     { name: "Thống Kê", link: "/lender", icon: RiSettings4Line },
   ];
+  const token =  localStorage.getItem('token')
+  const convertStringToken = JSON.stringify(token)
+  const decodedToken = jwt_decode<any>(convertStringToken)
   const [open, setOpen] = useState(true);
   return (
     <section className="flex gap-6 ">
@@ -75,7 +87,9 @@ const Sidebar = () => {
           />
         </div>
         <div className="mt-4 flex flex-col gap-4 relative">
-          {menus?.map((menu, i) => (
+          {menus
+          ?.filter((menu) => menu.role == decodedToken?.role)
+          ?.map((menu:any, i) => (
             <Link
               to={menu?.link}
               key={i}
