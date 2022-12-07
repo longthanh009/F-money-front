@@ -74,7 +74,6 @@ const contractSlive = createSlice({
   reducers: {
     searchNameContract: (state, action) => {
       const name = action.payload;
-      console.log(state, action);
       const newArr = state.value.filter((item: any) =>
         item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
       );
@@ -83,7 +82,6 @@ const contractSlive = createSlice({
     },
     searchStatusContract: (state, action) => {
       const trangThai = action.payload;
-      console.log(trangThai);
       const newArrStatus = state.value.filter(
         (item: any) => +item.status === +trangThai
       );

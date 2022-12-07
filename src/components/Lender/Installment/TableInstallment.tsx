@@ -27,8 +27,6 @@ function TableInstallment() {
   const check = useAppSelector((state) => state.contract.check);
   const [contractDetaill, setcontractDetaill] = useState<any>();
   const contracts = useAppSelector((state) => state.contract.value);
-  console.log({ contracts });
-
   const showModal = (record: any) => {
     setIsModalOpen(true);
   };
@@ -40,7 +38,6 @@ function TableInstallment() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  console.log(contracts);
   useEffect(() => {
     dispatch(getContract());
   }, []);
