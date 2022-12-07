@@ -54,13 +54,6 @@ const RoutePage = () => {
           <Route path="contact" element={<Service />} /> {/**Dịch vụ thanh toán tiền */}
           <Route path="capital" element={<Capital_Lender />} /> {/**Quản lí nguồn vốn */}
         </Route>
-        {/* <Route path="/test"
-            element={
-              <PrivateRouter >
-                <h1>Dashboard 1</h1>
-              </PrivateRouter>
-            }
-          /> */}
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
         <Route path="/register" element={<SignupPage />}> </Route> {/**Đăng ký */}
 
