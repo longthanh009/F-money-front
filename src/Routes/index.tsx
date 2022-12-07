@@ -26,8 +26,9 @@ import { login } from './../features/auth/authSlice';
 import AccountClient from "../pages/accountClient";
 import Passwword from "../pages/accountClient/password";
 import ServiceList from "../pages/AdminService/ServiceList";
+import {PrivateRouterAdmin, PrivateRouterLender} from "../components/private/privateRouter";
+import Test from "../models/Test";
 // api service
-
 
 
 const RoutePage = () => {
@@ -42,7 +43,7 @@ const RoutePage = () => {
           <Route path="contractPage" element={<ContractPage />} /> {/**Yêu cầu hợp đồng */}
           <Route path="historic_Contract" element={<Historic_ContractPage />} /> {/**Lịch sử hợp đồng */}
         </Route>
-        <Route path="/lender" element={<LayoutDashboard />}>
+        <Route path="/lender" element={<PrivateRouterLender ><LayoutDashboard /></PrivateRouterLender>}>
           <Route index element={<Dashboard />} />
           <Route path="installment/index" element={<Installment />} /> {/**Trả góp */}
           <Route path="Mortgage/index" element={<Mortgage />} /> {/**Tín chấp */}
@@ -53,11 +54,17 @@ const RoutePage = () => {
           <Route path="contact" element={<Service />} /> {/**Dịch vụ thanh toán tiền */}
           <Route path="capital" element={<Capital_Lender />} /> {/**Quản lí nguồn vốn */}
         </Route>
-
+        {/* <Route path="/test"
+            element={
+              <PrivateRouter >
+                <h1>Dashboard 1</h1>
+              </PrivateRouter>
+            }
+          /> */}
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
         <Route path="/register" element={<SignupPage />}> </Route> {/**Đăng ký */}
 
-        <Route path="/admin" element={<LayoutDashboard />}>
+        <Route path="/admin" element={<PrivateRouterAdmin><LayoutDashboard /></PrivateRouterAdmin>}>
           <Route index element={<AdminDashboard />} />
           <Route path="customer" element={<AdminLender />} /> {/**Danh sách khách hàng */}
           <Route path="contract" element={<AdminContractPage />} /> {/**Danh sách giao dịch */}
