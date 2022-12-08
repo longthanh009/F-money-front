@@ -24,16 +24,10 @@ function Mortgage() {
       {/* Cards */}
       <div className="text-gray-500 mb-3">Lender/Tín Chấp</div>
       <div className="grid grid-cols-12 gap-5 md:flex md:justify-center">
-        {/* Line chart (Acme Plus) */}
-        <Installment02 />
-        {/* Line chart (Acme Professional) */}
-        <Installment03 />
-        <Installment04 />
-        {/* <MortgageCard01 />
-        <MortgageCard02 />
         <MortgageCard03 />
+        <MortgageCard02 />
         <MortgageCard04 />
-        <MortgageCard05 /> */}
+        <MortgageCard05 />
       </div>
       <div>
         <SearchMortgage />
