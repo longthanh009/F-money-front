@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import FomatNumber from "../../FomatNumber/fomatNumber";
 import Icon from "../../../images/icon-01.svg";
 
-function DashboardCard01() {
+function DashboardCard01({tragop, tinchap}:any) {
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="px-5 pt-5">
@@ -17,7 +18,7 @@ function DashboardCard01() {
         </div>
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 mr-2">
-            200,000,000
+          <FomatNumber number={tinchap}/>
           </div>
           <div className="text-sm font-semibold text-white px-1.5 bg-green-500 rounded-full">
             VND
@@ -28,7 +29,7 @@ function DashboardCard01() {
         </div>
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 mr-2">
-            200,000,000
+            <FomatNumber number={tragop}/>
           </div>
           <div className="text-sm font-semibold text-white px-1.5 bg-green-500 rounded-full">
             VND
