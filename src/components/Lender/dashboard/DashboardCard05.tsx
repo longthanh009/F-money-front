@@ -1,6 +1,7 @@
 import React from "react";
+import FomatNumber from "../../FomatNumber/fomatNumber";
 
-function DashboardCard06() {
+function DashboardCard06({tragop, tienlaiTraGop}:any) {
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100">
@@ -17,7 +18,7 @@ function DashboardCard06() {
                       Tiền Cho vay
                     </h4>
                     <h3 className="text-3xl text-gray-700 font-semibold leading-tight my-3">
-                      3,682
+                      <FomatNumber number={tragop}/>
                     </h3>
                     <p className="text-xs text-green-500 leading-tight">
                       ▲ 57.1%
@@ -57,7 +58,7 @@ function DashboardCard06() {
                       Tiền Lãi
                     </h4>
                     <h3 className="text-3xl text-gray-700 font-semibold leading-tight my-3">
-                      8,028
+                    <FomatNumber number={tienlaiTraGop}/>
                     </h3>
                     <p className="text-xs text-green-500 leading-tight">
                       ▲ 8.2%
