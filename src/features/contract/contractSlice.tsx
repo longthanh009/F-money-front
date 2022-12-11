@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import jwt_decode from "jwt-decode";
 import {
   getContracts,
   createContracts,
@@ -18,10 +19,18 @@ const initialState: Icontract = {
   value: [],
 };
 
+const idUserContracrt = () => {
+  const token = localStorage.getItem("token");
+  const convertStringToken = JSON.stringify(token);
+  const decodedToken = jwt_decode<any>(convertStringToken);
+  const id = decodedToken.id;
+  return id;
+};
+
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts("638c54551ab35050b4083dc3");
+    const { data } = await getContracts(idUserContracrt());
     return data;
   }
 );
@@ -69,10 +78,10 @@ export const statusContrats = createAsyncThunk(
   "contract/statusContrats",
   async (objecData: any) => {
     let objecNew = {
-      date : objecData.date,
-      status: objecData.status
-    }
-    const { data } = await checkPayMoney(objecData.id,objecNew);
+      date: objecData.date,
+      status: objecData.status,
+    };
+    const { data } = await checkPayMoney(objecData.id, objecNew);
     return data;
   }
 );
