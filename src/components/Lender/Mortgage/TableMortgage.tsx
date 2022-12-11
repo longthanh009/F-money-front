@@ -2,11 +2,16 @@ import { Button, Modal, Space } from "antd";
 import Table, { ColumnsType } from "antd/lib/table";
 import React, { useEffect, useState } from "react";
 import { FcSalesPerformance } from "react-icons/fc";
-import { FcOvertime } from "react-icons/fc";
+import { AiFillDelete } from "react-icons/ai";
 import { GiAnchor } from "react-icons/gi";
 import { getDetailMortgage } from "../../../api/mortgage";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { addMuiltipleValues, deleteMany, listMortgage, removeMultipleMortgage } from "../../../features/mortgage/mortgage";
+import {
+  addMuiltipleValues,
+  deleteMany,
+  listMortgage,
+  removeMultipleMortgage,
+} from "../../../features/mortgage/mortgage";
 import { formatDate } from "../../../ultils/formatDate";
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalMortgageDetail from "./ModalMortgageDetail";
@@ -87,6 +92,7 @@ function TableMortgage() {
       alert("please Select at least one check box !");
     }
   };
+  const style = { color: "#dc2626", fontSize: "1.5em" }
 
   return (
     <div className="col-span-full  bg-white shadow-lg  rounded-sm border border-slate-200">
@@ -100,6 +106,14 @@ function TableMortgage() {
             {/* Table header */}
             <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
               <tr>
+                <th>
+                  <button
+                    className="btn btn-danger"
+                    onClick={HandlerOnRemoveMany}
+                  >
+                    <AiFillDelete style={style}/>
+                  </button>
+                </th>
                 <th className="p-2">
                   <div className="font-semibold text-left">STT</div>
                 </th>
@@ -130,14 +144,7 @@ function TableMortgage() {
                     Trạng thái họp đồng
                   </div>
                 </th>
-                <td>
-                <button
-                    className="text-white bg-red-600 text-ms rounded-md p-2"
-                    onClick={HandlerOnRemoveMany}
-                  >
-                    Xoá nhiều
-                  </button>
-                </td>
+                <td></td>
               </tr>
             </thead>
             {/* Table body */}
@@ -146,6 +153,13 @@ function TableMortgage() {
               {mortgage?.map((item: any, index) => {
                 return (
                   <tr key={index}>
+                    <td className="pr-2">
+                      <input
+                        type="checkbox"
+                        value={item._id}
+                        onChange={(e) => HandlerOngetMany(e)}
+                      />
+                    </td>
                     <td className="p-2">
                       <div className="flex items-center">
                         <div className="text-slate-800">{index + 1}</div>
@@ -206,15 +220,6 @@ function TableMortgage() {
                           Đóng HĐ
                         </button>
                         <GiAnchor />
-                      </div>
-                      <div className="pr-2">
-                        <div>
-                          <input
-                            type="checkbox"
-                            value={item._id}
-                            onChange={(e) => HandlerOngetMany(e)}
-                          />
-                        </div>
                       </div>
                     </td>
                   </tr>
