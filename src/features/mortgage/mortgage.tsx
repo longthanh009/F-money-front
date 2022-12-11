@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { deletelManyContract } from "../../api/contract";
+import jwt_decode from "jwt-decode";
 import {
   createMortgage,
   getDetailMortgage,
@@ -14,6 +15,14 @@ const initialState: Icontract = {
   value: [],
 };
 
+const idUserMortgage = () => {
+  const token = localStorage.getItem("token");
+  const convertStringToken = JSON.stringify(token);
+  const decodedToken = jwt_decode<any>(convertStringToken);
+  const id = decodedToken.id;
+  return id;
+};
+
 export const addMortgage = createAsyncThunk(
   "mortgage/addMortgage",
   async (prams: IMortgageType) => {
@@ -25,7 +34,7 @@ export const addMortgage = createAsyncThunk(
 export const listMortgage = createAsyncThunk(
   "mortgage/listMortgage",
   async () => {
-    const { data } = await getMortgage("638c54551ab35050b4083dc3");
+    const { data } = await getMortgage(idUserMortgage());
     return data;
   }
 );
@@ -79,13 +88,13 @@ const mortgageSlive = createSlice({
       }
     },
     filterMortgage: (state, action) => {
-      const data = action.payload
+      const data = action.payload;
       if (data == "status") {
-        return
-      }else{
-        state.value = state.value.filter((item:any) => item.status == data)
+        return;
+      } else {
+        state.value = state.value.filter((item: any) => item.status == data);
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(listMortgage.fulfilled, (state, action) => {
@@ -100,6 +109,6 @@ export const {
   searchNameMortgage,
   removeMultipleMortgage,
   addMuiltipleValues,
-  filterMortgage
+  filterMortgage,
 } = mortgageSlive.actions;
 export default mortgageSlive.reducer;
