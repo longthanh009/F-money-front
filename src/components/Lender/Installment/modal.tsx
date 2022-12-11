@@ -13,6 +13,9 @@ import {
 import { useAppDispatch } from "../../../app/hooks";
 import { addContract } from "../../../features/contract/contractSlice";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2";
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -57,13 +60,35 @@ const ModalInstallmentAdd = ({
   const { TextArea } = Input;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [form] = Form.useForm<any>();
+
+  const idUserContracrt = () => {
+    const token = localStorage.getItem("token");
+    const convertStringToken = JSON.stringify(token);
+    const decodedToken = jwt_decode<any>(convertStringToken);
+    const id = decodedToken.id;
+    return id;
+  };
 
   const onFinish = (data: any) => {
-    data.nguoi_tao_hd = "638c54551ab35050b4083dc3";
-
-    dispatch(addContract(data));
-    setIsModalOpen(false);
-    navigate("/lender/installment/index");
+    if (data) {
+      data.nguoi_tao_hd = idUserContracrt();
+      dispatch(addContract(data));
+      setIsModalOpen(false);
+      Swal.fire({
+        icon: "success",
+        title: "Thành Công",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      form.resetFields();
+      navigate("/lender/installment/index");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Thất bại",
+      });
+    }
   };
 
   return (
@@ -80,6 +105,7 @@ const ModalInstallmentAdd = ({
           // onFinishFailed={onFinishFailed}
           autoComplete="on"
           labelCol={{ span: 24 }}
+          form={form}
         >
           {/* Row 1 */}
           <Row gutter={16}>
@@ -87,18 +113,32 @@ const ModalInstallmentAdd = ({
               <Form.Item
                 label="Tên khách hàng"
                 name="ten_khach_hang"
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Không để trống, nhập lớn hơn 5",
+                    min: 5,
+                    max: 20,
+                  },
+                ]}
               >
-                <Input placeholder="..." style={{ width: "100%" }} />
+                <Input placeholder="Nguyễn Văn A" style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 name="ma_hd"
                 label="MÃ Hóa Đơn"
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Không để trống, nhập lớn hơn 2",
+                    min: 2,
+                    max: 20,
+                  },
+                ]}
               >
-                <Input placeholder="..." style={{ width: "100%" }} />
+                <Input placeholder="HD123" style={{ width: "100%" }} />
               </Form.Item>
             </Col>
           </Row>
@@ -109,7 +149,12 @@ const ModalInstallmentAdd = ({
                 name="cccd"
                 label="CMND/CCCD"
                 labelCol={{ span: 24 }}
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Không để trống, 12 ký tự",
+                  },
+                ]}
               >
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>
@@ -119,10 +164,15 @@ const ModalInstallmentAdd = ({
               <Form.Item
                 name="dien_thoai"
                 label="Số Điện Thoại"
-                labelCol={{ span: 24 }}
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[
+                  { required: true, message: "Vui lòng nhập số điện thoại" },
+                  {
+                    pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                    message: "Số điện thoại không đúng định dạng!",
+                  },
+                ]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <Input />
               </Form.Item>
             </Col>
           </Row>
@@ -130,7 +180,14 @@ const ModalInstallmentAdd = ({
           <Form.Item
             label="Địa Chỉ"
             name="dia_chi"
-            rules={[{ required: true, message: "Không để trống" }]}
+            rules={[
+              {
+                required: true,
+                message: "Không để trống ",
+                min: 2,
+                max: 40,
+              },
+            ]}
           >
             <TextArea placeholder="..." style={{ width: "100%" }} />
           </Form.Item>
@@ -156,7 +213,12 @@ const ModalInstallmentAdd = ({
                 name="lai_xuat"
                 label="% Lãi xuất"
                 labelCol={{ span: 24 }}
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[
+                  {
+                    required: true,
+                    message: "Không để trống",
+                  },
+                ]}
               >
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>
