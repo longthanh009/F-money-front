@@ -12,6 +12,8 @@ import {
 import { useAppDispatch } from "../../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { addMortgage } from "../../../features/mortgage/mortgage";
+import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2";
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -56,14 +58,36 @@ const modalMortgage = ({
   const { TextArea } = Input;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [form] = Form.useForm<any>();
+
+  const idUserMortgage = () => {
+    const token = localStorage.getItem("token");
+    const convertStringToken = JSON.stringify(token);
+    const decodedToken = jwt_decode<any>(convertStringToken);
+    const id = decodedToken.id;
+    return id;
+  };
 
   const onFinish = (data: any) => {
-    console.log(data);
-    data.nguoi_tao_hd = "638c54551ab35050b4083dc3";
+    if (data) {
+      data.nguoi_tao_hd = idUserMortgage();
+      dispatch(addMortgage(data));
+      setIsModalOpen(false);
 
-    dispatch(addMortgage(data));
-    setIsModalOpen(false);
-    navigate("/lender/Mortgage/index");
+      Swal.fire({
+        icon: "success",
+        title: "Thành Công",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      form.resetFields();
+      navigate("/lender/Mortgage/index");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Thất bại",
+      });
+    }
   };
 
   return (
@@ -80,6 +104,7 @@ const modalMortgage = ({
           // onFinishFailed={onFinishFailed}
           autoComplete="on"
           labelCol={{ span: 24 }}
+          form={form}
         >
           {/* Row 1 */}
           <Row gutter={16}>
@@ -135,9 +160,10 @@ const modalMortgage = ({
                 label="Số Điện Thoại"
                 labelCol={{ span: 24 }}
                 rules={[
+                  { required: true, message: "Vui lòng nhập số điện thoại" },
                   {
-                    required: true,
-                    message: "Không được để trống, ",
+                    pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                    message: "Số điện thoại không đúng định dạng!",
                   },
                 ]}
               >
