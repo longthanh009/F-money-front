@@ -111,7 +111,9 @@ const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
                       <Row>
                         <Checkbox
                           value="trang_thai"
-                          onChange={() => handeCheckBok(item.ngay)}
+                          onChange={(e) =>
+                            handeCheckBok(e, contractDetaill._id, item.ngay)
+                          }
                         ></Checkbox>
                       </Row>
                     </Checkbox.Group>

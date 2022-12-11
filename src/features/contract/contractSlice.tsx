@@ -6,6 +6,7 @@ import {
   getContractsDate,
   getCccdlender,
   deletelManyContract,
+  checkPayMoney,
 } from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
@@ -64,6 +65,13 @@ export const deleteMany = createAsyncThunk(
     return data;
   }
 );
+export const statusContrats = createAsyncThunk(
+  "contract/statusContrats",
+  async (id: any, params: any) => {
+    const { data } = await checkPayMoney(id, params);
+    return data;
+  }
+);
 
 const contractSlive = createSlice({
   name: "contract",
@@ -119,6 +127,11 @@ const contractSlive = createSlice({
     });
     builder.addCase(getCmndLenderList.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
+    });
+    builder.addCase(statusContrats.fulfilled, (state: any, action: any) => {
+      state.value = state.value.map((item: any) =>
+        item._id === action.payload._id ? action.payload : item
+      );
     });
   },
 });

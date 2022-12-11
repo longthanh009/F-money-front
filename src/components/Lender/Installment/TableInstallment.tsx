@@ -14,7 +14,8 @@ import {
   getContract,
   deleteMany,
   removeMultipleContract,
-  addMuiltipleValues
+  addMuiltipleValues,
+  statusContrats,
 } from "../../../features/contract/contractSlice";
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalInstallmentDetail from "./ModalInstallmentDetail";
@@ -62,9 +63,6 @@ function TableInstallment() {
     setIsModalOpen(true);
     setContractDetail(id);
   };
-  const handeCheckBok = (checkBok: any) => {
-    console.log(checkBok);
-  };
 
   const handeleStatus = (trangThai: any) => {
     if (trangThai === 0) {
@@ -101,6 +99,16 @@ function TableInstallment() {
     } else {
       alert("please Select at least one check box !");
     }
+  };
+
+  const handeCheckBok = (e: any, id: any, date: any) => {
+    
+    let checked = e?.target?.checked;
+    let newData: any = {
+      date: date,
+      status: checked,
+    };
+    dispatch(statusContrats(id, newData));
   };
 
   return (
