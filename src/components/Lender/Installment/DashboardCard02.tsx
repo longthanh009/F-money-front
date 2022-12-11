@@ -13,7 +13,7 @@ function Installment02() {
   
   useEffect(() => {
     dispatch(getContract())
-    .then( async({payload}) =>{
+    .then(async({payload}) =>{
       const sumWithInitial = await payload.reduce((total:any, obj:any) => obj.khoan_vay + total,0)
       setKhoanVay(sumWithInitial)
     })
@@ -21,7 +21,7 @@ function Installment02() {
   return (
     <div className="flex md:w-10% md:h-20 flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="px-2 pt-3 pr-5 pl-5">
-        <p className="text-[13px] text-amber-500">TIỀN CHO VAY</p>
+        <p className="text-[13px] text-green-500">TIỀN CHO VAY</p>
         <p className="text-[12px] text-center text-blue-500"><FomatNumber number={khoanvay}/></p>
       </div>
     </div>

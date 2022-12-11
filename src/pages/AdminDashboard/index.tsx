@@ -237,7 +237,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số lượt hỗ trợ</a>
                         </div>
                         <div className="self-center">
-                          3000
+                          {contracts.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>

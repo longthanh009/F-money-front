@@ -6,6 +6,7 @@ import {
   getContractsDate,
   getCccdlender,
   deletelManyContract,
+  checkPayMoney,
 } from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
@@ -64,6 +65,17 @@ export const deleteMany = createAsyncThunk(
     return data;
   }
 );
+export const statusContrats = createAsyncThunk(
+  "contract/statusContrats",
+  async (objecData: any) => {
+    let objecNew = {
+      date : objecData.date,
+      status: objecData.status
+    }
+    const { data } = await checkPayMoney(objecData.id,objecNew);
+    return data;
+  }
+);
 
 const contractSlive = createSlice({
   name: "contract",
@@ -74,7 +86,6 @@ const contractSlive = createSlice({
   reducers: {
     searchNameContract: (state, action) => {
       const name = action.payload;
-      console.log(state, action);
       const newArr = state.value.filter((item: any) =>
         item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
       );
@@ -83,7 +94,6 @@ const contractSlive = createSlice({
     },
     searchStatusContract: (state, action) => {
       const trangThai = action.payload;
-      console.log(trangThai);
       const newArrStatus = state.value.filter(
         (item: any) => +item.status === +trangThai
       );
@@ -121,6 +131,11 @@ const contractSlive = createSlice({
     });
     builder.addCase(getCmndLenderList.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
+    });
+    builder.addCase(statusContrats.fulfilled, (state: any, action: any) => {
+      state.value = state.value.map((item: any) =>
+        item._id === action.payload._id ? action.payload : item
+      );
     });
   },
 });

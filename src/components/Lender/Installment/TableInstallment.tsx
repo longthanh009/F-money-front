@@ -14,7 +14,8 @@ import {
   getContract,
   deleteMany,
   removeMultipleContract,
-  addMuiltipleValues
+  addMuiltipleValues,
+  statusContrats,
 } from "../../../features/contract/contractSlice";
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalInstallmentDetail from "./ModalInstallmentDetail";
@@ -27,8 +28,6 @@ function TableInstallment() {
   const check = useAppSelector((state) => state.contract.check);
   const [contractDetaill, setcontractDetaill] = useState<any>();
   const contracts = useAppSelector((state) => state.contract.value);
-  console.log({ contracts });
-
   const showModal = (record: any) => {
     setIsModalOpen(true);
   };
@@ -40,7 +39,6 @@ function TableInstallment() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  console.log(contracts);
   useEffect(() => {
     dispatch(getContract());
   }, []);
@@ -65,9 +63,6 @@ function TableInstallment() {
     setIsModalOpen(true);
     setContractDetail(id);
   };
-  const handeCheckBok = (checkBok: any) => {
-    console.log(checkBok);
-  };
 
   const handeleStatus = (trangThai: any) => {
     if (trangThai === 0) {
@@ -75,7 +70,7 @@ function TableInstallment() {
     } else if (trangThai === 1) {
       return <div>Quá Hạn</div>;
     } else {
-      return <div>Kết Thức Hợp Dồng</div>;
+      return <div>Đã Hoàn Tất</div>;
     }
   };
   const HandlerOngetMany = (e: any) => {
@@ -106,6 +101,16 @@ function TableInstallment() {
     }
   };
 
+  const handeCheckBok = (e: any, id: any, date: any) => {
+    let checked = e?.target?.checked;
+    let newData: any = {
+      id: id,
+      date: date,
+      status: checked,
+    };
+    dispatch(statusContrats(newData));
+  };
+  const style = { color: "#dc2626", fontSize: "1.5em" };
   return (
     <div className="col-span-full  bg-white shadow-lg  rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100">
@@ -118,6 +123,14 @@ function TableInstallment() {
             {/* Table header */}
             <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
               <tr>
+                <th>
+                  <button
+                    className="btn btn-danger"
+                    onClick={HandlerOnRemoveMany}
+                  >
+                    <AiFillDelete style={style} />
+                  </button>
+                </th>
                 <th className="p-2">
                   <div className="font-semibold text-left">STT</div>
                 </th>
@@ -161,14 +174,6 @@ function TableInstallment() {
                 <th className="p-2">
                   <div className="font-semibold text-center">Trạng thái</div>
                 </th>
-                <td>
-                  <button
-                    className="text-white bg-red-600 text-ms rounded-md p-2"
-                    onClick={HandlerOnRemoveMany}
-                  >
-                    Xoá nhiều
-                  </button>
-                </td>
               </tr>
             </thead>
             {/* Table body */}
@@ -177,6 +182,13 @@ function TableInstallment() {
               {contracts?.map((item: any, index) => {
                 return (
                   <tr key={index}>
+                    <td className="pr-2">
+                      <input
+                        type="checkbox"
+                        value={item._id}
+                        onChange={(e) => HandlerOngetMany(e)}
+                      />
+                    </td>
                     <td className="p-2">
                       <div className="flex items-center">
                         <div className="text-slate-800">{index + 1}</div>
@@ -227,7 +239,7 @@ function TableInstallment() {
                     <td className="p-2">
                       <div className="text-center text-sky-500">
                         <FomatNumber
-                          number={item.khoan_vay - item.da_thanh_toan}
+                          number={item.tong_hd - item.da_thanh_toan}
                         />
                       </div>
                     </td>
@@ -261,15 +273,6 @@ function TableInstallment() {
                           Đóng HĐ
                         </button>
                         <GiAnchor />
-                      </div>
-                      <div className="pr-2">
-                        <div>
-                          <input
-                            type="checkbox"
-                            value={item._id}
-                            onChange={(e) => HandlerOngetMany(e)}
-                          />
-                        </div>
                       </div>
                     </td>
                   </tr>

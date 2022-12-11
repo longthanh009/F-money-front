@@ -6,7 +6,7 @@ export const createContracts = (contract: any) => {
 };
 
 export const getContracts = (id: any) => {
-  console.log(id)
+  console.log(id);
   const url = `contracts?id=${id}`;
   return intance.get(url);
 };
@@ -23,12 +23,17 @@ export const getContractsDate = (formdate: any, todate: any) => {
   return intance.get(url);
 };
 export const deletelManyContract = (params: any) => {
-  console.log(params)
+  console.log(params);
   const url = `/contract?`;
   return intance.delete(url, params);
-}
+};
 
 export const getCccdlender = (cccd: number) => {
   const url = `checkUser?cccd=${cccd}`;
   return intance.get(url);
+};
+
+export const checkPayMoney = (id: any, params: any) => {
+  const url = `/contract/${id}`;
+  return intance.patch(url, params);
 };

@@ -1,8 +1,9 @@
 import React from "react";
 // import Icon from "../../images/icon-02.svg";
 import Icon from "../../../images/icon-02.svg";
+import FomatNumber from "../../FomatNumber/fomatNumber";
 
-function DashboardCard02() {
+function DashboardCard02({tienlaiTinchap, tienlaiTraGop}:any) {
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="px-5 pt-5">
@@ -16,7 +17,7 @@ function DashboardCard02() {
         </div>
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 mr-2">
-            400,000,000
+          <FomatNumber number={tienlaiTinchap}/>
           </div>
           <div className="text-sm font-semibold text-white px-1.5 bg-yellow-500 rounded-full">
             VND
@@ -27,7 +28,7 @@ function DashboardCard02() {
         </div>
         <div className="flex items-start">
           <div className="text-3xl font-bold text-slate-800 mr-2">
-            400,000,000
+          <FomatNumber number={tienlaiTraGop}/>
           </div>
           <div className="text-sm font-semibold text-white px-1.5 bg-yellow-500 rounded-full">
             VND

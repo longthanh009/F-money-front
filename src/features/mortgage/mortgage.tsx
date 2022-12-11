@@ -78,6 +78,14 @@ const mortgageSlive = createSlice({
         state.check = state.check.filter((e: any) => e != value);
       }
     },
+    filterMortgage: (state, action) => {
+      const data = action.payload
+      if (data == "status") {
+        return
+      }else{
+        state.value = state.value.filter((item:any) => item.status == data)
+      }
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(listMortgage.fulfilled, (state, action) => {
@@ -92,5 +100,6 @@ export const {
   searchNameMortgage,
   removeMultipleMortgage,
   addMuiltipleValues,
+  filterMortgage
 } = mortgageSlive.actions;
 export default mortgageSlive.reducer;
