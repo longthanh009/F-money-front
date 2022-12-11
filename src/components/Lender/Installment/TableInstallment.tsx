@@ -102,16 +102,15 @@ function TableInstallment() {
   };
 
   const handeCheckBok = (e: any, id: any, date: any) => {
-    
     let checked = e?.target?.checked;
     let newData: any = {
-      id :id,
+      id: id,
       date: date,
       status: checked,
     };
     dispatch(statusContrats(newData));
   };
-
+  const style = { color: "#dc2626", fontSize: "1.5em" };
   return (
     <div className="col-span-full  bg-white shadow-lg  rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100">
@@ -124,6 +123,14 @@ function TableInstallment() {
             {/* Table header */}
             <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
               <tr>
+                <th>
+                  <button
+                    className="btn btn-danger"
+                    onClick={HandlerOnRemoveMany}
+                  >
+                    <AiFillDelete style={style} />
+                  </button>
+                </th>
                 <th className="p-2">
                   <div className="font-semibold text-left">STT</div>
                 </th>
@@ -167,22 +174,21 @@ function TableInstallment() {
                 <th className="p-2">
                   <div className="font-semibold text-center">Trạng thái</div>
                 </th>
-                <td>
-                  <button
-                    className="text-white bg-red-600 text-ms rounded-md p-2"
-                    onClick={HandlerOnRemoveMany}
-                  >
-                    Xoá nhiều
-                  </button>
-                </td>
               </tr>
             </thead>
             {/* Table body */}
             <tbody className="text-sm font-medium divide-y divide-slate-100">
               {/* Row */}
-              {contracts?.map((item: any, index) => {                
+              {contracts?.map((item: any, index) => {
                 return (
                   <tr key={index}>
+                    <td className="pr-2">
+                      <input
+                        type="checkbox"
+                        value={item._id}
+                        onChange={(e) => HandlerOngetMany(e)}
+                      />
+                    </td>
                     <td className="p-2">
                       <div className="flex items-center">
                         <div className="text-slate-800">{index + 1}</div>
@@ -267,15 +273,6 @@ function TableInstallment() {
                           Đóng HĐ
                         </button>
                         <GiAnchor />
-                      </div>
-                      <div className="pr-2">
-                        <div>
-                          <input
-                            type="checkbox"
-                            value={item._id}
-                            onChange={(e) => HandlerOngetMany(e)}
-                          />
-                        </div>
                       </div>
                     </td>
                   </tr>
