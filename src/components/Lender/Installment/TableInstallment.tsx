@@ -70,7 +70,7 @@ function TableInstallment() {
     } else if (trangThai === 1) {
       return <div>Quá Hạn</div>;
     } else {
-      return <div>Kết Thức Hợp Dồng</div>;
+      return <div>Đã Hoàn Tất</div>;
     }
   };
   const HandlerOngetMany = (e: any) => {
@@ -105,10 +105,11 @@ function TableInstallment() {
     
     let checked = e?.target?.checked;
     let newData: any = {
+      id :id,
       date: date,
       status: checked,
     };
-    dispatch(statusContrats(id, newData));
+    dispatch(statusContrats(newData));
   };
 
   return (
@@ -179,7 +180,7 @@ function TableInstallment() {
             {/* Table body */}
             <tbody className="text-sm font-medium divide-y divide-slate-100">
               {/* Row */}
-              {contracts?.map((item: any, index) => {
+              {contracts?.map((item: any, index) => {                
                 return (
                   <tr key={index}>
                     <td className="p-2">
@@ -232,7 +233,7 @@ function TableInstallment() {
                     <td className="p-2">
                       <div className="text-center text-sky-500">
                         <FomatNumber
-                          number={item.khoan_vay - item.da_thanh_toan}
+                          number={item.tong_hd - item.da_thanh_toan}
                         />
                       </div>
                     </td>

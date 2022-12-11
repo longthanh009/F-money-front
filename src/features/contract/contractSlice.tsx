@@ -67,8 +67,12 @@ export const deleteMany = createAsyncThunk(
 );
 export const statusContrats = createAsyncThunk(
   "contract/statusContrats",
-  async (id: any, params: any) => {
-    const { data } = await checkPayMoney(id, params);
+  async (objecData: any) => {
+    let objecNew = {
+      date : objecData.date,
+      status: objecData.status
+    }
+    const { data } = await checkPayMoney(objecData.id,objecNew);
     return data;
   }
 );
