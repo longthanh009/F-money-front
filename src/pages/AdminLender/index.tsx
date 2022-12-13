@@ -17,8 +17,24 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLender = () => {
+    interface customerType{
+        _id? : string,
+        name? : string,
+        user?: string,
+        email? : string,
+        password?: string,
+        phone? : number,
+        role?: boolean,
+        status? : boolean,
+        address?: string,
+        username?: string
+    }
     const dispatch = useAppDispatch();
-    const customers = useAppSelector(state => state.customer.values)
+    const customers:customerType[] = useAppSelector(state => state.customer.values)
+    console.log(customers);
+    
+   const[userDetail, setUserDetail] = useState<customerType>()
+    
     const check = useAppSelector(state => state.customer.check)
     const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
@@ -45,6 +61,7 @@ const AdminLender = () => {
         setOpen(false);
         setUser(undefined)
         form.resetFields();
+        setUserDetail({})
     };
     useEffect(() => {
         dispatch(getAll())
@@ -81,6 +98,8 @@ const AdminLender = () => {
     };
     const getCustumer = async (id: any) => {
         showModal("update", "Thông tin khách hàng")
+        const user = customers.find(r => r._id == id)
+        !!user && setUserDetail(user)
     }
     const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
@@ -95,6 +114,8 @@ const AdminLender = () => {
             },
             allowOutsideClick: () => !Swal.isLoading()
         })
+       
+       
     }
     const [isChecked, setisChecked]= useState<any>([]);
     const HandlerOngetMany = (e:any) => {
@@ -181,7 +202,7 @@ const AdminLender = () => {
             render: (item: any) => {
                 return (
                     <Space size="middle">
-                        <button onClick={() => { getCustumer(item);; }}><AiFillEdit /></button>
+                        <button onClick={() => { getCustumer(item._id);; }}><AiFillEdit /></button>
                         <button className='text-red-600' onClick={() => handlerRemoveCustumer(item._id)}><AiFillDelete /></button>
                     </Space>
                 );
@@ -274,12 +295,14 @@ const AdminLender = () => {
                     >
                         <div className="flex space-x-[10px]">
                             <Form.Item
+                                initialValue={userDetail?.name}
                                 name="name"
                                 label="Họ Tên" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
                                 <Input />
                             </Form.Item>
                             <Form.Item
+                                initialValue={userDetail?.email}
                                 name="email"
                                 label="Email" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập email' }, {
@@ -289,27 +312,34 @@ const AdminLender = () => {
                                 <Input />
                             </Form.Item>
                         </div>
-                        <Form.Item name="address" label="Địa chỉ (Nơi ở)" className=''>
+                        <Form.Item  initialValue={userDetail?.address}name="address" label="Địa chỉ (Nơi ở)" className=''>
                             <TextArea rows={2} placeholder="" />
                         </Form.Item>
-                        <Form.Item name="username" label="Tên đăng nhập" className=''
+                        <Form.Item 
+                           initialValue={userDetail?.username}
+                           name="username" label="Tên đăng nhập" className=''
                             rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
                             <Input />
                         </Form.Item>
                         <div className="flex space-x-[10px]">
-                            <Form.Item name="password" label="Mật khẩu" className='w-[50%]'
+                            <Form.Item
+                            initialValue={userDetail?.password}
+                               name="password" label="Mật khẩu" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
                                 <Input />
                             </Form.Item>
                         </div>
                         <div className="flex space-x-[10px]">
-                            <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'
+                        
+                            <Form.Item 
+                            initialValue={userDetail?.phone}
+                               name="phone" label="Số điện thoại" className='w-[40%]'
                                 rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
                                 <Input />
                             </Form.Item>
                             <Form.Item name="role" label="Vai trò" className='w-[100px]'
                                 rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
-                                <Select defaultValue={-1}>
+                                <Select defaultValue={userDetail?.role}>
                                     <Option value={-1}>Vai trò</Option>
                                     <Option value={0}>Customer</Option>
                                     <Option value={1}>Lender</Option>
@@ -317,9 +347,9 @@ const AdminLender = () => {
                                 </Select>
                             </Form.Item>
                             <Form.Item name="status" label="Trạng thái" className=''>
-                                <Select defaultValue="true">
-                                    <Option value="false">Khoá</Option>
-                                    <Option value="true">Hoạt động</Option>
+                                <Select defaultValue={userDetail?.status}>
+                                    <Option value={false}>Khoá</Option>
+                                    <Option value={true}>Hoạt động</Option>
                                 </Select>
                             </Form.Item>
                         </div>
