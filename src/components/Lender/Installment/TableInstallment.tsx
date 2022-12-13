@@ -174,6 +174,9 @@ function TableInstallment() {
                 <th className="p-2">
                   <div className="font-semibold text-center">Trạng thái</div>
                 </th>
+                <th className="p-2">
+                  <div className="font-semibold text-center">Hoạt động</div>
+                </th>
               </tr>
             </thead>
             {/* Table body */}
@@ -198,7 +201,7 @@ function TableInstallment() {
                       <div className="text-center">{item.ma_hd}</div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-green-500">
+                      <div className="text-center text-black">
                         {item.ten_khach_hang}
                       </div>
                     </td>
@@ -208,22 +211,22 @@ function TableInstallment() {
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-gray-600">
                         {item.lai_xuat} %
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-gray-600">
                         {item.han_vay}
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-gray-600">
                         {item.han_tra}
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-gray-600">
                         <FomatNumber
                           number={
                             (item.khoan_vay / item.han_vay) * item.han_tra
@@ -232,19 +235,19 @@ function TableInstallment() {
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-gray-600">
                         <FomatNumber number={item.da_thanh_toan} />
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-gray-600">
                         <FomatNumber
                           number={item.tong_hd - item.da_thanh_toan}
                         />
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-orange-700">
                         {handeleStatus(item.status)}
                       </div>
                     </td>
