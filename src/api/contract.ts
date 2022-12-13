@@ -37,3 +37,7 @@ export const checkPayMoney = (id: any, params: any) => {
   const url = `/contract/${id}`;
   return intance.patch(url, params);
 };
+export const exportExcel = (id:any) => {
+  const url = `/contractExcel?id=638c54551ab35050b4083dc3`;
+  return intance.get(url);
+};
