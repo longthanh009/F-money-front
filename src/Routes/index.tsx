@@ -34,6 +34,7 @@ import {
 } from "../components/private/privateRouter";
 import Test from "../models/Test";
 import AdminSupport from "../pages/AdminSupport/AdminSupport";
+import MenuLoan from "../pages/Lender/Menuloan";
 // api service
 
 const RoutePage = () => {
@@ -83,6 +84,7 @@ const RoutePage = () => {
           {/**Dịch vụ thanh toán tiền */}
           <Route path="capital" element={<Capital_Lender />} />{" "}
           {/**Quản lí nguồn vốn */}
+          <Route path="menuLoan" element={<MenuLoan />} /> {/**Yêu cầu vay tiền*/}
         </Route>
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
         <Route path="/register" element={<SignupPage />}>

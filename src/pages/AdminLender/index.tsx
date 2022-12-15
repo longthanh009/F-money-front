@@ -5,7 +5,7 @@ import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser,addMuiltipleValues, sortStatusCustomer } from '../../features/customer/customerSlice';
+import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser,addMuiltipleValues, sortStatusCustomer, updateUse } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
 import { deletelManyUser, getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
@@ -100,7 +100,11 @@ const AdminLender = () => {
         showModal("update", "Thông tin khách hàng")
         const user = customers.find(r => r._id == id)
         !!user && setUserDetail(user)
+        const updateUser = async () =>{
+            dispatch(updateUse(id.target))
+        }
     }
+  
     const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
             title: 'Bạn có chắc muốn xoá người dùng này ?',
@@ -357,9 +361,12 @@ const AdminLender = () => {
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
                             </Button>
-                            <Button key="submit" htmlType="submit" type="primary">
+                            <Button key="submit" htmlType="submit" type="primary" >
                                 Lưu
                             </Button>
+                            {/* <Button key="submit" htmlType="submit" type="primary" onClick={() => updateUser()}>
+                                Lưu
+                            </Button> */}
                         </Form.Item>
                     </Form>
                 </div>
