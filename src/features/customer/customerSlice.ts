@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginAuth, register } from "../../api/auth";
-import { deletelManyUser, deletelUser, getAllUser } from "../../api/user";
+import { deletelManyUser, deletelUser, getAllUser, updateUser } from "../../api/user";
 import { userLogin } from "../../models/auth";
 export const newUser = createAsyncThunk(
     "auth/newUser", async (formData: userLogin) => {
@@ -24,6 +24,11 @@ export const removeUser = createAsyncThunk(
         const { data } = await deletelUser(id);
         return data
     });
+ export const updateUse = createAsyncThunk(
+        "auth/updateUser", async (id : any) => {
+            const { data } = await updateUser(id);
+            return data
+        });
 const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -53,6 +58,9 @@ const authSlice = createSlice({
         sortStatusCustomer: (state, action) => {
             const status = action.payload
             state.values = state.values.filter((item:any) => item.status === status)
+        },
+        updateUser:(state, action) =>{
+            state.values = state.values.map(item => item._id === action.payload._id ? action.payload :item)
         }
     },
     extraReducers: {
