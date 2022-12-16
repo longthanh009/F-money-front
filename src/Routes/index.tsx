@@ -101,6 +101,10 @@ const RoutePage = () => {
         >
           <Route index element={<AdminDashboard />} />
           <Route path="customer" element={<AdminLender />} />{" "}
+          <Route path="installment/index" element={<Installment />} />{" "}
+          {/**Trả góp */}
+          <Route path="Mortgage/index" element={<Mortgage />} />{" "}
+          {/**Tín chấp */}
           {/**Danh sách khách hàng */}
           <Route path="contract" element={<AdminContractPage />} />{" "}
           {/**Danh sách giao dịch */}
