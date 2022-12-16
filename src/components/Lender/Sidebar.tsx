@@ -53,12 +53,6 @@ const Sidebar = () => {
       role: 2,
     },
     {
-      name: "Quản lý hợp đồng",
-      link: "/admin/customer",
-      icon: BiBookmarkAlt,
-      role: 2,
-    },
-    {
       name: "Kiểm tra khách hàng",
       link: "/lender/customer/checkCustome",
       icon: RiShieldUserFill,
