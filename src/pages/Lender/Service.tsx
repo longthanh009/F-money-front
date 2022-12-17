@@ -10,12 +10,13 @@ import AccountHolder from "../../components/Lender/Service/AccountHolder";
 import Content from "../../components/Lender/Service/Content";
 import Bank from "../../components/Lender/Service/Bank";
 import WelcomeService from "../../components/Lender/Service/WelcomeService";
+import BreadcrumbComponent from "../../components/Breadcrumb";
 
 function Service() {
   return (
     <div>
       <div>
-        <h1 className="text-l text-gray-500">Lender/Dịch Vụ</h1>
+        <BreadcrumbComponent />
         <WelcomeService />
         <h2>1. Thanh Toán Tiền Mặt</h2>
         <Pay1 />

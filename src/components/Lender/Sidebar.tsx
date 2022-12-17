@@ -47,6 +47,12 @@ const Sidebar = () => {
       role: 1,
     },
     {
+      name: "Khách hàng đang liên hệ",
+      link: "/lender/customerContact",
+      icon: AiOutlineUser,
+      role: 1,
+    },
+    {
       name: "Khách Hàng",
       link: "/admin/customer",
       icon: AiOutlineUsergroupAdd,

@@ -5,6 +5,7 @@ import SearchMortgage from "../../components/Lender/Mortgage/SearchMortgage";
 import { useAppDispatch } from "../../app/hooks";
 import { listMortgage } from "../../features/mortgage/mortgage";
 import MortgageCard from "../../components/Lender/Mortgage/MortgageCard02";
+import BreadcrumbComponent from "../../components/Breadcrumb";
 
 function Mortgage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,7 +32,7 @@ function Mortgage() {
   return (
     <div>
       {/* Cards */}
-      <div className="text-gray-500 mb-3">Lender/Tín Chấp</div>
+      <BreadcrumbComponent />
       <div className="grid grid-cols-12 gap-5 md:flex md:justify-center">
         <MortgageCard tien={tienChoVay} label="Tiền cho vay"/>
         <MortgageCard tien={tienLai} label="Lãi dự kiến"/>

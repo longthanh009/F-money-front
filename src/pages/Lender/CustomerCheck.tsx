@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BreadcrumbComponent from "../../components/Breadcrumb";
 import SearchCheck from "../../components/Lender/CustomerCheck/SearchCheck";
 
 function CustomerCheck() {
@@ -7,9 +8,7 @@ function CustomerCheck() {
   return (
     <div>
       <div>
-        <h1 className="text-l text-gray-500">
-          Lender/Check Thông Tin Khách Hàng
-        </h1>
+        <BreadcrumbComponent />
 
         <SearchCheck />
       </div>

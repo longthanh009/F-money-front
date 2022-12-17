@@ -109,6 +109,7 @@ function TableInstallment() {
       status: checked,
     };
     dispatch(statusContrats(newData));
+    getcontracts();
   };
   const style = { color: "#dc2626", fontSize: "1.5em" };
   return (

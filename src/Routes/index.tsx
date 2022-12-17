@@ -35,7 +35,10 @@ import {
 import Test from "../models/Test";
 import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
-// api service
+
+import Rules from "../pages/Rules";
+import CustomerContact from "../pages/Lender/customerContact";
+import CustomConta from "../pages/Lender/CustomConta";
 
 const RoutePage = () => {
   return (
@@ -49,7 +52,7 @@ const RoutePage = () => {
           {/**Đổi mật khẩu */}
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contractPage" element={<ContractPage />} />{" "}
-          {/**Yêu cầu hợp đồng */}
+          <Route path="rule" element={<Rules />} /> {/**Yêu cầu hợp đồng */}
           <Route
             path="historic_Contract"
             element={<Historic_ContractPage />}
@@ -84,6 +87,10 @@ const RoutePage = () => {
           {/**Dịch vụ thanh toán tiền */}
           <Route path="capital" element={<Capital_Lender />} />{" "}
           {/**Quản lí nguồn vốn */}
+          <Route path="menuLoan" element={<MenuLoan />} />{" "}
+          {/**Yêu cầu vay tiền*/}
+          <Route path="customerContact" element={<CustomConta />} />{" "}
+          {/**Yêu cầu vay tiền*/}
           <Route path="menuLoan" element={<MenuLoan />} /> {/**Yêu cầu vay tiền*/}
         </Route>
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}

@@ -6,6 +6,7 @@ import NextPage from "../../components/Lender/Customer/CustomerList/NextPage";
 import WelcomeExpense from "../../components/Lender/Expense/WelcomeExpense";
 import SearchExpense from "../../components/Lender/Expense/SearchExpense";
 import TableExpense from "../../components/Lender/Expense/TableExpense";
+import BreadcrumbComponent from "../../components/Breadcrumb";
 
 function Expense() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,7 +15,7 @@ function Expense() {
 
         <div>
           <div >
-            <h1 className="text-l text-gray-500">Lender/lịch Sử Chi Tiền</h1>
+          <BreadcrumbComponent />
             {/* Welcome banner */}
             <WelcomeExpense />
 
