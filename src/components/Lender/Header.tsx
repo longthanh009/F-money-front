@@ -80,50 +80,6 @@ const Header = (props: Props) => {
             id="navbarSupportedContent"
           ></div>
           <div className="flex items-center relative">
-            <button
-              className="
-      navbar-toggler
-      text-gray-500
-      border-0
-      hover:shadow-none hover:no-underline
-      py-2
-      px-2.5
-      bg-transparent
-      focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline
-    "
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <a
-                className="
-          text-gray-500
-          hover:text-gray-700
-          focus:text-gray-700
-          mr-4
-          dropdown-toggle
-          hidden-arrow
-          flex items-center
-        "
-                href=""
-                id="dropdownMenuButton1"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <Dropdown overlay={""}>
-                  <Space className="text-base font-semibold text-orange-600">
-                    <FcVoicePresentation />
-                  </Space>
-                </Dropdown>
-                <span className="text-white bg-red-700 absolute rounded-full text-xs -mt-2.5 ml-2 py-0 px-1.5">
-                  1
-                </span>
-              </a>
-            </button>
             <div
               className="
       navbar-toggler

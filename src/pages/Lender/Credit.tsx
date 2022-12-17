@@ -14,8 +14,8 @@ import BreadcrumbComponent from "../../components/Breadcrumb";
 
 type Props = {}
 
-const Credit = (props: Props) => {
-  return (
+  const Credit = (props: Props) => {
+    return (
     <>
         <ModalCreateContract isModalOpen={isModalOpen} showModal={showModal} ReshowModal={ReshowModal}/>
         {/* <ModalCredit> */}

@@ -14,8 +14,9 @@ const BreadcrumbComponent = () => {
           pat.map((name, index) => (
             <Breadcrumb.Item key={index}>
               <span
-                className="text-[18px]
+                className="text-[11px]
             uppercase"
+                style={{ color: "orange" }}
               >
                 {name}
               </span>

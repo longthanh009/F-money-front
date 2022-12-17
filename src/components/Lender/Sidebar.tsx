@@ -29,8 +29,26 @@ const Sidebar = () => {
       role: 1,
     },
     {
+      name: "Tín Chấp",
+      link: "/admin/Mortgage/index",
+      icon: TbReportAnalytics,
+      role: 2,
+    },
+    {
+      name: "Trả Góp",
+      link: "/admin/installment/index",
+      icon: TbReportAnalytics,
+      role: 2,
+    },
+    {
       name: "Yêu cầu vay tiền",
-      link: "/lender/customer/list",
+      link: "/lender/menuLoan",
+      icon: AiOutlineUser,
+      role: 1,
+    },
+    {
+      name: "Khách hàng đang liên hệ",
+      link: "/lender/customerContact",
       icon: AiOutlineUser,
       role: 1,
     },
@@ -38,12 +56,6 @@ const Sidebar = () => {
       name: "Khách Hàng",
       link: "/admin/customer",
       icon: AiOutlineUsergroupAdd,
-      role: 2,
-    },
-    {
-      name: "Quản lý hợp đồng",
-      link: "/admin/customer",
-      icon: BiBookmarkAlt,
       role: 2,
     },
     {
@@ -74,7 +86,12 @@ const Sidebar = () => {
       icon: FiMessageSquare,
       role: 1,
     },
-    { name: "Thống Kê", link: "/lender", icon: RiSettings4Line },
+    {
+      name: "Thống Kê",
+      link: "/lender",
+      icon: RiSettings4Line,
+      role: 1,
+    },
   ];
   const token = localStorage.getItem("token");
   const convertStringToken = JSON.stringify(token);
