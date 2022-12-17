@@ -35,10 +35,10 @@ import {
 import Test from "../models/Test";
 import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
+
 import Rules from "../pages/Rules";
 import CustomerContact from "../pages/Lender/customerContact";
 import CustomConta from "../pages/Lender/CustomConta";
-// api service
 
 const RoutePage = () => {
   return (
@@ -91,6 +91,7 @@ const RoutePage = () => {
           {/**Yêu cầu vay tiền*/}
           <Route path="customerContact" element={<CustomConta />} />{" "}
           {/**Yêu cầu vay tiền*/}
+          <Route path="menuLoan" element={<MenuLoan />} /> {/**Yêu cầu vay tiền*/}
         </Route>
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
         <Route path="/register" element={<SignupPage />}>
