@@ -34,6 +34,7 @@ import {
 } from "../components/private/privateRouter";
 import Test from "../models/Test";
 import AdminSupport from "../pages/AdminSupport/AdminSupport";
+import Rules from "../pages/Rules";
 // api service
 
 const RoutePage = () => {
@@ -48,7 +49,7 @@ const RoutePage = () => {
           {/**Đổi mật khẩu */}
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contractPage" element={<ContractPage />} />{" "}
-          {/**Yêu cầu hợp đồng */}
+          <Route path="rule" element={<Rules />} /> {/**Yêu cầu hợp đồng */}
           <Route
             path="historic_Contract"
             element={<Historic_ContractPage />}
