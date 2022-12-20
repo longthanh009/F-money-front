@@ -37,7 +37,6 @@ import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
 
 import Rules from "../pages/Rules";
-import CustomerContact from "../pages/Lender/customerContact";
 import CustomConta from "../pages/Lender/CustomConta";
 
 const RoutePage = () => {
