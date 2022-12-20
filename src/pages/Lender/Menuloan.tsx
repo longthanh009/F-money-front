@@ -68,5 +68,4 @@ const MenuLoan = () => {
     </div>
   );
 };
-
 export default MenuLoan;

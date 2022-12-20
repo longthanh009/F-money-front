@@ -38,7 +38,6 @@ import MenuLoan from "../pages/Lender/Menuloan";
 import Rules from "../pages/Rules";
 import CustomerContact from "../pages/Lender/customerContact";
 import CustomConta from "../pages/Lender/CustomConta";
-// api service
 
 const RoutePage = () => {
   return (
