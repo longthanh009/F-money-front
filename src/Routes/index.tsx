@@ -34,7 +34,10 @@ import {
 } from "../components/private/privateRouter";
 import Test from "../models/Test";
 import AdminSupport from "../pages/AdminSupport/AdminSupport";
+import MenuLoan from "../pages/Lender/Menuloan";
 import Rules from "../pages/Rules";
+import CustomerContact from "../pages/Lender/customerContact";
+import CustomConta from "../pages/Lender/CustomConta";
 // api service
 
 const RoutePage = () => {
@@ -84,6 +87,10 @@ const RoutePage = () => {
           {/**Dịch vụ thanh toán tiền */}
           <Route path="capital" element={<Capital_Lender />} />{" "}
           {/**Quản lí nguồn vốn */}
+          <Route path="menuLoan" element={<MenuLoan />} />{" "}
+          {/**Yêu cầu vay tiền*/}
+          <Route path="customerContact" element={<CustomConta />} />{" "}
+          {/**Yêu cầu vay tiền*/}
         </Route>
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
         <Route path="/register" element={<SignupPage />}>
@@ -100,6 +107,10 @@ const RoutePage = () => {
         >
           <Route index element={<AdminDashboard />} />
           <Route path="customer" element={<AdminLender />} />{" "}
+          <Route path="installment/index" element={<Installment />} />{" "}
+          {/**Trả góp */}
+          <Route path="Mortgage/index" element={<Mortgage />} />{" "}
+          {/**Tín chấp */}
           {/**Danh sách khách hàng */}
           <Route path="contract" element={<AdminContractPage />} />{" "}
           {/**Danh sách giao dịch */}
