@@ -30,7 +30,7 @@ const idUserContracrt = () => {
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts(idUserContracrt());
+    const { data } = await getContracts();
     return data;
   }
 );

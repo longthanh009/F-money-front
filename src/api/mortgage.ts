@@ -1,12 +1,15 @@
+import { getTokenUser } from "../ultils/formatDate";
 import intance from "./intance";
+const user = getTokenUser()
+
 
 export const createMortgage = (contract: any) => {
   const url = `contractMortgage`;
   return intance.post(url, contract);
 };
 
-export const getMortgage = (id: any) => {
-  const url = `contractMortgage?id=${id}`;
+export const getMortgage = () => {
+  const url = `contractMortgage?id=${user.id}`;
   return intance.get(url);
 };
 

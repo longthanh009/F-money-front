@@ -1,13 +1,15 @@
+import { getTokenUser } from "../ultils/formatDate";
 import intance from "./intance";
+
+const user = getTokenUser()
 
 export const createContracts = (contract: any) => {
   const url = `contracts`;
   return intance.post(url, contract);
 };
 
-export const getContracts = (id: any) => {
-  console.log(id);
-  const url = `contracts?id=${id}`;
+export const getContracts = () => {
+  const url = `contracts?id=${user.id}`;
   return intance.get(url);
 };
 export const getContractDetail = (id: any) => {
@@ -19,7 +21,7 @@ export const removeContract = (id: any) => {
   return intance.delete(url);
 };
 export const getContractsDate = (formdate: any, todate: any) => {
-  const url = `contracts?id=636a2127a281e92df41190ee&formdate=${formdate}&todate=${todate}`;
+  const url = `contracts?id=${user.id}&formdate=${formdate}&todate=${todate}`;
   return intance.get(url);
 };
 export const deletelManyContract = (params: any) => {
@@ -36,8 +38,4 @@ export const getCccdlender = (cccd: number) => {
 export const checkPayMoney = (id: any, params: any) => {
   const url = `/contract/${id}`;
   return intance.patch(url, params);
-};
-export const exportExcel = (id:any) => {
-  const url = `/contractExcel?id=638c54551ab35050b4083dc3`;
-  return intance.get(url);
 };
