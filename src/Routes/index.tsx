@@ -37,6 +37,7 @@ import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
 import Rules from "../pages/Rules";
 // api service
+import CustomConta from "../pages/Lender/CustomConta";
 
 const RoutePage = () => {
   return (
@@ -85,7 +86,10 @@ const RoutePage = () => {
           {/**Dịch vụ thanh toán tiền */}
           <Route path="capital" element={<Capital_Lender />} />{" "}
           {/**Quản lí nguồn vốn */}
-          <Route path="menuLoan" element={<MenuLoan />} /> {/**Yêu cầu vay tiền*/}
+          <Route path="menuLoan" element={<MenuLoan />} />{" "}
+          {/**Yêu cầu vay tiền*/}
+          <Route path="customerContact" element={<CustomConta />} />{" "}
+          {/**Yêu cầu vay tiền*/}
         </Route>
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
         <Route path="/register" element={<SignupPage />}>
