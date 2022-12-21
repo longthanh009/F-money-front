@@ -45,6 +45,7 @@ const RoutePage = () => {
     <div>
       <Routes>
         <Route path="/" element={<Website_Layout />}>
+        <Route path="test" element={<Test />} />{" "}
           <Route index element={<HomePage />} /> {/**Trang chủ */}
           <Route path="accountClient/:id" element={<AccountClient />} />{" "}
           {/**Thông tin tài khoản */}
@@ -119,7 +120,9 @@ const RoutePage = () => {
           {/**Danh sách dich vu */}
           <Route path="support" element={<AdminSupport />} />{" "}
           {/**Hỗ trợ khách hàng */}
+        
         </Route>
+        
       </Routes>
     </div>
   );
