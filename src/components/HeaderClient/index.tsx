@@ -11,11 +11,13 @@ const Header_Client = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
   const [isACtive, setActive] = useState(false)
+
   const onToggle = () => {
     setActive(!isACtive)
   }
   const { inforUser, isLogin } = useAppSelector(state => state.auth)
-
+  console.log(inforUser);
+  
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem('token');
@@ -28,13 +30,13 @@ const Header_Client = () => {
         {
           key: '1',
           label: (
-            <Link to={`/accountClient/${inforUser?.user?._id}`}>Thông tin của tôi</Link>
+            <Link to={`/accountClient/${inforUser?.details?._id}`}>Thông tin của tôi</Link>
           ),
         },
         {
           key: '2',
           label: (
-            <Link to={`/password/${inforUser?.user?._id}`}>Đổi mật khẩu</Link>
+            <Link to={`/password/${inforUser?.details?._id}`}>Đổi mật khẩu</Link>
           ),
         },
         {
@@ -83,7 +85,7 @@ const Header_Client = () => {
               <p>
                 <Space className='text-base font-semibold text-zinc-500 bg-orange-500'>
                   <Button shape="round" >
-                    {inforUser?.user?.name}<DownOutlined />
+                    {inforUser?.details?.name}<DownOutlined />
                   </Button>
                 </Space>
               </p>
