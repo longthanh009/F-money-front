@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
-
+import Address from './address'
 
 const Option = Select;
 const { RangePicker } = DatePicker;
@@ -154,7 +154,8 @@ const SignupPage = () => {
                             name="address"
                             rules={[{ required: true, message: 'Vui lòng nhập chi tiết địa chỉ' }]}
                         >
-                            <Input placeholder="Địa chỉ" />
+                           
+                            <Address />
                         </Form.Item>
 
                         <Form.Item name="role" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
@@ -163,8 +164,8 @@ const SignupPage = () => {
                                 onChange={onChaneType}
                                 allowClear
                             >
-                                <Option value="userCustomer">Người đi vay</Option>
-                                <Option value="userLender">Người cho Vay</Option>
+                                <Option value="2">Người đi vay</Option>
+                                <Option value="1">Người cho Vay</Option>
                             </Select>
                         </Form.Item>
                         <Form.Item
@@ -172,7 +173,7 @@ const SignupPage = () => {
                             shouldUpdate={(prevValues, currentValues) => prevValues.role !== currentValues.role}
                         >
                             {({ getFieldValue }) =>
-                                getFieldValue('role') === 'userLender' ? (
+                                getFieldValue('role') === '1' ? (
                                     <>
                                         <Form.Item
                                             name="CCCD"
