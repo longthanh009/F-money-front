@@ -25,7 +25,7 @@ const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
                 Tổng dư nợ
               </label>
               <p>
-                <FomatNumber number={contractDetaill?.khoan_vay} />
+                <FomatNumber number={contractDetaill?.tong_hd} />
               </p>
             </div>
           </div>
@@ -48,9 +48,9 @@ const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
           <div className="mb-2">
             <div>
               <label htmlFor="" className="text-base text-rose-400 text-[14px]">
-                Ngày đến hạn
+                Hạn hợp đồng
               </label>
-              <p>{formatDate(contractDetaill?.han_tra)}</p>
+              <p>{formatDate(contractDetaill?.han_hd)}</p>
             </div>
             <div>
               <label htmlFor="" className="text-base text-rose-400 text-[14px]">
@@ -59,7 +59,7 @@ const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
               <p>
                 <FomatNumber
                   number={
-                    contractDetaill?.khoan_vay - contractDetaill?.da_thanh_toan
+                    contractDetaill?.tong_hd - contractDetaill?.da_thanh_toan
                   }
                 />
               </p>
@@ -109,10 +109,12 @@ const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
                   <td>
                     <Checkbox.Group style={{ width: "100%" }}>
                       <Row>
-                        <Checkbox
+                        <input type="checkbox" defaultChecked={item.trang_thai}
                           value="trang_thai"
-                          onChange={() => handeCheckBok(item.ngay)}
-                        ></Checkbox>
+                          onChange={(e) =>
+                            handeCheckBok(e, contractDetaill._id, item.ngay)
+                          }
+                        ></input>
                       </Row>
                     </Checkbox.Group>
                   </td>

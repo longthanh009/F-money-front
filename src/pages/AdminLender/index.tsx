@@ -1,24 +1,34 @@
 import React, { useState, useEffect, createRef, useRef } from 'react'
 import { Button, Modal, Select, Form, Input, DatePicker, Upload, Table, Space, Checkbox, Dropdown } from 'antd';
-import type { MenuProps } from 'antd';
 import BreadcrumbComponent from '../../components/Breadcrumb';
 import TextArea from 'antd/lib/input/TextArea';
 import { LoadingOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser,addMuiltipleValues, sortStatusCustomer } from '../../features/customer/customerSlice';
+import { deleteMany, getAll, newUser, removeMultipleUser, removeUser, searchNameUser, addMuiltipleValues, sortStatusCustomer, updateUse, sortRoleCustomer } from '../../features/customer/customerSlice';
 import Swal from 'sweetalert2'
-import { deletelManyUser, getUser } from '../../api/user';
 import { ColumnsType } from 'antd/lib/table';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { formatDate } from '../../ultils/formatDate';
 import type { FormInstance } from 'antd/es/form';
-import { getContract } from '../../features/contract/contractSlice';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const AdminLender = () => {
+    interface customerType {
+        _id?: string,
+        name?: string,
+        user?: string,
+        email?: string,
+        password?: string,
+        phone?: number,
+        role?: boolean,
+        status?: boolean,
+        address?: string,
+        username?: string
+    }
     const dispatch = useAppDispatch();
-    const customers = useAppSelector(state => state.customer.values)
+    const customers: customerType[] = useAppSelector(state => state.customer.values)
+
+    const [userDetail, setUserDetail] = useState<customerType>()
+
     const check = useAppSelector(state => state.customer.check)
     const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
@@ -27,11 +37,10 @@ const AdminLender = () => {
     const [open, setOpen] = useState(false);
     const { Option } = Select;
     const [selectionType, setSelectionType] = useState<'checkbox' | 'radio'>('checkbox');
-   
     const [form] = Form.useForm<any>();
     const [imageUrl, setImageUrl] = useState<string>();
     const formRef = createRef<FormInstance>()
-    const searchRef = useRef(null);
+    const searchRef = useRef<any>(null);
 
     const showModal = (type: any, title: any) => {
         setOpen(true)
@@ -45,18 +54,16 @@ const AdminLender = () => {
         setOpen(false);
         setUser(undefined)
         form.resetFields();
+        setUserDetail({})
     };
     useEffect(() => {
         dispatch(getAll())
     }, [])
-    const [sortUsers, setSortUsers] = useState<any>(null)
     const hanleSort = async (event: any) => {
-        const { payload } = await dispatch(getAll())
-        if (event) {
-            setSortUsers(payload.users.filter((item: any) => item.role == event))
-        }
-        if (event == 3) {
-            setSortUsers(payload.users)
+        if (parseInt(event) == 3) {
+            dispatch(getAll())
+        } else {
+            dispatch(sortRoleCustomer(parseInt(event)))
         }
     }
     const onFinish = async (values: any) => {
@@ -81,6 +88,11 @@ const AdminLender = () => {
     };
     const getCustumer = async (id: any) => {
         showModal("update", "Thông tin khách hàng")
+        const user = customers.find(r => r._id == id)
+        !!user && setUserDetail(user)
+        const updateUser = async () => {
+            dispatch(updateUse(id.target))
+        }
     }
     const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
@@ -96,8 +108,8 @@ const AdminLender = () => {
             allowOutsideClick: () => !Swal.isLoading()
         })
     }
-    const [isChecked, setisChecked]= useState<any>([]);
-    const HandlerOngetMany = (e:any) => {
+    const [isChecked, setisChecked] = useState<any>([]);
+    const HandlerOngetMany = (e: any) => {
         dispatch(addMuiltipleValues(e.target))
         // const {value ,checked} = e.target;
         // if (checked) {
@@ -106,10 +118,9 @@ const AdminLender = () => {
         // else{
         //     setisChecked(isChecked.filter((e:any) => e !== value))
         // }
-       
     }
-    const HandlerOnRemoveMany = async () =>{ 
-        if(check.length!==0){
+    const HandlerOnRemoveMany = async () => {
+        if (check.length !== 0) {
             Swal.fire({
                 title: 'Bạn có chắc muốn xoá người dùng này ?',
                 showCancelButton: true,
@@ -117,11 +128,11 @@ const AdminLender = () => {
                 cancelButtonText: 'Không',
                 showLoaderOnConfirm: true,
                 preConfirm: async () => {
-                    dispatch(deleteMany({params: {id: check}}))
+                    dispatch(deleteMany({ params: { id: check } }))
                     dispatch(removeMultipleUser(check))
                     handleCancel();
                     // navigate(0)
-                },               
+                },
                 allowOutsideClick: () => !Swal.isLoading()
             })
             // const responce = await deletelManyUser({
@@ -131,13 +142,13 @@ const AdminLender = () => {
         else {
             alert("please Select at least one check box !");
         }
-      }
+    }
     const columns: ColumnsType<ColumnsType> = [
         {
             title: <div className="actions-user">
-                 <button className='text-red-600 text-lg'  onClick={HandlerOnRemoveMany}><AiFillDelete /></button>
+                <button className='text-red-600 text-lg' onClick={HandlerOnRemoveMany}><AiFillDelete /></button>
             </div>,
-            render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)}/>
+            render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)} />
         },
         {
             title: "STT",
@@ -173,7 +184,7 @@ const AdminLender = () => {
         },
         {
             title: "Trạng thái",
-            render: (values,record,index) => <div>{values.status ? <div style={{color: '#61bd4f'}}>Đang hoạt động</div> : <div style={{color: 'red' }}>Khóa</div>}</div>,
+            render: (values, record, index) => <div>{values.status ? <div style={{ color: '#61bd4f' }}>Đang hoạt động</div> : <div style={{ color: 'red' }}>Khóa</div>}</div>,
         },
         {
             title: "Action",
@@ -181,7 +192,7 @@ const AdminLender = () => {
             render: (item: any) => {
                 return (
                     <Space size="middle">
-                        <button onClick={() => { getCustumer(item);; }}><AiFillEdit /></button>
+                        <button onClick={() => { getCustumer(item._id);; }}><AiFillEdit /></button>
                         <button className='text-red-600' onClick={() => handlerRemoveCustumer(item._id)}><AiFillDelete /></button>
                     </Space>
                 );
@@ -197,11 +208,11 @@ const AdminLender = () => {
             dispatch(searchNameUser(keyword))
         }, 1000)
     };
-    const hanlderSortStatus = async (e:any) => {
+    const hanlderSortStatus = async (e: any) => {
         if (e == 0) {
             dispatch(getAll())
         }
-        else{
+        else {
             await dispatch(getAll())
             dispatch(sortStatusCustomer(JSON.parse(e) as boolean))
         }
@@ -253,12 +264,13 @@ const AdminLender = () => {
                                 .localeCompare((optionB!.children as unknown as string).toLowerCase())
                         }
                     >
-                        <Option value="3">ALL</Option>
+                        <Option value="3">All</Option>
+                        <Option value="2">Quản trị</Option>
                         <Option value="1">Lender</Option>
-                        <Option value="2">Người vay</Option>
+                        <Option value="0">Người vay</Option>
                     </Select>
                 </div>
-                
+
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
@@ -280,6 +292,7 @@ const AdminLender = () => {
                                 <Input />
                             </Form.Item>
                             <Form.Item
+                                initialValue={userDetail?.email}
                                 name="email"
                                 label="Email" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập email' }, {
@@ -289,27 +302,34 @@ const AdminLender = () => {
                                 <Input />
                             </Form.Item>
                         </div>
-                        <Form.Item name="address" label="Địa chỉ (Nơi ở)" className=''>
+                        <Form.Item initialValue={userDetail?.address} name="address" label="Địa chỉ (Nơi ở)" className=''>
                             <TextArea rows={2} placeholder="" />
                         </Form.Item>
-                        <Form.Item name="username" label="Tên đăng nhập" className=''
+                        <Form.Item
+                            initialValue={userDetail?.username}
+                            name="username" label="Tên đăng nhập" className=''
                             rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
                             <Input />
                         </Form.Item>
                         <div className="flex space-x-[10px]">
-                            <Form.Item name="password" label="Mật khẩu" className='w-[50%]'
+                            <Form.Item
+                                initialValue={userDetail?.password}
+                                name="password" label="Mật khẩu" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
                                 <Input />
                             </Form.Item>
                         </div>
                         <div className="flex space-x-[10px]">
-                            <Form.Item name="phone" label="Số điện thoại" className='w-[40%]'
+
+                            <Form.Item
+                                initialValue={userDetail?.phone}
+                                name="phone" label="Số điện thoại" className='w-[40%]'
                                 rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
                                 <Input />
                             </Form.Item>
                             <Form.Item name="role" label="Vai trò" className='w-[100px]'
                                 rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
-                                <Select defaultValue={-1}>
+                                <Select defaultValue={userDetail?.role}>
                                     <Option value={-1}>Vai trò</Option>
                                     <Option value={0}>Customer</Option>
                                     <Option value={1}>Lender</Option>
@@ -317,9 +337,9 @@ const AdminLender = () => {
                                 </Select>
                             </Form.Item>
                             <Form.Item name="status" label="Trạng thái" className=''>
-                                <Select defaultValue="true">
-                                    <Option value="false">Khoá</Option>
-                                    <Option value="true">Hoạt động</Option>
+                                <Select defaultValue={userDetail?.status}>
+                                    <Option value={false}>Khoá</Option>
+                                    <Option value={true}>Hoạt động</Option>
                                 </Select>
                             </Form.Item>
                         </div>
@@ -327,9 +347,12 @@ const AdminLender = () => {
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
                             </Button>
-                            <Button key="submit" htmlType="submit" type="primary">
+                            <Button key="submit" htmlType="submit" type="primary" >
                                 Lưu
                             </Button>
+                            {/* <Button key="submit" htmlType="submit" type="primary" onClick={() => updateUser()}>
+                                Lưu
+                            </Button> */}
                         </Form.Item>
                     </Form>
                 </div>

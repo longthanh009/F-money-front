@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import jwt_decode from "jwt-decode";
 import {
   getContracts,
   createContracts,
@@ -6,6 +7,7 @@ import {
   getContractsDate,
   getCccdlender,
   deletelManyContract,
+  checkPayMoney,
 } from "../../api/contract";
 
 import { ContractType } from "../../types/contractTypes";
@@ -17,10 +19,18 @@ const initialState: Icontract = {
   value: [],
 };
 
+const idUserContracrt = () => {
+  const token = localStorage.getItem("token");
+  const convertStringToken = JSON.stringify(token);
+  const decodedToken = jwt_decode<any>(convertStringToken);
+  const id = decodedToken.id;
+  return id;
+};
+
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts("638c54551ab35050b4083dc3");
+    const { data } = await getContracts();
     return data;
   }
 );
@@ -61,6 +71,17 @@ export const deleteMany = createAsyncThunk(
     console.log(params);
     const { data } = await deletelManyContract(params);
     console.log(data);
+    return data;
+  }
+);
+export const statusContrats = createAsyncThunk(
+  "contract/statusContrats",
+  async (objecData: any) => {
+    let objecNew = {
+      date: objecData.date,
+      status: objecData.status,
+    };
+    const { data } = await checkPayMoney(objecData.id, objecNew);
     return data;
   }
 );
@@ -119,6 +140,11 @@ const contractSlive = createSlice({
     });
     builder.addCase(getCmndLenderList.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
+    });
+    builder.addCase(statusContrats.fulfilled, (state: any, action: any) => {
+      state.value = state.value.map((item: any) =>
+        item._id === action.payload._id ? action.payload : item
+      );
     });
   },
 });

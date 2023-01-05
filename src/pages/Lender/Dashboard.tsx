@@ -9,6 +9,7 @@ import DashboardCard06 from "../../components/Lender/dashboard/DashboardCard06";
 import { useAppDispatch } from "../../app/hooks";
 import { listMortgage } from "../../features/mortgage/mortgage";
 import { getContract } from "../../features/contract/contractSlice";
+import BreadcrumbComponent from "../../components/Breadcrumb";
 
 function Dashboard() {
   const dispatch = useAppDispatch()
@@ -41,6 +42,7 @@ function Dashboard() {
   return (
     <>
       <div>
+        <BreadcrumbComponent />
         {/* Welcome banner */}
         <WelcomeBanner />
 

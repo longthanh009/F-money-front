@@ -12,17 +12,19 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "../features/auth/authSlice";
 import customerSlice from "../features/customer/customerSlice";
 import contractReducer from "../features/contract/contractSlice";
-import contractDetailReducer from "../features/contract/contractDetailSlice ";
 import bankReducer from "../features/bank/bankSlice";
 import mortgageReducer from "../features/mortgage/mortgage";
+import adminSpReducer from "../features/adminSp/adminSpSlice";
+import menuloan from "../features/menuloan";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   customer: customerSlice,
   contract: contractReducer,
-  contractDetail: contractDetailReducer,
   bank: bankReducer,
   mortgage: mortgageReducer,
+  adminSp: adminSpReducer,
+  menuLoan: menuloan
 });
 const persistConfig = {
   key: "root",
