@@ -22,16 +22,15 @@ const AdminContractPage = () => {
             setOpen(false);
         }, 3000);
     };
-    const disabledDate = (current :any) => {
+    const disabledDate = (current: any) => {
         if (!dates) {
             return false;
         }
-
         const tooLate = dates[0] && current.diff(dates[0], 'days') > 7;
         const tooEarly = dates[1] && dates[1].diff(current, 'days') > 7;
         return !!tooEarly || !!tooLate;
     };
-    const onOpenChange = (open : any) => {
+    const onOpenChange = (open: any) => {
         if (open) {
             setHackValue([null, null]);
             setDates([null, null]);

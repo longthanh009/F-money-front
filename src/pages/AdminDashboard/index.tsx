@@ -1,19 +1,43 @@
+import axios from 'axios';
 import React from 'react'
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { getContract } from '../../features/contract/contractSlice';
+import { getAll } from '../../features/customer/customerSlice';
+import { listMortgage } from '../../features/mortgage/mortgage';
 
 
 const AdminDashboard = () => {
+  const dispath =  useAppDispatch()
+  const contracts = useAppSelector((state) => state.contract.value);
+  const contractsMg = useAppSelector((state) => state.mortgage.value);
+  const [customer, setCustomer] = React.useState([])
+  const [customers, setCustomers] = React.useState([])
+  const [lender, setLender] = React.useState([])
+  const [admin, setAdmin] = React.useState([])
+  React.useEffect(() => {
+    dispath(getAll()).then(({payload})=> {
+      if (payload) {
+        setCustomers(payload.users)
+        setCustomer(payload.users.filter((user:any) => user.role == 0)) 
+        setLender(payload.users.filter((user:any) => user.role == 1))
+        setAdmin(payload.users.filter((user:any) => user.role == 2))
+      }
+    })
+    dispath(listMortgage())
+    dispath(getContract())
+  },[])
   return (
     <div>
-      <div className="h-full ml-16 md:ml-64 pt-16">
+      <div className="h-full">
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
-          <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-green-600 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
               <svg width={30} height={30} fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">30000</p>
+              <p className="text-2xl">{lender?.length}</p>
               <p>Người Cho Vay</p>
             </div>
           </div>
@@ -26,26 +50,26 @@ const AdminDashboard = () => {
 
             </div>
             <div className="text-right">
-              <p className="text-2xl">20000</p>
+              <p className="text-2xl">{customer?.length}</p>
               <p>Người đi vay</p>
             </div>
           </div>
-          <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-violet-600 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
               <svg width={30} height={30} fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">100000</p>
+              <p className="text-2xl">{contracts?.length + contractsMg?.length}</p>
               <p>Số Lượng Hợp Đồng</p>
             </div>
           </div>
-          <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+          <div className="bg-orange-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
               <svg width={30} height={30} fill="none" viewBox="0 0 24 24" stroke="currentColor" className="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">$100000</p>
-              <p>Số Tiền Giải Ngân</p>
+              <p className="text-2xl">{admin?.length}</p>
+              <p>Quản trị hệ thống</p>
             </div>
           </div>
         </div>
@@ -69,35 +93,32 @@ const AdminDashboard = () => {
                     <tr>
                       <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">STT</th>
                       <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Họ tên</th>
-                      <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Năm sinh</th>
+                      <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Ngày tạo</th>
                       <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">Trạng thái</th>
                       <th className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                      <td className="px-4 py-3 text-sm">1</td>
+                  {customer?.map((item:any,index) =>(
+                    <tr key={index}className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                      <td className="px-4 py-3 text-sm">{index + 1}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
                           <div>
-                            <p className="font-semibold">Nguyễn Văn A</p>
+                            <p className="font-semibold">{item.name}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-sm">18/01/2002</td>
+                      <td className="px-4 py-3 text-sm">{item.createdAt}</td>
                       <td className="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         <div className="flex items-center">
-                          <span className="mr-2">80%</span>
-                          <div className="relative w-full">
-                            <div className="overflow-hidden h-2 text-xs flex rounded bg-blue-200">
-                              <div style={{ width: '80%' }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500" />
-                            </div>
-                          </div>
+                          <span className="mr-2">{item.status ==true ? "Hoạt động" : "Khoá"}</span>
                         </div>
                       </td>
-                      <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a>
                     </tr>
-                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                  ))}
+                    
+                    {/* <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
                       <td className="px-4 py-3 text-sm">2</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
@@ -163,8 +184,8 @@ const AdminDashboard = () => {
                       </td>
                       <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a>
                     </tr>
-                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                      <td className="px-4 py-3 text-sm">5</td>
+                    <tr className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400"> */}
+                      {/* <td className="px-4 py-3 text-sm">5</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
                           <div>
@@ -183,8 +204,8 @@ const AdminDashboard = () => {
                           </div>
                         </div>
                       </td>
-                      <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a>
-                    </tr>
+                      <a href=""> <td className="px-4 py-3 text-sm">Chi Tiết</td></a> */}
+                    {/* </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -216,7 +237,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số lượt hỗ trợ</a>
                         </div>
                         <div className="self-center">
-                          3000
+                          {contracts.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>
@@ -241,7 +262,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số khách đăng ký tài khoản</a>
                         </div>
                         <div className="self-center">
-                          3000
+                          {customers?.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>
@@ -263,7 +284,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số khách đăng ký cho vay</a>
                         </div>
                         <div className="self-center">
-                          3000
+                          {lender?.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>
