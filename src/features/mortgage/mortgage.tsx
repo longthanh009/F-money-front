@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { deletelManyContract } from "../../api/contract";
-import jwt_decode from "jwt-decode";
 import {
   createMortgage,
   getDetailMortgage,
@@ -15,14 +14,6 @@ const initialState: Icontract = {
   value: [],
 };
 
-const idUserMortgage = () => {
-  const token = localStorage.getItem("token");
-  const convertStringToken = JSON.stringify(token);
-  const decodedToken = jwt_decode<any>(convertStringToken);
-  const id = decodedToken.id;
-  return id;
-};
-
 export const addMortgage = createAsyncThunk(
   "mortgage/addMortgage",
   async (prams: IMortgageType) => {
@@ -34,7 +25,7 @@ export const addMortgage = createAsyncThunk(
 export const listMortgage = createAsyncThunk(
   "mortgage/listMortgage",
   async () => {
-    const { data } = await getMortgage(idUserMortgage());
+    const { data } = await getMortgage();
     return data;
   }
 );

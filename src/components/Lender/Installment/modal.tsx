@@ -10,10 +10,9 @@ import {
   Modal,
   Row,
 } from "antd";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addContract } from "../../../features/contract/contractSlice";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2";
 
 const formItemLayout = {
@@ -63,10 +62,8 @@ const ModalInstallmentAdd = ({
   const [form] = Form.useForm<any>();
 
   const idUserContracrt = () => {
-    const token = localStorage.getItem("token");
-    const convertStringToken = JSON.stringify(token);
-    const decodedToken = jwt_decode<any>(convertStringToken);
-    const id = decodedToken.id;
+    const inforUser = useAppSelector(state => state.auth.inforUser)
+    const id = inforUser.id;
     return id;
   };
 

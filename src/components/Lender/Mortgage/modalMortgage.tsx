@@ -9,10 +9,9 @@ import {
   Modal,
   Row,
 } from "antd";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { addMortgage } from "../../../features/mortgage/mortgage";
-import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2";
 const formItemLayout = {
   labelCol: {
@@ -61,10 +60,8 @@ const modalMortgage = ({
   const [form] = Form.useForm<any>();
 
   const idUserMortgage = () => {
-    const token = localStorage.getItem("token");
-    const convertStringToken = JSON.stringify(token);
-    const decodedToken = jwt_decode<any>(convertStringToken);
-    const id = decodedToken.id;
+    const inforUser = useAppSelector(state => state.auth.inforUser)
+    const id = inforUser.id;
     return id;
   };
 

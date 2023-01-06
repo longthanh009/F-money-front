@@ -6,7 +6,6 @@ import { userLogin } from "../../models/auth";
 import { useAppDispatch } from "../../app/hooks";
 import { login } from "../../features/auth/authSlice";
 import Swal from "sweetalert2";
-import jwt_decode from "jwt-decode";
 
 const SiginPage = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +13,6 @@ const SiginPage = () => {
   const [validate, setValidate] = useState();
   const loginUser = async (user: userLogin) => {
     const { payload } = await dispatch(login(user));
-    localStorage.setItem("token", payload.data);
     if (payload.error) {
       setValidate(payload.error);
       Swal.fire({
@@ -29,10 +27,7 @@ const SiginPage = () => {
         timer: 1500,
       });
       setTimeout(() => {
-        const token = localStorage.getItem("token");
-        const convertStringToken = JSON.stringify(token);
-        const decodedToken = jwt_decode<any>(convertStringToken);
-        const id = decodedToken?.role;
+        const id = payload?.role;
         if (id === 1) {
           navigate("/lender");
         } else if (id === 2) {
