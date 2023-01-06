@@ -16,12 +16,6 @@ const Header_Client = () => {
     setActive(!isACtive)
   }
   const { inforUser, isLogin } = useAppSelector(state => state.auth)
-  const dispatch = useAppDispatch();
-  const [isACtive, setActive] = useState(false);
-  const onToggle = () => {
-    setActive(!isACtive);
-  };
-  const { inforUser, isLogin } = useAppSelector((state) => state.auth);
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("token");
