@@ -37,6 +37,7 @@ import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
 import Rules from "../pages/Rules";
 import CustomConta from "../pages/Lender/CustomConta";
+import ListNew from "../pages/AdminNew/ListNew";
 
 const RoutePage = () => {
   return (
@@ -114,8 +115,11 @@ const RoutePage = () => {
           {/**Danh sách giao dịch */}
           <Route path="service" element={<ServiceList />} />{" "}
           {/**Danh sách dich vu */}
+          <Route path="blog" element={<ListNew />} />{" "}
+          {/**Tin tức*/}
           <Route path="support" element={<AdminSupport />} />{" "}
           {/**Hỗ trợ khách hàng */}
+          
         </Route>
       </Routes>
     </div>
