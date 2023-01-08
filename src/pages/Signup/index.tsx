@@ -154,7 +154,13 @@ const SignupPage = () => {
                             name="address"
                             rules={[{ required: true, message: 'Vui lòng nhập chi tiết địa chỉ' }]}
                         >
-                           
+                           <Select  placeholder="Tỉnh/Thành Phố">
+                               {
+                                 AddressValue?.map((item : any) => (
+                                    <Option value={item.address}>{item.address}</Option>
+                                ))
+                               }
+                            </Select>
                         </Form.Item>
 
                         <Form.Item name="role" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
