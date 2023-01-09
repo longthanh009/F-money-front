@@ -53,12 +53,12 @@ const SignupPage = () => {
                         setTimeout(() => { navigate('/signin') }, 2000)
                     })
                     //kiểm tra các trường giữ liệu có tồn tại chưa
-                    .catch(({ response }) => 
-                    Swal.fire({
-                        icon: 'warning',
-                        title: response.data.message,
-                    })
-                    // message.error({ content: response.data.message })
+                    .catch(({ response }) =>
+                        Swal.fire({
+                            icon: 'warning',
+                            title: response.data.message,
+                        })
+                        // message.error({ content: response.data.message })
                     )
             }
             else {
@@ -159,12 +159,12 @@ const SignupPage = () => {
                             name="address"
                             rules={[{ required: true, message: 'Vui lòng nhập chi tiết địa chỉ' }]}
                         >
-                           <Select  placeholder="Tỉnh/Thành Phố">
-                               {
-                                 AddressValue?.map((item : any) => (
-                                    <Option value={item.name}>{item.name}</Option>
-                                ))
-                               }
+                            <Select placeholder="Tỉnh/Thành Phố">
+                                {
+                                    AddressValue?.map((item: any) => (
+                                        <Option value={item.name}>{item.name}</Option>
+                                    ))
+                                }
                             </Select>
                         </Form.Item>
 
@@ -191,6 +191,12 @@ const SignupPage = () => {
                                         >
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
+
+                                        <Form.Item
+                                            name="money" display>
+                                            <Input placeholder="1.000.000 VNĐ" disabled />
+                                        </Form.Item>
+
 
                                         {/* <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p> */}
 
@@ -224,8 +230,8 @@ const SignupPage = () => {
                             <p>
                                 <Checkbox onChange={onChange}>
                                     <label htmlFor=""> Tôi đồng ý với
-                                        <Link to="" className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
-                                            Điều khoản sử dụng </Link>
+                                        <a href='./src/assets/dieukhoansudung.pdf' className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
+                                            Điều khoản sử dụng </a>
                                     </label>
                                 </Checkbox>
                             </p>
@@ -235,6 +241,7 @@ const SignupPage = () => {
                                 Đăng Ký
                             </Button>
                         </Form.Item>
+                       
                         <div className='text-[12px]'>
                             <p className='italic'>
                                 Bạn đã có tài khoản?
