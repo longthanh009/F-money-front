@@ -24,7 +24,7 @@ export const updateBlog = (id: any) => {
     return intance.put(url, id,header);
   };
 
-export const deletelBlog = (id: any) => {
+export const deletelBlog = (params: any) => {
   const url = `blog/:id?`;
-  return intance.delete(url, id);
+  return intance.delete(url, params);
 };

@@ -10,7 +10,7 @@ import { ColumnsType } from 'antd/lib/table';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { formatDate } from '../../ultils/formatDate';
 import type { FormInstance } from 'antd/es/form';
-import { listBlog, sortRoleBlog } from '../../features/blog/blog';
+import { listBlog, addBlog, removeBlogs, sortRoleBlog } from '../../features/blog/blog';
 
 const l = () => {
     interface blogType {
@@ -65,7 +65,7 @@ const l = () => {
         }
     }
     const onFinish = async (values: any) => {
-        const { payload } = await dispatch(newUser(values))
+        const { payload } = await dispatch(addBlog(values))
         if (payload.error) {
             Swal.fire({
                 icon: 'error',
@@ -100,11 +100,11 @@ const l = () => {
             cancelButtonText: 'Không',
             showLoaderOnConfirm: true,
             preConfirm: async () => {
-                await dispatch(removeUser(id))
+                await dispatch(removeBlogs(id))
                 handleCancel();
             },
             allowOutsideClick: () => !Swal.isLoading()
-        })
+        })   
     }
     const [isChecked, setisChecked] = useState<any>([]);
     const HandlerOngetMany = (e: any) => {
@@ -160,11 +160,7 @@ const l = () => {
             dataIndex: "content",
             key: "content",
         },
-        {
-          title: "user",
-          dataIndex: "user",
-          key: "user",
-      },
+
         {
             title: "Action",
             key: "action",
@@ -210,63 +206,23 @@ const l = () => {
                     >
                         <div className="flex space-x-[10px]">
                             <Form.Item
-                                name="name"
-                                label="Họ Tên" className='w-[50%]'
-                                rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
+                                name="title"
+                                label="Title" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng nhập tiêu đề' }]}>
                                 <Input />
                             </Form.Item>
                             <Form.Item
                                 initialValue={userDetail}
-                                name="email"
-                                label="Email" className='w-[50%]'
-                                rules={[{ required: true, message: 'Vui lòng nhập email' }, {
-                                    type: 'email',
-                                    message: 'Không đúng định dạng email',
-                                }]}>
+                                name="thumbnail"
+                                label="thumbnail" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng nhập thumbnail' }
+                                ]}>
                                 <Input />
                             </Form.Item>
                         </div>
-                        <Form.Item initialValue={userDetail} name="address" label="Địa chỉ (Nơi ở)" className=''>
-                            <TextArea rows={2} placeholder="" />
+                        <Form.Item initialValue={userDetail} name="content" label="content" className=''>
+                            <TextArea rows={2} placeholder="Vui lòng nhập content" />
                         </Form.Item>
-                        <Form.Item
-                            initialValue={userDetail}
-                            name="username" label="Tên đăng nhập" className=''
-                            rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
-                            <Input />
-                        </Form.Item>
-                        <div className="flex space-x-[10px]">
-                            <Form.Item
-                                initialValue={userDetail}
-                                name="password" label="Mật khẩu" className='w-[50%]'
-                                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
-                                <Input />
-                            </Form.Item>
-                        </div>
-                        <div className="flex space-x-[10px]">
-
-                            <Form.Item
-                                initialValue={userDetail}
-                                name="phone" label="Số điện thoại" className='w-[40%]'
-                                rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
-                                <Input />
-                            </Form.Item>
-                            <Form.Item name="role" label="Vai trò" className='w-[100px]'
-                                rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
-                                <Select defaultValue={userDetail}>
-                                    <Option value={-1}>Vai trò</Option>
-                                    <Option value={0}>Customer</Option>
-                                    <Option value={1}>Lender</Option>
-                                    <Option value={2}>Quản trị</Option>
-                                </Select>
-                            </Form.Item>
-                            <Form.Item name="status" label="Trạng thái" className=''>
-                                <Select defaultValue={userDetail}>
-                                    <Option value={false}>Khoá</Option>
-                                    <Option value={true}>Hoạt động</Option>
-                                </Select>
-                            </Form.Item>
-                        </div>
                         <Form.Item className='flex justify-end'>
                             <Button key="back" onClick={handleCancel} className="mr-[10px]">
                                 Trở lại
