@@ -38,6 +38,8 @@ const App: React.FC = () => {
     // lọc dữ liệu role
     const data = DataType?.data.users.filter((item: any) => item.role == "1")
 
+    console.log(data);
+    
     // Convert địa chị thành mảng
     let dataFilterWait = data?.map((item: any) =>
         item.address
@@ -64,22 +66,21 @@ const App: React.FC = () => {
             render: (name) => { return <span className="">{name}</span> }
         },
 
-        {
-            title: <strong>Ngày sinh</strong>,
-            dataIndex: 'birthDay',
-            width: '15%',
-            render: (birthDay) => { return <span className="">{formatDate(birthDay)}</span> }
-        },
+        // {
+        //     title: <strong>Ngày sinh</strong>,
+        //     width: '15%',
+        //     render: (birthDay) => { return <span className="">{formatDate(birthDay)}</span> }
+        // },
         {
             title: <strong>Số điện thoại</strong>,
             dataIndex: 'phone',
-            width: '15%',
+            width: '20%',
             render: (phone) => { return <span className="">{phone}</span> }
         },
         {
             title: <strong>Email</strong>,
             dataIndex: 'email',
-            width: '25%',
+            width: '30%',
             render: (email) => { return <span className="">{email}</span> }
         },
         {
@@ -96,7 +97,7 @@ const App: React.FC = () => {
         let newArr: any = []
         if (e.length > 0) {
             e.map((item: any, index: any) => {
-                DataType?.data?.users.map((current: any) => {
+                data.map((current: any) => {
                     if (current.address.includes(e[index])) {
                         newArr.push(current)
                     }
@@ -147,7 +148,7 @@ const App: React.FC = () => {
                             }))}
                         />
                     </div>
-                    <Table columns={columns} dataSource={dataTable.length == 0 ? DataType?.data?.users : dataTable} onChange={onChange} />
+                    <Table columns={columns} dataSource={dataTable.length == 0 ? data : dataTable} onChange={onChange} />
                 </Modal>
             ) : (
                 <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
