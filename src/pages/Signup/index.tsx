@@ -197,7 +197,7 @@ const SignupPage = () => {
                                             <Input placeholder="1.000.000 VNĐ" disabled />
                                         </Form.Item>
 
-
+                                        <p></p>
                                         {/* <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p> */}
 
                                         {/* <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
