@@ -103,11 +103,11 @@ const SignupPage = () => {
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
-                        <Form.Item name="birthDay"
+                        {/* <Form.Item name="birthDay"
                             rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
-                        </Form.Item>
+                        </Form.Item> */}
 
                         <Form.Item
                             name="email"
