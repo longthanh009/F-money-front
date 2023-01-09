@@ -53,7 +53,12 @@ const SignupPage = () => {
                         setTimeout(() => { navigate('/signin') }, 2000)
                     })
                     //kiểm tra các trường giữ liệu có tồn tại chưa
-                    .catch(({ response }) => message.error({ content: response.data.error })
+                    .catch(({ response }) => 
+                    Swal.fire({
+                        icon: 'warning',
+                        title: response.data.message,
+                    })
+                    // message.error({ content: response.data.message })
                     )
             }
             else {
@@ -187,9 +192,9 @@ const SignupPage = () => {
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
 
-                                        <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
+                                        {/* <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p> */}
 
-                                        <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
+                                        {/* <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
                                             <Space direction="vertical" style={{ width: '49%', padding: 5 }} size="large">
                                                 <Upload
                                                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -210,7 +215,7 @@ const SignupPage = () => {
                                                     <Button icon={<UploadOutlined />}>Upload (Mặt sau)</Button>
                                                 </Upload>
                                             </Space>
-                                        </div>
+                                        </div> */}
                                     </>
                                 ) : null
                             }
