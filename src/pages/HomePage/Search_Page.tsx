@@ -8,9 +8,7 @@ import type { ColumnsType, TableProps } from 'antd/es/table';
 import useLender from './../../hook/usersHomePage';
 import { formatDate } from './../../ultils/formatDate';
 import { Link } from 'react-router-dom';
-
-
-
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 interface DataType {
     key: React.Key;
     name: string;
@@ -23,6 +21,7 @@ interface DataType {
 }
 const App: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { inforUser, isLogin } = useAppSelector(state => state.auth)
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -39,6 +38,8 @@ const App: React.FC = () => {
     // lọc dữ liệu role
     const data = DataType?.data.users.filter((item: any) => item.role == "1")
 
+    console.log(data);
+    
     // Convert địa chị thành mảng
     let dataFilterWait = data?.map((item: any) =>
         item.address
@@ -65,22 +66,21 @@ const App: React.FC = () => {
             render: (name) => { return <span className="">{name}</span> }
         },
 
-        {
-            title: <strong>Ngày sinh</strong>,
-            dataIndex: 'birthDay',
-            width: '15%',
-            render: (birthDay) => { return <span className="">{formatDate(birthDay)}</span> }
-        },
+        // {
+        //     title: <strong>Ngày sinh</strong>,
+        //     width: '15%',
+        //     render: (birthDay) => { return <span className="">{formatDate(birthDay)}</span> }
+        // },
         {
             title: <strong>Số điện thoại</strong>,
             dataIndex: 'phone',
-            width: '15%',
+            width: '20%',
             render: (phone) => { return <span className="">{phone}</span> }
         },
         {
             title: <strong>Email</strong>,
             dataIndex: 'email',
-            width: '25%',
+            width: '30%',
             render: (email) => { return <span className="">{email}</span> }
         },
         {
@@ -97,7 +97,7 @@ const App: React.FC = () => {
         let newArr: any = []
         if (e.length > 0) {
             e.map((item: any, index: any) => {
-                DataType?.data?.users.map((current: any) => {
+                data.map((current: any) => {
                     if (current.address.includes(e[index])) {
                         newArr.push(current)
                     }
@@ -131,26 +131,43 @@ const App: React.FC = () => {
                 </div>
 
             </div>
-
-            <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
-                <div className='pb-4'>
-                    <h1 className='text-2xl font-bold text-center p-4 text-orange-600'>Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Hàng Đầu Tại F-Money</h1>
-                    <span className='font-bold text-base'>Tỉnh/Thành Phố: </span>
-                    <Select
-                        mode="multiple"
-                        placeholder="Khu vực của bạn?"
-                        value={selectedItems}
-                        onChange={(e) => { setSelectedItems(e), handleFilter(e) }}
-                        style={{ width: '35%' }}
-                        options={filteredOptions.map((item: any) => ({
-                            value: item,
-                            label: item,
-                        }))}
-                    />
-                </div>
-                <Table columns={columns} dataSource={dataTable.length == 0 ? DataType?.data?.users : dataTable} onChange={onChange} />
-            </Modal>
-
+            {isLogin ? (
+                <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
+                    <div className='pb-4'>
+                        <h1 className='text-2xl font-bold text-center p-4 text-orange-600'>Tìm Kiếm Các Nhà Cho Vay Vốn Uy Tín Hàng Đầu Tại F-Money</h1>
+                        <span className='font-bold text-base'>Tỉnh/Thành Phố: </span>
+                        <Select
+                            mode="multiple"
+                            placeholder="Khu vực của bạn?"
+                            value={selectedItems}
+                            onChange={(e) => { setSelectedItems(e), handleFilter(e) }}
+                            style={{ width: '35%' }}
+                            options={filteredOptions.map((item: any) => ({
+                                value: item,
+                                label: item,
+                            }))}
+                        />
+                    </div>
+                    <Table columns={columns} dataSource={dataTable.length == 0 ? data : dataTable} onChange={onChange} />
+                </Modal>
+            ) : (
+                <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
+                    <div className='text-center'>
+                        <h1 className='text-3xl p-2 font-bold'>Cảm ơn bạn đã ghé thăm F-money</h1>
+                        <hr />
+                        <p className='text-xl p-2'>Vui Lòng Đăng nhập để có thể tìm kiếm các nhà cho vay vốn uy tín gần bạn</p>
+                        <div className="flex ">
+                            <div className=" mx-auto button w-32 h-8 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
+                                <Link to="/signin">
+                                    <span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">
+                                        Đăng nhập
+                                    </span>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+            )}
 
         </ div>
     );

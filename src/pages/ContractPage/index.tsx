@@ -77,7 +77,7 @@ const ContractPage = () => {
                                 <Select placeholder="Tỉnh/Thành Phố">
                                     {
                                         AddressValue?.map((item: any) => (
-                                            <Option value={item.address}>{item.address}</Option>
+                                            <Option value={item.name}>{item.name}</Option>
                                         ))
                                     }
                                 </Select>

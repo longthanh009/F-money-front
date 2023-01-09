@@ -83,11 +83,11 @@ const accountClient = () => {
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
-                        Ngày sinh:<Form.Item name="birthDay"
+                        {/* Ngày sinh:<Form.Item name="birthDay"
                             rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
-                        </Form.Item>
+                        </Form.Item> */}
 
                         Email: <Form.Item
                             name="email"
