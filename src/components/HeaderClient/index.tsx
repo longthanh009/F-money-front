@@ -16,7 +16,7 @@ const Header_Client = () => {
     setActive(!isACtive)
   }
   const { inforUser, isLogin } = useAppSelector(state => state.auth)
-  console.log(inforUser);
+  // console.log(inforUser);
   
   const handleLogout = () => {
     dispatch(logout());
