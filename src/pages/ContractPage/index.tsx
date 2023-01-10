@@ -7,7 +7,7 @@ const Option = Select;
 const { RangePicker } = DatePicker;
 import { createMenuLoan } from '../../api/menuLoan';
 import Solution from './../HomePage/Solution';
-
+import { AddressValue } from '../../ultils/address';
 const ContractPage = () => {
     const [type, setType] = useState(1)
     //checked đồng ý điều khoản
@@ -74,7 +74,13 @@ const ContractPage = () => {
                                 name="dia_chi"
                                 rules={[{ required: true, message: 'Vui lòng nhập địa chỉ' }]}
                             >
-                                <Input placeholder="Địa chỉ" />
+                                <Select placeholder="Tỉnh/Thành Phố">
+                                    {
+                                        AddressValue?.map((item: any) => (
+                                            <Option value={item.name}>{item.name}</Option>
+                                        ))
+                                    }
+                                </Select>
                             </Form.Item>
 
                             <Form.Item name="tien_vay" rules={[{ required: true, message: 'Vui lòng nhập số tiền muốn vay' }]} label="Số tiền muốn vay ">

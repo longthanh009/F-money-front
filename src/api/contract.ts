@@ -1,43 +1,48 @@
+import { isAuthenticate } from "../ultils/localStorage";
 import intance from "./intance";
 
+const user = isAuthenticate()
+let header = {}
+if (user) {
+  let toke = user.inforUser.token;
+  header = {
+    headers: {
+      Authorization: `${toke}`,
+    },
+  }
+}
 export const createContracts = (contract: any) => {
   const url = `contracts`;
-  return intance.post(url, contract);
+  return intance.post(url, contract, header);
 };
 
-export const getContracts = (id: any) => {
-  console.log(id);
-  const url = `contracts?id=${id}`;
-  return intance.get(url);
+export const getContracts = () => {
+  const url = `contracts`;
+  return intance.get(url, header);
 };
 export const getContractDetail = (id: any) => {
   const url = `contract/${id}`;
-  return intance.get(url);
+  return intance.get(url, header);
 };
 export const removeContract = (id: any) => {
   const url = `contract/${id}`;
-  return intance.delete(url);
+  return intance.delete(url, header);
 };
 export const getContractsDate = (formdate: any, todate: any) => {
-  const url = `contracts?id=636a2127a281e92df41190ee&formdate=${formdate}&todate=${todate}`;
-  return intance.get(url);
+  const url = `contracts?formdate=${formdate}&todate=${todate}`;
+  return intance.get(url, header);
 };
 export const deletelManyContract = (params: any) => {
-  console.log(params);
   const url = `/contract?`;
   return intance.delete(url, params);
 };
 
 export const getCccdlender = (cccd: number) => {
   const url = `checkUser?cccd=${cccd}`;
-  return intance.get(url);
+  return intance.get(url, header);
 };
 
 export const checkPayMoney = (id: any, params: any) => {
   const url = `/contract/${id}`;
-  return intance.patch(url, params);
-};
-export const exportExcel = (id:any) => {
-  const url = `/contractExcel?id=638c54551ab35050b4083dc3`;
-  return intance.get(url);
+  return intance.patch(url, params, header);
 };

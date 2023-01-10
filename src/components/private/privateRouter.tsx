@@ -1,13 +1,11 @@
 import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
+import { useAppSelector } from "../../app/hooks";
 
 export const PrivateRouterLender = ({ children }: any) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  const convertStringToken = JSON.stringify(token);
-  const decodedToken = jwt_decode<any>(convertStringToken);
-  if (decodedToken?.role === 1) {
+  const inforUser = useAppSelector(state => state.auth.inforUser)
+  if (inforUser?.role === 1) {
     return children;
   }
   return setTimeout(() => {
@@ -17,10 +15,8 @@ export const PrivateRouterLender = ({ children }: any) => {
 
 export const PrivateRouterAdmin = ({ children }: any) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-  const convertStringToken = JSON.stringify(token);
-  const decodedToken = jwt_decode<any>(convertStringToken);
-  if (decodedToken?.role === 2) {
+  const inforUser = useAppSelector(state => state.auth.inforUser)
+  if (inforUser?.role === 2) {
     return children;
   }
   return setTimeout(() => {

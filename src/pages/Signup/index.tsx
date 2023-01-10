@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
-
+import { AddressValue } from '../../ultils/address';
 
 const Option = Select;
 const { RangePicker } = DatePicker;
@@ -53,7 +53,12 @@ const SignupPage = () => {
                         setTimeout(() => { navigate('/signin') }, 2000)
                     })
                     //kiểm tra các trường giữ liệu có tồn tại chưa
-                    .catch(({ response }) => message.error({ content: response.data.error })
+                    .catch(({ response }) =>
+                        Swal.fire({
+                            icon: 'warning',
+                            title: response.data.message,
+                        })
+                        // message.error({ content: response.data.message })
                     )
             }
             else {
@@ -98,11 +103,11 @@ const SignupPage = () => {
                             <Input placeholder='Họ Và Tên' />
                         </Form.Item>
 
-                        <Form.Item name="birthDay"
+                        {/* <Form.Item name="birthDay"
                             rules={[{ required: true, type: "date", message: 'Vui lòng chọn ngày tháng năm sinh' }]}
                         >
                             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
-                        </Form.Item>
+                        </Form.Item> */}
 
                         <Form.Item
                             name="email"
@@ -154,7 +159,13 @@ const SignupPage = () => {
                             name="address"
                             rules={[{ required: true, message: 'Vui lòng nhập chi tiết địa chỉ' }]}
                         >
-                            <Input placeholder="Địa chỉ" />
+                            <Select placeholder="Tỉnh/Thành Phố">
+                                {
+                                    AddressValue?.map((item: any) => (
+                                        <Option value={item.name}>{item.name}</Option>
+                                    ))
+                                }
+                            </Select>
                         </Form.Item>
 
                         <Form.Item name="role" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
@@ -163,8 +174,8 @@ const SignupPage = () => {
                                 onChange={onChaneType}
                                 allowClear
                             >
-                                <Option value="userCustomer">Người đi vay</Option>
-                                <Option value="userLender">Người cho Vay</Option>
+                                <Option value="0">Người đi vay</Option>
+                                <Option value="1">Người cho Vay</Option>
                             </Select>
                         </Form.Item>
                         <Form.Item
@@ -172,7 +183,7 @@ const SignupPage = () => {
                             shouldUpdate={(prevValues, currentValues) => prevValues.role !== currentValues.role}
                         >
                             {({ getFieldValue }) =>
-                                getFieldValue('role') === 'userLender' ? (
+                                getFieldValue('role') === '1' ? (
                                     <>
                                         <Form.Item
                                             name="CCCD"
@@ -181,9 +192,15 @@ const SignupPage = () => {
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
 
-                                        <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
+                                        <Form.Item
+                                            name="money" display>
+                                            <Input placeholder="1.000.000 VNĐ" disabled />
+                                        </Form.Item>
 
-                                        <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
+                                        <p></p>
+                                        {/* <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p> */}
+
+                                        {/* <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
                                             <Space direction="vertical" style={{ width: '49%', padding: 5 }} size="large">
                                                 <Upload
                                                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -204,7 +221,7 @@ const SignupPage = () => {
                                                     <Button icon={<UploadOutlined />}>Upload (Mặt sau)</Button>
                                                 </Upload>
                                             </Space>
-                                        </div>
+                                        </div> */}
                                     </>
                                 ) : null
                             }
@@ -213,8 +230,8 @@ const SignupPage = () => {
                             <p>
                                 <Checkbox onChange={onChange}>
                                     <label htmlFor=""> Tôi đồng ý với
-                                        <Link to="" className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
-                                            Điều khoản sử dụng </Link>
+                                        <a href='./src/assets/dieukhoansudung.pdf' className=' text-[12px] text-red-600 inline-block font-bold hover:text-red-500 ml-[4px]'>
+                                            Điều khoản sử dụng </a>
                                     </label>
                                 </Checkbox>
                             </p>
@@ -224,6 +241,7 @@ const SignupPage = () => {
                                 Đăng Ký
                             </Button>
                         </Form.Item>
+                       
                         <div className='text-[12px]'>
                             <p className='italic'>
                                 Bạn đã có tài khoản?

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import jwt_decode from "jwt-decode";
 import {
   getContracts,
   createContracts,
@@ -9,6 +8,7 @@ import {
   deletelManyContract,
   checkPayMoney,
 } from "../../api/contract";
+import { useAppSelector } from "../../app/hooks";
 
 import { ContractType } from "../../types/contractTypes";
 
@@ -18,19 +18,10 @@ interface Icontract {
 const initialState: Icontract = {
   value: [],
 };
-
-const idUserContracrt = () => {
-  const token = localStorage.getItem("token");
-  const convertStringToken = JSON.stringify(token);
-  const decodedToken = jwt_decode<any>(convertStringToken);
-  const id = decodedToken.id;
-  return id;
-};
-
 export const getContract = createAsyncThunk(
   "contract/getContract",
   async () => {
-    const { data } = await getContracts(idUserContracrt());
+    const { data } = await getContracts();
     return data;
   }
 );
