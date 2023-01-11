@@ -74,7 +74,7 @@ const ContractPage = () => {
                             </Form.Item>
                             <Form.Item
                                 name="dia_chi"
-                                rules={[{ required: true, message: 'Vui lòng nhập địa chỉ' }]}
+                                rules={[{ required: true, message: 'Vui lòng chọn địa chỉ' }]}
                             >
                                 <Select placeholder="Tỉnh/Thành Phố">
                                     {

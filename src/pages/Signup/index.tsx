@@ -157,7 +157,7 @@ const SignupPage = () => {
 
                         <Form.Item
                             name="address"
-                            rules={[{ required: true, message: 'Vui lòng nhập chi tiết địa chỉ' }]}
+                            rules={[{ required: true, message: 'Vui lòng chọn địa chỉ' }]}
                         >
                             <Select placeholder="Tỉnh/Thành Phố">
                                 {
