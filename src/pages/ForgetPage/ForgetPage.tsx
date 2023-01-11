@@ -35,7 +35,7 @@ const ForgetPage: React.FC = () => {
   return (
     <Form name="form_item_path" layout="vertical" onFinish={onFinish}>
       <div className='p-4'>
-        <h1 className='text-2xl font-bold'>Đặt lại mật khẩu</h1> <br />
+        <h1 className='text-2xl font-bold'>QUÊN MẬT KHẨU</h1> <br />
 
         <Form.Item name="email" label="Email (Vui lòng nhập email đăng ký tài khoản)"
           rules={[{ required: true, message: 'Vui lòng nhập email' },
@@ -44,7 +44,7 @@ const ForgetPage: React.FC = () => {
         </Form.Item>
       </div>
       <Button className='p-4' type="primary" htmlType="submit">
-        Xác nhận
+        Gửi yêu cầu
       </Button>
     </Form>
   );
