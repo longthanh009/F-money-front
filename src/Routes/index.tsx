@@ -37,7 +37,7 @@ import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
 import Rules from "../pages/Rules";
 import CustomConta from "../pages/Lender/CustomConta";
-
+import ForgetPage from "../pages/ForgetPage/forgetPage";
 const RoutePage = () => {
   return (
     <div>
@@ -48,6 +48,7 @@ const RoutePage = () => {
           {/**Thông tin tài khoản */}
           <Route path="password/:id" element={<Passwword />} />{" "}
           {/**Đổi mật khẩu */}
+
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contractPage" element={<ContractPage />} />{" "}
           <Route path="rule" element={<Rules />} /> {/**Yêu cầu hợp đồng */}
@@ -57,8 +58,7 @@ const RoutePage = () => {
           />{" "}
           {/**Lịch sử hợp đồng */}
         </Route>
-        <Route
-          path="/lender"
+        <Route path="/lender"
           element={
             <PrivateRouterLender>
               <LayoutDashboard />
@@ -91,12 +91,9 @@ const RoutePage = () => {
           {/**Yêu cầu vay tiền*/}
         </Route>
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
-        <Route path="/register" element={<SignupPage />}>
-          {" "}
-        </Route>{" "}
+        <Route path="/register" element={<SignupPage />}>{" "}</Route>{" "}
         {/**Đăng ký */}
-        <Route
-          path="/admin"
+        <Route path="/admin"
           element={
             <PrivateRouterAdmin>
               <LayoutDashboard />
