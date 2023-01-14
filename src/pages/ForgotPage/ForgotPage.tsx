@@ -35,10 +35,28 @@ const ForgotPage = () => {
   const [type, setType] = useState(1);
   const navigate = useNavigate();
   const onFinish = (value: object) => {
-   
-    forgotPassword(value);
-    
-   
+
+    forgotPassword(value)
+      .then(() => {
+        //Swal thông báo thành công
+        Swal.fire({
+          icon: 'success',
+          title: 'Cập nhật thành công',
+          text: 'Vui lòng kiểm tra Email của bạn để Đăng Nhập.',
+          showConfirmButton: false,
+          timer: 3000
+        })
+        setTimeout(() => { window.location.href = "/signin"} , 3000);
+      })
+      //kiểm tra các trường giữ liệu có tồn tại chưa
+      .catch(({ response }) =>
+        Swal.fire({
+          icon: 'warning',
+          title: response.data.error,
+        })
+        // message.error({ content: response.data.message })
+      )
+
     console.log(value);
   };
 
