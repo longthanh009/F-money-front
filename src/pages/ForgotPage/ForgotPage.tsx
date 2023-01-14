@@ -46,7 +46,7 @@ const ForgotPage = () => {
           showConfirmButton: false,
           timer: 3000
         })
-        setTimeout(() => { window.location.href = "/signin"} , 3000);
+        setTimeout(() => { window.location.href = "/signin" }, 3000);
       })
       //kiểm tra các trường giữ liệu có tồn tại chưa
       .catch(({ response }) =>
