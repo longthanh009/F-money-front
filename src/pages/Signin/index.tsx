@@ -6,7 +6,7 @@ import { userLogin } from "../../models/auth";
 import { useAppDispatch } from "../../app/hooks";
 import { login } from "../../features/auth/authSlice";
 import Swal from "sweetalert2";
-import ForgetPage from "../ForgetPage/forgetPage";
+import ForgotPage from "../ForgotPage/ForgotPage";
 
 
 const SiginPage = () => {
@@ -111,7 +111,7 @@ const SiginPage = () => {
                   Quên mật khẩu
                 </span>
                 <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="50%">
-                  <ForgetPage />
+                  <ForgotPage />
                 </Modal>
               </div>
 

@@ -37,7 +37,7 @@ import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
 import Rules from "../pages/Rules";
 import CustomConta from "../pages/Lender/CustomConta";
-import ForgetPage from "../pages/ForgetPage/forgetPage";
+import ForgetPage from "../pages/ForgotPage/ForgotPage";
 const RoutePage = () => {
   return (
     <div>
