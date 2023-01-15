@@ -13,3 +13,7 @@ export const logout = (values: any) => {
     const url = `/users/logout`;
     return intance.get(url, values);
 }
+export const  forgotPassword = (values: any) => {
+    const url = `/users/forgotpassword`;
+    return intance.post(url, values);
+}

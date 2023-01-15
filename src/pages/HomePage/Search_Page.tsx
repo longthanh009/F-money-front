@@ -2,7 +2,7 @@ import { Button, Modal, Select, Input, Col, Row, } from 'antd';
 import React, { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 const { Search } = Input;
-const onSearch = (value) => console.log(value);
+const onSearch = (value:any) => console.log(value);
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import useLender from './../../hook/usersHomePage';
@@ -56,7 +56,7 @@ const App: React.FC = () => {
 
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [dataTable, setDataTable] = useState<any[]>([]);
-    const filteredOptions = dataFilter.filter(item => !selectedItems.includes(item));
+    const filteredOptions = dataFilter.filter((item:any) => !selectedItems.includes(item));
 
     const columns: ColumnsType<DataType> = [
         {
