@@ -38,6 +38,7 @@ import MenuLoan from "../pages/Lender/Menuloan";
 import Rules from "../pages/Rules";
 // api service
 import CustomConta from "../pages/Lender/CustomConta";
+import ListBlogs from "../components/Admin-Blog";
 
 const RoutePage = () => {
   return (
@@ -116,6 +117,8 @@ const RoutePage = () => {
           <Route path="service" element={<ServiceList />} />{" "}
           {/**Danh sách dich vu */}
           <Route path="support" element={<AdminSupport />} />{" "}
+          {/**Hỗ trợ khách hàng */}
+          <Route path="blog" element={<ListBlogs />} />{" "}
           {/**Hỗ trợ khách hàng */}
         </Route>
       </Routes>
