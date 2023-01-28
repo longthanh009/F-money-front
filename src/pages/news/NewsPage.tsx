@@ -27,7 +27,7 @@ const NewsPage = (props: Props) => {
             <h1 className="font-medium text-lg not-italic border-b-2 pb-5 font-medium text-xl not-italic">Xem nhiều</h1>
             <div className="flex items-center">
                 <span className="bg-[#cb1c22] flex-[0 0 40px] mr-[14px] w-10 h-10 table leading-10 font-bold text-center text-[#fff] rounded-[50%] text-[20px]">1</span>
-                <span className="text-base">tính anh không thích nói nhiều 1 là nhà nghỉ hay là phòng anh.</span>
+                <span className="text-base">tính anh không thích nói nhiều 1 là nhà nghỉ hay là phòng anh. ipdate</span>
             </div>
         </div>
     </div>
