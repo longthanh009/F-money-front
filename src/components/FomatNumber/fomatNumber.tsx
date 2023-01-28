@@ -5,7 +5,7 @@ type Props = {
 };
 
 const FomatNumber = ({ number }: Props) => {
-  return <div>{new Intl.NumberFormat("de-DE").format(number)} VND</div>;
+  return <div>{ number.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>;
 };
 
 export default FomatNumber;

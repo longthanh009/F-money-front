@@ -114,6 +114,7 @@ const RoutePage = () => {
           <Route path="service" element={<ServiceList />} />{" "}
           {/**Danh sách dich vu */}
           <Route path="support" element={<AdminSupport />} />{" "}
+          <Route path="thong-ke" element={<Dashboard />} />{" "}
           {/**Hỗ trợ khách hàng */}
           <Route path="blog" element={<ListBlogs />} />{" "}
           {/**Hỗ trợ khách hàng */}

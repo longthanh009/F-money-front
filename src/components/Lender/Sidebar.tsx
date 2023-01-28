@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { RiSettings4Line, RiShieldUserFill } from "react-icons/ri";
+import { RiPantoneLine, RiSettings4Line, RiShieldUserFill } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser, AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiMessageSquare, FiShoppingCart } from "react-icons/fi";
@@ -61,7 +61,7 @@ const Sidebar = () => {
     {
       name: "Tin Tức",
       link: "blog",
-      icon: AiOutlineUsergroupAdd,
+      icon: RiPantoneLine,
       role: 2,
     },
     {
@@ -76,16 +76,6 @@ const Sidebar = () => {
       icon: RiShieldUserFill,
       role: 2,
     },
-    // {
-    //   name: "Chi Hoạt Động",
-    //   link: "/lender/incomeAndExpense/expense",
-    //   icon: FiShoppingCart
-    // },
-    // {
-    //   name: "Thu Hoạt Động",
-    //   link: "/lender/incomeAndExpense/income",
-    //   icon: FiMessageSquare
-    // },
     {
       name: "Dịch Vụ",
       link: "/lender/contact",
@@ -94,9 +84,15 @@ const Sidebar = () => {
     },
     {
       name: "Thống Kê",
-      link: "/lender",
+      link: "/lender/thong-ke",
       icon: RiSettings4Line,
       role: 1,
+    },
+    {
+      name: "Thống Kê",
+      link: "/admin/thong-ke",
+      icon: RiSettings4Line,
+      role: 2,
     },
   ];
   const inforUser = useAppSelector((state) => state.auth.inforUser);

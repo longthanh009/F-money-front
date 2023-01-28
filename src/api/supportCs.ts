@@ -5,10 +5,11 @@ import intance from "./intance";
 const user = isAuthenticate()
 let header = {}
 if (user) {
+  let toke = user.inforUser.token;
   header = {
-    headers: {
-      Authorization: `${user.token}`,
-    },
+      headers: {
+          Authorization: `${toke}`,
+      },
   }
 }
 export const createSp = (values: any) => {
