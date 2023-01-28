@@ -46,3 +46,7 @@ export const checkPayMoney = (id: any, params: any) => {
   const url = `/contract/${id}`;
   return intance.patch(url, params, header);
 };
+export const turnoverContractMonth = (params: any) => {
+  const url = `/contracts-static?year=${params}`;
+  return intance.get(url, header);
+};

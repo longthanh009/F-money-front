@@ -2,67 +2,200 @@ import React, { useState, useEffect } from "react";
 import WelcomeBanner from "../../components/Lender/dashboard/WelcomeBanner";
 import DashboardCard01 from "../../components/Lender/dashboard/DashboardCard01";
 import DashboardCard02 from "../../components/Lender/dashboard/DashboardCard02";
-import DashboardCard03 from "../../components/Lender/dashboard/DashboardCard03";
-import DashboardCard04 from "../../components/Lender/dashboard/DashboardCard04";
-import DashboardCard05 from "../../components/Lender/dashboard/DashboardCard05";
-import DashboardCard06 from "../../components/Lender/dashboard/DashboardCard06";
 import { useAppDispatch } from "../../app/hooks";
-import { listMortgage } from "../../features/mortgage/mortgage";
-import { getContract } from "../../features/contract/contractSlice";
 import BreadcrumbComponent from "../../components/Breadcrumb";
+import { DatePicker } from "antd";
+import moment from "moment";
+import ReactApexChart from "react-apexcharts";
+import { turnoverContractMonth } from "../../api/contract";
+import { turnoverContractMgMonth } from "../../api/mortgage";
 
 function Dashboard() {
   const dispatch = useAppDispatch()
-  const [ tragop, setTragop] = useState(0)
-  const [ tinchap, setTinchap] = useState(0)
+  const [tragop, setTragop] = useState(0)
+  const [tinchap, setTinchap] = useState(0)
   const [tienlaiTinchap, setTienlaiTinChap] = useState(0)
   const [tienlaiTraGop, setTienlaiTraGop] = useState(0)
+  const [coutHDTC, setCoutHDTC] = useState(0)
+  const [coutHDCG, setCoutHDCG] = useState(0)
+  const [dataTC, setDataTC] = useState<[]>([])
+  const [dataCG, setDataCG] = useState<[]>([])
+  const [dataPriceTC, setDataPriceTC] = useState<[]>([])
+  const [dataPriceCG, setDataPriceCG] = useState<[]>([])
+  const [chartYear, setChartYear] = useState(moment().format("YYYY"));
+  const onChangeYearChart = (date: any, dateString: any) => {
+    setChartYear(dateString);
+  };
+  let dataChart = {
+    series: [{
+      name: 'Tín chấp',
+      data: dataTC
+    }, {
+      name: 'Trả góp',
+      data: dataCG
+    }],
+    options: {
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          endingShape: 'rounded'
+        },
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+      },
+      yaxis: {
+        title: {
+          text: 'Số lượng'
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: any) {
+            return val + " Hợp đồng"
+          }
+        }
+      }
+    },
+  }
+  let dataChartPrice = {
+    series: [{
+      name: 'Tín chấp',
+      data: dataPriceTC
+    }, {
+      name: 'Trả góp',
+      data: dataPriceCG
+    }],
+    options: {
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          endingShape: 'rounded'
+        },
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+      },
+      yaxis: {
+        title: {
+          text: 'VND'
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: any) {
+            return val.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + " VND"
+          }
+        }
+      }
+    },
+  }
   useEffect(() => {
-    dispatch(listMortgage())
-    .then(async({payload}) => {
-      console.log(payload)
-      const data = await payload.reduce((total:any, item:any) => item.khoan_vay + total ,0)
-      const tongHD = await payload.reduce((total:any, item:any) => item.tong_hd + total ,0)
-      const khoanVay = await payload.reduce((total:any, item:any) => item.khoan_vay + total ,0)
-      setTienlaiTinChap(tongHD - khoanVay)
-      setTinchap(data)
-    })
-  }, []); 
-  useEffect(() => {
-    dispatch(getContract())
-    .then(async({payload}) =>{
-      console.log(payload)
-      const data = await payload.reduce((total:any, obj:any) => obj.khoan_vay + total,0)
-      const tongHD = await payload.reduce((total:any, item:any) => item.tong_hd + total ,0)
-      const khoanVay = await payload.reduce((total:any, item:any) => item.khoan_vay + total ,0)
-      setTienlaiTraGop(tongHD - khoanVay)
-      setTragop(data)
-    })
-  }, []);
+    const getDataaContract = async () => {
+      const { data } = await turnoverContractMonth(chartYear)
+      setTragop(data.tong_cho_vay)
+      setTienlaiTraGop(data.tong_tien_lai);
+      setCoutHDCG(data.tong_sl)
+      let arrData = []
+      let arrPrice = []
+      const coutData = data.data
+      for (let index = 0; index < coutData.length; index++) {
+        const element = coutData[index];
+        arrData.push(element.so_luong_hd)
+        arrPrice.push(element.tien_cho_vay)
+      }
+      setDataPriceCG(arrPrice)
+      setDataCG(arrData)
+    }
+    getDataaContract();
+    const getDataaContractMg = async () => {
+      const { data } = await turnoverContractMgMonth(chartYear)
+      setTinchap(data.tong_cho_vay);
+      setTienlaiTinChap(data.tong_tien_lai)
+      setCoutHDTC(data.tong_sl)
+      let arrData = []
+      let arrPrice = []
+      const coutData = data.data
+      for (let index = 0; index < coutData.length; index++) {
+        const element = coutData[index];
+        arrData.push(element.so_luong_hd)
+        arrPrice.push(element.tien_cho_vay)
+      }
+      setDataPriceTC(arrPrice)
+      setDataTC(arrData)
+    }
+    getDataaContractMg();
+  }, [chartYear])
   return (
     <>
+      <div className="block mb-[10px]">
+        <DatePicker
+          value={chartYear == "" ? null : moment(chartYear)}
+          placeholder="Lọc năm"
+          status="warning"
+          style={{ float: "right", marginLeft: "3px" }}
+          onChange={onChangeYearChart}
+          picker="year"
+        />
+      </div>
       <div>
         <BreadcrumbComponent />
         {/* Welcome banner */}
         <WelcomeBanner />
-
         {/* Dashboard actions */}
-
         {/* Cards */}
         <div className="grid grid-cols-12 gap-6">
           {/* Line chart (Acme Plus) */}
-          <DashboardCard01 tragop={tragop} tinchap={tinchap} />
-          {/* Line chart (Acme Advanced) */}
-          <DashboardCard02 tienlaiTinchap={tienlaiTinchap} tienlaiTraGop={tienlaiTraGop}/>
-          {/* Line chart (Acme Professional) */}
-          <DashboardCard03 />
-          {/* Bar chart (Direct vs Indirect) */}
-          <DashboardCard04 />
-          {/* Doughnut chart (Top Countries) */}
-          <DashboardCard05 tragop={tragop} tienlaiTraGop={tienlaiTraGop}/>
-          {/* Table (Top Channels) */}
-          <DashboardCard06 />
+          <DashboardCard01 tragop={tragop} tinchap={tinchap} title ="Tiền Cho Vay"/>
+          <DashboardCard01 tragop={tienlaiTraGop} tinchap={tienlaiTinchap} title ="Lợi Nhuận"/>
+          <DashboardCard02  tinChap={coutHDTC} traGop={coutHDCG} title ="Tống Số Hợp Đồng"/>
         </div>
+        <div className="grid grid-cols-2 gap-6">
+          <div id="chart" className="mt-[20px]">
+            <h2 className="text-center text-[16px]">Số lượng hợp đồng trong năm {chartYear}(Số lượng)</h2>
+            <ReactApexChart options={dataChart.options} series={dataChart.series} type="bar" height={350} />
+          </div>
+          <div id="chart" className="mt-[20px]">
+            <h2 className="text-center text-[16px]">Tiền cho vay trong năm {chartYear} (VND)</h2>
+            <ReactApexChart options={dataChartPrice.options} series={dataChartPrice.series} type="bar" height={350} />
+          </div>
+        </div>
+
+        {/* <DashboardCard05 tragop={tragop} tienlaiTraGop={tienlaiTraGop} /> */}
+        {/* Table (Top Channels) */}
+        {/* <DashboardCard06 /> */}
       </div>
     </>
   );
