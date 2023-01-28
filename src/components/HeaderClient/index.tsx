@@ -138,6 +138,12 @@ const Header_Client = () => {
             >
               Hỗ trợ
             </Link>
+            <Link
+              to="/news"
+              className=" text-zinc-500 block mt-4 xl:inline-block lg:mt-0 hover:text-[#fa770c] px-4 py-2 rounded hover:border-b hover:border-[#fa770c]"
+            >
+              Tin tức
+            </Link>
 
           </div>
           {isLogin ? (
