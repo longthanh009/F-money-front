@@ -40,11 +40,13 @@ import Rules from "../pages/Rules";
 import CustomConta from "../pages/Lender/CustomConta";
 import ListBlogs from "../components/Admin-Blog";
 import ForgetPage from "../pages/ForgotPage/ForgotPage";
+import NewsPage from "../pages/news/NewsPage";
 const RoutePage = () => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Website_Layout />}>
+        <Route path="test" element={<Test />} />{" "}
           <Route index element={<HomePage />} /> {/**Trang chủ */}
           <Route path="accountClient/:id" element={<AccountClient />} />{" "}
           {/**Thông tin tài khoản */}
@@ -54,6 +56,8 @@ const RoutePage = () => {
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contractPage" element={<ContractPage />} />{" "}
           <Route path="rule" element={<Rules />} /> {/**Yêu cầu hợp đồng */}
+          {/**Tin tức */}
+          <Route path="news" element={<NewsPage />} /> 
           <Route
             path="historic_Contract"
             element={<Historic_ContractPage />}
@@ -118,7 +122,9 @@ const RoutePage = () => {
           {/**Hỗ trợ khách hàng */}
           <Route path="blog" element={<ListBlogs />} />{" "}
           {/**Hỗ trợ khách hàng */}
+        
         </Route>
+        
       </Routes>
     </div>
   );
