@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input, Select, DatePicker, Form, message } from 'antd';
+import { Input, Select, DatePicker, Form, message, InputNumber } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Banner from './../HomePage/Banner';
 import Swal from 'sweetalert2'
@@ -7,6 +7,8 @@ const Option = Select;
 const { RangePicker } = DatePicker;
 import { createMenuLoan } from '../../api/menuLoan';
 import Solution from './../HomePage/Solution';
+import { AddressValue } from '../../ultils/address';
+import FomatNumber from '../../components/FomatNumber/fomatNumber';
 
 const ContractPage = () => {
     const [type, setType] = useState(1)
@@ -72,13 +74,25 @@ const ContractPage = () => {
                             </Form.Item>
                             <Form.Item
                                 name="dia_chi"
-                                rules={[{ required: true, message: 'Vui lòng nhập địa chỉ' }]}
+                                rules={[{ required: true, message: 'Vui lòng chọn địa chỉ' }]}
                             >
-                                <Input placeholder="Địa chỉ" />
+                                <Select placeholder="Tỉnh/Thành Phố">
+                                    {
+                                        AddressValue?.map((item: any) => (
+                                            <Option value={item.name}>{item.name}</Option>
+                                        ))
+                                    }
+                                </Select>
                             </Form.Item>
 
                             <Form.Item name="tien_vay" rules={[{ required: true, message: 'Vui lòng nhập số tiền muốn vay' }]} label="Số tiền muốn vay ">
-                                <Input type='number' placeholder="1.000.000 VNĐ" />
+                                {/* <Input type='number' placeholder="1.000.000 VNĐ" /> */}
+                                <InputNumber placeholder="1.000.000 VNĐ"
+                                    formatter={(value) =>
+                                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                    }
+                                    style={{ width: "100%" }}
+                                />
                             </Form.Item>
                             <Form.Item name="ghi_chu" label="Ghi chú:">
                                 <TextArea rows={4} />

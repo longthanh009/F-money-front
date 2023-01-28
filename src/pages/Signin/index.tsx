@@ -1,20 +1,32 @@
 import React, { useState } from "react";
 import { UserOutlined, EditOutlined } from "@ant-design/icons";
-import { Input, Button, Form } from "antd";
+import { Input, Button, Form, Modal, Select } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../../models/auth";
 import { useAppDispatch } from "../../app/hooks";
 import { login } from "../../features/auth/authSlice";
 import Swal from "sweetalert2";
-import jwt_decode from "jwt-decode";
+import ForgotPage from "../ForgotPage/ForgotPage";
+
 
 const SiginPage = () => {
   const dispatch = useAppDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const [validate, setValidate] = useState();
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const loginUser = async (user: userLogin) => {
     const { payload } = await dispatch(login(user));
-    localStorage.setItem("token", payload.data);
     if (payload.error) {
       setValidate(payload.error);
       Swal.fire({
@@ -29,10 +41,7 @@ const SiginPage = () => {
         timer: 1500,
       });
       setTimeout(() => {
-        const token = localStorage.getItem("token");
-        const convertStringToken = JSON.stringify(token);
-        const decodedToken = jwt_decode<any>(convertStringToken);
-        const id = decodedToken?.role;
+        const id = payload?.role;
         if (id === 1) {
           navigate("/lender");
         } else if (id === 2) {
@@ -90,17 +99,22 @@ const SiginPage = () => {
                   prefix={<EditOutlined />}
                 />
               </Form.Item>
+
               <div className="flex justify-between mb-[40px]">
                 <label htmlFor="">
                   <input type="checkbox" id="checkboxGn" />
-                  <label className="ml-[5px]" htmlFor="checkboxGn">
+                  <label className="ml-[5px]" htmlFor="checkboxGn" >
                     Ghi nhớ
                   </label>
                 </label>
-                <Link to="" className="text-black hover:text-red-500">
+                <span className="text-black hover:text-red-500" onClick={showModal}>
                   Quên mật khẩu
-                </Link>
+                </span>
+                <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="50%">
+                  <ForgotPage />
+                </Modal>
               </div>
+
               <Button
                 htmlType="submit"
                 className="w-[100%] rounded bg-orange-500 text-[20px]"
@@ -120,17 +134,18 @@ const SiginPage = () => {
         </div>
         <div className="hidden w-[50%] md:block">
           <div className="px-[20px]">
-            <h2 className="text-[19px] text-center text-orange-500 mb-[20px]">
-              Chào mừng bạn đã đến với F-MONEY nơi cung cấp các nhà cho vay vốn
-              uy tín
+            <h2 className="text-[19px] text-center text-orange-500 mb-[20px] font-bold">
+              Chào Mừng Bạn Đã Đến Với F-MONEY Nơi Cung Cấp Các Nhà Cho Vay Vốn
+              Uy Tín
             </h2>
             <img
-              className="w-full"
-              src="https://res.cloudinary.com/df4kjrav4/image/upload/v1660550665/cld-sample.jpg"
+              className="w-full py-4"
+              src="./src/assets/image/dang_nhap.jpg"
               alt=""
             />
-            <p className="text-center mt-[30px]">
-              © Copyright 2022 F-Money - Website hỗ trợ vay vốn đầu tư hàng đầu
+            <p className="text-center text-base mt-[30px]">
+              © Copyright 2022 F-Money <br />
+              Website hỗ trợ vay vốn đầu tư hàng đầu
               thế Giới
             </p>
           </div>

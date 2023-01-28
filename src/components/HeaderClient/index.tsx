@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 
 const Header_Client = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [isACtive, setActive] = useState(false);
+  const dispatch = useAppDispatch()
+  const [isACtive, setActive] = useState(false)
+
   const onToggle = () => {
-    setActive(!isACtive);
-  };
-  const { inforUser, isLogin } = useAppSelector((state) => state.auth);
+    setActive(!isACtive)
+  }
+  const { inforUser, isLogin } = useAppSelector(state => state.auth)
+  console.log(inforUser);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -22,25 +24,47 @@ const Header_Client = () => {
     message.success("Đăng xuất thành công.");
     navigate("/signin");
   };
+
+  const checckAuth = () => {
+    if (inforUser?.role === 1) {
+      return (
+        <Link className="text-[5px] md:text-[8px] lg:text-[15px] xl:text-[15px] 2xl:text-[15px] w-[50px] mr-[30px]" to="/lender">
+          Trang quản trị
+        </Link>
+      );
+    } else if (inforUser?.role === 2) {
+      return (
+        <Link className="text-[5px] md:text-[8px] lg:text-[15px] xl:text-[15px] 2xl:text-[15px] w-[50px] mr-[30px] text-black" to="/admin">
+          Trang quản trị
+        </Link>
+      );
+    } else {
+      return null;
+    }
+  };
+
   const menu = (
     <Menu
       items={[
         {
           key: "1",
-          label: (
-            <Link to={`/accountClient/${inforUser?.user?._id}`}>
-              Thông tin của tôi
-            </Link>
-          ),
+          label: checckAuth(),
         },
         {
           key: "2",
           label: (
-            <Link to={`/password/${inforUser?.user?._id}`}>Đổi mật khẩu</Link>
+            <Link to={`/accountClient/${inforUser?.id}`}>Thông tin của tôi</Link>
           ),
         },
         {
           key: "3",
+          label: (
+            <Link to={`/password/${inforUser?.id}`}>Đổi mật khẩu</Link>
+          ),
+        },
+       
+        {
+          key: "4",
           danger: true,
           label: (
             <button onClick={handleLogout}>
@@ -114,16 +138,15 @@ const Header_Client = () => {
             >
               Hỗ trợ
             </Link>
-          </div>
 
+          </div>
           {isLogin ? (
             <div className="pt-3">
               <Dropdown overlay={menu}>
                 <p>
                   <Space className="">
                     <Button shape="round" className="">
-                      {inforUser?.user?.name}
-                      <FcLock />
+                      {inforUser?.name}
                     </Button>
                   </Space>
                 </p>

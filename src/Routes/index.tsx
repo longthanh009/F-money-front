@@ -35,11 +35,11 @@ import {
 import Test from "../models/Test";
 import AdminSupport from "../pages/AdminSupport/AdminSupport";
 import MenuLoan from "../pages/Lender/Menuloan";
-
 import Rules from "../pages/Rules";
-import CustomerContact from "../pages/Lender/customerContact";
+// api service
 import CustomConta from "../pages/Lender/CustomConta";
-
+import ListBlogs from "../components/Admin-Blog";
+import ForgetPage from "../pages/ForgotPage/ForgotPage";
 const RoutePage = () => {
   return (
     <div>
@@ -51,6 +51,7 @@ const RoutePage = () => {
           {/**Thông tin tài khoản */}
           <Route path="password/:id" element={<Passwword />} />{" "}
           {/**Đổi mật khẩu */}
+
           <Route path="suport" element={<SuportPage />} /> {/**Hỗ trợ */}
           <Route path="contractPage" element={<ContractPage />} />{" "}
           <Route path="rule" element={<Rules />} /> {/**Yêu cầu hợp đồng */}
@@ -60,8 +61,7 @@ const RoutePage = () => {
           />{" "}
           {/**Lịch sử hợp đồng */}
         </Route>
-        <Route
-          path="/lender"
+        <Route path="/lender"
           element={
             <PrivateRouterLender>
               <LayoutDashboard />
@@ -92,15 +92,11 @@ const RoutePage = () => {
           {/**Yêu cầu vay tiền*/}
           <Route path="customerContact" element={<CustomConta />} />{" "}
           {/**Yêu cầu vay tiền*/}
-          <Route path="menuLoan" element={<MenuLoan />} /> {/**Yêu cầu vay tiền*/}
         </Route>
         <Route path="/signin" element={<SiginPage />}></Route> {/**Đăng nhập */}
-        <Route path="/register" element={<SignupPage />}>
-          {" "}
-        </Route>{" "}
+        <Route path="/register" element={<SignupPage />}>{" "}</Route>{" "}
         {/**Đăng ký */}
-        <Route
-          path="/admin"
+        <Route path="/admin"
           element={
             <PrivateRouterAdmin>
               <LayoutDashboard />
@@ -119,6 +115,9 @@ const RoutePage = () => {
           <Route path="service" element={<ServiceList />} />{" "}
           {/**Danh sách dich vu */}
           <Route path="support" element={<AdminSupport />} />{" "}
+          <Route path="thong-ke" element={<Dashboard />} />{" "}
+          {/**Hỗ trợ khách hàng */}
+          <Route path="blog" element={<ListBlogs />} />{" "}
           {/**Hỗ trợ khách hàng */}
         
         </Route>
