@@ -3,9 +3,7 @@ import { Breadcrumb } from "antd";
 import { useLocation } from "react-router-dom";
 const BreadcrumbComponent = () => {
   const router = useLocation();
-  console.log({ router });
   const pat = router.pathname.split("/");
-  console.log({ pat });
 
   return (
     <div className="mb-[10px]">

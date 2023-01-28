@@ -6,13 +6,13 @@ interface Icontract {
 const initialState: Icontract = {
   value: [],
 };
-export const listSp = createAsyncThunk("contract/getContract", async () => {
+export const listSp = createAsyncThunk("support/getSupport", async () => {
   const { data } = await getSp();
   return data;
 });
 
 const adminSp = createSlice({
-  name: "contract",
+  name: "support",
   initialState: {
     value: [],
     check: [],

@@ -1,22 +1,15 @@
-import React from "react";
-import {
-  Button,
-  Calendar,
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Row,
-  Space,
-  Upload,
-} from "antd";
-
+import {Calendar,Col,DatePicker,InputNumber,Modal,Row,Space} from "antd";
+import React, { useState } from "react";
+import ReactQuill from "react-quill";
+import { Button, message, Form, Input } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import Upload from "antd/lib/upload/Upload";
+import TextArea from "antd/lib/input/TextArea";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { UploadOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../../app/hooks";
+import { addBlog } from "../../features/Blog/blogSlice";
 
 const formItemLayout = {
   labelCol: {
@@ -53,6 +46,40 @@ interface formAddInstallment {
   closinDate: number;
   desc: number;
 }
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "image"],
+    ["clean"],
+    [{ align: [] }],
+  ],
+};
+const getBase64 = (img : any, callback : any) => {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result));
+  reader.readAsDataURL(img);
+};
+const beforeUpload = (file : any) => {
+  const isJpgOrPng =
+    file.type === "image/jpeg" ||
+    file.type === "image/png" ||
+    file.type === "image/jpg";
+  if (!isJpgOrPng) {
+    message.error("Chỉ chọn được ảnh JPG/PNG/JPG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Kích thước ảnh lớn hơn 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
 const ModalBlock = ({
   isModalOpen,
   handleOk,
@@ -60,13 +87,11 @@ const ModalBlock = ({
   setIsModalOpen,
 }: Props) => {
   const { TextArea } = Input;
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [form] = Form.useForm<any>();
 
   const onFinish = (data: any) => {
     if (data) {
-      dispatch(addContract(data));
+      dispatch(addBlog(data));
       setIsModalOpen(false);
       Swal.fire({
         icon: "success",
@@ -83,19 +108,43 @@ const ModalBlock = ({
       });
     }
   };
-
+  const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState();
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const handleChange = async (info : any) => {
+    // base64
+    if (info.file.status === "uploading") {
+      getBase64(info.file.originFileObj, (url : any) => {
+        setImageUrl(url);
+      });
+    }
+  };
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
   return (
     <div>
       <Modal
         title="Thêm Mới Tin Tức"
         open={isModalOpen}
         onOk={handleOk}
+        style={{ top: 20 }}
         onCancel={handleCancel}
         footer={null}
+        width={1000}
       >
         <Form
           onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
           autoComplete="on"
           labelCol={{ span: 24 }}
           form={form}
@@ -130,13 +179,24 @@ const ModalBlock = ({
                 style={{ width: "49%", padding: 5 }}
                 size="large"
               >
-                <Upload
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  listType="picture"
-                  maxCount={1}
+              <Upload
                   name="thumbnail"
+                  listType="picture-card"
+                  showUploadList={false}
+                  beforeUpload={beforeUpload}
+                  onChange={handleChange}
                 >
-                  <Button icon={<UploadOutlined />}>Upload ảnh</Button>
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt="avatar"
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                  ) : (
+                    uploadButton
+                  )}
                 </Upload>
               </Space>
             </div>
@@ -144,7 +204,7 @@ const ModalBlock = ({
 
           {/* Row 2 */}
           <Form.Item
-            label="Nội Dung Chính"
+            label="Nội dung chính"
             name="shortDescription"
             rules={[{ required: true, message: "Không để trống" }]}
           >
@@ -152,16 +212,28 @@ const ModalBlock = ({
           </Form.Item>
 
           <Form.Item
-            label="Nội Dung"
+            label="Nội dung"
             name="content"
-            rules={[{ required: true, message: "Không để trống" }]}
+            rules={[
+              {
+                required: true,
+                message: "Nội dung không được để trống, ít nhất 32 kí tự !",
+              },
+            ]}
           >
-            <TextArea placeholder="..." style={{ width: "100%" }} />
+            <ReactQuill
+              theme="snow"
+              value={content}
+              onChange={setContent}
+              modules={modules}
+              // formats={formats}
+              className="h-80 mb-20"
+            ></ReactQuill>
           </Form.Item>
 
           <Form.Item style={{ textAlign: "right" }}>
             <Button type="primary" htmlType="submit">
-              Tạo mới sản phẩm
+              Thêm mới
             </Button>
           </Form.Item>
         </Form>
