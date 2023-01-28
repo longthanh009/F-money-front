@@ -35,7 +35,6 @@ const columns: ColumnsType<ColumnsType> = [
 const AdminSupport = () => {
   const dispatch = useAppDispatch();
   const idUsers = useAppSelector((state) => state.adminSp.value);
-  console.log({ idUsers });
   useEffect(() => {
     dispatch(listSp());
   }, []);

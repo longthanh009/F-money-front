@@ -27,7 +27,7 @@ function SearchBlock() {
   };
   return (
     <div className="mb-3 mt-5 flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
-      <div className="flex px-5 pt-5">
+      <div className="flex px-5 pt-5 mb-3">
         <div className=""></div>
         <div className="pr-2">
           <Button type="primary" onClick={showModal}>
@@ -40,7 +40,7 @@ function SearchBlock() {
             setIsModalOpen={setIsModalOpen}
           />
         </div>
-        <div className="mb-3 xl:w-96 text-left">
+        {/* <div className="mb-3 xl:w-96 text-left">
           <a
             href={`http://localhost:9000/api/contractExcel?id=${inforUser.id}`}
             className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-[5px] px-4 rounded inline-flex items-center"
@@ -50,7 +50,7 @@ function SearchBlock() {
             </svg>
             <span>Xuất Excel</span>
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );
