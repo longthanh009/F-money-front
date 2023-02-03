@@ -1,4 +1,4 @@
-import { Button, Modal, Space } from "antd";
+import { Button, Modal, Pagination, PaginationProps, Space } from "antd";
 import Table, { ColumnsType } from "antd/lib/table";
 import React, { useEffect, useState } from "react";
 import { FcSalesPerformance } from "react-icons/fc";
@@ -23,7 +23,7 @@ function TableMortgage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mortgageId, setMortgageId] = useState();
   const [mortgageDetail, setMortgageDetail] = useState<any>();
-
+  const [arrData , setArrData] = useState([])
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -34,8 +34,15 @@ function TableMortgage() {
   const mortgage = useAppSelector((state) => state.mortgage.value);
   useEffect(() => {
     dispatch(listMortgage());
+    setArrData(mortgage)
   }, []);
-
+  const [current, setCurrent] = useState(1);
+  const onChange: PaginationProps['onChange'] = (page) => {
+    setCurrent(page);
+  };
+  const indexOfLastNews = current * 10;
+  const indexOfFirstNews = indexOfLastNews - 10;
+  const currentTodos = arrData.slice(indexOfFirstNews, indexOfLastNews);
   const removeItem = (id: any) => {
     const confirm = window.confirm("bạn có muốn xóa không");
     if (confirm) {
@@ -53,7 +60,6 @@ function TableMortgage() {
   };
   const getMortgage = async () => {
     const { data } = await getDetailMortgage(mortgageId);
-
     setMortgageDetail(data);
   };
 
@@ -93,7 +99,6 @@ function TableMortgage() {
     }
   };
   const style = { color: "#dc2626", fontSize: "1.5em" }
-
   return (
     <div className="col-span-full  bg-white shadow-lg  rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100">
@@ -111,7 +116,7 @@ function TableMortgage() {
                     className="btn btn-danger"
                     onClick={HandlerOnRemoveMany}
                   >
-                    <AiFillDelete style={style}/>
+                    <AiFillDelete style={style} />
                   </button>
                 </th>
                 <th className="p-2">
@@ -150,7 +155,7 @@ function TableMortgage() {
             {/* Table body */}
             <tbody className="text-sm font-medium divide-y divide-slate-100">
               {/* Row */}
-              {mortgage?.map((item: any, index) => {
+              {currentTodos?.map((item: any, index) => {
                 return (
                   <tr key={index}>
                     <td className="pr-2">
@@ -162,7 +167,7 @@ function TableMortgage() {
                     </td>
                     <td className="p-2">
                       <div className="flex items-center">
-                        <div className="text-slate-800">{index + 1}</div>
+                        <div className="text-slate-800">{index + ((current-1) *10) + 1}</div>
                       </div>
                     </td>
                     <td className="p-2">
@@ -227,6 +232,9 @@ function TableMortgage() {
               })}
             </tbody>
           </table>
+          <div className="mt-[40px] text-right pr-[30px]">
+            <Pagination current={current} onChange={onChange} total={mortgage.length} />
+          </div>
           <Modal visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <ModalMortgageDetail mortgageDetail={mortgageDetail} />
           </Modal>

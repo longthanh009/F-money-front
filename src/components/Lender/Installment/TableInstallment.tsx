@@ -1,4 +1,4 @@
-import { Modal, Row } from "antd";
+import { Modal, Pagination, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { FcSalesPerformance } from "react-icons/fc";
 import { GiAnchor } from "react-icons/gi";
@@ -19,6 +19,7 @@ import {
 } from "../../../features/contract/contractSlice";
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalInstallmentDetail from "./ModalInstallmentDetail";
+import { PaginationProps } from "antd/es/pagination";
 
 function TableInstallment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +29,8 @@ function TableInstallment() {
   const check = useAppSelector((state) => state.contract.check);
   const [contractDetaill, setcontractDetaill] = useState<any>();
   const contracts = useAppSelector((state) => state.contract.value);
+  const [arrData , setArrData] = useState([])
+
   const showModal = (record: any) => {
     setIsModalOpen(true);
   };
@@ -41,7 +44,15 @@ function TableInstallment() {
   };
   useEffect(() => {
     dispatch(getContract());
+    setArrData(contracts)
   }, []);
+  const [current, setCurrent] = useState(1);
+  const onChange: PaginationProps['onChange'] = (page) => {
+    setCurrent(page);
+  };
+  const indexOfLastNews = current * 10;
+  const indexOfFirstNews = indexOfLastNews - 10;
+  const currentTodos = arrData.slice(indexOfFirstNews, indexOfLastNews);
   const removeItem = (id: any) => {
     const confirm = window.confirm("bạn có muốn xóa không");
     if (confirm) {
@@ -183,7 +194,7 @@ function TableInstallment() {
             {/* Table body */}
             <tbody className="text-sm font-medium divide-y divide-slate-100">
               {/* Row */}
-              {contracts?.map((item: any, index) => {
+              {currentTodos?.map((item: any, index) => {
                 return (
                   <tr key={index}>
                     <td className="pr-2">
@@ -284,6 +295,9 @@ function TableInstallment() {
               })}
             </tbody>
           </table>
+          <div className="mt-[40px] text-right pr-[30px]">
+            <Pagination current={current} onChange={onChange} total={contracts.length} />
+          </div>
           <Modal visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <ModalInstallmentDetail
               contractDetaill={contractDetaill}
