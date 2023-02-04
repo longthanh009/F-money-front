@@ -12,12 +12,12 @@ const columns: ColumnsType<ColumnsType> = [
     render: (text, object, index) => <div>{index + 1}</div>,
   },
   {
-    title: "Tên khách hàng",
+    title: "Tên Khách Hàng",
     dataIndex: "ho_ten",
     key: "ho_ten",
   },
   {
-    title: "Số điện thoại",
+    title: "Số Điện Thoại",
     dataIndex: "dien_thoai",
     key: "dien_thoai",
   },
@@ -30,6 +30,17 @@ const columns: ColumnsType<ColumnsType> = [
     title: "Ghi Chú",
     dataIndex: "ghi_chu",
     key: "ghi_chu",
+  },
+  {
+    title: "Trạng Thái",
+    dataIndex: "status",
+    key: "ghi_chu",
+    render: (values) => {
+      console.log(values);
+      return (
+        <div>{values == true ? <button className="bg-green-400 text-white px-2 rounded-md shadow-lg">Xác nhận</button> : <div className="bg-orange-400 text-white text-center">Đã hỗ trợ</div>}</div>
+      )
+    },
   },
 ];
 const AdminSupport = () => {
