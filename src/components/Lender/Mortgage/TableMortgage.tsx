@@ -21,7 +21,6 @@ function TableMortgage() {
   const check = useAppSelector((state) => state.mortgage.check);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [mortgageId, setMortgageId] = useState();
   const [mortgageDetail, setMortgageDetail] = useState<any>();
   const [arrData , setArrData] = useState([])
   const handleOk = () => {
@@ -58,18 +57,13 @@ function TableMortgage() {
       return <div>Kết Thức Hợp Dồng</div>;
     }
   };
-  const getMortgage = async () => {
-    const { data } = await getDetailMortgage(mortgageId);
+  const getMortgage = async (id : any) => {
+    const { data } = await getDetailMortgage(id);
     setMortgageDetail(data);
   };
-
-  useEffect(() => {
-    getMortgage();
-  }, [mortgageId]);
-
   const handleClickModal = (id: any) => {
     setIsModalOpen(true);
-    setMortgageId(id);
+    getMortgage(id)
   };
   const HandlerOngetMany = (e: any) => {
     dispatch(addMuiltipleValues(e.target));

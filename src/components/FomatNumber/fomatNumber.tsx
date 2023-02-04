@@ -5,7 +5,8 @@ type Props = {
 };
 
 const FomatNumber = ({ number }: Props) => {
-  return <div>{ number.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>;
+  
+  return <div>{ number?.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>;
 };
 
 export default FomatNumber;
