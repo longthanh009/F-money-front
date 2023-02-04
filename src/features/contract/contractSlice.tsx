@@ -72,8 +72,12 @@ export const statusContrats = createAsyncThunk(
       date: objecData.date,
       status: objecData.status,
     };
+    console.log("obhjj",objecData);
+    
     const { data } = await checkPayMoney(objecData.id, objecNew);
+
     return data;
+    
   }
 );
 

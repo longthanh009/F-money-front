@@ -58,16 +58,8 @@ const modalMortgage = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm<any>();
-
-  const idUserMortgage = () => {
-    const inforUser = useAppSelector(state => state.auth.inforUser)
-    const id = inforUser.id;
-    return id;
-  };
-
   const onFinish = (data: any) => {
     if (data) {
-      data.nguoi_tao_hd = idUserMortgage();
       dispatch(addMortgage(data));
       setIsModalOpen(false);
 
@@ -78,7 +70,6 @@ const modalMortgage = ({
         timer: 1500,
       });
       form.resetFields();
-      navigate("/lender/Mortgage/index");
     } else {
       Swal.fire({
         icon: "error",
@@ -124,7 +115,7 @@ const modalMortgage = ({
             <Col span={12}>
               <Form.Item
                 name="ma_hd"
-                label="MÃ Hóa Đơn"
+                label="Mã Hóa Đơn"
                 labelCol={{ span: 24 }}
                 rules={[
                   {
