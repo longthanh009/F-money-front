@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Banner from '../HomePage/Banner'
 import { listBlog } from '../../api/Blog'
+import { Link, NavLink } from 'react-router-dom'
 type Props = {}
 
 const NewsPage = (props: Props) => {
@@ -25,7 +26,7 @@ const NewsPage = (props: Props) => {
                     <div className="mb-[14px]">
                     <span className="text-[#0f71fb] mb-[10px] text-[16px]">Tin mới</span>
                     </div>
-                      <h3 className="text-[22px] leading-6 font-bold mb-[8px] overflow-hidden">{item.title}</h3>
+                      <a href={`/news/detailNew/${item.slug}`}><h3 className="text-[22px] leading-6 font-bold mb-[8px] overflow-hidden">{item.title}</h3></a>
                       <div className="mb-[14px]"><span className="text-[#555] text-xs overflow-hidden leading-5 ">{item.content}</span></div>
                       <div className="flex items-center">
                           <img src="https://images.fpt.shop/unsafe/30x30/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/10/25/638023103987185995_bao-nguyen.jpeg" width={30} height={30} alt="" /> <span className="px-2">Name</span><span>- 5 giờ trước</span>

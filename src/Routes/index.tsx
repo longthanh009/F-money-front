@@ -41,6 +41,7 @@ import CustomConta from "../pages/Lender/CustomConta";
 import ListBlogs from "../components/Admin-Blog";
 import ForgetPage from "../pages/ForgotPage/ForgotPage";
 import NewsPage from "../pages/news/NewsPage";
+import DetailNew from "../pages/news/detailNew/DetailNew";
 const RoutePage = () => {
   return (
     <div>
@@ -58,6 +59,7 @@ const RoutePage = () => {
           <Route path="rule" element={<Rules />} /> {/**Yêu cầu hợp đồng */}
           {/**Tin tức */}
           <Route path="news" element={<NewsPage />} /> 
+          <Route path="news/detailNew/:id" element={<DetailNew />} /> 
           <Route
             path="historic_Contract"
             element={<Historic_ContractPage />}

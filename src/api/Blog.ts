@@ -22,7 +22,7 @@ export const listBlogLatest = () => {
   return intance.get(url, header);
 };
 // detail blog
-export const getDetailBlog = (id: String) => {
+export const getDetailBlog = (id: any) => {
   const url = `/blogs/${id}`;
   return intance.get(url, header);
 };
