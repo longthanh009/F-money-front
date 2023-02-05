@@ -10,6 +10,7 @@ import {
   addMuiltipleValues,
   deleteMany,
   listMortgage,
+  putMortgage,
   removeMultipleMortgage,
 } from "../../../features/mortgage/mortgage";
 import { formatDate } from "../../../ultils/formatDate";
@@ -21,10 +22,14 @@ function TableMortgage() {
   const check = useAppSelector((state) => state.mortgage.check);
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isID, setIsID] = useState();
   const [mortgageDetail, setMortgageDetail] = useState<any>();
   const [arrData , setArrData] = useState([])
   const handleOk = () => {
     setIsModalOpen(false);
+    if(isID){
+      dispatch(putMortgage(isID))
+    }
   };
 
   const handleCancel = () => {
@@ -57,7 +62,7 @@ function TableMortgage() {
     } else if (trangThai === 1) {
       return <div>Quá Hạn</div>;
     } else {
-      return <div>Kết Thức Hợp Dồng</div>;
+      return <div>Đã hoàn tất</div>;
     }
   };
   const getMortgage = async (id : any) => {
@@ -67,6 +72,7 @@ function TableMortgage() {
   const handleClickModal = (id: any) => {
     setIsModalOpen(true);
     getMortgage(id)
+    setIsID(id)
   };
   const HandlerOngetMany = (e: any) => {
     dispatch(addMuiltipleValues(e.target));
@@ -108,14 +114,14 @@ function TableMortgage() {
             {/* Table header */}
             <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
               <tr>
-                <th>
+                {/* <th>
                   <button
                     className="btn btn-danger"
                     onClick={HandlerOnRemoveMany}
                   >
                     <AiFillDelete style={style} />
                   </button>
-                </th>
+                </th> */}
                 <th className="p-2">
                   <div className="font-semibold text-left">STT</div>
                 </th>
@@ -155,13 +161,13 @@ function TableMortgage() {
               {currentTodos?.map((item: any, index) => {
                 return (
                   <tr key={index}>
-                    <td className="pr-2">
+                    {/* <td className="pr-2">
                       <input
                         type="checkbox"
                         value={item._id}
                         onChange={(e) => HandlerOngetMany(e)}
                       />
-                    </td>
+                    </td> */}
                     <td className="p-2">
                       <div className="flex items-center">
                         <div className="text-slate-800">{index + ((current-1) *10) + 1}</div>
@@ -192,7 +198,7 @@ function TableMortgage() {
                     </td>
                     <td className="p-2">
                       <div className="text-center">
-                        {formatDate(item.createdAt)}
+                        {formatDate(item.ngay_vay)}
                       </div>
                     </td>
                     <td className="p-2">

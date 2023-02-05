@@ -40,6 +40,12 @@ const ModalMortgageDetail = ({ mortgageDetail }: Props) => {
           </label>
           <p>{mortgageDetail?.dia_chi}</p>
         </div>
+        <div className="mt-2">
+          <label htmlFor="" className="text-blue-700 text-center">
+            Hạn hợp đồng
+          </label>
+          <p>{formatDate(mortgageDetail?.han_hd)}</p>
+        </div>
       </div>
       <div>
         <div className="mt-2">
@@ -52,7 +58,7 @@ const ModalMortgageDetail = ({ mortgageDetail }: Props) => {
           <label htmlFor="" className="text-blue-700">
             Ngày Vay
           </label>
-          <p>{formatDate(mortgageDetail?.createdAt)}</p>
+          <p>{formatDate(mortgageDetail?.ngay_vay)}</p>
         </div>
         <div className="mt-2">
           <label htmlFor="" className="text-blue-700">
@@ -64,7 +70,13 @@ const ModalMortgageDetail = ({ mortgageDetail }: Props) => {
           <label htmlFor="" className="text-blue-700">
             Thời gian vay
           </label>
-          <p>{mortgageDetail?.han_vay}</p>
+          <p>{mortgageDetail?.han_vay} ngày</p>
+        </div>
+        <div className="mt-2">
+          <label htmlFor="" className="text-blue-700">
+            Phí dịch vụ
+          </label>
+          <p><FomatNumber number={mortgageDetail?.phi_dv}/></p>
         </div>
         <div className="mt-2">
           <label htmlFor="" className="text-blue-700">

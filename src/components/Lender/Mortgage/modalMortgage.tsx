@@ -69,7 +69,6 @@ const modalMortgage = ({
   const dateFormat = 'DD/MM/YYYY';
 
   const onFinish = (data: any) => {
-
     data.hinh_anh = data.avatarList?.fileList;
     delete data?.avatarList;
     if (data.hinh_anh) {

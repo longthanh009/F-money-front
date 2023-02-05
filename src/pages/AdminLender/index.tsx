@@ -76,7 +76,6 @@ const AdminLender = () => {
         setType(parseInt(e))
     }
     const onFinish = async (values: any) => {
-        console.log(values);
 
         values.imagePrev = values.avatarList?.fileList;
         values.imageBack = values.avatarList2?.fileList;
@@ -166,12 +165,12 @@ const AdminLender = () => {
         }
     }
     const columns: ColumnsType<ColumnsType> = [
-        {
-            title: <div className="actions-user">
-                <button className='text-red-600 text-lg' onClick={HandlerOnRemoveMany}><AiFillDelete /></button>
-            </div>,
-            render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)} />
-        },
+        // {
+        //     title: <div className="actions-user">
+        //         <button className='text-red-600 text-lg' onClick={HandlerOnRemoveMany}><AiFillDelete /></button>
+        //     </div>,
+        //     render: (text, object, index) => <input type="checkbox" value={text._id} onChange={(e) => HandlerOngetMany(e)} />
+        // },
         {
             title: "STT",
             dataIndex: "index",
@@ -296,7 +295,7 @@ const AdminLender = () => {
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
-                    <Table columns={columns} dataSource={customers} />
+                    <Table columns={columns} dataSource={customers}  pagination={{ defaultPageSize: 5}}/>
                 </div>
             </div>
             <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
