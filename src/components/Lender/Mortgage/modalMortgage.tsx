@@ -127,7 +127,7 @@ const modalMortgage = ({
                   },
                 ]}
               >
-                <Input placeholder="Nguyễn Văn A" style={{ width: "100%" }} />
+                <Input placeholder="Mã KH" style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -159,7 +159,7 @@ const modalMortgage = ({
                   },
                 ]}
               >
-                <Input />
+                <Input placeholder="Tên Khách Hàng"/>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -175,7 +175,7 @@ const modalMortgage = ({
                   },
                 ]}
               >
-                <Input style={{ width: "100%" }} />
+                <Input style={{ width: "100%" }} placeholder="Mã hóa đơn"/>
               </Form.Item>
             </Col>
           </Row>
@@ -192,7 +192,7 @@ const modalMortgage = ({
                 }
                 ]}
               >
-                <Input />
+                <Input placeholder="CCCD/CMND"/>
               </Form.Item>
             </Col>
 
@@ -218,7 +218,7 @@ const modalMortgage = ({
             label="Địa Chỉ"
             rules={[{ required: true, message: "Không để trống" }]}
           >
-            <TextArea name="feature" />
+            <TextArea name="feature" placeholder="Địa chỉ (Vui lòng nhập chi tiết)"/>
           </Form.Item>
           {/* Row 4 */}
           <Row gutter={16}>
@@ -229,7 +229,7 @@ const modalMortgage = ({
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <Input style={{ width: "100%" }} />
+                <Input style={{ width: "100%" }} placeholder="Tài sản tín chấp"/>
               </Form.Item>
             </Col>
 
@@ -244,7 +244,7 @@ const modalMortgage = ({
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
-                  style={{ width: "100%" }}
+                  style={{ width: "100%" }} placeholder="Tiền vay"
                 />
               </Form.Item>
             </Col>
@@ -258,7 +258,7 @@ const modalMortgage = ({
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }} placeholder="Hạn vay"/> 
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -268,7 +268,7 @@ const modalMortgage = ({
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }} placeholder="Lãi Xuất" />
               </Form.Item>
             </Col>
           </Row>
