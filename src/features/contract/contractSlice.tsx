@@ -134,7 +134,7 @@ const contractSlive = createSlice({
     });
     builder.addCase(statusContrats.fulfilled, (state: any, action: any) => {
       state.value = state.value.map((item: any) =>
-        item._id === action.payload._id ? action.payload : item
+        item._id == action.payload._id ? action.payload : item
       );
     });
   },

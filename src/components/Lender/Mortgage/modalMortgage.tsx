@@ -58,11 +58,13 @@ const modalMortgage = ({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm<any>();
+  const dateFormat = 'DD/MM/YYYY';
+
   const onFinish = (data: any) => {
     if (data) {
+      data.ngay_vay = new Date(data.date._d).getTime();
       dispatch(addMortgage(data));
       setIsModalOpen(false);
-
       Swal.fire({
         icon: "success",
         title: "Thành Công",
@@ -95,6 +97,36 @@ const modalMortgage = ({
           form={form}
         >
           {/* Row 1 */}
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="Mã Khách Hàng"
+                name="ma_khach_hang"
+                rules={[
+                  {
+                    min: 5,
+                    max: 20,
+                  },
+                ]}
+              >
+                <Input placeholder="Nguyễn Văn A" style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="date"
+                label="Ngày vay"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không để trống",
+                  },
+                ]}
+              >
+                <DatePicker format={dateFormat} />
+              </Form.Item>
+            </Col>
+          </Row>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
