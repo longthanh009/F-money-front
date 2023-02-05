@@ -8,11 +8,15 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom';
 import { AddressValue } from '../../ultils/address';
+import ImageUpload from '../../components/upload';
+import ImageUpload2 from '../../components/upload/upload2';
 
 const Option = Select;
 const { RangePicker } = DatePicker;
 
 const SignupPage = () => {
+    const [image1, setImage1] = useState<any[]>([]);
+    const [image2, setImage2] = useState<any[]>([]);
     const [type, setType] = useState(1)
     //checked đồng ý điều khoản
     const [checked, setChecked] = useState(false)
@@ -34,6 +38,17 @@ const SignupPage = () => {
 
     //onFinish kiểm tra đăng ký và thêm dữ liệu
     const onFinish = (values: any) => {
+        values.imagePrev = values.avatarList?.fileList;
+        values.imageBack = values.avatarList2?.fileList;
+        delete values?.avatarList;
+        delete values?.avatarList2;
+        if (values.imagePrev) {
+            values.imagePrev = values.imagePrev[0].url
+        }
+        if (values.imageBack) {
+            values.imageBack = values.imageBack[0].url
+        }
+        console.log(values);
 
         //kiểm tra mật khẩu đã khớp chưa
         if (values.password === values.repassword) {
@@ -48,9 +63,9 @@ const SignupPage = () => {
                             title: 'Đăng Ký Thành Công',
                             text: 'Vui lòng đăng nhập',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1000
                         })
-                        setTimeout(() => { navigate('/signin') }, 2000)
+                        setTimeout(() => { navigate('/signin') }, 1500)
                     })
                     //kiểm tra các trường giữ liệu có tồn tại chưa
                     .catch(({ response }) =>
@@ -187,41 +202,32 @@ const SignupPage = () => {
                                     <>
                                         <Form.Item
                                             name="CCCD"
-                                            rules={[{ required: true, message: 'Vui lòng nhập cccd' }]}
+                                            rules={[{ required: true, message: 'Vui lòng nhập CMND/CCCD' },
+                                            {
+                                                pattern: new RegExp(/[0-9]{9}/g),
+                                                message: "Số CMND/CCCD không đúng định dạng!"
+                                            }
+                                        ]}
                                         >
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
+                                        <p></p>
+                                        <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
 
+                                        <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 10 }}>
+                                            <Space direction="vertical" style={{ width: '50%', padding: 5 }} size="large">
+                                                <ImageUpload imageList={image1} key={1} limit={1} />
+                                            </Space>
+
+                                            <Space direction="vertical" style={{ width: '50%', padding: 5 }} size="large">
+                                                <ImageUpload2 imageList={image2} key={1} limit={1} />
+                                            </Space>
+                                        </div>
+                                        <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Bạn được sử dụng miễn phí 7 ngày / Sau 7 ngày phí đăng kí tài khoản là:</p>
                                         <Form.Item
-                                            name="money" display>
+                                            name="money" >
                                             <Input placeholder="1.000.000 VNĐ" disabled />
                                         </Form.Item>
-
-                                        <p></p>
-                                        {/* <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p> */}
-
-                                        {/* <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 20 }}>
-                                            <Space direction="vertical" style={{ width: '49%', padding: 5 }} size="large">
-                                                <Upload
-                                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                                    listType="picture"
-                                                    maxCount={1}
-                                                >
-                                                    <Button icon={<UploadOutlined />}>Upload (Mặt trước)</Button>
-                                                </Upload>
-                                            </Space>
-
-                                            <Space direction="vertical" style={{ width: '49%', padding: 5 }} size="large">
-                                                <Upload
-                                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                                    listType="picture"
-                                                    maxCount={1}
-                                                    multiple
-                                                >
-                                                    <Button icon={<UploadOutlined />}>Upload (Mặt sau)</Button>
-                                                </Upload>
-                                            </Space>
-                                        </div> */}
                                     </>
                                 ) : null
                             }

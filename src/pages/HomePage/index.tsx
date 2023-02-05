@@ -12,7 +12,7 @@ const index = () => {
   const [random, setRandom] = useState<number>();
   
   return (
-    < div>
+    <div className="w-full">
       {/**Banner */}
       <Banner />
       <Service />
