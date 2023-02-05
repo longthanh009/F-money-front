@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react'
 import {
   Button,
   Calendar,
@@ -14,6 +14,8 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addContract } from "../../../features/contract/contractSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import ImageUpload from '../../../components/upload/image_hopDong';
+import { Space, Upload } from 'antd';
 import { formatDate } from "../../../ultils/formatDate";
 import dayjs from 'dayjs';
 const formItemLayout = {
@@ -46,6 +48,7 @@ interface formAddInstallment {
   idCard: number;
   address: number;
   loan: number;
+  hinh_anh: String;
   PayCustom: number;
   BorrWithin: number;
   closinDate: number;
@@ -60,9 +63,20 @@ const ModalInstallmentAdd = ({
   const { TextArea } = Input;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [image1, setImage1] = useState<any[]>([]);
   const [form] = Form.useForm<any>();
   const dateFormat = 'DD/MM/YYYY';
   const onFinish = (data: any) => {
+
+    data.hinh_anh = data.avatarList?.fileList;
+    delete data?.avatarList;
+    if (data.hinh_anh) {
+      data.hinh_anh = data.hinh_anh[0].url
+    }
+
+    console.log(data);
+
+
     if (data) {
       data.ngay_vay = new Date(data.date._d).getTime();
       dispatch(addContract(data));
@@ -85,7 +99,7 @@ const ModalInstallmentAdd = ({
   return (
     <div>
       <Modal
-        title="Thêm Mới Hợp Đồng"
+        title="Thêm Mới Hợp Đồng Trả Góp"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -111,7 +125,7 @@ const ModalInstallmentAdd = ({
                   },
                 ]}
               >
-                <Input placeholder="Nguyễn Văn A" style={{ width: "100%" }} />
+                <Input placeholder="Mã KH" style={{ width: "100%" }} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -169,15 +183,14 @@ const ModalInstallmentAdd = ({
               <Form.Item
                 name="cccd"
                 label="CMND/CCCD"
-                labelCol={{ span: 24 }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Không để trống, 12 ký tự",
-                  },
+                rules={[{ required: true, message: 'Vui lòng nhập CMND/CCCD' },
+                {
+                  pattern: new RegExp(/[0-9]{9}/g),
+                  message: "Số CMND/CCCD không đúng định dạng!"
+                }
                 ]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <Input placeholder="CCCD/CMND" />
               </Form.Item>
             </Col>
 
@@ -185,15 +198,14 @@ const ModalInstallmentAdd = ({
               <Form.Item
                 name="dien_thoai"
                 label="Số Điện Thoại"
-                rules={[
-                  { required: true, message: "Vui lòng nhập số điện thoại" },
-                  {
-                    pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
-                    message: "Số điện thoại không đúng định dạng!",
-                  },
-                ]}
+                rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
+                {
+                  pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                  message: "Số điện thoại không đúng định dạng!"
+                }]
+                }
               >
-                <Input />
+                <Input placeholder="Số điện thoại" />
               </Form.Item>
             </Col>
           </Row>
@@ -210,7 +222,7 @@ const ModalInstallmentAdd = ({
               },
             ]}
           >
-            <TextArea placeholder="..." style={{ width: "100%" }} />
+            <TextArea placeholder="Địa chỉ (Vui lòng nhập chi tiết)" style={{ width: "100%" }} />
           </Form.Item>
           <Row gutter={16}>
             <Col span={12}>
@@ -221,6 +233,7 @@ const ModalInstallmentAdd = ({
                 rules={[{ required: true, message: "Không để trống" }]}
               >
                 <InputNumber
+                placeholder="Tiền đưa khách"
                   formatter={(value) =>
                     `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                   }
@@ -241,10 +254,11 @@ const ModalInstallmentAdd = ({
                   },
                 ]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }} placeholder="Lãi Xuất" />
               </Form.Item>
             </Col>
           </Row>
+
           {/* Row 5 */}
           <Row gutter={16}>
             <Col span={12}>
@@ -254,7 +268,7 @@ const ModalInstallmentAdd = ({
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }} placeholder="Hạn Vay" />
               </Form.Item>
             </Col>
 
@@ -265,10 +279,17 @@ const ModalInstallmentAdd = ({
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }} placeholder="Số ngày đóng 1 lần"/>
               </Form.Item>
             </Col>
           </Row>
+          <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh Hợp đồng</p>
+
+          <div style={{ width: 'auto', display: 'flex', textAlign: 'center', marginBottom: 10 }}>
+            <Space direction="vertical" style={{ width: '100%', padding: 5 }} size="large">
+              <ImageUpload imageList={image1} key={1} limit={1} />
+            </Space>
+          </div>
           {/* Row thời gian */}
 
           {/* <Form.Item
