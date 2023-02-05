@@ -35,10 +35,7 @@ const accountClient = () => {
             ...data,
             birthDay: moment(data?.birthDay)
         })
-
     }, [])
-
-
     const onFinish = (values: any) => {
         values._id = id
         if (values.password === values.repassword) {
@@ -75,7 +72,13 @@ const accountClient = () => {
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         form={form}
-                    >
+                    >   
+                    Mã khách hàng: <Form.Item
+                            name="code"
+                            rules={[]}
+                        >
+                            <Input disabled/>
+                        </Form.Item>
                         Họ và Tên: <Form.Item
                             name="name"
                             rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}

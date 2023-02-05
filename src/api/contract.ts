@@ -20,6 +20,10 @@ export const getContracts = () => {
   const url = `contracts`;
   return intance.get(url, header);
 };
+export const getContractUser = () => {
+  const url = `/user-contracts`;
+  return intance.get(url, header);
+};
 export const getContractDetail = (id: any) => {
   const url = `contract/${id}`;
   return intance.get(url, header);
