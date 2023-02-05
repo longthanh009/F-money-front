@@ -26,8 +26,8 @@ const ImageUpload2 = (props: Props) => {
   )
   const dummyrequest = async (options: any) => {
     const { file, onSuccess, onError, onProgress } = options;
-    const url = "https://api.cloudinary.com/v1_1/asm-ph13269/image/upload";
-    const preset = "m1lkf3uy";
+    const url = "https://api.cloudinary.com/v1_1/df4kjrav4/image/upload";
+    const preset = "ha9jmrbt";
     const formData = new FormData();
     formData.append("upload_preset", preset);
     formData.append("file", file);

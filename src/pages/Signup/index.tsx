@@ -202,13 +202,15 @@ const SignupPage = () => {
                                     <>
                                         <Form.Item
                                             name="CCCD"
-                                            rules={[{ required: true, message: 'Vui lòng nhập cccd' }]}
+                                            rules={[{ required: true, message: 'Vui lòng nhập CMND/CCCD' },
+                                            {
+                                                pattern: new RegExp(/[0-9]{9}/g),
+                                                message: "Số CMND/CCCD không đúng định dạng!"
+                                            }
+                                        ]}
                                         >
                                             <Input placeholder="CCCD" />
                                         </Form.Item>
-
-
-
                                         <p></p>
                                         <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
 
