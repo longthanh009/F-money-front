@@ -35,6 +35,10 @@ export const getContractsMgDate = (formdate: any, todate: any) => {
   const url = `contractMortgage?formdate=${formdate}&todate=${todate}`;
   return intance.get(url, header);
 };
+export const putContractsMgDate = (id : any) => {
+  const url = `contractMortgage/${id}`;
+  return intance.patch(url, {},header);
+};
 export const turnoverContractMgMonth = (params: any) => {
   const url = `/contractMortgage-static?year=${params}`;
   return intance.get(url, header);

@@ -5,6 +5,7 @@ import {
   getContractsMgDate,
   getDetailMortgage,
   getMortgage,
+  putContractsMgDate,
 } from "../../api/mortgage";
 import { IMortgageType } from "../../types/mortgage";
 
@@ -30,7 +31,13 @@ export const listMortgage = createAsyncThunk(
     return data;
   }
 );
-
+export const putMortgage = createAsyncThunk(
+  "mortgage/putMortgage",
+  async (id : any) => {
+    const { data } = await putContractsMgDate(id);
+    return data;
+  }
+);
 export const listDetailMortgage = createAsyncThunk(
   "mortgage/listDetailMortgage",
   async (prams: IMortgageType) => {
@@ -51,7 +58,6 @@ export const deleteMany = createAsyncThunk(
   async (params: any) => {
     console.log(params);
     const { data } = await deletelManyContract(params);
-    console.log(data);
     return data;
   }
 );
@@ -102,9 +108,15 @@ const mortgageSlive = createSlice({
     builder.addCase(addMortgage.fulfilled, (state, action) => {
       state.value.unshift(action.payload);
     });
+    builder.addCase(putMortgage.fulfilled, (state: any, action: any) => {
+      state.value = state.value.map((item: any) =>
+        item._id == action.payload._id ? action.payload : item
+      );
+    })
     builder.addCase(getContractMgDate.fulfilled, (state: any, action: any) => {      
       state.value = action.payload;
     });
+    
   },
 });
 export const {

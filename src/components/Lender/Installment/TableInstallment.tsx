@@ -132,14 +132,14 @@ function TableInstallment() {
             {/* Table header */}
             <thead className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm">
               <tr>
-                <th>
+                {/* <th>
                   <button
                     className="btn btn-danger"
                     onClick={HandlerOnRemoveMany}
                   >
                     <AiFillDelete style={style} />
                   </button>
-                </th>
+                </th> */}
                 <th className="p-2">
                   <div className="font-semibold text-left">STT</div>
                 </th>
@@ -194,13 +194,13 @@ function TableInstallment() {
               {currentTodos?.map((item: any, index) => {
                 return (
                   <tr key={index}>
-                    <td className="pr-2">
+                    {/* <td className="pr-2">
                       <input
                         type="checkbox"
                         value={item._id}
                         onChange={(e) => HandlerOngetMany(e)}
                       />
-                    </td>
+                    </td> */}
                     <td className="p-2">
                       <div className="flex items-center">
                         <div className="text-slate-800">{index + 1}</div>

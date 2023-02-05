@@ -34,7 +34,7 @@ const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
               <label htmlFor="" className="text-base text-rose-400 text-[14px]">
                 Ngày vay
               </label>
-              <p>{formatDate(contractDetaill?.createdAt)}</p>
+              <p>{formatDate(contractDetaill?.ngay_vay)}</p>
             </div>
             <div>
               <label htmlFor="" className="text-base text-rose-400 text-[14px]">
