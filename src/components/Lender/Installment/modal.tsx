@@ -14,7 +14,8 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { addContract } from "../../../features/contract/contractSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import { formatDate } from "../../../ultils/formatDate";
+import dayjs from 'dayjs';
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -60,9 +61,10 @@ const ModalInstallmentAdd = ({
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [form] = Form.useForm<any>();
-
+  const dateFormat = 'DD/MM/YYYY';
   const onFinish = (data: any) => {
     if (data) {
+      data.ngay_vay = new Date(data.date._d).getTime();
       dispatch(addContract(data));
       setIsModalOpen(false);
       Swal.fire({
@@ -100,7 +102,37 @@ const ModalInstallmentAdd = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Tên khách hàng"
+                label="Mã Khách Hàng"
+                name="ma_khach_hang"
+                rules={[
+                  {
+                    min: 5,
+                    max: 20,
+                  },
+                ]}
+              >
+                <Input placeholder="Nguyễn Văn A" style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="date"
+                label="Ngày vay"
+                rules={[
+                  {
+                    required: true,
+                    message: "Không để trống",
+                  },
+                ]}
+              >
+                <DatePicker format={dateFormat} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="Tên Khách Hàng"
                 name="ten_khach_hang"
                 rules={[
                   {
@@ -117,7 +149,7 @@ const ModalInstallmentAdd = ({
             <Col span={12}>
               <Form.Item
                 name="ma_hd"
-                label="MÃ Hóa Đơn"
+                label="Mã Hóa Đơn"
                 rules={[
                   {
                     required: true,
