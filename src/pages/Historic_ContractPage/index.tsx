@@ -6,6 +6,7 @@ import { Input, Button, Tooltip } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { getContractUser } from '../../api/contract';
 import FomatNumber from '../../components/FomatNumber/fomatNumber';
+import { IoIosCheckmark } from "react-icons/io";
 const Historic_ContractPage = () => {
     const [cccd, setCccd] = useState(null)
     console.log(cccd)
@@ -51,6 +52,9 @@ const Historic_ContractPage = () => {
                             <th className="px-16 py-2">
                                 <span className="text-gray-300">Hạn Trả</span>
                             </th>
+                            <th className="px-16 py-2">
+                                <span className="text-gray-300">Hợp đồng</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="bg-gray-200">
@@ -80,11 +84,15 @@ const Historic_ContractPage = () => {
                                         <div className='flex'><p className="ml-2 font-semibold pr-2">Vay trong</p> <p>{item.han_vay} ngày</p></div>
                                         <div className='flex'><p className="ml-2 font-semibold pr-2">Hạn vay </p> <p>{formatDate(item.han_hd)}</p></div>
                                     </td>
-                                    <td className="px-16 py-2">
+                                    <td className="p-2">
                                         {item.han_thanh_toan.map((tx : any) =>(
-                                            <div className='flex'><p className="ml-2 font-semibold pr-2">{formatDate(tx.ngay)}</p> <p><FomatNumber number={tx.tien}/></p>  <p>{tx.status ? "Hoàn tất" : "Chưa đóng"}</p></div>
+                                            <div className='flex'><p className="ml-2 font-semibold pr-2">{formatDate(tx.ngay)}</p><p><FomatNumber number={tx.tien}/></p>
+                                            <br />
+                                            <p>{tx.trang_thai == true ? <IoIosCheckmark/> : "Chưa đóng"}</p></div>
                                         ))}
-                                        
+                                    </td>
+                                    <td className="p-2">
+                                        <img src={item.hinh_anh} alt="" width='150px'/>
                                     </td>
                                 </tr>
                                 {/* <tr className="bg-white border-4 border-gray-200">

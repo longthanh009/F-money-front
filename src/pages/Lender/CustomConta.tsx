@@ -82,10 +82,6 @@ const CustomConta = () => {
                   <th className="p-2">
                     <div className="font-semibold text-center">Ghi chú</div>
                   </th>
-
-                  <th className="p-2">
-                    <div className="font-semibold text-center">Trạng thái</div>
-                  </th>
                 </tr>
               </thead>
               {/* Table body */}
@@ -118,11 +114,6 @@ const CustomConta = () => {
                       <td className="p-2">
                         <div className="text-center text-gray-600">
                           {item.ghi_chu}
-                        </div>
-                      </td>
-                      <td className="p-2">
-                        <div className="text-center text-gray-600">
-                          Trạng Thái
                         </div>
                       </td>
                     </tr>
