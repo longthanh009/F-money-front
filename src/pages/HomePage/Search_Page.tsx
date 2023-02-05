@@ -2,7 +2,7 @@ import { Button, Modal, Select, Input, Col, Row, } from 'antd';
 import React, { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 const { Search } = Input;
-const onSearch = (value:any) => console.log(value);
+const onSearch = (value: any) => console.log(value);
 import { Table } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import useLender from './../../hook/usersHomePage';
@@ -39,7 +39,7 @@ const App: React.FC = () => {
     const data = DataType?.data.users.filter((item: any) => item.role == "1")
 
     console.log(data);
-    
+
     // Convert địa chị thành mảng
     let dataFilterWait = data?.map((item: any) =>
         item.address
@@ -56,7 +56,7 @@ const App: React.FC = () => {
 
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [dataTable, setDataTable] = useState<any[]>([]);
-    const filteredOptions = dataFilter.filter((item:any) => !selectedItems.includes(item));
+    const filteredOptions = dataFilter.filter((item: any) => !selectedItems.includes(item));
 
     const columns: ColumnsType<DataType> = [
         {
@@ -153,18 +153,11 @@ const App: React.FC = () => {
             ) : (
                 <Modal className='' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width="1000px">
                     <div className='text-center'>
-                        <h1 className='text-3xl p-2 font-bold'>Cảm ơn bạn đã ghé thăm F-money</h1>
+                        <h1 className='text-3xl p-2 font-bold text-orange-600'>Cảm ơn bạn đã ghé thăm F-money</h1>
                         <hr />
-                        <p className='text-xl p-2'>Vui Lòng Đăng nhập để có thể tìm kiếm các nhà cho vay vốn uy tín gần bạn</p>
-                        <div className="flex ">
-                            <div className=" mx-auto button w-32 h-8 bg-orange-500  cursor-pointer select-none hover:translate-y-2  hover:[box-shadow:0_0px_0_0_#1b6ff8,0_0px_0_0_#1b70f841] active:border-b-[0px] transition-all duration-150 [box-shadow:0_4px_0_0_#1b6ff8,0_10px_0_0_#1b70f841] rounded-full  border-[1px] border-orange-400">
-                                <Link to="/signin">
-                                    <span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">
-                                        Đăng nhập
-                                    </span>
-                                </Link>
-                            </div>
-                        </div>
+                        <p className='text-xl p-2'>Chúng tôi hiện tại chỉ cung cấp dịch vụ này dành cho các khách hàng đăng nhập tài khoản!</p>
+                        <p className='text-base'> Vui lòng <Link to="/signin">Đăng Nhập </Link>! <br /> (Hoặc <Link to="/signin"> Đăng ký </Link> tài khoản)</p>
+                       
                     </div>
                 </Modal>
             )}
