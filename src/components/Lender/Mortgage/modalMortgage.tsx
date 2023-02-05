@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react'
 import {
   Button,
   Col,
@@ -13,6 +13,11 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useNavigate } from "react-router-dom";
 import { addMortgage } from "../../../features/mortgage/mortgage";
 import Swal from "sweetalert2";
+import ImageUpload from '../../../components/upload/image_hopDong';
+import { Space, Upload } from 'antd';
+
+
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -42,11 +47,13 @@ interface formAddInstallment {
   phone: number;
   idCard: number;
   address: number;
+  hinh_anh: String;
   loan: number;
   PayCustom: number;
   BorrWithin: number;
   closinDate: number;
   desc: number;
+
 }
 const modalMortgage = ({
   isModalOpen,
@@ -57,8 +64,19 @@ const modalMortgage = ({
   const { TextArea } = Input;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [image1, setImage1] = useState<any[]>([]);
   const [form] = Form.useForm<any>();
   const onFinish = (data: any) => {
+
+    data.hinh_anh = data.avatarList?.fileList;
+    delete data?.avatarList;
+    if (data.hinh_anh) {
+      data.hinh_anh = data.hinh_anh[0].url
+    }
+
+    console.log(data);
+
+
     if (data) {
       dispatch(addMortgage(data));
       setIsModalOpen(false);
@@ -135,10 +153,14 @@ const modalMortgage = ({
               <Form.Item
                 name="cccd"
                 label="CMND/CCCD"
-                labelCol={{ span: 24 }}
-                rules={[{ required: true, message: "Không để trống" }]}
+                rules={[{ required: true, message: 'Vui lòng nhập CMND/CCCD' },
+                {
+                  pattern: new RegExp(/[0-9]{9}/g),
+                  message: "Số CMND/CCCD không đúng định dạng!"
+                }
+                ]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <Input />
               </Form.Item>
             </Col>
 
@@ -146,16 +168,14 @@ const modalMortgage = ({
               <Form.Item
                 name="dien_thoai"
                 label="Số Điện Thoại"
-                labelCol={{ span: 24 }}
-                rules={[
-                  { required: true, message: "Vui lòng nhập số điện thoại" },
-                  {
-                    pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
-                    message: "Số điện thoại không đúng định dạng!",
-                  },
-                ]}
+                rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
+                {
+                  pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                  message: "Số điện thoại không đúng định dạng!"
+                }]
+                }
               >
-                <InputNumber style={{ width: "100%" }} />
+                <Input placeholder="Số điện thoại" />
               </Form.Item>
             </Col>
           </Row>
@@ -209,7 +229,6 @@ const modalMortgage = ({
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Col>
-
             <Col span={12}>
               <Form.Item
                 name="phi_dv"
@@ -221,6 +240,13 @@ const modalMortgage = ({
               </Form.Item>
             </Col>
           </Row>
+          <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh Hợp đồng</p>
+
+          <div style={{ width: 'auto', display: 'flex', textAlign: 'center', marginBottom: 10 }}>
+            <Space direction="vertical" style={{ width: '100%', padding: 5 }} size="large">
+              <ImageUpload imageList={image1} key={1} limit={1} />
+            </Space>
+          </div>
           {/* Row 5 */}
           {/* Row 7 */}
           <Form.Item
