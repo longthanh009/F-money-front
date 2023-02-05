@@ -20,3 +20,7 @@ export const getSp = () => {
   const url = `sendSupport`;
   return intance.get(url,header);
 };
+export const updateSp = (id :any) => {
+  const url = `sendSupport/${id}`;
+  return intance.patch(url,header);
+};
