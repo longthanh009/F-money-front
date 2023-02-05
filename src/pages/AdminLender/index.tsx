@@ -10,6 +10,9 @@ import { ColumnsType } from 'antd/lib/table';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { formatDate } from '../../ultils/formatDate';
 import type { FormInstance } from 'antd/es/form';
+import ImageUpload from '../../components/upload';
+import ImageUpload2 from '../../components/upload/upload2';
+import { AddressValue } from '../../ultils/address';
 
 const AdminLender = () => {
     interface customerType {
@@ -28,6 +31,9 @@ const AdminLender = () => {
     const customers: customerType[] = useAppSelector(state => state.customer.values)
 
     const [userDetail, setUserDetail] = useState<customerType>()
+
+    const [image1, setImage1] = useState<any[]>([]);
+    const [image2, setImage2] = useState<any[]>([]);
 
     const check = useAppSelector(state => state.customer.check)
     const [user, setUser] = useState<any>();
@@ -66,7 +72,23 @@ const AdminLender = () => {
             dispatch(sortRoleCustomer(parseInt(event)))
         }
     }
+    const onChaneType = (e: any) => {
+        setType(parseInt(e))
+    }
     const onFinish = async (values: any) => {
+        console.log(values);
+
+        values.imagePrev = values.avatarList?.fileList;
+        values.imageBack = values.avatarList2?.fileList;
+        delete values?.avatarList;
+        delete values?.avatarList2;
+        if (values.imagePrev) {
+            values.imagePrev = values.imagePrev[0].url
+        }
+        if (values.imageBack) {
+            values.imageBack = values.imageBack[0].url
+        }
+
         const { payload } = await dispatch(newUser(values))
         if (payload.error) {
             Swal.fire({
@@ -289,7 +311,7 @@ const AdminLender = () => {
                                 name="name"
                                 label="Họ Tên" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
-                                <Input />
+                                <Input placeholder="Họ tên" />
                             </Form.Item>
                             <Form.Item
                                 initialValue={userDetail?.email}
@@ -299,43 +321,115 @@ const AdminLender = () => {
                                     type: 'email',
                                     message: 'Không đúng định dạng email',
                                 }]}>
-                                <Input />
+                                <Input placeholder="Email" />
                             </Form.Item>
                         </div>
-                        <Form.Item initialValue={userDetail?.address} name="address" label="Địa chỉ (Nơi ở)" className=''>
+
+
+                        {/* <Form.Item initialValue={userDetail?.address} name="address" label="Địa chỉ (Nơi ở)" className=''>
                             <TextArea rows={2} placeholder="" />
-                        </Form.Item>
-                        <Form.Item
-                            initialValue={userDetail?.username}
-                            name="username" label="Tên đăng nhập" className=''
-                            rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
-                            <Input />
-                        </Form.Item>
+                        </Form.Item> */}
+
                         <div className="flex space-x-[10px]">
+                            <Form.Item label="Địa chỉ"
+                                name="address" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng chọn địa chỉ' }]}
+                            >
+                                <Select placeholder="Tỉnh/Thành Phố">
+                                    {
+                                        AddressValue?.map((item: any) => (
+                                            <Option value={item.name}>{item.name}</Option>
+                                        ))
+                                    }
+                                </Select>
+                            </Form.Item>
+                            <Form.Item
+                                initialValue={userDetail?.phone}
+                                name="phone" label="Số điện thoại" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
+                                {
+                                    pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                                    message: "Số điện thoại không đúng định dạng!"
+                                }]
+                                }
+                            >
+                                <Input placeholder="Số điện thoại" />
+                            </Form.Item>
+                        </div>
+
+
+                        <div className="flex space-x-[10px]">
+                            <Form.Item
+                                initialValue={userDetail?.username}
+                                name="username" label="Tên đăng nhập" className='w-[50%]'
+                                rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
+                                <Input placeholder="Tên đăng nhập" />
+                            </Form.Item>
                             <Form.Item
                                 initialValue={userDetail?.password}
                                 name="password" label="Mật khẩu" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
-                                <Input />
+                                <Input placeholder="Mật khẩu" />
                             </Form.Item>
                         </div>
-                        <div className="flex space-x-[10px]">
+                        <div>
 
-                            <Form.Item
-                                initialValue={userDetail?.phone}
-                                name="phone" label="Số điện thoại" className='w-[40%]'
-                                rules={[{ required: true, message: 'Không bỏ trống số điện thoại' }, { max: 11, message: 'Nhập tối đa 11 ký tự số' }, { type: 'string', message: 'Vui lòng nhập ký tự số' }]}>
-                                <Input />
-                            </Form.Item>
-                            <Form.Item name="role" label="Vai trò" className='w-[100px]'
-                                rules={[{ required: true, message: 'Vui lòng chọn vai trò' }]}>
-                                <Select defaultValue={userDetail?.role}>
-                                    <Option value={-1}>Vai trò</Option>
-                                    <Option value={0}>Customer</Option>
-                                    <Option value={1}>Lender</Option>
-                                    <Option value={2}>Quản trị</Option>
+                            <Form.Item name="role" label="Vai trò" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
+                                <Select
+                                    placeholder="Vui lòng chọn đối tượng"
+                                    onChange={onChaneType}
+                                    allowClear
+                                >
+                                    <Option value="0">Customer</Option>
+                                    <Option value="1">Lender</Option>
+                                    <Option value="2">Admin</Option>
                                 </Select>
                             </Form.Item>
+                            <Form.Item
+                                noStyle
+                                shouldUpdate={(prevValues, currentValues) => prevValues.role !== currentValues.role}
+                            >
+                                {({ getFieldValue }) =>
+                                    getFieldValue('role') === '1' || getFieldValue('role') === '2' ? (
+                                        <>
+                                            <Form.Item label="CCCD/CMND"
+                                                name="CCCD"
+                                                rules={[{ required: true, message: 'Vui lòng nhập CMND/CCCD' },
+                                                {
+                                                    pattern: new RegExp(/[0-9]{9}/g),
+                                                    message: "Số CMND/CCCD không đúng định dạng!"
+                                                }
+                                                ]}
+                                            >
+                                                <Input placeholder="CCCD" />
+                                            </Form.Item>
+
+                                            <p></p>
+                                            <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Vui lòng tải lên hình ảnh CCCD/CMND</p>
+                                            <div style={{ width: '100%', display: 'flex', textAlign: 'center', marginBottom: 10 }}>
+                                                <Space direction="vertical" style={{ width: '50%', padding: 5 }} size="large">
+                                                    <ImageUpload imageList={image1} key={1} limit={1} />
+                                                </Space>
+
+                                                <Space direction="vertical" style={{ width: '50%', padding: 5 }} size="large">
+                                                    <ImageUpload2 imageList={image2} key={1} limit={1} />
+                                                </Space>
+                                            </div>
+
+
+
+                                            <p style={{ fontSize: "12px", fontStyle: "italic" }}>* Bạn được sử dụng miễn phí 7 ngày / Sau 7 ngày phí đăng kí tài khoản là:</p>
+                                            <Form.Item
+                                                name="money" >
+                                                <Input placeholder="1.000.000 VNĐ" disabled />
+                                            </Form.Item>
+
+                                        </>
+                                    ) : null
+                                }
+                            </Form.Item>
+
+
                             <Form.Item name="status" label="Trạng thái" className=''>
                                 <Select defaultValue={userDetail?.status}>
                                     <Option value={false}>Khoá</Option>
