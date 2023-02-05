@@ -28,7 +28,7 @@ function TableInstallment() {
   const check = useAppSelector((state) => state.contract.check);
   const [contractDetaill, setcontractDetaill] = useState<any>();
   const contracts = useAppSelector((state) => state.contract.value);
-  const [arrData , setArrData] = useState([])
+  const [arrData, setArrData] = useState([])
 
   const showModal = (record: any) => {
     setIsModalOpen(true);
@@ -42,15 +42,15 @@ function TableInstallment() {
     setIsModalOpen(false);
   };
   useEffect(() => {
-    (async()=>{
+    (async () => {
       dispatch(getContract());
       setArrData(contracts)
     })()
   }, []);
   useEffect(() => {
-      setArrData(contracts)
+    setArrData(contracts)
   }, [contracts]);
-  
+
   const [current, setCurrent] = useState(1);
   const onChange: PaginationProps['onChange'] = (page) => {
     setCurrent(page);
@@ -64,7 +64,7 @@ function TableInstallment() {
       dispatch(deleteContract(id));
     }
   };
-  const getcontract = async (id : any) => {
+  const getcontract = async (id: any) => {
     const { data } = await getContractDetail(id);
     setcontractDetaill(data);
   };
@@ -109,14 +109,14 @@ function TableInstallment() {
     }
   };
 
-  const handeCheckBok =async (e: any, id: any, date: any) => {
+  const handeCheckBok = (e: any, id: any, date: any) => {
     let checked = e?.target?.checked;
     let newData: any = {
       id: id,
       date: date,
       status: checked,
     };
-    await dispatch(statusContrats(newData));
+    dispatch(statusContrats(newData));
     // getcontracts();
   };
   const style = { color: "#dc2626", fontSize: "1.5em" };

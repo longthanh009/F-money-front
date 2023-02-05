@@ -1,5 +1,6 @@
 import React from "react";
 import { formatDate } from "../../../ultils/formatDate";
+import FomatNumber from "../../FomatNumber/fomatNumber";
 
 type Props = {
   mortgageDetail: any;
@@ -17,7 +18,7 @@ const ModalMortgageDetail = ({ mortgageDetail }: Props) => {
         </div>
         <div className="mt-2">
           <label htmlFor="" className="text-blue-700">
-            Mã Khách Hàng
+            Tên Khách Hàng
           </label>
           <p>{mortgageDetail?.ten_khach_hang}</p>
         </div>
@@ -45,7 +46,7 @@ const ModalMortgageDetail = ({ mortgageDetail }: Props) => {
           <label htmlFor="" className="text-blue-700">
             Khoản Vay
           </label>
-          <p>{mortgageDetail?.khoan_vay}</p>
+          <p><FomatNumber number={mortgageDetail?.khoan_vay}/></p>
         </div>
         <div className="mt-2">
           <label htmlFor="" className="text-blue-700">

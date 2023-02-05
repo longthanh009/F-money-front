@@ -171,7 +171,7 @@ function TableMortgage() {
                       <div className="text-center">{item.ma_hd}</div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-green-500">
+                      <div className="text-center">
                         {item.ten_khach_hang}
                       </div>
                     </td>
@@ -181,22 +181,22 @@ function TableMortgage() {
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center">
                         {item.thong_tin}
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center">
                         {item.han_vay}
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center">
                         {formatDate(item.createdAt)}
                       </div>
                     </td>
                     <td className="p-2">
-                      <div className="text-center text-sky-500">
+                      <div className="text-center text-orange-700">
                         {handeleStatus(item.status)}
                       </div>
                     </td>

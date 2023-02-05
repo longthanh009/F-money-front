@@ -26,7 +26,7 @@ const adminSp = createSlice({
       state.value = action.payload;
     });
     builder.addCase(updateSupport.fulfilled, (state: any, action: any) => {
-      state.value = state.value.map((item :any) => item._id === action.payload._id ? action.payload : item)
+      state.value = state.value.map((item :any) => item._id == action.payload._id ? action.payload : item)
     });
   },
 });

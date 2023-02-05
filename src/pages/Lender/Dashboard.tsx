@@ -22,6 +22,8 @@ function Dashboard() {
   const [dataCG, setDataCG] = useState<[]>([])
   const [dataPriceTC, setDataPriceTC] = useState<[]>([])
   const [dataPriceCG, setDataPriceCG] = useState<[]>([])
+  const [loiNhuanTC, setLoiNhuanTC] = useState<[]>([])
+  const [loiNhuanCG, setLoiNhuanCG] = useState<[]>([])
   const [chartYear, setChartYear] = useState(moment().format("YYYY"));
   const onChangeYearChart = (date: any, dateString: any) => {
     setChartYear(dateString);
@@ -122,6 +124,54 @@ function Dashboard() {
       }
     },
   }
+  let dataChartLN = {
+    series: [{
+      name: 'Tín chấp',
+      data: loiNhuanTC
+    }, {
+      name: 'Trả góp',
+      data: loiNhuanCG
+    }],
+    options: {
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          endingShape: 'rounded'
+        },
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+      },
+      yaxis: {
+        title: {
+          text: 'VND'
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (val: any) {
+            return val.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + " VND"
+          }
+        }
+      }
+    },
+  }
   useEffect(() => {
     const getDataaContract = async () => {
       const { data } = await turnoverContractMonth(chartYear)
@@ -130,14 +180,17 @@ function Dashboard() {
       setCoutHDCG(data.tong_sl)
       let arrData = []
       let arrPrice = []
+      let arrLNGC= []
       const coutData = data.data
       for (let index = 0; index < coutData.length; index++) {
         const element = coutData[index];
         arrData.push(element.so_luong_hd)
         arrPrice.push(element.tien_cho_vay)
+        arrLNGC.push(element.tien_lai)
       }
       setDataPriceCG(arrPrice)
       setDataCG(arrData)
+      setLoiNhuanCG(arrLNGC)
     }
     getDataaContract();
     const getDataaContractMg = async () => {
@@ -147,14 +200,18 @@ function Dashboard() {
       setCoutHDTC(data.tong_sl)
       let arrData = []
       let arrPrice = []
+      let arrLNCG= []
       const coutData = data.data
       for (let index = 0; index < coutData.length; index++) {
         const element = coutData[index];
         arrData.push(element.so_luong_hd)
         arrPrice.push(element.tien_cho_vay)
+        arrLNCG.push(element.tien_lai)
       }
       setDataPriceTC(arrPrice)
       setDataTC(arrData)
+      setCoutHDTC(arrLNGC)
+
     }
     getDataaContractMg();
   }, [chartYear])
@@ -183,16 +240,20 @@ function Dashboard() {
           <DashboardCard02  tinChap={coutHDTC} traGop={coutHDCG} title ="Tống Số Hợp Đồng"/>
         </div>
         <div className="grid grid-cols-2 gap-6">
-          <div id="chart" className="mt-[20px]">
-            <h2 className="text-center text-[16px]">Số lượng hợp đồng trong năm {chartYear}(Số lượng)</h2>
+          <div id="chart1" className="mt-[20px]">
             <ReactApexChart options={dataChart.options} series={dataChart.series} type="bar" height={350} />
+            <h2 className="text-center text-[16px]">Số lượng hợp đồng trong năm {chartYear}(Số lượng)</h2>
           </div>
-          <div id="chart" className="mt-[20px]">
-            <h2 className="text-center text-[16px]">Tiền cho vay trong năm {chartYear} (VND)</h2>
+          <div id="chart2" className="mt-[20px]">
             <ReactApexChart options={dataChartPrice.options} series={dataChartPrice.series} type="bar" height={350} />
+            <h2 className="text-center text-[16px]">Tiền cho vay trong năm {chartYear} (VND)</h2>
+
           </div>
         </div>
-
+        <div className="mt-[40px]">
+            <ReactApexChart options={dataChartLN.options} series={dataChartLN.series} type="bar" height={350} />
+        <h2 className="text-center text-[16px]">Tiền lợi nhuận từ cho vay trong năm {chartYear} (VND)</h2>
+        </div>
         {/* <DashboardCard05 tragop={tragop} tienlaiTraGop={tienlaiTraGop} /> */}
         {/* Table (Top Channels) */}
         {/* <DashboardCard06 /> */}
