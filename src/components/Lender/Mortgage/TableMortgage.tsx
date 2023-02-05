@@ -35,6 +35,9 @@ function TableMortgage() {
     dispatch(listMortgage());
     setArrData(mortgage)
   }, []);
+  useEffect(() => {
+    setArrData(mortgage)
+  }, [mortgage]);
   const [current, setCurrent] = useState(1);
   const onChange: PaginationProps['onChange'] = (page) => {
     setCurrent(page);

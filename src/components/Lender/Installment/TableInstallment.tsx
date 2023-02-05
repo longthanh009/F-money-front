@@ -43,12 +43,14 @@ function TableInstallment() {
   };
   useEffect(() => {
     (async()=>{
-      await dispatch(getContract());
-      await setArrData(contracts)
-      console.log("Contract",contracts);
-      
+      dispatch(getContract());
+      setArrData(contracts)
     })()
   }, []);
+  useEffect(() => {
+      setArrData(contracts)
+  }, [contracts]);
+  
   const [current, setCurrent] = useState(1);
   const onChange: PaginationProps['onChange'] = (page) => {
     setCurrent(page);
@@ -62,7 +64,6 @@ function TableInstallment() {
       dispatch(deleteContract(id));
     }
   };
-
   const getcontract = async (id : any) => {
     const { data } = await getContractDetail(id);
     setcontractDetaill(data);
@@ -70,7 +71,6 @@ function TableInstallment() {
   const handleClickModal = (id: any) => {
     getcontract(id)
     setIsModalOpen(true);
-
   };
   const handeleStatus = (trangThai: any) => {
     if (trangThai === 0) {
@@ -116,8 +116,6 @@ function TableInstallment() {
       date: date,
       status: checked,
     };
-    console.log("newData",newData);
-    
     await dispatch(statusContrats(newData));
     // getcontracts();
   };

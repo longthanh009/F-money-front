@@ -72,10 +72,7 @@ export const statusContrats = createAsyncThunk(
       date: objecData.date,
       status: objecData.status,
     };
-    console.log("obhjj",objecData);
-    
     const { data } = await checkPayMoney(objecData.id, objecNew);
-
     return data;
     
   }
@@ -94,7 +91,6 @@ const contractSlive = createSlice({
         item?.ten_khach_hang.toLowerCase().includes(name.toLowerCase())
       );
       state.value = newArr;
-      console.log({ newArr });
     },
     searchStatusContract: (state, action) => {
       const trangThai = action.payload;
@@ -130,7 +126,7 @@ const contractSlive = createSlice({
         (item: any) => item.id != action.payload
       );
     });
-    builder.addCase(getContractDate.fulfilled, (state: any, action: any) => {
+    builder.addCase(getContractDate.fulfilled, (state: any, action: any) => {      
       state.value = action.payload;
     });
     builder.addCase(getCmndLenderList.fulfilled, (state: any, action: any) => {

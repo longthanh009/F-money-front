@@ -12,15 +12,14 @@ function SearchInstallment() {
   const { RangePicker } = DatePicker;
   const dispatch = useAppDispatch();
   const searchRef = useRef<any>(null);
-
-  const handlerDate = async (e: any) => {
+  const handlerDate = (e: any) => {
     let tu_ngay = new Date(e[0]._d).getTime();
     let den_ngay = new Date(e[1]._d).getTime();
     let objFind = {
       formdate: tu_ngay,
       todate: den_ngay,
     };
-    await dispatch(getContractDate(objFind));
+    dispatch(getContractDate(objFind));
   };
   const searchName = (keyword: string) => {
     dispatch(getContract());
@@ -31,7 +30,6 @@ function SearchInstallment() {
       dispatch(searchNameContract(keyword));
     }, 1000);
   };
-
   const handleStatus = (e: any) => {
     dispatch(getContract());
     if (searchRef.current) {
