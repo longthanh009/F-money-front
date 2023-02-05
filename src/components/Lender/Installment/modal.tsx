@@ -61,15 +61,8 @@ const ModalInstallmentAdd = ({
   const dispatch = useAppDispatch();
   const [form] = Form.useForm<any>();
 
-  const idUserContracrt = () => {
-    const inforUser = useAppSelector(state => state.auth.inforUser)
-    const id = inforUser.id;
-    return id;
-  };
-
   const onFinish = (data: any) => {
     if (data) {
-      data.nguoi_tao_hd = idUserContracrt();
       dispatch(addContract(data));
       setIsModalOpen(false);
       Swal.fire({
@@ -79,7 +72,6 @@ const ModalInstallmentAdd = ({
         timer: 1500,
       });
       form.resetFields();
-      navigate("/lender/installment/index");
     } else {
       Swal.fire({
         icon: "error",

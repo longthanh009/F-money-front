@@ -23,7 +23,6 @@ import { PaginationProps } from "antd/es/pagination";
 
 function TableInstallment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [contractDetail, setContractDetail] = useState<any>("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const check = useAppSelector((state) => state.contract.check);
@@ -43,8 +42,12 @@ function TableInstallment() {
     setIsModalOpen(false);
   };
   useEffect(() => {
-    dispatch(getContract());
-    setArrData(contracts)
+    (async()=>{
+      await dispatch(getContract());
+      await setArrData(contracts)
+      console.log("Contract",contracts);
+      
+    })()
   }, []);
   const [current, setCurrent] = useState(1);
   const onChange: PaginationProps['onChange'] = (page) => {
@@ -60,21 +63,15 @@ function TableInstallment() {
     }
   };
 
-  const getcontracts = async () => {
-    const { data } = await getContractDetail(contractDetail);
-
+  const getcontract = async (id : any) => {
+    const { data } = await getContractDetail(id);
     setcontractDetaill(data);
   };
-
-  useEffect(() => {
-    getcontracts();
-  }, [contractDetail]);
-
   const handleClickModal = (id: any) => {
+    getcontract(id)
     setIsModalOpen(true);
-    setContractDetail(id);
-  };
 
+  };
   const handeleStatus = (trangThai: any) => {
     if (trangThai === 0) {
       return <div>Đang Vay</div>;
@@ -112,15 +109,17 @@ function TableInstallment() {
     }
   };
 
-  const handeCheckBok = (e: any, id: any, date: any) => {
+  const handeCheckBok =async (e: any, id: any, date: any) => {
     let checked = e?.target?.checked;
     let newData: any = {
       id: id,
       date: date,
       status: checked,
     };
-    dispatch(statusContrats(newData));
-    getcontracts();
+    console.log("newData",newData);
+    
+    await dispatch(statusContrats(newData));
+    // getcontracts();
   };
   const style = { color: "#dc2626", fontSize: "1.5em" };
   return (
@@ -298,7 +297,7 @@ function TableInstallment() {
           <div className="mt-[40px] text-right pr-[30px]">
             <Pagination current={current} onChange={onChange} total={contracts.length} />
           </div>
-          <Modal visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             <ModalInstallmentDetail
               contractDetaill={contractDetaill}
               handeCheckBok={handeCheckBok}
