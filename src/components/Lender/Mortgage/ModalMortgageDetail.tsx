@@ -1,12 +1,16 @@
 import React from "react";
 import { formatDate } from "../../../ultils/formatDate";
 import FomatNumber from "../../FomatNumber/fomatNumber";
+import { saveAs } from 'file-saver'
 
 type Props = {
   mortgageDetail: any;
 };
 
 const ModalMortgageDetail = ({ mortgageDetail }: Props) => {
+  const downloadImage = () => {
+    saveAs(mortgageDetail.hinh_anh, 'image.jpg') // Put your image url here.
+  }
   return (
     <div className="grid grid-cols-2">
       <div className="ml-5">
@@ -85,6 +89,10 @@ const ModalMortgageDetail = ({ mortgageDetail }: Props) => {
           <p>{mortgageDetail?.ghi_chu}</p>
         </div>
       </div>
+      <div>
+          <hr />
+          <button className="text-blue-700 mr-[5px]"  id="dowload" onClick={downloadImage}>Dowload hợp đồng &#8675;</button>
+        </div>
     </div>
   );
 };

@@ -2,13 +2,16 @@ import { Checkbox, Row } from "antd";
 import React from "react";
 import { formatDate } from "../../../ultils/formatDate";
 import FomatNumber from "../../FomatNumber/fomatNumber";
-
+import { saveAs } from 'file-saver'
 type Props = {
   contractDetaill: any;
   handeCheckBok: any;
 };
 
 const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
+  const downloadImage = () => {
+    saveAs(contractDetaill.hinh_anh, 'image.jpg') // Put your image url here.
+  }
   return (
     <div>
       <div>
@@ -123,6 +126,10 @@ const ModalInstallmentDetail = ({ contractDetaill, handeCheckBok }: Props) => {
             })}
           </tbody>
         </table>
+        <div>
+          <hr />
+          <button className="text-blue-700 mr-[5px]"  id="dowload" onClick={downloadImage}>Dowload hợp đồng &#8675;</button>
+        </div>
       </div>
     </div>
   );

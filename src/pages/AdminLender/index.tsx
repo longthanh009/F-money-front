@@ -31,7 +31,10 @@ const AdminLender = () => {
     const customers: customerType[] = useAppSelector(state => state.customer.values)
 
     const [idUser, setIdUser] = useState<any>()
-
+    const [newArr, setNewArr] = useState<any[]>([]);
+    const [newArr2, setNewArr2] = useState<any[]>([]);
+    const [stext, setStext] = useState<any>();
+    const [srole, setSrole] = useState<any>();
     const [image1, setImage1] = useState<any[]>([]);
     const [image2, setImage2] = useState<any[]>([]);
 
@@ -58,19 +61,28 @@ const AdminLender = () => {
     };
     useEffect(() => {
         dispatch(getAll())
+        setNewArr2(customers)
     }, [])
     const hanleSort = async (event: any) => {
-        if (parseInt(event) == 3) {
-            dispatch(getAll())
+        if (parseInt(event) < 3) {
+            setSrole(parseInt(event))
         } else {
-            dispatch(sortRoleCustomer(parseInt(event)))
+            setSrole(undefined)
         }
     }
-    // const onChaneType = (e: any) => {
-    //     setType(parseInt(e))
-    // }
+    useEffect(() => {
+        if (stext != undefined || srole != undefined) {
+            console.log("Vào đây");
+            const arr3 = customers.filter((item: any) =>
+                srole != undefined && stext != undefined ? (item.role === parseFloat(srole) && item.name.toLowerCase().includes(stext.toLowerCase())) : (item.role === parseFloat(srole) || item.name.toLowerCase().includes(stext.toLowerCase())))
+            setNewArr2(arr3)
+        }
+        if(stext == undefined && srole == undefined) {
+            const arr3 = customers.filter((item: any) => item)
+            setNewArr2(arr3)
+        }
+    }, [stext, srole, customers])
     const onFinish = async (values: any) => {
-        console.log(type);
         if (type == "update") {
             values._id = idUser
             values.imagePrev = values.avatarList?.fileList;
@@ -244,12 +256,18 @@ const AdminLender = () => {
         },
     ];
     const searchName = (keyword: string) => {
-        dispatch(getAll())
         if (searchRef.current) {
             clearTimeout(searchRef.current)
         };
         searchRef.current = setTimeout(() => {
-            dispatch(searchNameUser(keyword))
+            setStext(keyword)
+            // if (newArr2.length > 0) {
+            //     const newUsers = newArr2.filter((item: any) => item.name.toLowerCase().includes(keyword.toLowerCase()));
+            //     setNewArr(newUsers)
+            // } else {
+            //     const newUsers = customers.filter((item: any) => item.name.toLowerCase().includes(keyword.toLowerCase()));
+            //     setNewArr(newUsers)
+            // }
         }, 1000)
     };
     const hanlderSortStatus = async (e: any) => {
@@ -275,7 +293,7 @@ const AdminLender = () => {
                     </form>
                 </div>
                 <div className='search-select'>
-                    <Select
+                    {/* <Select
                         showSearch
                         style={{ width: 200 }}
                         placeholder="Trạng thái"
@@ -291,7 +309,7 @@ const AdminLender = () => {
                         <Option value="0">ALL</Option>
                         <Option value="true">Hoạt động</Option>
                         <Option value="false">Khoá</Option>
-                    </Select>
+                    </Select> */}
 
                 </div>
                 <div className="search-role">
@@ -318,7 +336,7 @@ const AdminLender = () => {
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
-                    <Table columns={columns} dataSource={customers} pagination={{ defaultPageSize: 5 }} />
+                    <Table columns={columns} dataSource={newArr2} pagination={{ defaultPageSize: 5 }} />
                 </div>
             </div>
             <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
