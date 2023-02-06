@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { listSp } from '../../features/adminSp/adminSpSlice';
 import { getContract } from '../../features/contract/contractSlice';
 import { getAll } from '../../features/customer/customerSlice';
 import { listMortgage } from '../../features/mortgage/mortgage';
@@ -10,6 +11,7 @@ const AdminDashboard = () => {
   const dispath =  useAppDispatch()
   const contracts = useAppSelector((state) => state.contract.value);
   const contractsMg = useAppSelector((state) => state.mortgage.value);
+  const supports = useAppSelector(state => state.adminSp.value)
   const [customer, setCustomer] = React.useState([])
   const [customers, setCustomers] = React.useState([])
   const [lender, setLender] = React.useState([])
@@ -23,6 +25,7 @@ const AdminDashboard = () => {
         setAdmin(payload.users.filter((user:any) => user.role == 2))
       }
     })
+    dispath(listSp())
     dispath(listMortgage())
     dispath(getContract())
   },[])
@@ -69,7 +72,7 @@ const AdminDashboard = () => {
             </div>
             <div className="text-right">
               <p className="text-2xl">{admin?.length}</p>
-              <p>Quản trị hệ thống</p>
+              <p>Tài khoản quản trị hệ thống</p>
             </div>
           </div>
         </div>
@@ -223,7 +226,6 @@ const AdminDashboard = () => {
               </div>
               <div className="block w-full">
                 <div className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Hôm nay
                 </div>
                 <ul className="my-1">
                   <li className="flex px-4">
@@ -237,7 +239,7 @@ const AdminDashboard = () => {
                           <a className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>Số lượt hỗ trợ</a>
                         </div>
                         <div className="self-center">
-                          {contracts.length}
+                          {supports.length}
                         </div>
                         <div className="flex-shrink-0 ml-2">
                           <a className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500" href="#0" style={{ outline: 'none' }}>
@@ -296,26 +298,10 @@ const AdminDashboard = () => {
                   </li>
                 </ul>
                 <div className="px-4 bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-100 align-middle border border-solid border-gray-200 dark:border-gray-500 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Hôm nay
                 </div>
                 <ul className="my-1">
                   <li className="flex px-4">
-                    <div className="w-9 h-9 rounded-full flex-shrink-0 bg-indigo-500 my-2 mr-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-9 h-9 text-indigo-50 p-1">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-
-                    </div>
-                    <div className="flex-grow flex items-center border-gray-100 text-sm text-gray-600 dark:text-gray-50 py-2">
-                      <div className="flex-grow flex justify-between items-center">
-                        <div className="self-center">
-                          <a className="text-xl font-bold font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100" href="#0" style={{ outline: 'none' }}>  Số Tiền Giải Ngân</a>
-                        </div>
-                        <div className="flex-shrink-0 ml-2 text-2xl font-semibold">
-                          30000 VNĐ
-                        </div>
-                      </div>
-                    </div>
+                    
                   </li>
                 </ul>
               </div>
