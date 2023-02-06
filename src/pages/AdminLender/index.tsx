@@ -13,7 +13,7 @@ import type { FormInstance } from 'antd/es/form';
 import ImageUpload from '../../components/upload';
 import ImageUpload2 from '../../components/upload/upload2';
 import { AddressValue } from '../../ultils/address';
-
+import { getUser } from "../../api/user"
 const AdminLender = () => {
     interface customerType {
         _id?: string,
@@ -30,13 +30,12 @@ const AdminLender = () => {
     const dispatch = useAppDispatch();
     const customers: customerType[] = useAppSelector(state => state.customer.values)
 
-    const [userDetail, setUserDetail] = useState<customerType>()
+    const [idUser, setIdUser] = useState<any>()
 
     const [image1, setImage1] = useState<any[]>([]);
     const [image2, setImage2] = useState<any[]>([]);
 
     const check = useAppSelector(state => state.customer.check)
-    const [user, setUser] = useState<any>();
     const [type, setType] = useState<any>("")
     const [title, setTitle] = useState<any>("")
     const [loading, setLoading] = useState(false);
@@ -52,15 +51,10 @@ const AdminLender = () => {
         setOpen(true)
         setType(type)
         setTitle(title)
-        if (type == "news") {
-            setUser(undefined)
-        }
     }
     const handleCancel = () => {
         setOpen(false);
-        setUser(undefined)
         form.resetFields();
-        setUserDetail({})
     };
     useEffect(() => {
         dispatch(getAll())
@@ -72,48 +66,77 @@ const AdminLender = () => {
             dispatch(sortRoleCustomer(parseInt(event)))
         }
     }
-    const onChaneType = (e: any) => {
-        setType(parseInt(e))
-    }
+    // const onChaneType = (e: any) => {
+    //     setType(parseInt(e))
+    // }
     const onFinish = async (values: any) => {
-
-        values.imagePrev = values.avatarList?.fileList;
-        values.imageBack = values.avatarList2?.fileList;
-        delete values?.avatarList;
-        delete values?.avatarList2;
-        if (values.imagePrev) {
-            values.imagePrev = values.imagePrev[0].url
-        }
-        if (values.imageBack) {
-            values.imageBack = values.imageBack[0].url
-        }
-
-        const { payload } = await dispatch(newUser(values))
-        if (payload.error) {
-            Swal.fire({
-                icon: 'error',
-                text: payload.error,
-                showConfirmButton: false,
-                timer: 1500
-            })
+        console.log(type);
+        if (type == "update") {
+            values._id = idUser
+            values.imagePrev = values.avatarList?.fileList;
+            values.imageBack = values.avatarList2?.fileList;
+            delete values?.avatarList;
+            delete values?.avatarList2;
+            if (values.imagePrev) {
+                values.imagePrev = values.imagePrev[0].url
+            }
+            if (values.imageBack) {
+                values.imageBack = values.imageBack[0].url
+            }
+            const { payload } = await dispatch(updateUse(values))
+            if (payload.error) {
+                Swal.fire({
+                    icon: 'error',
+                    text: payload.error,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                handleCancel();
+                Swal.fire({
+                    icon: 'success',
+                    text: "Cập nhật thành công",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                form.resetFields();
+            }
         } else {
-            handleCancel();
-            Swal.fire({
-                icon: 'success',
-                text: "Thêm mới thành công",
-                showConfirmButton: false,
-                timer: 1500
-            })
-            form.resetFields();
+            values.imagePrev = values.avatarList?.fileList;
+            values.imageBack = values.avatarList2?.fileList;
+            delete values?.avatarList;
+            delete values?.avatarList2;
+            if (values.imagePrev) {
+                values.imagePrev = values.imagePrev[0].url
+            }
+            if (values.imageBack) {
+                values.imageBack = values.imageBack[0].url
+            }
+            const { payload } = await dispatch(newUser(values))
+            if (payload.error) {
+                Swal.fire({
+                    icon: 'error',
+                    text: payload.error,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                handleCancel();
+                Swal.fire({
+                    icon: 'success',
+                    text: "Thêm mới thành công",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                form.resetFields();
+            }
         }
     };
     const getCustumer = async (id: any) => {
+        setIdUser(id)
         showModal("update", "Thông tin khách hàng")
-        const user = customers.find(r => r._id == id)
-        !!user && setUserDetail(user)
-        const updateUser = async () => {
-            dispatch(updateUse(id.target))
-        }
+        const { data } = await getUser(id)
+        form.setFieldsValue(data)
     }
     const handlerRemoveCustumer = (id: any) => {
         Swal.fire({
@@ -130,40 +153,40 @@ const AdminLender = () => {
         })
     }
     const [isChecked, setisChecked] = useState<any>([]);
-    const HandlerOngetMany = (e: any) => {
-        dispatch(addMuiltipleValues(e.target))
-        // const {value ,checked} = e.target;
-        // if (checked) {
-        //     setisChecked([...isChecked, value]);
-        // }
-        // else{
-        //     setisChecked(isChecked.filter((e:any) => e !== value))
-        // }
-    }
-    const HandlerOnRemoveMany = async () => {
-        if (check.length !== 0) {
-            Swal.fire({
-                title: 'Bạn có chắc muốn xoá người dùng này ?',
-                showCancelButton: true,
-                confirmButtonText: 'Có',
-                cancelButtonText: 'Không',
-                showLoaderOnConfirm: true,
-                preConfirm: async () => {
-                    dispatch(deleteMany({ params: { id: check } }))
-                    dispatch(removeMultipleUser(check))
-                    handleCancel();
-                    // navigate(0)
-                },
-                allowOutsideClick: () => !Swal.isLoading()
-            })
-            // const responce = await deletelManyUser({
-            //     params: {id: isChecked}
-            // });          
-        }
-        else {
-            alert("please Select at least one check box !");
-        }
-    }
+    // const HandlerOngetMany = (e: any) => {
+    //     dispatch(addMuiltipleValues(e.target))
+    //     // const {value ,checked} = e.target;
+    //     // if (checked) {
+    //     //     setisChecked([...isChecked, value]);
+    //     // }
+    //     // else{
+    //     //     setisChecked(isChecked.filter((e:any) => e !== value))
+    //     // }
+    // }
+    // const HandlerOnRemoveMany = async () => {
+    //     if (check.length !== 0) {
+    //         Swal.fire({
+    //             title: 'Bạn có chắc muốn xoá người dùng này ?',
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Có',
+    //             cancelButtonText: 'Không',
+    //             showLoaderOnConfirm: true,
+    //             preConfirm: async () => {
+    //                 dispatch(deleteMany({ params: { id: check } }))
+    //                 dispatch(removeMultipleUser(check))
+    //                 handleCancel();
+    //                 // navigate(0)
+    //             },
+    //             allowOutsideClick: () => !Swal.isLoading()
+    //         })
+    //         // const responce = await deletelManyUser({
+    //         //     params: {id: isChecked}
+    //         // });          
+    //     }
+    //     else {
+    //         alert("please Select at least one check box !");
+    //     }
+    // }
     const columns: ColumnsType<ColumnsType> = [
         // {
         //     title: <div className="actions-user">
@@ -295,7 +318,7 @@ const AdminLender = () => {
             </div>
             <div className='content mt-[10px]'>
                 <div className="overflow-x-auto">
-                    <Table columns={columns} dataSource={customers}  pagination={{ defaultPageSize: 5}}/>
+                    <Table columns={columns} dataSource={customers} pagination={{ defaultPageSize: 5 }} />
                 </div>
             </div>
             <Modal open={open} style={{ top: 20 }} title={title} onCancel={handleCancel} width={700}
@@ -313,7 +336,6 @@ const AdminLender = () => {
                                 <Input placeholder="Họ tên" />
                             </Form.Item>
                             <Form.Item
-                                initialValue={userDetail?.email}
                                 name="email"
                                 label="Email" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập email' }, {
@@ -323,12 +345,6 @@ const AdminLender = () => {
                                 <Input placeholder="Email" />
                             </Form.Item>
                         </div>
-
-
-                        {/* <Form.Item initialValue={userDetail?.address} name="address" label="Địa chỉ (Nơi ở)" className=''>
-                            <TextArea rows={2} placeholder="" />
-                        </Form.Item> */}
-
                         <div className="flex space-x-[10px]">
                             <Form.Item label="Địa chỉ"
                                 name="address" className='w-[50%]'
@@ -343,7 +359,6 @@ const AdminLender = () => {
                                 </Select>
                             </Form.Item>
                             <Form.Item
-                                initialValue={userDetail?.phone}
                                 name="phone" label="Số điện thoại" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
                                 {
@@ -359,24 +374,20 @@ const AdminLender = () => {
 
                         <div className="flex space-x-[10px]">
                             <Form.Item
-                                initialValue={userDetail?.username}
                                 name="username" label="Tên đăng nhập" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng điền tên đăng nhập' }]}>
                                 <Input placeholder="Tên đăng nhập" />
                             </Form.Item>
                             <Form.Item
-                                initialValue={userDetail?.password}
                                 name="password" label="Mật khẩu" className='w-[50%]'
                                 rules={[{ required: true, message: 'Vui lòng nhập mật khẩu đăng nhập' }]}>
                                 <Input placeholder="Mật khẩu" />
                             </Form.Item>
                         </div>
                         <div>
-
                             <Form.Item name="role" label="Vai trò" rules={[{ required: true, message: 'Vui lòng chọn đối tượng' }]}>
                                 <Select
                                     placeholder="Vui lòng chọn đối tượng"
-                                    onChange={onChaneType}
                                     allowClear
                                 >
                                     <Option value="0">Customer</Option>
@@ -427,10 +438,8 @@ const AdminLender = () => {
                                     ) : null
                                 }
                             </Form.Item>
-
-
                             <Form.Item name="status" label="Trạng thái" className=''>
-                                <Select defaultValue={userDetail?.status}>
+                                <Select >
                                     <Option value={false}>Khoá</Option>
                                     <Option value={true}>Hoạt động</Option>
                                 </Select>

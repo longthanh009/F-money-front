@@ -92,9 +92,7 @@ const SignupPage = () => {
                 text: 'Vui lòng nhập lại mật khẩu',
             })
         }
-        console.log(values);
     };
-
     return (
         <div className='bg-gray-300 flex items-center justify-center min-h-[100vh]'>
             <div className='w-[700px] mx-auto bg-[white] py-[30px] shadow-lg px-[100px]'>
