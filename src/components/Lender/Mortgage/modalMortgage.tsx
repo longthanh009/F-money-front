@@ -75,8 +75,16 @@ const modalMortgage = ({
       data.hinh_anh = data.hinh_anh[0].url
     }
 
-    console.log(data);
 
+    if((data.khoan_vay/100*22) <= data.phi_dv){
+      console.log('tong',data.khoan_vay)
+      console.log('lai',data.phi_dv)
+      Swal.fire({
+        icon: "error",
+        title: "Lãi phí không hợp lệ. (Lãi phí dưới 22% so với khoản vay)",
+      });
+      return
+    }
 
     if (data) {
       data.ngay_vay = new Date(data.date._d).getTime();
@@ -89,7 +97,8 @@ const modalMortgage = ({
         timer: 1500,
       });
       form.resetFields();
-    } else {
+    } 
+     else {
       Swal.fire({
         icon: "error",
         title: "Thất bại",
@@ -119,11 +128,11 @@ const modalMortgage = ({
               <Form.Item
                 label="Mã Khách Hàng"
                 name="ma_khach_hang"
-                rules={[
+                rules={[{ required: true, message: 'Vui lòng nhập mã khách hàng' },
                   {
-                    min: 5,
-                    max: 20,
-                  },
+                    pattern: new RegExp(/^.{5,20}$/),
+                    message: "Mã khách hàng cần có 5 đến 20 ký tự",
+                  }
                 ]}
               >
                 <Input placeholder="Mã KH" style={{ width: "100%" }} />
@@ -150,12 +159,11 @@ const modalMortgage = ({
                 name="ten_khach_hang"
                 labelCol={{ span: 24 }}
                 label="Tên Khách Hàng"
-                rules={[
+                rules={[{ required: true, message: 'Vui lòng nhập tên khách hàng' },
                   {
-                    required: true,
-                    min: 5,
-                    message: "Không được để trống, Nhập lớn hơn 5",
-                  },
+                    pattern: new RegExp(/^.{1,40}$/),
+                    message: "Tên khách hàng vượt quá số ký tự cho phép",
+                  }
                 ]}
               >
                 <Input placeholder="Tên Khách Hàng"/>
@@ -186,8 +194,8 @@ const modalMortgage = ({
                 label="CMND/CCCD"
                 rules={[{ required: true, message: 'Vui lòng nhập CMND/CCCD' },
                 {
-                  pattern: new RegExp(/[0-9]{9}/g),
-                  message: "Số CMND/CCCD không đúng định dạng!"
+                  pattern: new RegExp(/^(\d{12})$/g),
+                  message: "Số CMND/CCCD không đúng định dạng!",
                 }
                 ]}
               >
@@ -201,8 +209,9 @@ const modalMortgage = ({
                 label="Số Điện Thoại"
                 rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
                 {
-                  pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
-                  message: "Số điện thoại không đúng định dạng!"
+                  pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g),
+                  message: "Số điện thoại không đúng định dạng!",
+              
                 }]
                 }
               >
@@ -235,7 +244,7 @@ const modalMortgage = ({
             <Col span={12}>
               <Form.Item
                 name="khoan_vay"
-                label="Tiền Vay"
+                label="Tiền Vay (VN đồng)"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
@@ -263,11 +272,13 @@ const modalMortgage = ({
             <Col span={12}>
               <Form.Item
                 name="phi_dv"
-                label="Lãi Phí"
+                label="Lãi Phí (VN đồng)"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
-                <InputNumber style={{ width: "100%" }} placeholder="Lãi Xuất" />
+                <InputNumber formatter={(value) =>
+                    `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  } style={{ width: "100%" }} placeholder="Lãi Xuất" />
               </Form.Item>
             </Col>
           </Row>
@@ -284,13 +295,12 @@ const modalMortgage = ({
             name="ghi_chu"
             labelCol={{ span: 24 }}
             label="Ghi Chú"
-            rules={[{ required: true, message: "Không để trống" }]}
           >
             <TextArea name="feature" />
           </Form.Item>
           <Form.Item style={{ textAlign: "right" }}>
             <Button type="primary" htmlType="submit">
-              Tạo mới họp đồng
+              Tạo mới hợp đồng
             </Button>
           </Form.Item>
         </Form>

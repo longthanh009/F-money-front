@@ -118,12 +118,12 @@ const ModalInstallmentAdd = ({
               <Form.Item
                 label="Mã Khách Hàng"
                 name="ma_khach_hang"
-                rules={[
-                  {
-                    min: 5,
-                    max: 20,
-                  },
-                ]}
+                rules={[{ required: true, message: 'Vui lòng nhập mã khách hàng' },
+                {
+                  pattern: new RegExp(/^.{5,20}$/),
+                  message: "Mã khách hàng cần có 5 đến 20 ký tự",
+                }
+              ]}
               >
                 <Input placeholder="Mã KH" style={{ width: "100%" }} />
               </Form.Item>
@@ -148,13 +148,11 @@ const ModalInstallmentAdd = ({
               <Form.Item
                 label="Tên Khách Hàng"
                 name="ten_khach_hang"
-                rules={[
+                rules={[{ required: true, message: 'Vui lòng nhập tên khách hàng' },
                   {
-                    required: true,
-                    message: "Không để trống, nhập lớn hơn 5",
-                    min: 5,
-                    max: 20,
-                  },
+                    pattern: new RegExp(/^.{1,40}$/),
+                    message: "Tên khách hàng vượt quá số ký tự cho phép",
+                  }
                 ]}
               >
                 <Input placeholder="Nguyễn Văn A" style={{ width: "100%" }} />
@@ -185,8 +183,8 @@ const ModalInstallmentAdd = ({
                 label="CMND/CCCD"
                 rules={[{ required: true, message: 'Vui lòng nhập CMND/CCCD' },
                 {
-                  pattern: new RegExp(/[0-9]{9}/g),
-                  message: "Số CMND/CCCD không đúng định dạng!"
+                  pattern: new RegExp(/^(\d{12})$/g),
+                  message: "Số CMND/CCCD không đúng định dạng!",
                 }
                 ]}
               >
@@ -200,7 +198,7 @@ const ModalInstallmentAdd = ({
                 label="Số Điện Thoại"
                 rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' },
                 {
-                  pattern: new RegExp(/((9|3|7|8|5)+([0-9]{8})\b)/g),
+                  pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g),
                   message: "Số điện thoại không đúng định dạng!"
                 }]
                 }
@@ -228,7 +226,7 @@ const ModalInstallmentAdd = ({
             <Col span={12}>
               <Form.Item
                 name="khoan_vay"
-                label="Tiền Đưa khách"
+                label="Tiền Đưa khách (VN đồng)"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Không để trống" }]}
               >
@@ -245,13 +243,21 @@ const ModalInstallmentAdd = ({
             <Col span={12}>
               <Form.Item
                 name="lai_xuat"
-                label="% Lãi xuất"
+                label="Lãi xuất (%)"
                 labelCol={{ span: 24 }}
                 rules={[
                   {
                     required: true,
                     message: "Không để trống",
                   },
+                  // {
+                  //   pattern: new RegExp(/(^\s*-?[0-9]{1,2}\s*$)/g),
+                  //   message: "Lãi xuất không hợp lệ"
+                  // },
+                  {
+                    pattern: new RegExp(/(^([1-9]?(?<=[1-9])[0-9]?)(\.[0-9]{0,8})|[0-2][0-1]?$)/g),
+                    message: "Lãi xuất không hợp lệ 1"
+                  }
                 ]}
               >
                 <InputNumber style={{ width: "100%" }} placeholder="Lãi Xuất" />
@@ -290,25 +296,17 @@ const ModalInstallmentAdd = ({
               <ImageUpload imageList={image1} key={1} limit={1} />
             </Space>
           </div>
-          {/* Row thời gian */}
-
-          {/* <Form.Item
-            name="loanDate"
-            rules={[{ required: true, message: "Không để trống" }]}
-          >
-            <DatePicker placeholder="Ngày vay" style={{ width: "100%" }} />
-          </Form.Item> */}
-          {/* ghi chú */}
+          
           <Form.Item
             label="Ghi Chú"
             name="ghi_chu"
-            rules={[{ required: true, message: "Không để trống" }]}
+          
           >
             <TextArea placeholder="..." style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item style={{ textAlign: "right" }}>
             <Button type="primary" htmlType="submit">
-              Tạo mới sản phẩm
+              Tạo mới hợp đồng
             </Button>
           </Form.Item>
         </Form>
