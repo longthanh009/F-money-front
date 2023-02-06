@@ -95,7 +95,7 @@ const RoutePage = () => {
           {/**Quản lí nguồn vốn */}
           <Route path="menuLoan" element={<MenuLoan />} />{" "}
           {/**Yêu cầu vay tiền*/}
-          <Route path="customerContact" element={<CustomConta />} />{" "}
+          {/* <Route path="customerContact" element={<CustomConta />} />{" "} */}
           <Route path="thong-ke" element={<Dashboard />} />{" "}
           {/**Yêu cầu vay tiền*/}
         </Route>
