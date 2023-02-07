@@ -59,10 +59,19 @@ function TableInstallment() {
   const indexOfFirstNews = indexOfLastNews - 10;
   const currentTodos = arrData.slice(indexOfFirstNews, indexOfLastNews);
   const removeItem = (id: any) => {
-    const confirm = window.confirm("bạn có muốn xóa không");
-    if (confirm) {
-      dispatch(deleteContract(id));
-    }
+    Swal.fire({
+      title: 'Xác nhận huỷ hợp đồng',
+      showCancelButton: true,
+      confirmButtonText: 'Có',
+      cancelButtonText: 'Không',
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        // await dispatch(removeUser(id))
+        dispatch(deleteContract(id));
+        handleCancel();
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    })
   };
   const getcontract = async (id: any) => {
     const { data } = await getContractDetail(id);
@@ -77,8 +86,10 @@ function TableInstallment() {
       return <div>Đang Vay</div>;
     } else if (trangThai === 1) {
       return <div>Quá Hạn</div>;
-    } else {
+    } else if (trangThai === 2) {
       return <div>Đã Hoàn Tất</div>;
+    } else {
+      return <div>Đã Huỷ</div>;
     }
   };
   const HandlerOngetMany = (e: any) => {
@@ -282,7 +293,7 @@ function TableInstallment() {
                         className="items-center text-gray-500 pl-5 relative group mr-3"
                       >
                         <button className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
-                          Đóng HĐ
+                          Huỷ
                         </button>
                         <GiAnchor />
                       </div>

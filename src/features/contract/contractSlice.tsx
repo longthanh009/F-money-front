@@ -52,8 +52,8 @@ export const addContract = createAsyncThunk(
 export const deleteContract = createAsyncThunk(
   "contract/deleteContract",
   async (prams: ContractType) => {
-    const data = await removeContract(prams);
-    return prams;
+    const { data } = await removeContract(prams);
+    return data;
   }
 );
 export const deleteMany = createAsyncThunk(
@@ -74,7 +74,6 @@ export const statusContrats = createAsyncThunk(
     };
     const { data } = await checkPayMoney(objecData.id, objecNew);
     return data;
-    
   }
 );
 
@@ -122,19 +121,25 @@ const contractSlive = createSlice({
       state.value.unshift(action.payload);
     });
     builder.addCase(deleteContract.fulfilled, (state: any, action: any) => {
-      state.value = state.value.filter(
-        (item: any) => item.id != action.payload
+      state.value = state.value.map((item: any) =>
+        item._id == action.payload._id ? action.payload : item
       );
     });
-    builder.addCase(getContractDate.fulfilled, (state: any, action: any) => {      
+    builder.addCase(getContractDate.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
     });
     builder.addCase(getCmndLenderList.fulfilled, (state: any, action: any) => {
       state.value = action.payload;
     });
     builder.addCase(statusContrats.fulfilled, (state: any, action: any) => {
-      state.value = state.value.map((item: any) =>
-        item._id == action.payload._id ? action.payload : item
+      state.value = state.value.map((item: any) => {
+        if (item._id == action.payload._id) {
+          return action.payload
+        } else {
+          return item
+        }
+        // return item._id == action.payload._id ? action.payload : item
+      }
       );
     });
   },

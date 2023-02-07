@@ -225,7 +225,7 @@ function TableMortgage() {
                         className="items-center text-gray-500 pl-5 relative group mr-3"
                       >
                         <button className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
-                          Đóng HĐ
+                          Huỷ
                         </button>
                         <GiAnchor />
                       </div>
