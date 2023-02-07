@@ -1,36 +1,17 @@
-import {
-  Calendar,
-  Col,
-  DatePicker,
-  InputNumber,
-  Modal,
-  Row,
-  Space,
-} from "antd";
-import React, { useState } from "react";
+import { Col, FormInstance, Modal, Row, Space } from "antd";
+import React, { useState, useEffect, createRef } from "react";
 import ReactQuill from "react-quill";
 import { Button, message, Form, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Upload from "antd/lib/upload/Upload";
-import TextArea from "antd/lib/input/TextArea";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { UploadOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../../app/hooks";
-import { addBlog } from "../../features/Blog/blogSlice";
-import axios from "axios";
+import { addBlog, updateBlock } from "../../features/Blog/blogSlice";
+import { editBlog, getDetailBlog } from "../../api/Blog";
 import ImageUpload from "../upload/image_hopDong";
+const formRef = createRef<FormInstance>();
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
 const config = {
   rules: [
     { type: "object" as const, required: true, message: "Please select time!" },
@@ -38,10 +19,12 @@ const config = {
 };
 
 type Props = {
-  isModalOpen: any;
-  handleOk: any;
-  handleCancel: any;
-  setIsModalOpen?: any;
+  isModalOpens: any;
+  handleOks: any;
+  handleCancels: any;
+  setIsModalOpens?: any;
+  idBlog: any;
+  id: any;
 };
 
 const modules = {
@@ -67,7 +50,7 @@ const getBase64 = (img: any, callback: any) => {
 const beforeUpload = (file: any) => {
   const isJpgOrPng =
     file.type === "image/jpeg" ||
-    file.type === "image/png" ||
+    file.type === "image/pngidBlog" ||
     file.type === "image/jpg";
   if (!isJpgOrPng) {
     message.error("Chỉ chọn được ảnh JPG/PNG/JPG file!");
@@ -78,28 +61,42 @@ const beforeUpload = (file: any) => {
   }
   return isJpgOrPng && isLt2M;
 };
-const ModalBlock = ({
-  isModalOpen,
-  handleOk,
-  handleCancel,
-  setIsModalOpen,
+const ModalBlockEdit = ({
+  isModalOpens,
+  handleOks,
+  handleCancels,
+  setIsModalOpens,
+  idBlog,
+  id,
 }: Props) => {
   const { TextArea } = Input;
   const dispatch = useAppDispatch();
-  const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState<any[]>([]);
-  // const [image1, setImage1] = useState<any[]>([]);
 
-  const onFinish = async (data: any) => {
+  useEffect(() => {
+    getBlogDetail();
+  }, [idBlog]);
+
+  const getBlogDetail = async () => {
+    if (idBlog) {
+      const { data } = await getDetailBlog(idBlog);
+      form.setFieldsValue(data);
+    }
+  };
+
+  console.log({ id });
+
+  const onFinish = (data: any) => {
+    console.log(data);
     data.thumbnail = data.avatarList?.fileList;
     delete data?.avatarList;
     if (data.thumbnail) {
       data.thumbnail = data.thumbnail[0].url;
     }
 
-    if (data) {
-      dispatch(addBlog(data));
-      setIsModalOpen(false);
+    if (id) {
+      data._id = id
+      dispatch(updateBlock(data));
+      setIsModalOpens(false);
       Swal.fire({
         icon: "success",
         title: "Thành Công",
@@ -107,9 +104,7 @@ const ModalBlock = ({
         timer: 1500,
       });
       form.resetFields();
-      navigate("/admin/blog");
-
-      // dispatch(addBlog(data));
+      // navigate("/lender/installment/index");
     } else {
       Swal.fire({
         icon: "error",
@@ -117,7 +112,8 @@ const ModalBlock = ({
       });
     }
   };
-
+  const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState<any[]>([]);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const handleChange = async (info: any) => {
@@ -140,22 +136,26 @@ const ModalBlock = ({
       </div>
     </div>
   );
+
   return (
     <div>
       <Modal
-        title="Thêm Mới Tin Tức"
-        open={isModalOpen}
-        onOk={handleOk}
+        title="Thay đổi Tin Tức"
+        open={isModalOpens}
+        onOk={handleOks}
         style={{ top: 20 }}
-        onCancel={handleCancel}
+        onCancel={handleCancels}
         footer={null}
         width={1000}
       >
         <Form
+          initialValues={{ remember: true }}
           onFinish={onFinish}
           autoComplete="on"
           labelCol={{ span: 24 }}
           form={form}
+          ref={formRef}
+          layout="vertical"
         >
           {/* Row 1 */}
           <Row gutter={16}>
@@ -232,4 +232,4 @@ const ModalBlock = ({
   );
 };
 
-export default ModalBlock;
+export default ModalBlockEdit;

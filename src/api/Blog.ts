@@ -11,6 +11,7 @@ if (user) {
     },
   };
 }
+console.log();
 // list All Blog
 export const listBlog = () => {
   const url = `/blogs`;
@@ -22,14 +23,14 @@ export const listBlogLatest = () => {
   return intance.get(url, header);
 };
 // detail blog
-export const getDetailBlog = (id: any) => {
-  const url = `/blogs/${id}`;
+export const getDetailBlog = (slug: string) => {
+  const url = `/blogs/${slug}`;
   return intance.get(url, header);
 };
 // add blog
-export const createBlog = (bank: any) => {
+export const createBlog = (blog: any) => {
   const url = `/blog/add`;
-  return intance.post(url, bank, header);
+  return intance.post(url, blog, header);
 };
 // delete blog
 export const deleteBlog = (id: any) => {
@@ -37,7 +38,7 @@ export const deleteBlog = (id: any) => {
   return intance.delete(url, header);
 };
 //edit blog
-export const editBlog = (id: any) => {
-  const url = `/blog/${id}`;
-  return intance.put(url, header);
+export const editBlog = (blog: any) => {
+  const url = `/blog/${blog._id}`;
+  return intance.put(url, blog, header);
 };
