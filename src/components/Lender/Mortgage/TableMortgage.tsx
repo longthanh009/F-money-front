@@ -18,6 +18,7 @@ import { formatDate } from "../../../ultils/formatDate";
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalMortgageDetail from "./ModalMortgageDetail";
 import Swal from "sweetalert2";
+import { isAuthenticate } from "../../../ultils/localStorage";
 
 function TableMortgage() {
   const check = useAppSelector((state) => state.mortgage.check);
@@ -32,7 +33,8 @@ function TableMortgage() {
       dispatch(putMortgage(isID))
     }
   };
-
+  const userRole = isAuthenticate()
+  
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -218,8 +220,8 @@ function TableMortgage() {
                         {handeleStatus(item.status)}
                       </div>
                     </td>
-                    <td className="flex pt-5">
-                      <div
+                    <td >
+                      {userRole.inforUser.role != 2 ? <div className="flex pt-5"> <div
                         className="items-center text-gray-500 pl-5 relative group"
                         onClick={() => handleClickModal(item._id)}
                       >
@@ -240,7 +242,7 @@ function TableMortgage() {
                           Huỷ
                         </button>
                         <GiAnchor />
-                      </div>
+                      </div></div> : ""}
                     </td>
                   </tr>
                 );
