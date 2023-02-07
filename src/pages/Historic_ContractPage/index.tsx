@@ -7,11 +7,16 @@ import { SearchOutlined } from '@ant-design/icons';
 import { getContractUser } from '../../api/contract';
 import FomatNumber from '../../components/FomatNumber/fomatNumber';
 import { IoIosCheckmark } from "react-icons/io";
+import { saveAs } from 'file-saver'
+
 const Historic_ContractPage = () => {
     const [cccd, setCccd] = useState(null)
     console.log(cccd)
     const [contracts, setContracts] = useState<any>(null);
     const [lender, setLender] = useState<any>([])
+    const downloadImage = (url : any) => {
+        saveAs(url, 'image.jpg') // Put your image url here.
+    }
     // 12312112312312312
     useEffect(() => {
         const getContracts = async () => {
@@ -85,14 +90,15 @@ const Historic_ContractPage = () => {
                                         <div className='flex'><p className="ml-2 font-semibold pr-2">Hạn vay </p> <p>{formatDate(item.han_hd)}</p></div>
                                     </td>
                                     <td className="p-2">
-                                        {item.han_thanh_toan.map((tx : any) =>(
-                                            <div className='flex'><p className="ml-2 font-semibold pr-2">{formatDate(tx.ngay)}</p><p><FomatNumber number={tx.tien}/></p>
-                                            <br />
-                                            <p>{tx.trang_thai == true ? <IoIosCheckmark/> : "Chưa đóng"}</p></div>
+                                        {item.han_thanh_toan.map((tx: any) => (
+                                            <div className='flex'><p className="ml-2 font-semibold pr-2">{formatDate(tx.ngay)}</p><p><FomatNumber number={tx.tien} /></p>
+                                                <br />
+                                                <p>{tx.trang_thai == true ? <IoIosCheckmark /> : "Chưa đóng"}</p></div>
                                         ))}
                                     </td>
                                     <td className="p-2">
-                                        <img src={item.hinh_anh} alt="" width='150px'/>
+                                        <img src={item.hinh_anh} alt="" width='150px' />
+                                        <button className="text-blue-700 mr-[5px]"  id="dowload" onClick={() => downloadImage(item.hinh_anh)}>Dowload hợp đồng &#8675;</button>
                                     </td>
                                 </tr>
                                 {/* <tr className="bg-white border-4 border-gray-200">
