@@ -20,6 +20,7 @@ import {
 import FomatNumber from "../../FomatNumber/fomatNumber";
 import ModalInstallmentDetail from "./ModalInstallmentDetail";
 import { PaginationProps } from "antd/es/pagination";
+import { isAuthenticate } from "../../../ultils/localStorage";
 
 function TableInstallment() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,6 +30,7 @@ function TableInstallment() {
   const [contractDetaill, setcontractDetaill] = useState<any>();
   const contracts = useAppSelector((state) => state.contract.value);
   const [arrData, setArrData] = useState([])
+  const userRole = isAuthenticate()
 
   const showModal = (record: any) => {
     setIsModalOpen(true);
@@ -271,32 +273,35 @@ function TableInstallment() {
                         {handeleStatus(item.status)}
                       </div>
                     </td>
-                    <td className="flex pt-5">
-                      <div
-                        className="items-center text-gray-500 pl-5 relative group"
-                        onClick={() => handleClickModal(item._id)}
-                      >
-                        <button
-                          className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block"
-                          onChange={(e) => HandlerOngetMany(e)}
+                    <td>
+                      {userRole.inforUser.role != 2 ? <div  className="flex pt-5">
+                        <div
+                          className="items-center text-gray-500 pl-5 relative group"
+                          onClick={() => handleClickModal(item._id)}
                         >
-                          Đóng tiền
-                        </button>
-                        <div className="pr-2">
-                          <div>
-                            <FcSalesPerformance />
+                          <button
+                            className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block"
+                            onChange={(e) => HandlerOngetMany(e)}
+                          >
+                            Đóng tiền
+                          </button>
+                          <div className="pr-2">
+                            <div>
+                              <FcSalesPerformance />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        onClick={() => removeItem(item._id)}
-                        className="items-center text-gray-500 pl-5 relative group mr-3"
-                      >
-                        <button className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
-                          Huỷ
-                        </button>
-                        <GiAnchor />
-                      </div>
+                        <div
+                          onClick={() => removeItem(item._id)}
+                          className="items-center text-gray-500 pl-5 relative group mr-3"
+                        >
+                          <button className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
+                            Huỷ
+                          </button>
+                          <GiAnchor />
+                        </div>
+                      </div> : ""}
+
                     </td>
                   </tr>
                 );

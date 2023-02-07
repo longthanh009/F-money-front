@@ -27,9 +27,9 @@ function DddMortgage() {
       <div className="flex px-5 pt-5">
         <div className=""></div>
         <div className="pr-2">
-          <Button type="primary" onClick={showModal}>
+          {inforUser.role != 2 ? <Button type="primary" onClick={showModal}>
             Thêm mới
-          </Button>
+          </Button> : ""}
           <ModalInstallmentAdd
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
