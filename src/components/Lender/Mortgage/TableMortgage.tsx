@@ -8,6 +8,7 @@ import { getDetailMortgage } from "../../../api/mortgage";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   addMuiltipleValues,
+  closeContractMg,
   deleteMany,
   listMortgage,
   putMortgage,
@@ -51,18 +52,29 @@ function TableMortgage() {
   const indexOfFirstNews = indexOfLastNews - 10;
   const currentTodos = arrData.slice(indexOfFirstNews, indexOfLastNews);
   const removeItem = (id: any) => {
-    const confirm = window.confirm("bạn có muốn xóa không");
-    if (confirm) {
-      // dispatch((id));
-    }
+    Swal.fire({
+      title: 'Xác nhận huỷ hợp đồng',
+      showCancelButton: true,
+      confirmButtonText: 'Có',
+      cancelButtonText: 'Không',
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        dispatch(closeContractMg(id));
+        handleCancel();
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    })
   };
   const handeleStatus = (trangThai: any) => {
     if (trangThai === 0) {
       return <div>Đang Vay</div>;
     } else if (trangThai === 1) {
       return <div>Quá Hạn</div>;
-    } else {
+    } else if(trangThai ===2){
       return <div>Đã hoàn tất</div>;
+    } else {
+      return <div>Đã huỷ</div>;
+
     }
   };
   const getMortgage = async (id : any) => {
@@ -225,7 +237,7 @@ function TableMortgage() {
                         className="items-center text-gray-500 pl-5 relative group mr-3"
                       >
                         <button className="absolute top-0 hidden -mt-6 text-xs font-bold group-hover:block">
-                          Đóng HĐ
+                          Huỷ
                         </button>
                         <GiAnchor />
                       </div>

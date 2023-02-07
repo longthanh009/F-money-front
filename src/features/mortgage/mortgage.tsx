@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { deletelManyContract } from "../../api/contract";
 import {
+  closeContractsMgDate,
   createMortgage,
   getContractsMgDate,
   getDetailMortgage,
@@ -28,6 +29,13 @@ export const listMortgage = createAsyncThunk(
   "mortgage/listMortgage",
   async () => {
     const { data } = await getMortgage();
+    return data;
+  }
+);
+export const closeContractMg = createAsyncThunk(
+  "contract/deleteContract",
+  async (prams: any) => {
+    const { data } = await closeContractsMgDate(prams);
     return data;
   }
 );
@@ -112,7 +120,12 @@ const mortgageSlive = createSlice({
       state.value = state.value.map((item: any) =>
         item._id == action.payload._id ? action.payload : item
       );
-    })
+    });
+    builder.addCase(closeContractMg.fulfilled, (state: any, action: any) => {
+      state.value = state.value.map((item: any) =>
+        item._id == action.payload._id ? action.payload : item
+      );
+    });
     builder.addCase(getContractMgDate.fulfilled, (state: any, action: any) => {      
       state.value = action.payload;
     });

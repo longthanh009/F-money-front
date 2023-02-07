@@ -29,8 +29,8 @@ export const getContractDetail = (id: any) => {
   return intance.get(url, header);
 };
 export const removeContract = (id: any) => {
-  const url = `contract/${id}`;
-  return intance.delete(url, header);
+  const url = `contract/close/${id}`;
+  return intance.patch(url,{}, header);
 };
 export const getContractsDate = (formdate: any, todate: any) => {
   const url = `contracts?formdate=${formdate}&todate=${todate}`;
