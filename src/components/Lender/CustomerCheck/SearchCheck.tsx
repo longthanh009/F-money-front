@@ -1,5 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import { Button, Form, Input, InputNumber } from "antd";
+import Col from "antd/es/grid/col";
 import React, { useState } from "react";
 import { useAppDispatch } from "../../../app/hooks";
 import { getCmndLenderList } from "../../../features/contract/contractSlice";
@@ -16,6 +17,7 @@ function SearchCheck() {
       setCheckcustomer("");
     }
   };
+
   return (
     <div className="">
       <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
@@ -33,11 +35,25 @@ function SearchCheck() {
           )}
         </div>
       </div>
-      <Input
-        onChange={(e) => handleCheckCustomer(e.target.value)}
-        placeholder="Nhập Chứng Minh Nhân Dân"
-        prefix={<SearchOutlined />}
-      />
+      <Col span={12}>
+        <Form.Item
+          name="cccd"
+          label="Nhập Chứng Minh Nhân Dân"
+          labelCol={{ span: 14 }}
+          rules={[
+            {
+              required: true,
+              message: "Không để trống, 12 ký tự",
+            },
+          ]}
+        >
+          <InputNumber
+            onChange={(e) => handleCheckCustomer(e)}
+            style={{ width: "100%" }}
+            prefix={<SearchOutlined />}
+          />
+        </Form.Item>
+      </Col>
     </div>
   );
 }

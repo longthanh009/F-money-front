@@ -18,7 +18,6 @@ function SearchBlock() {
   };
 
   const handleOk = () => {
-    console.log(11111111111);
     setIsModalOpen(false);
   };
 
